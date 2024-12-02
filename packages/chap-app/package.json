@@ -1,0 +1,19 @@
+{
+  "name": "chap-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "d2-app-scripts build",
+    "start": "d2-app-scripts start",
+    "test": "d2-app-scripts test",
+    "deploy": "d2-app-scripts deploy"
+  },
+  "devDependencies": {
+    "@dhis2/cli-app-scripts": "^11.7.5"
+  },
+  "dependencies": {
+    "@dhis2/app-runtime": "^3.11.3",
+    "@dhis2-chap/chap-lib": "*"
+  }
+}
