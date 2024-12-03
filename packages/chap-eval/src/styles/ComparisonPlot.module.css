@@ -1,0 +1,20 @@
+.title {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.comparionPair {
+  background-color: #ffffff;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sideBySide {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.6rem;
+}
