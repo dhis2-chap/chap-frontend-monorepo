@@ -1,14 +1,14 @@
 // src/ResultsChart.js
 import React, {useEffect, useState} from 'react';
 import Highcharts from 'highcharts';
-import HighchartsMore from 'highcharts/highcharts-more';
+//import HighchartsMore from 'highcharts/highcharts-more';
 import {DefaultService} from "../httpfunctions";
 import {PredictionResponse} from "../httpfunctions/models/PredictionResponse";
 import {ResultPlot} from "../components/ResultPlot";
 import {createHighChartsData} from "../lib/dataProcessing";
 import {HighChartsData} from "../interfaces/HighChartsData";
 
-HighchartsMore(Highcharts); // Enables the 'arearange' series type
+//HighchartsMore(Highcharts); // Enables the 'arearange' series type
 
 function groupBy(array: PredictionResponse[]): Record<string, PredictionResponse[]> {
   return array.reduce((result: Record<string, PredictionResponse[]>, currentItem:PredictionResponse) => {

@@ -4,9 +4,9 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import React from "react";
 import {HighChartsData} from "../interfaces/HighChartsData";
-import HighchartsMore from "highcharts/highcharts-more";
+//import HighchartsMore from "highcharts/highcharts-more";
 
-HighchartsMore(Highcharts); // Enables the 'arearange' series type
+//HighchartsMore(Highcharts); // Enables the 'arearange' series type
 function syncChartZoom(event: any): void {
     Highcharts.charts.forEach((chart: any) => {
         if (chart) {

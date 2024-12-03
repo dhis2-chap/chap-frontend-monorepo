@@ -17,13 +17,13 @@ function Wrapper(element: React.ReactNode) {
 }
 
 function App() {
-   OpenAPI.BASE = "http://localhost:8000";
+  OpenAPI.BASE = "http://localhost:8000";
   return (
     <Router>
       <Routes>
         <Route path="/" element={Wrapper(<EvaluationResultChartFromFileSelector />)} />
         <Route path="/demo" element={Wrapper(<EvaluationDemo/>)} />
-          <Route path="/dynamic_demo" element={Wrapper(<DynamicDemo/>)} />
+        <Route path="/dynamic_demo" element={Wrapper(<DynamicDemo/>)} />
       </Routes>
     </Router>
   );
