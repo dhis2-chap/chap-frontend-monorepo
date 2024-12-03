@@ -10,11 +10,15 @@
         "build": "d2-app-scripts build",
         "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
-        "deploy": "d2-app-scripts deploy"
+        "deploy": "d2-app-scripts deploy",
+        "generate": "npx openapi --input ./public/openapi.json --output ./src/httpfunctions"
     },
     "main": "./build/cjs/index.js",
     "exports": {
         "import": "./build/es/index.js",
         "require": "./build/cjs/index.js"
+    },
+    "dependencies": {
+        "openapi-typescript-codegen": "^0.29.0"
     }
 }

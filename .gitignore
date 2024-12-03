@@ -1,1 +1,5 @@
+on:
+  pull_request:
+    paths:
+      - 'path/to/your/folder/**'
 node_modules
