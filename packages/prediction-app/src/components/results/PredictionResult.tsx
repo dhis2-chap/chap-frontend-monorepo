@@ -12,7 +12,7 @@ import SetupInstruction from './SetupInstruction';
 import useDataElements from "../../hooks/useDataElements";
 import useDataElement from "../../hooks/useDataElement";
 import { useLocation } from "react-router-dom";
-import { DefaultService } from "../../httpfunctions";
+import { DefaultService } from "@dhis2-chap/chap-lib";
 import { SelectImportMode } from "./SelectImportMode";
 
 const PredictionResult = () => {
@@ -54,10 +54,10 @@ const PredictionResult = () => {
 
     const fetchData = async () => {
         //const response = (await fetch("/override_respons.json")).json();
-        await DefaultService.getResultsGetResultsGet().then(response => {
+        await DefaultService.getResultsGetResultsGet().then((response : any) => {
           onFileUpload(response)
         })
-        .catch(err => {
+        .catch((err : any) => {
           setHttpGetResultError(err.toString())
         })
     };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { DefaultService } from '../../../httpfunctions';
+import { DefaultService } from '@dhis2-chap/chap-lib';
 import styles from '../../styles/Status.module.css'
 import saveAs from 'file-saver';
 import { read, stat } from 'fs';

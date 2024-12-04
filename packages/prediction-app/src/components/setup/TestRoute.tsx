@@ -1,6 +1,6 @@
 import { Button, IconArrowRight24 } from '@dhis2/ui'
 import React, { useEffect, useState } from 'react'
-import { DefaultService, OpenAPI } from '../../httpfunctions'
+import { DefaultService, OpenAPI } from '@dhis2-chap/chap-lib'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from '../styles/TestRoute.module.css'
 import useGetRoute from '../../hooks/useGetRoute'

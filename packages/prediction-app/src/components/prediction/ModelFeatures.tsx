@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
-import { Feature } from '../../httpfunctions'
+import { Feature } from '@dhis2-chap/chap-lib'
 import { Help, SingleSelect, SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import styles from './styles/ModelFeature.module.css'

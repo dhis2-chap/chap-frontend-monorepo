@@ -20,7 +20,7 @@ import OrgUnitLevel from './OrgUnitLevel';
 import { ErrorResponse } from './DownloadData';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DefaultService, Feature, ModelSpec, OpenAPI, PredictionRequest } from '../../httpfunctions';
+import { DefaultService, Feature, ModelSpec, OpenAPI, PredictionRequest } from '@dhis2-chap/chap-lib';
 import { useConfig } from '@dhis2/app-runtime';
 import Period from './Periods';
 import { PeriodDimension } from '@dhis2/analytics';
@@ -76,7 +76,6 @@ const PredictionPage = () => {
 
   const handleSelectedPeriod = (selectedPeriods : any) => {
     setSelectedPeriodItems(selectedPeriods.items);
-    console.log('selectedPeriods', selectedPeriods.items);
   };
 
   const onSelectModel = (selected : ModelSpec) => {
@@ -91,7 +90,6 @@ const PredictionPage = () => {
 
   //triggers when anayltics content is fetched
   useEffect(() => {
-    console.log(jsonResult)
     if (jsonResult) {
       setStartDownload(prev => ({ ...prev, startDownlaod: false }));
       if(startDownload.action === "download") downloadData();
@@ -121,7 +119,6 @@ const PredictionPage = () => {
       })
       .catch((error: any) => {
         setSendingDataToChap(false);
-        console.log(error?.body?.detail);
         setErrorChapMsg(error?.body?.detail);
       });
   }
@@ -138,7 +135,6 @@ const PredictionPage = () => {
       })
       .catch((error: any) => {
         setSendingDataToChap(false);
-        console.log(error?.body?.detail);
         setErrorChapMsg(error?.body?.detail);
       });
   };

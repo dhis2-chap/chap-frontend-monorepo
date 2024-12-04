@@ -12,7 +12,7 @@ import SetupInstruction from './SetupInstruction';
 import useDataElements from "../../hooks/useDataElements";
 import useDataElement from "../../hooks/useDataElement";
 import { useLocation } from "react-router-dom";
-import { DefaultService } from "../../httpfunctions";
+import { DefaultService } from "@dhis2-chap/chap-lib";
 import { SelectImportMode } from "./SelectImportMode";
 import PredictionResult from "./PredictionResult";
 import EvaluationResult from "./EvaluationResult";

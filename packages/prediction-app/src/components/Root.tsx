@@ -7,7 +7,7 @@ import React from "react";
 import WarnRouteNotExists from "./setup/WarnRouteNotExists";
 import SetOpenApiUrl from "./setup/SetOpenApiUrl";
 import useGetDataStore from "../hooks/useGetDataStore";
-import { OpenAPI } from "../httpfunctions";
+import { OpenAPI } from "@dhis2-chap/chap-lib";
 
 export const appPages = [
   { path: "/", name: "1 | Train and predict" },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { DefaultService, EvaluationResponse } from '../../httpfunctions'
+import { DefaultService, EvaluationResponse } from '@dhis2-chap/chap-lib'
 import styles from "./styles/EvaluationResult.module.css"
 
 const EvaluationResult = () => {
@@ -10,14 +10,14 @@ const EvaluationResult = () => {
 
   const fetchEvaluation = async () => {
     await DefaultService.getEvaluationResultsGetEvaluationResultsGet()
-      .then(response => {
+      .then((response : any) => {
         //const processedData = processDataValues(response.predictions, response.actualCases.data)
         //setEvaluation(processedData)
         //setSplitPeriods(Object.keys(processedData));
       }
       )
       .catch(    
-        err => {
+        (err : any) => {
           setHttpError(err.toString())
         } 
       )

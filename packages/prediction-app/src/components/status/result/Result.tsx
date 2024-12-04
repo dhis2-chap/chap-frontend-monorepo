@@ -1,6 +1,6 @@
 import { Button, IconView24, IconDownload24 } from '@dhis2/ui';
 import React, { useState } from 'react'
-import { DefaultService } from '../../../httpfunctions';
+import { DefaultService } from '@dhis2-chap/chap-lib';
 import { saveAs } from 'file-saver';
 import styles from '../../styles/Result.module.css'
 import { useNavigate } from 'react-router-dom';

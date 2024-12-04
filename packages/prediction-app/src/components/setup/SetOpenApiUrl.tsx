@@ -2,7 +2,7 @@ import { InputField } from '@dhis2/ui';
 import { Button } from '@dhis2/ui';
 import { Modal } from '@dhis2/ui';
 import React, { useEffect, useState } from 'react';
-import { OpenAPI } from '../../httpfunctions';
+import { OpenAPI } from '@dhis2-chap/chap-lib';
 import styles from '../styles/SetOpenApiUrl.module.css';
 import { IconSave16 } from '@dhis2/ui';
 import { IconSave24 } from '@dhis2/ui';

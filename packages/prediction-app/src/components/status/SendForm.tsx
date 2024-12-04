@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { DefaultService, PredictionRequest } from '../../httpfunctions';
+import { DefaultService, PredictionRequest } from '@dhis2-chap/chap-lib';
 import styles from '../styles/SendForm.module.css';
 
 interface SendFormProps {

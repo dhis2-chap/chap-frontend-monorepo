@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { DefaultService, Feature, ModelSpec } from '../../httpfunctions';
+import { DefaultService, Feature, ModelSpec } from '@dhis2-chap/chap-lib';
 import { SingleSelectField, SingleSelectOption } from '@dhis2/ui';
 import i18n from "@dhis2/d2-i18n";
 
