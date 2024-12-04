@@ -1,5 +1,3 @@
-on:
-  pull_request:
-    paths:
-      - 'path/to/your/folder/**'
-node_modules
+**/node_modules/
+**/.d2
+**/build
