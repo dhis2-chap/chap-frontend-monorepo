@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 const RouteSettingsPage = () => {
   return (
     <>
-
       <TestRoute/>
     </>
   )

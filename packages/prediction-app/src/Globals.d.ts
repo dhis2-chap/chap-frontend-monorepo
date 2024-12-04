@@ -17,3 +17,4 @@ declare module "jszip";
 declare module "openapi-typescript-codegen";
 declare module "react-router-dom";
 declare module "@dhis2/app-adapter";
+declare module "@dhis2-chap/chap-lib"
