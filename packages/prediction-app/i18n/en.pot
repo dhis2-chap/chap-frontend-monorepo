@@ -1,0 +1,150 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2024-12-03T14:30:47.944Z\n"
+"PO-Revision-Date: 2024-12-03T14:30:47.946Z\n"
+
+msgid "About this app"
+msgstr "About this app"
+
+msgid "No match found"
+msgstr "No match found"
+
+msgid "Period"
+msgstr "Period"
+
+msgid "Start month"
+msgstr "Start month"
+
+msgid "End month"
+msgstr "End month"
+
+msgid "Organisation unit level"
+msgstr "Organisation unit level"
+
+msgid "Organisation unit level to import data to"
+msgstr "Organisation unit level to import data to"
+
+msgid "Organisation units"
+msgstr "Organisation units"
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "End date"
+msgstr "End date"
+
+msgid "Select training data and create prediction"
+msgstr "Select training data and create prediction"
+
+msgid "Training period"
+msgstr "Training period"
+
+msgid "Select a model"
+msgstr "Select a model"
+
+msgid "Add required Data Elements"
+msgstr "Add required Data Elements"
+
+msgid ""
+"This app requires specific DHIS2 Data Elements to import data into. If you "
+"have not already added them, go to the "
+msgstr ""
+"This app requires specific DHIS2 Data Elements to import data into. If you "
+"have not already added them, go to the "
+
+msgid "-app and create the Data Elements listed below."
+msgstr "-app and create the Data Elements listed below."
+
+msgid ""
+"NB! Make sure the CODE property for each data element is exactly the same "
+"as below."
+msgstr ""
+"NB! Make sure the CODE property for each data element is exactly the same "
+"as below."
+
+msgid ""
+"Properties in the new Data Element form not specified in the tables below "
+"should have the default value."
+msgstr ""
+"Properties in the new Data Element form not specified in the tables below "
+"should have the default value."
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Short name"
+msgstr "Short name"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Domain type"
+msgstr "Domain type"
+
+msgid "Aggregate"
+msgstr "Aggregate"
+
+msgid "Aggregation levels"
+msgstr "Aggregation levels"
+
+msgid "Assign all org unit levels"
+msgstr "Assign all org unit levels"
+
+msgid "Quantile median"
+msgstr "Quantile median"
+
+msgid "Range"
+msgstr "Range"
+
+msgid "Quantile low"
+msgstr "Quantile low"
+
+msgid "Select data element for low quantile"
+msgstr "Select data element for low quantile"
+
+msgid "Select data element for medium quantile"
+msgstr "Select data element for medium quantile"
+
+msgid "Select data element for high quantile"
+msgstr "Select data element for high quantile"
+
+msgid "Import prediction"
+msgstr "Import prediction"
+
+msgid "Prediction has been imported."
+msgstr "Prediction has been imported."
+
+msgid "Org unit"
+msgstr "Org unit"
+
+msgid "Median"
+msgstr "Median"
+
+msgid "Quantile high"
+msgstr "Quantile high"
+
+msgid "CHAP Core results"
+msgstr "CHAP Core results"
+
+msgid "Select data element"
+msgstr "Select data element"
+
+msgid "It seems like you missing Data Elements for CHAP prediction."
+msgstr "It seems like you missing Data Elements for CHAP prediction."
+
+msgid "Add data elements"
+msgstr "Add data elements"
+
+msgid "Loading.."
+msgstr "Loading.."
+
+msgid "Drag 'n' drop the prediction file, or click to select it"
+msgstr "Drag 'n' drop the prediction file, or click to select it"
+
+msgid "App settings"
+msgstr "App settings"

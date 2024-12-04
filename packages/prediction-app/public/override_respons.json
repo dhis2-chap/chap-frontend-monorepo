@@ -1,0 +1,119 @@
+{
+    "diseaseId": "GPEAQwddr16",
+    "dataValues": [
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "median",
+            "period": "202410",
+            "value": 28400
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_high",
+            "period": "202410",
+            "value": 30000
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_low",
+            "period": "202410",
+            "value": 27000
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "median",
+            "period": "202411",
+            "value": 36375.0
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_high",
+            "period": "202411",
+            "value": 43877.5
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_low",
+            "period": "202411",
+            "value": 29356.0
+        },
+        
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "median",
+            "period": "202412",
+            "value": 56839.5
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_high",
+            "period": "202412",
+            "value": 73815.75
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_low",
+            "period": "202412",
+            "value": 42720.25
+        },
+
+
+
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "median",
+            "period": "202410",
+            "value": 9664.0
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_high",
+            "period": "202410",
+            "value": 10517.0
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_low",
+            "period": "202410",
+            "value": 9251.0
+        },
+        
+       
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "median",
+            "period": "202411",
+            "value": 11052.5
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_high",
+            "period": "202411",
+            "value": 13044.5
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_low",
+            "period": "202411",
+            "value": 8992.0
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "median",
+            "period": "202412",
+            "value": 18901.0
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_high",
+            "period": "202412",
+            "value": 25312.25
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_low",
+            "period": "202412",
+            "value": 14219.75
+        }
+    ]
+}

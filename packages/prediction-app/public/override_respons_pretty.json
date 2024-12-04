@@ -1,0 +1,119 @@
+{
+    "diseaseId": "GPEAQwddr16",
+    "dataValues": [
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "median",
+            "period": "October 2024",
+            "value": 28400
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_high",
+            "period": "October 2024",
+            "value": 30000
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_low",
+            "period": "October 2024",
+            "value": 27000
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "median",
+            "period": "November 2024",
+            "value": 36375.0
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_high",
+            "period": "November 2024",
+            "value": 43877.5
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_low",
+            "period": "November 2024",
+            "value": 29356.0
+        },
+        
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "median",
+            "period": "December 2024",
+            "value": 56839.5
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_high",
+            "period": "December 2024",
+            "value": 73815.75
+        },
+        {
+            "orgUnit": "LGNjeakKI1q",
+            "dataElement": "quantile_low",
+            "period": "December 2024",
+            "value": 42720.25
+        },
+
+
+
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "median",
+            "period": "October 2024",
+            "value": 9664.0
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_high",
+            "period": "October 2024",
+            "value": 10517.0
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_low",
+            "period": "October 2024",
+            "value": 9251.0
+        },
+        
+       
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "median",
+            "period": "November 2024",
+            "value": 11052.5
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_high",
+            "period": "November 2024",
+            "value": 13044.5
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_low",
+            "period": "November 2024",
+            "value": 8992.0
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "median",
+            "period": "December 2024",
+            "value": 18901.0
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_high",
+            "period": "December 2024",
+            "value": 25312.25
+        },
+        {
+            "orgUnit": "MnK7wTQx9wc",
+            "dataElement": "quantile_low",
+            "period": "December 2024",
+            "value": 14219.75
+        }
+    ]
+}
