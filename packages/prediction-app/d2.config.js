@@ -2,7 +2,7 @@ const config = {
   type: "app",
   title: "Prediction App",
   entryPoints: {
-    app: "./src/App.js",
+    app: "./src/App.tsx",
   }
 };
 

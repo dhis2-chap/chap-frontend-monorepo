@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import EvaluationResultsDashboard, {ComparisonDashboard} from './EvaluationResultDashboard';
 import { processDataValues } from "../lib/dataProcessing";
 import { HighChartsData } from "../interfaces/HighChartsData";
+import { CHAPComponent } from '@dhis2-chap/chap-lib'
 
 const EvaluationResultChartFromFileSelector: React.FC = () => {
   const [data, setData] = useState<Record<string, Record<string, HighChartsData>>>();
@@ -45,6 +46,7 @@ const EvaluationResultChartFromFileSelector: React.FC = () => {
   return (
     <div>
       <h2> Upload a file</h2>
+        <CHAPComponent/>
         <p>Upload a JSON file containing the evaluation results from CHAP to view the results.</p>
       <p><label>Choose file:</label>
         <input type="file" accept=".json" onChange={handleFileChange} />

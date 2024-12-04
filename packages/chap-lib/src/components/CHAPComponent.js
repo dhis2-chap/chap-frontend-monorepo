@@ -1,3 +1,3 @@
 export const CHAPComponent = () => {
-    return <h1>CHAPComponent</h1>;
+    return <h1>Hey from chap-lib</h1>;
 }
