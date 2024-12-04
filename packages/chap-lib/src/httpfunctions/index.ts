@@ -30,4 +30,27 @@ export type { PredictionResponse } from './models/PredictionResponse';
 export type { State } from './models/State';
 export type { ValidationError } from './models/ValidationError';
 
+export { $Coordinates } from './schemas/$Coordinates';
+export { $DataElement } from './schemas/$DataElement';
+export { $DataList } from './schemas/$DataList';
+export { $EvaluationEntry } from './schemas/$EvaluationEntry';
+export { $EvaluationResponse } from './schemas/$EvaluationResponse';
+export { $Feature } from './schemas/$Feature';
+export { $FeatureCollectionModel } from './schemas/$FeatureCollectionModel';
+export { $FeatureModel } from './schemas/$FeatureModel';
+export { $FullPredictionResponse } from './schemas/$FullPredictionResponse';
+export { $HTTPValidationError } from './schemas/$HTTPValidationError';
+export { $LineStringModel } from './schemas/$LineStringModel';
+export { $ModelSpec } from './schemas/$ModelSpec';
+export { $MultiLineStringModel } from './schemas/$MultiLineStringModel';
+export { $MultiPointModel } from './schemas/$MultiPointModel';
+export { $MultiPolygonModel } from './schemas/$MultiPolygonModel';
+export { $PeriodType } from './schemas/$PeriodType';
+export { $PointModel } from './schemas/$PointModel';
+export { $PolygonModel } from './schemas/$PolygonModel';
+export { $PredictionRequest } from './schemas/$PredictionRequest';
+export { $PredictionResponse } from './schemas/$PredictionResponse';
+export { $State } from './schemas/$State';
+export { $ValidationError } from './schemas/$ValidationError';
+
 export { DefaultService } from './services/DefaultService';
