@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DefaultService } from "../httpfunctions";
+import { DefaultService } from "@dhis2-chap/chap-lib";
 import { processDataValues } from "../lib/dataProcessing";
 import EvaluationResultsDashboard from './EvaluationResultDashboard';
 import {HighChartsData} from "../interfaces/HighChartsData";
@@ -30,7 +30,7 @@ export default ApiLoadedEvaluationResultsChart;
 // import React from 'react'
 // import {ResultPlot} from "./ResultPlot";
 // import {useEffect, useState} from "react";
-// import {DefaultService, EvaluationResponse} from "../httpfunctions";
+// import {DefaultService, EvaluationResponse} from "@dhis2-chap/chap-lib";
 // import {HighChartsData} from "../interfaces/HighChartsData";
 // import {processDataValues} from "../lib/dataProcessing";
 //

@@ -2,8 +2,8 @@
 import React, {useEffect, useState} from 'react';
 import Highcharts from 'highcharts';
 //import HighchartsMore from 'highcharts/highcharts-more';
-import {DefaultService} from "../httpfunctions";
-import {PredictionResponse} from "../httpfunctions/models/PredictionResponse";
+import {DefaultService} from "@dhis2-chap/chap-lib";
+import {PredictionResponse} from "@dhis2-chap/chap-lib";
 import {ResultPlot} from "../components/ResultPlot";
 import {createHighChartsData} from "../lib/dataProcessing";
 import {HighChartsData} from "../interfaces/HighChartsData";

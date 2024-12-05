@@ -2,7 +2,7 @@
 import React, { useState, useCallback } from "react";
 import { useQuery, useMutation, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 //import { api } from "./api"; // Adjust based on your openapi-typescript-codegen output path
-import {CrudService, DefaultService, AnalyticsService} from "../httpfunctions";
+import {CrudService, DefaultService, AnalyticsService} from "@dhis2-chap/chap-lib";
 import {processDataValues} from "../lib/dataProcessing";
 import {ComparisonDashboard} from "../components/EvaluationResultDashboard";
 // Initialize Query Client

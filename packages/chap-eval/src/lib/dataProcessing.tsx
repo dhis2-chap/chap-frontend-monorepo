@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import {HighChartsData} from "../interfaces/HighChartsData";
-import {DataElement, EvaluationEntry, } from "../httpfunctions";
+import {DataElement, EvaluationEntry, } from "@dhis2-chap/chap-lib";
 
 export function joinRealAndPredictedData(predictedData: HighChartsData, realData: DataElement[]): HighChartsData {
     const nPeriods = 52*3;
