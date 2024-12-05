@@ -2,12 +2,14 @@
     "name": "@dhis2-chap/chap-lib",
     "version": "1.0.0",
     "module": "./build\\es\\index.js",
+    "types": "./build/es/index.d.ts",
     "license": "MIT",
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "12.0.0-alpha.25"
+        "@dhis2/cli-app-scripts": "12.0.0-alpha.25",
+        "typescript": "^5.7.2"
     },
     "scripts": {
-        "build": "d2-app-scripts build",
+        "build": "d2-app-scripts build && tsc",
         "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
         "deploy": "d2-app-scripts deploy",

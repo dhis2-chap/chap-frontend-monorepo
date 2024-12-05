@@ -8,8 +8,7 @@
     "build": "d2-app-scripts build",
     "start": "d2-app-scripts start --allowJsxInJs",
     "test": "d2-app-scripts test",
-    "deploy": "d2-app-scripts deploy",
-    "generate": "yarn openapi --input ./public/openapi.json --output ./src/httpfunctions"
+    "deploy": "d2-app-scripts deploy"
   },
   "devDependencies": {
     "@dhis2/cli-app-scripts": "12.0.0-alpha.25"
