@@ -1,7 +1,6 @@
 declare module "*.module.css";
 declare module "@dhis2/app-runtime";
 declare module "react-dropzone";
-declare module "@dhis2/multi-calendar-dates";
 declare module "@dhis2/analytics";
 declare module "@types/file-saver";
 declare module "@types/jest";

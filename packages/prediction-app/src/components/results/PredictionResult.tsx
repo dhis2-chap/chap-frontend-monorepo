@@ -12,8 +12,10 @@ import SetupInstruction from './SetupInstruction';
 import useDataElements from "../../hooks/useDataElements";
 import useDataElement from "../../hooks/useDataElement";
 import { useLocation } from "react-router-dom";
-import { DefaultService } from "@dhis2-chap/chap-lib";
+import { DefaultService, FullPredictionResponse, PredictionResponse } from "@dhis2-chap/chap-lib";
 import { SelectImportMode } from "./SelectImportMode";
+
+import { UncertaintyAreaChart } from "@dhis2-chap/chap-lib";
 
 const PredictionResult = () => {
   
@@ -54,7 +56,7 @@ const PredictionResult = () => {
 
     const fetchData = async () => {
         //const response = (await fetch("/override_respons.json")).json();
-        await DefaultService.getResultsGetResultsGet().then((response : any) => {
+        await DefaultService.getResultsGetResultsGet().then((response : FullPredictionResponse) => {
           onFileUpload(response)
         })
         .catch((err : any) => {
@@ -73,7 +75,7 @@ const PredictionResult = () => {
   
     
   
-    const onFileUpload = (data : any) => {
+    const onFileUpload = (data : FullPredictionResponse) => {
       
       setPredictionTarget(data.diseaseId);
       setPostHttpError("");
@@ -110,8 +112,8 @@ const PredictionResult = () => {
     return false;
   }
     //This add displayName to the orgUnits
-    const fillWithOrgUnit = (data: any) => {
-      return ({dataValues : data.dataValues.map((d: any) => {  
+    const fillWithOrgUnit = (data: FullPredictionResponse) : PredictionResponse[] => {
+      return ({dataValues : data.dataValues.map((d: PredictionResponse) => {  
         return {
           ...d,
           displayName : (orgUnits?.organisationUnits.find((ou: any) => ou.id === d.orgUnit) as any)?.displayName
@@ -153,7 +155,7 @@ const PredictionResult = () => {
           <div className={styles.prediction}>
             {
               {
-                'chart': <PredictionChart predictionTargetName={predictionTargetName} data={prediction} periode={getPeriode()} />,
+                'chart': <UncertaintyAreaChart predictionTargetName={predictionTargetName} data={prediction} periode={getPeriode()} />,
                 'table': <PredictionTable predictionTargetName={predictionTargetName} data={prediction} periode={getPeriode()} />
               }[selectedTab]
             }

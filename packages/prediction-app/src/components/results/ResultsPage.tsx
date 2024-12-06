@@ -3,7 +3,6 @@ import i18n from "@dhis2/d2-i18n";
 import StyledDropzone from "./StyledDropzone";
 import PredictionTable from "./PredictionTable";
 import styles from "./styles/ResultsPage.module.css";
-import PredictionChart from "./PredictionChart";
 import useOrgUnits from "../../hooks/useOrgUnits";
 import { Button, TabBar, IconArrowRight24, Tab } from "@dhis2/ui";
 import PostResult from "./PostResult";
