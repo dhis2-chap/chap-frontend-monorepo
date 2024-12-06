@@ -5,8 +5,7 @@ import Highcharts from 'highcharts';
 import {DefaultService} from "@dhis2-chap/chap-lib";
 import {PredictionResponse} from "@dhis2-chap/chap-lib";
 import {ResultPlot} from "../components/ResultPlot";
-import {createHighChartsData} from "../lib/dataProcessing";
-import {HighChartsData} from "../interfaces/HighChartsData";
+import {createHighChartsData, HighChartsData} from "@dhis2-chap/chap-lib";
 
 //HighchartsMore(Highcharts); // Enables the 'arearange' series type
 

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { ResultPlot } from "./ResultPlot";
-import { HighChartsData } from "../interfaces/HighChartsData";
+import { HighChartsData, EvaluationForSplitPoint, EvaluationPerOrgUnit } from "@dhis2-chap/chap-lib";
 import {SplitPeriodSelector} from "./SplitPeriodSelector";
 import {ComparisonPlot} from "./ComparisonPlot";
 import { data } from 'react-router-dom';
@@ -35,21 +35,7 @@ const ResultPlotList: React.FC<ResultPlotListProps> = ({ orgUnitsData}) => {
   );
 };
 */
-export interface EvaluationForSplitPoint {
-  evaluation : EvaluationPerOrgUnit[],
-  splitPoint : string
-}
 
-export interface EvaluationPerOrgUnit {
-  orgUnitName : string;
-  orgUnitId : string;
-  models : ModelData[];
-}
-
-export interface ModelData {
-  data : HighChartsData,
-  modelName : string
-}
 
 interface ComparisonPlotListProps {
   evaluationPerOrgUnits : EvaluationPerOrgUnit[];

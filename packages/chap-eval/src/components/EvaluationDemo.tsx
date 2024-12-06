@@ -1,9 +1,10 @@
 
 
 import React, {useEffect, useState} from 'react';
-import  {ComparisonDashboard, EvaluationForSplitPoint} from './EvaluationResultDashboard';
-import { addModelName, EvaluationEntryExtend, evaluationResultToViewData, processDataValues } from "../lib/dataProcessing";
-import { HighChartsData } from "../interfaces/HighChartsData";
+import  {ComparisonDashboard } from './EvaluationResultDashboard';
+import { addModelName } from "../lib/dataProcessing";
+import { EvaluationEntryExtend, evaluationResultToViewData, EvaluationForSplitPoint } from "@dhis2-chap/chap-lib";
+import { HighChartsData } from "@dhis2-chap/chap-lib";
 
 
 const EvaluationDemo: React.FC = () => {

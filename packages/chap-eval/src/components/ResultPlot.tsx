@@ -2,7 +2,7 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import React from "react";
-import {HighChartsData} from "../interfaces/HighChartsData";
+import {HighChartsData} from "@dhis2-chap/chap-lib";
 //import HighchartsMore from "highcharts/highcharts-more";
 
 //HighchartsMore(Highcharts); // Enables the 'arearange' series type

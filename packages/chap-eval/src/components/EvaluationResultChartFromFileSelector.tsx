@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {ComparisonDashboard, EvaluationForSplitPoint} from './EvaluationResultDashboard';
-import { addModelName, EvaluationEntryExtend, evaluationResultToViewData, processDataValues } from "../lib/dataProcessing";
-import { HighChartsData } from "../interfaces/HighChartsData";
-import { CHAPComponent, DataElement, EvaluationEntry } from '@dhis2-chap/chap-lib'
+import {ComparisonDashboard} from './EvaluationResultDashboard';
+import { addModelName, processDataValues } from "../lib/dataProcessing";
+import { CHAPComponent, DataElement, HighChartsData, EvaluationEntry, EvaluationForSplitPoint, EvaluationEntryExtend, evaluationResultToViewData } from '@dhis2-chap/chap-lib'
 
 const EvaluationResultChartFromFileSelector: React.FC = () => {
   const [data, setData] = useState<EvaluationEntryExtend[]>();
