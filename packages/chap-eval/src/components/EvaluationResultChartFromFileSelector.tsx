@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
-import EvaluationResultsDashboard, {ComparisonDashboard} from './EvaluationResultDashboard';
-import { processDataValues } from "../lib/dataProcessing";
+import React, { useEffect, useState } from 'react';
+import {ComparisonDashboard, EvaluationForSplitPoint} from './EvaluationResultDashboard';
+import { addModelName, EvaluationEntryExtend, evaluationResultToViewData, processDataValues } from "../lib/dataProcessing";
 import { HighChartsData } from "../interfaces/HighChartsData";
-import { CHAPComponent } from '@dhis2-chap/chap-lib'
+import { CHAPComponent, DataElement, EvaluationEntry } from '@dhis2-chap/chap-lib'
 
 const EvaluationResultChartFromFileSelector: React.FC = () => {
-  const [data, setData] = useState<Record<string, Record<string, HighChartsData>>>();
-  const [data2, setData2] = useState<Record<string, Record<string, HighChartsData>>>();
+  const [data, setData] = useState<EvaluationEntryExtend[]>();
+  const [data2, setData2] = useState<EvaluationEntryExtend[]>();
+  const [realCases, setRealCases] = useState<DataElement[]>([])
+
   const [splitPeriods, setSplitPeriods] = useState<string[]>([]);
-  const [modelName, setModelName] = useState<string>('');
-  const [modelName2, setModelName2] = useState<string>('');
-  const modelNameSetters = [setModelName, setModelName2];
+  const [proceededData, setProceededData] = useState<EvaluationForSplitPoint[]>([])
+
   const dataSetters = [setData, setData2];
+  
   const extractModelName = (filename: string) => {
     const match = filename.match(/response_(k.*?)\.json/);
     if (match) {
@@ -29,12 +31,13 @@ const EvaluationResultChartFromFileSelector: React.FC = () => {
         try {
           const fileData = JSON.parse(e.target?.result as string);
           const filename = file.name;
-          modelNameSetters[file_id](extractModelName(filename));
-          const processedData = processDataValues(fileData.predictions, fileData.actualCases.data);
-          const splitPeriods = Object.keys(processedData);
-          dataSetters[file_id](processedData);
-          console.log(file_id, processedData);
-          setSplitPeriods(splitPeriods);
+          
+          const withModelName = addModelName(fileData.predictions, extractModelName(filename));
+          setRealCases(fileData.actualCases.data);
+
+          dataSetters[file_id](withModelName);
+
+        
         } catch (error) {
           console.error("Error reading or processing file", error);
         }
@@ -43,6 +46,19 @@ const EvaluationResultChartFromFileSelector: React.FC = () => {
     }
   };
   const handleFileChange2 = (event: React.ChangeEvent<HTMLInputElement>) => handleFileChange(event, 1);
+
+  useEffect(() => {
+    if(data === undefined || data2 === undefined) return;
+
+    const allData = data.concat(data2);
+
+    const processedData : EvaluationForSplitPoint[] = evaluationResultToViewData(allData, realCases);
+    setProceededData(processedData);
+    const splitPeriods = processedData.map((item) => item.splitPoint);
+    setSplitPeriods(splitPeriods);
+  }, [data2, data])
+  
+
   return (
     <div>
       <h2> Upload a file</h2>
@@ -55,8 +71,8 @@ const EvaluationResultChartFromFileSelector: React.FC = () => {
         <input type="file" accept=".json" onChange={handleFileChange2} />
       </p>
 
-      {(splitPeriods.length > 0) && (data!=undefined) && (data2!=undefined) &&
-          <ComparisonDashboard data={data} data2={data2} splitPeriods={splitPeriods} name={modelName} name2={modelName2}/>
+      {(splitPeriods.length > 0) && (proceededData != undefined) &&
+          <ComparisonDashboard data={proceededData} splitPeriods={splitPeriods}/>
         //<EvaluationResultsDashboard data={data} splitPeriods={splitPeriods} />
       }
     </div>

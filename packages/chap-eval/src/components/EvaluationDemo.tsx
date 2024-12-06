@@ -1,35 +1,45 @@
-// @ts-nocheck
+
 
 import React, {useEffect, useState} from 'react';
-import  {ComparisonDashboard} from './EvaluationResultDashboard';
-import { processDataValues } from "../lib/dataProcessing";
+import  {ComparisonDashboard, EvaluationForSplitPoint} from './EvaluationResultDashboard';
+import { addModelName, EvaluationEntryExtend, evaluationResultToViewData, processDataValues } from "../lib/dataProcessing";
 import { HighChartsData } from "../interfaces/HighChartsData";
 
 
 const EvaluationDemo: React.FC = () => {
-  const [data, setData] = useState<Record<string, Record<string, HighChartsData>>>();
-  const [data2, setData2] = useState<Record<string, Record<string, HighChartsData>>>();
+  const [data, setData] = useState<EvaluationForSplitPoint[]>();
+
   const [splitPeriods, setSplitPeriods] = useState<string[]>([]);
 
   useEffect(() => {
+    let evaluationForSplitPoint: EvaluationEntryExtend[] = [];
+
     fetch(`${process.env.PUBLIC_URL}/demo_data_ewars.json`) // Using PUBLIC_URL to ensure compatibility with different environments
       .then(response => response.json())
       .then(data => {
-            const processedData = processDataValues(data.predictions, data.actualCases.data);
-            const splitPeriods = Object.keys(processedData);
+            
+            evaluationForSplitPoint = addModelName(data.predictions, "EWARS model");
+
+            /*const processedData = evaluationResultToViewData(pred, data.actualCases.data);
+            const splitPeriods = processedData.map((item) => item.splitPoint);
             setData(processedData);
-            setSplitPeriods(splitPeriods);
+            setSplitPeriods(splitPeriods);*/
       }).catch(error => console.error('Error loading data:', error));
-        fetch(`${process.env.PUBLIC_URL}/demo_data_ar.json`) // Using PUBLIC_URL to ensure compatibility with different environments
+      fetch(`${process.env.PUBLIC_URL}/demo_data_ar.json`) // Using PUBLIC_URL to ensure compatibility with different environments
       .then(response => response.json())
       .then(data => {
-            const processedData = processDataValues(data.predictions, data.actualCases.data);
-            const splitPeriods = Object.keys(processedData);
-            setData2(processedData);
+            evaluationForSplitPoint = evaluationForSplitPoint.concat(addModelName(data.predictions, "AR model"));
+            const processedData = evaluationResultToViewData(evaluationForSplitPoint, data.actualCases.data);
+            setData(processedData);
+            const splitPeriods = processedData.map((item) => item.splitPoint);
+            setSplitPeriods(splitPeriods);
+            //const splitPeriods = processedData.map((item) => item.splitPoint);
+            //setData2(processedData);
       }).catch(error => console.error('Error loading data:', error));
   }, []);
 
-  if (!data2 || !data || !splitPeriods.length) return <div>Loading...</div>;
-  return (<ComparisonDashboard data={data} data2={data2} splitPeriods={splitPeriods} name={'CHAP_EWARS'} name2={'CHAP_AR'} />)
+  if (!data || !splitPeriods.length) 
+    return <div>Loading...</div>;
+  return (<ComparisonDashboard data={data} splitPeriods={splitPeriods} />)
 }
 export default EvaluationDemo

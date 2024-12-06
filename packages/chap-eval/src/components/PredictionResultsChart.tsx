@@ -58,7 +58,7 @@ const PredictionResultsChart = () => {
         {Object.keys(orgUnitsData).map(orgUnit => (
             <div key={orgUnit} style={{marginBottom: '40px'}}>
               <h2>Predicted Disease Cases for {orgUnit}</h2>
-              <ResultPlot orgUnit={orgUnit} data={orgUnitsData[orgUnit]} modelName={'ModelName'} />
+              <ResultPlot data={orgUnitsData[orgUnit]} modelName={'ModelName'} />
             </div>
         ))}
       </div>

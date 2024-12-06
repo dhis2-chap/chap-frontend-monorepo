@@ -16,7 +16,8 @@
         "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
         "deploy": "d2-app-scripts deploy",
-        "generate": "yarn openapi --input ./public/openapi.json --output ./src/httpfunctions"
+        "generate": "yarn openapi --input ./public/openapi.json --output ./src/httpfunctions",
+        "generate localhost": "yarn openapi --input http://localhost:8000/v1/openapi.json --output ./src/httpfunctions"
     },
     "main": "./build\\cjs\\index.js",
     "exports": {

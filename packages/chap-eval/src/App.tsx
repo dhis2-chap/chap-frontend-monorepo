@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import EvaluationResultChartFromFileSelector from "./components/EvaluationResultChartFromFileSelector";
 import styles from './App.module.css';
 import EvaluationDemo from "./components/EvaluationDemo";
-import DynamicDemo from "./components/DynamicDemo";
+//import DynamicDemo from "./components/DynamicDemo";
 function Wrapper(element: React.ReactNode) {
     return (
         <div className={styles.container}>
@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={Wrapper(<EvaluationResultChartFromFileSelector />)} />
         <Route path="/demo" element={Wrapper(<EvaluationDemo/>)} />
-        <Route path="/dynamic_demo" element={Wrapper(<DynamicDemo/>)} />
+        {/*<Route path="/dynamic_demo" element={Wrapper(<DynamicDemo/>)} />/*/}
       </Routes>
     </Router>
   );

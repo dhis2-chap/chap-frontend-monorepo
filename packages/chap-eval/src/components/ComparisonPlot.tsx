@@ -2,24 +2,27 @@ import React from "react";
 import { ResultPlot } from "./ResultPlot";
 import { HighChartsData } from "../interfaces/HighChartsData";
 import styles from "../styles/ComparisonPlot.module.css";
+import { EvaluationPerOrgUnit } from "./EvaluationResultDashboard";
 
 
 interface SideBySidePlotsProps {
-    data1: HighChartsData;
-    data2: HighChartsData;
-    orgUnit1: string;
-    modelNames: string[];
+    orgUnitsData: EvaluationPerOrgUnit;
 }
 
-export const ComparisonPlot: React.FC<SideBySidePlotsProps> = ({ data1, data2, orgUnit1, modelNames}) => {
-    return (
-        <div className={styles.comparionPair}>
-         <div className={styles.title}>{orgUnit1}</div>
+export const ComparisonPlot: React.FC<SideBySidePlotsProps> = ({ orgUnitsData }) => {
 
-        <div className={styles.sideBySide}>
-            <ResultPlot orgUnit={orgUnit1} data={data1} modelName={modelNames[0]}/>
-            <ResultPlot orgUnit={orgUnit1} data={data2} modelName={modelNames[1]}/>
-        </div>
-        </div>
+    return (
+        <>
+            <div className={styles.comparionPair}>
+                <div className={styles.title}>{orgUnitsData.orgUnitName}</div>
+                <div className={styles.sideBySide}>
+                    {orgUnitsData.models.map((modelData, index) => {
+                        return (
+                            <ResultPlot key={index} data={modelData.data} modelName={modelData.modelName} />
+                        );
+                    })}
+                </div>
+            </div>
+        </>
     );
 };

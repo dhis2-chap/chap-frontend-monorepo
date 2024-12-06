@@ -1,4 +1,3 @@
-// @ts-ignore
 
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
@@ -12,10 +11,10 @@ function syncChartZoom(event: any): void {
         if (chart) {
             chart.xAxis[0].setExtremes(event.min, event.max);
         }
-    }); // @ts-ignore
+    }); 
 }
 
-export const ResultPlot = (props: { orgUnit: string, data: HighChartsData, modelName: string}) => {
+export const ResultPlot = (props: { data: HighChartsData, modelName: string}) => {
     return (
         <HighchartsReact
             highcharts={Highcharts}

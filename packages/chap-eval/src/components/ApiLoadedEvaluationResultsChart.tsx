@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { DefaultService } from "@dhis2-chap/chap-lib";
-import { processDataValues } from "../lib/dataProcessing";
-import EvaluationResultsDashboard from './EvaluationResultDashboard';
+import { evaluationResultToViewData, processDataValues } from "../lib/dataProcessing";
+import EvaluationResultsDashboard, { EvaluationForSplitPoint, EvaluationPerOrgUnit } from './EvaluationResultDashboard';
 import {HighChartsData} from "../interfaces/HighChartsData";
 
 const ApiLoadedEvaluationResultsChart: React.FC = () => {
-  const [data, setData] = useState<Record<string, Record<string, HighChartsData>>>({});
+  const [data, setData] = useState<EvaluationForSplitPoint[]>([]);
   const [splitPeriods, setSplitPeriods] = useState<string[]>([]);
 
   const getData = async () => {
     const response = await DefaultService.getEvaluationResultsGetEvaluationResultsGet();
-    const processedData = processDataValues(response.predictions, response.actualCases.data);
+    const processedData = evaluationResultToViewData(response.predictions, response.actualCases.data, "Prediction model");
     setData(processedData);
     setSplitPeriods(Object.keys(processedData));
   };

@@ -3,23 +3,24 @@ import { ResultPlot } from "./ResultPlot";
 import { HighChartsData } from "../interfaces/HighChartsData";
 import {SplitPeriodSelector} from "./SplitPeriodSelector";
 import {ComparisonPlot} from "./ComparisonPlot";
+import { data } from 'react-router-dom';
 const Virtuoso = React.lazy(() => import('react-virtuoso').then((module) => ({ default: module.Virtuoso })));
 
 interface EvaluationResultsChartProps {
-  data: Record<string, Record<string, HighChartsData>>;
+  data: EvaluationForSplitPoint[];
   splitPeriods: string[];
 }
 interface ResultPlotListProps {
   orgUnitsData: Record<string, HighChartsData>;
 }
-
+/*
 const ResultPlotList: React.FC<ResultPlotListProps> = ({ orgUnitsData}) => {
     function getItemContent() {
         return (index: number) => {
             const orgUnit = Object.keys(orgUnitsData)[index];
             return (
                 <div key={orgUnit} style={{marginBottom: '40px'}}>
-                    <ResultPlot orgUnit={orgUnit} data={orgUnitsData[orgUnit]} modelName={'ModelName'}/>
+                    <ResultPlot data={orgUnitsData[orgUnit]} modelName={'ModelName'}/>
                 </div>
             );
         };
@@ -33,33 +34,35 @@ const ResultPlotList: React.FC<ResultPlotListProps> = ({ orgUnitsData}) => {
     />
   );
 };
-
-interface ComparisonPlotListProps {
-  orgUnitsData: Record<string, HighChartsData>;
-  orgUnitsData2: Record<string, HighChartsData>;
-  modelName: string;
-    modelName2: string;
-
+*/
+export interface EvaluationForSplitPoint {
+  evaluation : EvaluationPerOrgUnit[],
+  splitPoint : string
 }
 
-const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({ orgUnitsData, orgUnitsData2, modelName, modelName2}) => {
-    const modelNames = [modelName, modelName2];
+export interface EvaluationPerOrgUnit {
+  orgUnitName : string;
+  orgUnitId : string;
+  models : ModelData[];
+}
+
+export interface ModelData {
+  data : HighChartsData,
+  modelName : string
+}
+
+interface ComparisonPlotListProps {
+  evaluationPerOrgUnits : EvaluationPerOrgUnit[];
+}
+
+const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({evaluationPerOrgUnits}) => {
+
     function getItemContent() {
         return (index: number) => {
-            const orgUnit = Object.keys(orgUnitsData)[index];
-            console.log(orgUnitsData2);
-            if (!orgUnitsData2) {
-                console.log('no data2');
-                return (
-                    <div key={orgUnit} style={{marginBottom: '40px'}}>
-                        <ResultPlot orgUnit={orgUnit} data={orgUnitsData[orgUnit]} modelName={modelNames[index]}/>
-                    </div>
-                );
-            }
-            console.log('Data2 exists');
+            const orgUnitsData = evaluationPerOrgUnits[index];
             return (
-                <div key={orgUnit} style={{marginBottom: '40px'}}>
-                    <ComparisonPlot data1={orgUnitsData[orgUnit]} data2={orgUnitsData2[orgUnit]} orgUnit1={orgUnit} modelNames={modelNames}/>
+                <div key={orgUnitsData.orgUnitId} style={{marginBottom: '40px'}}>
+                    <ComparisonPlot orgUnitsData={orgUnitsData}/>
                 </div>
             );
         };
@@ -68,7 +71,7 @@ const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({ orgUnitsData, o
     return (
       <Virtuoso
         useWindowScroll
-        totalCount={Object.keys(orgUnitsData).length}
+        totalCount={evaluationPerOrgUnits.length}
         itemContent={getItemContent()}
       />
   );
@@ -76,12 +79,12 @@ const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({ orgUnitsData, o
 
 
 const EvaluationResultsDashboard: React.FC<EvaluationResultsChartProps> = ({ data, splitPeriods }) => {
-  const [orgUnitsData, setOrgUnitsData] = React.useState<Record<string, HighChartsData>>(data[splitPeriods[0]]);
+  const [orgUnitsData, setOrgUnitsData] = React.useState<EvaluationForSplitPoint>(data[0]);
   const [selectedSplitPeriod, setSelectedSplitPeriod] = React.useState<string>(splitPeriods[0]);
 
   const handlePeriodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSplitPeriod(e.target.value);
-    setOrgUnitsData(data[e.target.value]);
+    setOrgUnitsData(data.filter(o => o.splitPoint === e.target.value)[0]);
   };
 
   return (
@@ -91,43 +94,34 @@ const EvaluationResultsDashboard: React.FC<EvaluationResultsChartProps> = ({ dat
         onChange={handlePeriodChange}
       />
       <div>
-        <ResultPlotList orgUnitsData={orgUnitsData} />
+        REMOVED FOR NOW
+        {/*<ResultPlotList orgUnitsData={orgUnitsData} />*/}
       </div>
     </div>
   );
 };
 
 interface ComparisonResultsChartProps {
-  data: Record<string, Record<string, HighChartsData>>;
-  data2: Record<string, Record<string, HighChartsData>>;
+  data: EvaluationForSplitPoint[];
   splitPeriods: string[];
-  name: string;
-  name2: string;
-
 }
 
-export const ComparisonDashboard: React.FC<ComparisonResultsChartProps> = ({ data, data2, splitPeriods, name , name2 }) => {
-    console.log('####', data2);
-    console.log(name)
-    let first_period = splitPeriods[0];
-    console.log('####', data2, first_period);
-    console.log('####1.5', data2[first_period]);
-    const [orgUnitsData, setOrgUnitsData] = React.useState<Record<string, HighChartsData>>(data[first_period]);
-    const [orgUnitsData2, setOrgUnitsData2] = React.useState<Record<string, HighChartsData>>(data2[first_period]);
-    const [selectedSplitPeriod, setSelectedSplitPeriod] = React.useState<string>(first_period);
-    console.log('####2', orgUnitsData);
-    console.log('####3', orgUnitsData2);
+
+
+export const ComparisonDashboard: React.FC<ComparisonResultsChartProps> = ({ data, splitPeriods}) => {
+    
+
+    const [orgUnitsData, setOrgUnitsData] = React.useState<EvaluationForSplitPoint>(data[0]);
+
+    //const [selectedSplitPeriod, setSelectedSplitPeriod] = React.useState<string>(data[0].splitPoint);
 
     useEffect(() => {
-        console.log('####4', data2[first_period]);
-        setOrgUnitsData(data[first_period]);
-        setOrgUnitsData2(data2[first_period]);
-    },[]);
-  const handlePeriodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedSplitPeriod(e.target.value);
-    console.log('####4########', data2[e.target.value]);
-    setOrgUnitsData(data[e.target.value]);
-    setOrgUnitsData2(data2[e.target.value]);
+        setOrgUnitsData(data[0]);
+    },[data]);
+  
+    const handlePeriodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      //setSelectedSplitPeriod(e.target.value);
+      setOrgUnitsData(data.filter(o => o.splitPoint === e.target.value)[0]);
   };
 
   return (
@@ -137,7 +131,7 @@ export const ComparisonDashboard: React.FC<ComparisonResultsChartProps> = ({ dat
         onChange={handlePeriodChange}
       />
       <div>
-          <ComparisonPlotList orgUnitsData={orgUnitsData} orgUnitsData2={orgUnitsData2} modelName={name} modelName2={name2}/>
+          <ComparisonPlotList evaluationPerOrgUnits={orgUnitsData.evaluation}/>
       </div>
     </div>
   );
