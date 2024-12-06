@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import { ResultPlot } from "./ResultPlot";
-import { HighChartsData, EvaluationForSplitPoint, EvaluationPerOrgUnit } from "@dhis2-chap/chap-lib";
+import { ResultPlot } from "@dhis2-chap/chap-lib";
+import { HighChartsData, EvaluationForSplitPoint, EvaluationPerOrgUnit, ComparisonPlotList } from "@dhis2-chap/chap-lib";
 import {SplitPeriodSelector} from "./SplitPeriodSelector";
-import {ComparisonPlot} from "./ComparisonPlot";
+import {ComparisonPlot} from "@dhis2-chap/chap-lib/src/components/evaluation/ComparisonPlot/ComparisonPlot";
 import { data } from 'react-router-dom';
 const Virtuoso = React.lazy(() => import('react-virtuoso').then((module) => ({ default: module.Virtuoso })));
 
@@ -37,31 +37,6 @@ const ResultPlotList: React.FC<ResultPlotListProps> = ({ orgUnitsData}) => {
 */
 
 
-interface ComparisonPlotListProps {
-  evaluationPerOrgUnits : EvaluationPerOrgUnit[];
-}
-
-const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({evaluationPerOrgUnits}) => {
-
-    function getItemContent() {
-        return (index: number) => {
-            const orgUnitsData = evaluationPerOrgUnits[index];
-            return (
-                <div key={orgUnitsData.orgUnitId} style={{marginBottom: '40px'}}>
-                    <ComparisonPlot orgUnitsData={orgUnitsData}/>
-                </div>
-            );
-        };
-    }
-
-    return (
-      <Virtuoso
-        useWindowScroll
-        totalCount={evaluationPerOrgUnits.length}
-        itemContent={getItemContent()}
-      />
-  );
-};
 
 
 const EvaluationResultsDashboard: React.FC<EvaluationResultsChartProps> = ({ data, splitPeriods }) => {

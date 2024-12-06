@@ -2,7 +2,8 @@
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import React from "react";
-import {HighChartsData} from "@dhis2-chap/chap-lib";
+import { HighChartsData } from "../../../interfaces/Evaluation";
+
 //import HighchartsMore from "highcharts/highcharts-more";
 
 //HighchartsMore(Highcharts); // Enables the 'arearange' series type
@@ -60,7 +61,7 @@ export const ResultPlot = (props: { data: HighChartsData, modelName: string}) =>
                         marker: {
                             enabled: false,
                             lineWidth: 2,
-                            fillColor: Highcharts.getOptions().colors[2]
+                            //fillColor: Highcharts.getOptions().colors[2]
                         }
                     },
                     {

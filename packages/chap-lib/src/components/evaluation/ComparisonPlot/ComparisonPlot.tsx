@@ -1,7 +1,7 @@
 import React from "react";
-import { ResultPlot } from "./ResultPlot";
-import { HighChartsData, EvaluationPerOrgUnit } from "@dhis2-chap/chap-lib";
-import styles from "../styles/ComparisonPlot.module.css";
+import styles from "./ComparisonPlot.module.css";
+import { ResultPlot } from "../ResultPlot/ResultPlot";
+import { EvaluationPerOrgUnit } from "../../../interfaces/Evaluation";
 
 interface SideBySidePlotsProps {
     orgUnitsData: EvaluationPerOrgUnit;
