@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {ComparisonDashboard} from './EvaluationResultDashboard';
 import { addModelName, processDataValues } from "../lib/dataProcessing";
-import { CHAPComponent, DataElement, HighChartsData, EvaluationEntry, EvaluationForSplitPoint, EvaluationEntryExtend, evaluationResultToViewData } from '@dhis2-chap/chap-lib'
+import { DataElement, HighChartsData, EvaluationEntry, EvaluationForSplitPoint, EvaluationEntryExtend, evaluationResultToViewData } from '@dhis2-chap/chap-lib'
 
 const EvaluationResultChartFromFileSelector: React.FC = () => {
   const [data, setData] = useState<EvaluationEntryExtend[]>();
@@ -61,7 +61,6 @@ const EvaluationResultChartFromFileSelector: React.FC = () => {
   return (
     <div>
       <h2> Upload a file</h2>
-        <CHAPComponent/>
         <p>Upload a JSON file containing the evaluation results from CHAP to view the results.</p>
       <p><label>Choose file:</label>
         <input type="file" accept=".json" onChange={handleFileChange} />

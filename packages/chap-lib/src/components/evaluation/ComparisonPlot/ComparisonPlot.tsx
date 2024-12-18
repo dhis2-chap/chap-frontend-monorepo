@@ -10,17 +10,17 @@ interface SideBySidePlotsProps {
 export const ComparisonPlot: React.FC<SideBySidePlotsProps> = ({ orgUnitsData }) => {
 
     return (
-        <>
-            <div className={styles.comparionPair}>
+            <div className={styles.comparionBox}>
                 <div className={styles.title}>{orgUnitsData.orgUnitName}</div>
-                <div className={styles.sideBySide}>
+                <div className={styles.comparionBoxSideBySide}>
                     {orgUnitsData.models.map((modelData, index) => {
                         return (
-                            <ResultPlot key={index} data={modelData.data} modelName={modelData.modelName} />
+                            <div key={index} className={styles.comparionBoxSideBySideItem}>
+                                <ResultPlot data={modelData.data} modelName={modelData.modelName} />
+                            </div>
                         );
                     })}
                 </div>
             </div>
-        </>
     );
 };

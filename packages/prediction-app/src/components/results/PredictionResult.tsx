@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import i18n from "@dhis2/d2-i18n";
 import StyledDropzone from "./StyledDropzone";
 import PredictionTable from "./PredictionTable";
-import styles from "./styles/ResultsPage.module.css";
+import styles from "./styles/PredictionResult.module.css";
 import PredictionChart from "./PredictionChart";
 import useOrgUnits from "../../hooks/useOrgUnits";
 import {Button, TabBar, IconArrowRight24, Tab } from "@dhis2/ui";
@@ -19,9 +19,8 @@ import { UncertaintyAreaChart } from "@dhis2-chap/chap-lib";
 
 const PredictionResult = () => {
   
-
   const location = useLocation();
-  const [prediction, setPrediction] = useState<any>();
+  const [prediction, setPrediction] = useState<FullPredictionResponse>();
   const [selectedTab, setSelectedTab] = useState<"chart" | "table">("chart");
   const [httpGetResultError, setHttpGetResultError] = useState<any>(undefined);
 
@@ -46,6 +45,15 @@ const PredictionResult = () => {
   const [postStatus, setPostStatus] = useState<"loading" | "finish" | "error" | "initial">("initial");
   const [postHttpError, setPostHttpError] = useState("");
 
+  const [unProceededData, setUnProceededData] = useState<FullPredictionResponse>();
+
+  //if id is passed in
+  useEffect(() => {
+    if(orgUnits){
+      fetchOrHandleFileDropData();
+    }
+  }, [location?.state?.data, orgUnits])
+    
   //If the user do not have any data elements that start with CHAP_LOW, CHAP_MEDIAN or CHAP_HIGH, show a warning
   const noCHAPDataElementExists = () => {
     if(dataElementsLow?.length === 0 || dataElementsMedian?.length === 0 || dataElementsHigh?.length === 0) {
@@ -54,37 +62,34 @@ const PredictionResult = () => {
     return false;
   }
 
-    const fetchData = async () => {
-        //const response = (await fetch("/override_respons.json")).json();
-        await DefaultService.getResultsGetResultsGet().then((response : FullPredictionResponse) => {
-          onFileUpload(response)
+  const fetchOrHandleFileDropData = async (data? : FullPredictionResponse) => {
+      
+      let response : FullPredictionResponse | undefined = data;
+      //if not data is not passed in, fetch data
+      if(!data){
+        await DefaultService.getResultsGetResultsGet().then((fetchedData : FullPredictionResponse) => {
+          response = fetchedData;
         })
         .catch((err : any) => {
           setHttpGetResultError(err.toString())
         })
-    };
-
-    //if id is passed in
-    useEffect(() => {
-      //if(location?.state?.data && orgUnits){
-  
-
-        fetchData();
-  
-    }, [location?.state?.data, orgUnits])
-  
-    
-  
-    const onFileUpload = (data : FullPredictionResponse) => {
+      }
+      //handle response
+      if(!response) return;
       
-      setPredictionTarget(data.diseaseId);
+      setUnProceededData(response);
+      setPredictionTarget(response.diseaseId);
       setPostHttpError("");
       setPostStatus("initial");
-      setPrediction(fillWithOrgUnit(data))
+  };
+
+  //when name of disease is fetched, the prediction is filled with orgUnitName
+  useEffect(() => {
+    if(predictionTargetName && orgUnits && unProceededData){
+      setPrediction(fillWithOrgUnit(unProceededData))
     }
-  
 
-
+  }, [predictionTargetName, orgUnits, unProceededData])
   
 
   useEffect(() => {
@@ -112,13 +117,15 @@ const PredictionResult = () => {
     return false;
   }
     //This add displayName to the orgUnits
-    const fillWithOrgUnit = (data: FullPredictionResponse) : PredictionResponse[] => {
-      return ({dataValues : data.dataValues.map((d: PredictionResponse) => {  
-        return {
-          ...d,
-          displayName : (orgUnits?.organisationUnits.find((ou: any) => ou.id === d.orgUnit) as any)?.displayName
-          }
-        })
+    const fillWithOrgUnit = (data: FullPredictionResponse) : FullPredictionResponse => {
+      return ({
+        dataValues : data.dataValues.map((d: PredictionResponse) => {  
+          return {
+            ...d,
+            displayName : (orgUnits?.organisationUnits.find((ou: any) => ou.id === d.orgUnit) as any)?.displayName
+            }
+          }),
+        diseaseId : data.diseaseId,
       })
     };
     
@@ -129,17 +136,11 @@ const PredictionResult = () => {
       return false;
     }
   
-    //the periode the data account for
-    const getPeriode = () => {
-      if(!prediction) return "";
-      if(prediction.dataValues.length === 0) return "";
-      return prediction.dataValues[0].period;
-    }
 
   return (
-    <>
+    <div className={styles.container}>
     {httpGetResultError && <p className={styles.redText}>{(httpGetResultError)}</p>}
-    <StyledDropzone disabled={orgUnitLoading} onLoad={onFileUpload} />
+    <StyledDropzone disabled={orgUnitLoading} onLoad={fetchOrHandleFileDropData} />
 
     
       {
@@ -150,13 +151,16 @@ const PredictionResult = () => {
             <Tab selected={selectedTab === "chart"} onClick={() => setSelectedTab("chart")}>
               Chart
             </Tab>
+            <Tab selected={selectedTab === "table"} onClick={() => setSelectedTab("table")}>
+              Table
+            </Tab>
           </TabBar>
 
           <div className={styles.prediction}>
             {
               {
-                'chart': <UncertaintyAreaChart predictionTargetName={predictionTargetName} data={prediction} periode={getPeriode()} />,
-                'table': <PredictionTable predictionTargetName={predictionTargetName} data={prediction} periode={getPeriode()} />
+                'chart': <UncertaintyAreaChart predictionTargetName={predictionTargetName} data={prediction} />,
+                'table': <PredictionTable predictionTargetName={predictionTargetName} data={prediction?.dataValues} />,
               }[selectedTab]
             }
           </div>
@@ -184,7 +188,7 @@ const PredictionResult = () => {
           </div>
         </>
       }
-    </>
+    </div>
   )
 }
 

@@ -1,7 +1,6 @@
 import { Switch, SwitchChangeHandler, SwitchProps } from '@dhis2/ui'
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import styles from "../styles/SwitchClimateSources.module.css"
-import { CHAPComponent } from '@dhis2-chap/chap-lib'
 
 interface SwitchClimateSourcesProps {
   setRenderOptionalField : Dispatch<SetStateAction<boolean | undefined>>
@@ -17,7 +16,6 @@ const SwitchClimateSources = ({setRenderOptionalField, renderOptionalField} : Sw
   return (
     <div className={styles.switchWrapper}>
       <div>
-        <CHAPComponent/>
         <div>Fetch ERA5-Land Climate Data directly in CHAP Core</div>
         {<div className={styles.smallText}>
           Using this option, CHAP Core will, based on provided polygons, fetch climate data directly 
