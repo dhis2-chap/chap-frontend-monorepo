@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-12-03T14:30:47.944Z\n"
-"PO-Revision-Date: 2024-12-03T14:30:47.946Z\n"
+"POT-Creation-Date: 2024-12-18T08:55:44.409Z\n"
+"PO-Revision-Date: 2024-12-18T08:55:44.409Z\n"
 
 msgid "About this app"
 msgstr "About this app"
@@ -119,15 +119,6 @@ msgstr "Import prediction"
 msgid "Prediction has been imported."
 msgstr "Prediction has been imported."
 
-msgid "Org unit"
-msgstr "Org unit"
-
-msgid "Median"
-msgstr "Median"
-
-msgid "Quantile high"
-msgstr "Quantile high"
-
 msgid "CHAP Core results"
 msgstr "CHAP Core results"
 
@@ -143,8 +134,8 @@ msgstr "Add data elements"
 msgid "Loading.."
 msgstr "Loading.."
 
-msgid "Drag 'n' drop the prediction file, or click to select it"
-msgstr "Drag 'n' drop the prediction file, or click to select it"
+msgid "Drag 'n' drop prediction/evaluation file, or click to select it"
+msgstr "Drag 'n' drop prediction/evaluation file, or click to select it"
 
 msgid "App settings"
 msgstr "App settings"

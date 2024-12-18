@@ -92,7 +92,7 @@ export const ComparisonDashboard: React.FC<ComparisonResultsChartProps> = ({ dat
         onChange={handlePeriodChange}
       />
       <div>
-          <ComparisonPlotList evaluationPerOrgUnits={orgUnitsData.evaluation}/>
+          <ComparisonPlotList useVirtuosoWindowScroll={true} evaluationPerOrgUnits={orgUnitsData.evaluation}/>
       </div>
     </div>
   );

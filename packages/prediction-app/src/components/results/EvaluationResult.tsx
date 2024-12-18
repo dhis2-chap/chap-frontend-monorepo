@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { ComparisonPlotList, DefaultService, EvaluationForSplitPoint, EvaluationResponse, evaluationResultToViewData } from '@dhis2-chap/chap-lib'
+import { ComparionPlotWrapper, DefaultService, EvaluationForSplitPoint, EvaluationResponse, evaluationResultToViewData, getSplitPeriod } from '@dhis2-chap/chap-lib'
 import styles from "./styles/EvaluationResult.module.css"
 import StyledDropzone from './StyledDropzone'
+import useOrgUnitRoots from '../../hooks/useOrgUnitRoots'
+import useOrgUnits from '../../hooks/useOrgUnits'
 
 const EvaluationResult = () => {
 
@@ -9,13 +11,43 @@ const EvaluationResult = () => {
   const [httpError, setHttpError] = useState<string>("")
   const [splitPeriods, setSplitPeriods] = useState<string[]>([]);
   const [proceededData, setProceededData] = useState<EvaluationForSplitPoint[]>()
+  const [unProceededData, setUnProceededData] = useState<EvaluationResponse>()
+
+  const {orgUnits, error, loading} = useOrgUnits();
+
+  useEffect(() => {
+    console.log(orgUnits, unProceededData)
+    if (orgUnits && unProceededData) {
+      console.log(orgUnits)
+      const processedData = evaluationResultToViewData(unProceededData.predictions, unProceededData.actualCases.data, "")
+
+      //fill with orgUnitName
+      processedData.forEach((evaluationPerSplitPoint) => {
+        evaluationPerSplitPoint.evaluation.forEach((evaluationPerOrgUnit) => {
+          const orgUnitName = orgUnits?.organisationUnits.find((root : {displayName : string, id : string}) => root.id === evaluationPerOrgUnit.orgUnitId)
+          if (orgUnitName) {
+            evaluationPerOrgUnit.orgUnitName = orgUnitName.displayName
+          }
+        })
+      })
+
+      setProceededData(processedData)
+      setSplitPeriods(getSplitPeriod(unProceededData.predictions))
+    }
+  }, [orgUnits, unProceededData])
+
+  const handleUnProceededData = (data : any) => {
+
+
+  }
+  
 
   const fetchEvaluation = async () => {
     await DefaultService.getEvaluationResultsGetEvaluationResultsGet()
       .then((response : EvaluationResponse) => {
-        const processedData = evaluationResultToViewData(response.predictions, response.actualCases.data)
-        setProceededData(processedData)
-        //setSplitPeriods(Object.keys(processedData));
+        setUnProceededData(response)
+        //add id to process data
+
       }
       )
       .catch(    
@@ -25,9 +57,9 @@ const EvaluationResult = () => {
       )
   }
 
-  const onFileUpload = (data : EvaluationResponse) => {
-    const processedData = evaluationResultToViewData(data.predictions, data.actualCases.data)
-    setProceededData(processedData)
+  const onResponse = (response : EvaluationResponse) => {
+    console.log(response)
+
     //setPredictionTarget(data.diseaseId);
     //setPostHttpError("");
     //setPostStatus("initial");
@@ -41,12 +73,12 @@ const EvaluationResult = () => {
 
   return (
     <div>
-      <StyledDropzone disabled={false} onLoad={onFileUpload} />
+
           <div className={styles.fetchEvaluationError}>
             <p>{httpError}</p>
           </div>
 
-          {proceededData && <ComparisonPlotList evaluationPerOrgUnits={proceededData[0].evaluation}/>}
+          {proceededData && <ComparionPlotWrapper evaluations={proceededData} splitPeriods={splitPeriods}/>}
     </div>
   )
 }

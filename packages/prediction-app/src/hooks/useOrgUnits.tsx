@@ -6,7 +6,7 @@ const REQUEST = {
     resource: "organisationUnits",
     params: {
       paging : false,
-      fields : ['id','displayName','level','parent']
+      fields : ['id','displayName']
     },
   }
 }

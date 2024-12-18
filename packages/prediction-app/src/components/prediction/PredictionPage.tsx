@@ -20,7 +20,7 @@ import OrgUnitLevel from './OrgUnitLevel';
 import { ErrorResponse } from './DownloadData';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DefaultService, OpenAPI } from '@dhis2-chap/chap-lib';
+import { DataList, DefaultService, OpenAPI, PredictionResponse } from '@dhis2-chap/chap-lib';
 import { ModelSpec, PredictionRequest, Feature } from '@dhis2-chap/chap-lib';
 import { useConfig } from '@dhis2/app-runtime';
 import Period from './Periods';
@@ -38,28 +38,17 @@ const defaultPeriod = {
 
 const PredictionPage = () => {
   
-  const config = useConfig()
 
   const navigate = useNavigate();
 
   //IF NOT SUCCESSFUL STATS, SEND USER TO PAGE WHERE ROUTE IS CONFIGURED, BUT NO CONNECTION TO CHAP
 
-  const { systemInfo = {} } = useConfig();
-
-  //const { calendar = 'gregory' } = systemInfo;
-
   const [selectedModel, setSelectedModel] = useState<ModelSpec | undefined>(undefined)
   const [modelSpesificSelectedDataElements, setModelSpesificSelectedDataElements] = useState<ModelFeatureDataElementMap>(new Map())
-  const [request, setRequest] = useState<PredictionRequest | undefined>(undefined)
-  const [geoJson, setGeoJson] = useState<any>(undefined)
 
-  const [period, setPeriod] = useState(defaultPeriod);
   const [orgUnits, setOrgUnits] = useState([]);
-  const [orgUnitLevel, setOrgUnitLevel] = useState<{
-    id: string;
-    level: number;
-  }>();
-  const [errorChapMsg, setErrorChapMsg] = useState('');
+  const [orgUnitLevel, setOrgUnitLevel] = useState<{id: string; level: number;}>();
+
 
   const [errorMessages, setErrorMessages] = useState<ErrorResponse[]>([]);
   const [sendingDataToChap, setSendingDataToChap] = useState<boolean>(false);
@@ -70,10 +59,10 @@ const PredictionPage = () => {
   const [startDownload, setStartDownload] = useState<{action: "download" | "predict" | "evaluate", startDownlaod: boolean}>({ action: "download", startDownlaod: false });
   const [renderOptionalField, setRenderOptionalField] = useState<boolean | undefined>(false)
 
-  const isValid = Boolean(
-      selectedPeriodItems &&
-      (orgUnits.length > 0 || orgUnitLevel == undefined)
-  );
+  const [emptyFeaturesErrorMsg, setEmptyFeaturesErrorMsg] = useState<string[]>([])
+  const [errorChapMsg, setErrorChapMsg] = useState('');
+
+  const isValid = Boolean(selectedPeriodItems && (orgUnits.length > 0 || orgUnitLevel == undefined));
 
   const handleSelectedPeriod = (selectedPeriods : any) => {
     setSelectedPeriodItems(selectedPeriods.items);
@@ -89,10 +78,28 @@ const PredictionPage = () => {
     setStartDownload({ action: action, startDownlaod: true });
   }
 
+  const isAnalyticsContentValid = (jsonResult : PredictionRequest) => {
+    let emptyFeatures : string[] = []
+    jsonResult.features.forEach((f : DataList) => {
+      if(f.data.length == 0) {
+        emptyFeatures.push(f.dhis2Id)
+      }
+    })
+    if(emptyFeatures.length > 0) {
+      setEmptyFeaturesErrorMsg(emptyFeatures)
+      return false
+    }
+    return true
+  }
+
   //triggers when anayltics content is fetched
   useEffect(() => {
     if (jsonResult) {
       setStartDownload(prev => ({ ...prev, startDownlaod: false }));
+
+      //check if the data is empty
+      if(!isAnalyticsContentValid(jsonResult)) return
+
       if(startDownload.action === "download") downloadData();
       if(startDownload.action === "predict") predict();     
       if(startDownload.action === "evaluate") evaluate();
@@ -172,9 +179,10 @@ const PredictionPage = () => {
 
       <h1>{i18n.t('Select training data and create prediction')}</h1>
 
+      {JSON.stringify(emptyFeaturesErrorMsg)}
+      {JSON.stringify(modelSpesificSelectedDataElements?.values())}
+
       <SelectModel selectedModel={selectedModel} setSelectedModel={onSelectModel}/>
-
-
       <ModelFeatures setRenderOptionalField={setRenderOptionalField} renderOptionalField={renderOptionalField} features={selectedModel?.features} setModelSpesificSelectedDataElements={setModelSpesificSelectedDataElements} modelSpesificSelectedDataElements={modelSpesificSelectedDataElements} />
 
       {renderMainForm() &&

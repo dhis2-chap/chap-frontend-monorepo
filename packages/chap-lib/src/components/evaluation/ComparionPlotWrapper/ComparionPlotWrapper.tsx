@@ -13,15 +13,10 @@ interface ComparionPlotWrapperProps {
 
 export const ComparionPlotWrapper =  ({ evaluations, splitPeriods } : ComparionPlotWrapperProps) => {
 
-
-  //const [data, setData] = useState<EvaluationPerOrgUnit[]>([])
   const [filteredEvaluationPlots, setFilteredEvaluationPlots] = useState<EvaluationPerOrgUnit[]>([])
   const [searchQuery, setSearchQuery] = useState<string | undefined>()
   const [selectedOrgUnits, setSelectedOrgUnits] = useState<string[]>([])
   const [allOrgUnits, setAllOrgUnits] = useState<{name : string, id : string}[]>([])
-
-  //const [allOrgUnits, setAllOrgUnits] = useState<{name : string, id : string, checked : boolean}[]>([])
-  //const [selectedOrgUnits, setSelectedOrgUnits] = useState<string[]>([])
   const [selectedSplitPeriod, setSelectedSplitPeriod] = useState(splitPeriods[0])
 
   //on intial load
@@ -46,7 +41,6 @@ export const ComparionPlotWrapper =  ({ evaluations, splitPeriods } : ComparionP
       // Use find to locate the first matching evaluation for the orgUnit
       return splitPoint.evaluation.find(
         (evaluationPerOrgUnit) => 
-          //console.log(evaluationPerOrgUnit, orgUnit)
           evaluationPerOrgUnit.orgUnitId === orgUnit &&
           evaluationPerOrgUnit.orgUnitName.toLocaleLowerCase().includes(searchQuery ? searchQuery.toLocaleLowerCase() : "")
       
@@ -60,22 +54,8 @@ export const ComparionPlotWrapper =  ({ evaluations, splitPeriods } : ComparionP
   
 
   const onChangeOrgUnitSelected = (e: EventPayload) => {
-
-
-    //const selectedOrgUnit : string[] = e.checked
     const selectedOrgUnit : string[] = e.checked ? [...selectedOrgUnits, e.value] as string[] : selectedOrgUnits.filter((orgUnit) => orgUnit !== e.value) 
-
     setSelectedOrgUnits(selectedOrgUnit)
-
-    console.log(e)
-
-
-    //e.checked ? [...selectedOrgUnits, e.value] : selectedOrgUnits.filter((orgUnit) => orgUnit !== e.value)
-
-    //const newEvaluationPerOrgUnits = evaluationPerOrgUnits.filter((evaluationPerOrgUnit) => selectedOrgUnit.includes(evaluationPerOrgUnit.orgUnitId))
-    //console.log(newEvaluationPerOrgUnits)
-    //setSelectedOrgUnits(selectedOrgUnit)
-    //setData(newEvaluationPerOrgUnits)
   }
   
 

@@ -69,7 +69,7 @@ const StyledDropzone = ({ onLoad, disabled } : any) => {
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         {/*If fetching orgUnits is loading, disable field.*/}
-        {disabled ? <p>{i18n.t("Loading..")}</p> : <p>{i18n.t("Drag 'n' drop the prediction file, or click to select it")}</p>}
+        {disabled ? <p>{i18n.t("Loading..")}</p> : <p>{i18n.t("Drag 'n' drop prediction/evaluation file, or click to select it")}</p>}
       </div>
     </div>
   );

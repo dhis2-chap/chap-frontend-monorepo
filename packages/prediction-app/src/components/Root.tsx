@@ -67,14 +67,6 @@ const Root = () => {
               </Fragment>
         
             ))}
-
-            <div className={styles.menuTitle}>Visualizations</div>
-            <Fragment key={"visualizations"}>
-              <MenuItem
-                label="Charts (coming soon)"
-                disabled={true}
-                />
-            </Fragment>
             <div className={styles.menuTitle}>Settings</div>
             <Fragment key={"settings"}>
               <MenuItem

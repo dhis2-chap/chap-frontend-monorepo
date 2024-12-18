@@ -32,14 +32,11 @@
     "Select data element for high quantile": "Select data element for high quantile",
     "Import prediction": "Import prediction",
     "Prediction has been imported.": "Prediction has been imported.",
-    "Org unit": "Org unit",
-    "Median": "Median",
-    "Quantile high": "Quantile high",
     "CHAP Core results": "CHAP Core results",
     "Select data element": "Select data element",
     "It seems like you missing Data Elements for CHAP prediction.": "It seems like you missing Data Elements for CHAP prediction.",
     "Add data elements": "Add data elements",
     "Loading..": "Loading..",
-    "Drag 'n' drop the prediction file, or click to select it": "Drag 'n' drop the prediction file, or click to select it",
+    "Drag 'n' drop prediction/evaluation file, or click to select it": "Drag 'n' drop prediction/evaluation file, or click to select it",
     "App settings": "App settings"
 }
