@@ -41,7 +41,6 @@ export const evaluationResultToViewData = (data: EvaluationEntryExtend[], realVa
   }
 
   const modelNames = Array.from(new Set(data.map(item => (item.modelName || modelName))));
-  console.log(modelNames)
 
   return Array.from(new Set(data.map(item => item.splitPeriod))).map((splitPeriod : string) => {
     // each split periode
@@ -51,7 +50,7 @@ export const evaluationResultToViewData = (data: EvaluationEntryExtend[], realVa
 
         return {
           orgUnitName : orgUnit,
-          orgUnitId : "2",
+          orgUnitId : orgUnit,
           models : modelNames.map(mn => {
             return {
                 modelName : mn,
@@ -88,4 +87,8 @@ export function createHighChartsData<T extends { period: string, value: number }
   };
 
   return dataElement;
+}
+
+export function getSplitPeriod(data: EvaluationEntry[]) : string[] {
+  return Array.from(new Set(data.map(item => item.splitPeriod)));
 }

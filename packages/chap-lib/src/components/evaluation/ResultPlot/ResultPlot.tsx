@@ -1,6 +1,6 @@
 
 import HighchartsReact from "highcharts-react-official";
-import Highcharts from "highcharts";
+import Highcharts, { animate } from "highcharts";
 import React from "react";
 import { HighChartsData } from "../../../interfaces/Evaluation";
 
@@ -15,7 +15,12 @@ function syncChartZoom(event: any): void {
     }); 
 }
 
-export const ResultPlot = (props: { data: HighChartsData, modelName: string}) => {
+interface ResultPlotProps {
+    data: HighChartsData;
+    modelName: string;
+}
+
+export const ResultPlot = ({data, modelName} : ResultPlotProps) => {
     return (
         <HighchartsReact
             highcharts={Highcharts}
@@ -24,14 +29,14 @@ export const ResultPlot = (props: { data: HighChartsData, modelName: string}) =>
                     text: ""
                 },
                 subtitle: {
-                    text: 'Model: ' + props.modelName || 'Unknown',
-                    align: 'left'
+                    text: (modelName ? 'Model: ' + modelName : ''),
+                    align: 'left',
                 },
                 chart: {
                     zoomType: 'x'
                 },
                 xAxis: {
-                    categories: props.data.periods, // Use periods as categories
+                    categories: data.periods, // Use periods as categories
                     events: {
                         afterSetExtremes: syncChartZoom
                     },
@@ -50,10 +55,17 @@ export const ResultPlot = (props: { data: HighChartsData, modelName: string}) =>
                     shared: true,
                     valueSuffix: ' cases'
                 },
+                plotOptions : {
+                    series : {
+                        animation : {
+                            duration : 0
+                        }
+                    }
+                },
                 series: [
                     {
                         name: 'Real Cases',
-                        data: props.data.realValues,
+                        data: data.realValues,
                         zIndex: 4,
                         lineWidth: 2.5,
                         type: 'spline',
@@ -68,7 +80,7 @@ export const ResultPlot = (props: { data: HighChartsData, modelName: string}) =>
                         name: 'Predicted Cases',
                         type: "line",
                         color: "#004bbd",
-                        data: props.data.averages,
+                        data: data.averages,
                         zIndex: 3,
                         opacity: 1,
                         lineWidth: 2.5,
@@ -77,10 +89,9 @@ export const ResultPlot = (props: { data: HighChartsData, modelName: string}) =>
                         }
                     }, {
                         name: 'Quantiles',
-                        data: props.data.ranges,
+                        data: data.ranges,
                         type: 'arearange',
                         lineWidth: 0,
-                        linkedTo: ':previous',
                         color: "#c4dcf2",
                         fillOpacity: 1,
                         zIndex: 0,
@@ -89,10 +100,9 @@ export const ResultPlot = (props: { data: HighChartsData, modelName: string}) =>
                         },
                     }, {
                         name: 'QuantilesMid',
-                        data: props.data.midranges,
+                        data: data.midranges,
                         type: 'arearange',
                         lineWidth: 1,
-                        linkedTo: ':previous',
                         color: "#9bbdff",
                         fillOpacity: 1,
                         zIndex: 1,
@@ -100,7 +110,7 @@ export const ResultPlot = (props: { data: HighChartsData, modelName: string}) =>
                             enabled: false
                         },
                     }]
-            }}
+            } as Highcharts.Options}
         />
     );
 }

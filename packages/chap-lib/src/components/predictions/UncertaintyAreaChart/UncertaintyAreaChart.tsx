@@ -14,7 +14,7 @@ highchartsMore(Highcharts);
 
 
 
-const getChartOptions = (data : any, period : string, predictionTargetName : string) : Highcharts.Options => {
+const getChartOptions = (data : any, predictionTargetName : string) : Highcharts.Options => {
 
   const colors : string[] = Highcharts.getOptions().colors as string[];
 
@@ -96,17 +96,17 @@ function groupByOrgUnit(data : any) {
   return orgUnits.map(orgUnit => data.filter((item : any) => item.orgUnit === orgUnit));
 }
 
-export const UncertaintyAreaChart = ({ data, predictionTargetName, periode } : PredicationChartProps) => {
+export const UncertaintyAreaChart = ({ data, predictionTargetName } : PredicationChartProps) => {
 
   const matrix = groupByOrgUnit(data.dataValues);
 
-  const [options, setOptions] = useState<Highcharts.Options | undefined>(getChartOptions(matrix[0], periode, predictionTargetName))
+  const [options, setOptions] = useState<Highcharts.Options | undefined>(getChartOptions(matrix[0], predictionTargetName))
   const [indexOfSelectedOrgUnit, setIndexOfSelectedOrgUnit] = useState(0)
   
 
   const onSelectOrgUnit = (index : number) => { 
     setIndexOfSelectedOrgUnit(index)
-    setOptions(getChartOptions(matrix[index], periode, predictionTargetName))
+    setOptions(getChartOptions(matrix[index], predictionTargetName))
   }
 
   
