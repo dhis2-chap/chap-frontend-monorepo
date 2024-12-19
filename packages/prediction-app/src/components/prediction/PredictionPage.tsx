@@ -49,7 +49,6 @@ const PredictionPage = () => {
   const [orgUnits, setOrgUnits] = useState([]);
   const [orgUnitLevel, setOrgUnitLevel] = useState<{id: string; level: number;}>();
 
-
   const [errorMessages, setErrorMessages] = useState<ErrorResponse[]>([]);
   const [sendingDataToChap, setSendingDataToChap] = useState<boolean>(false);
 
@@ -59,7 +58,7 @@ const PredictionPage = () => {
   const [startDownload, setStartDownload] = useState<{action: "download" | "predict" | "evaluate", startDownlaod: boolean}>({ action: "download", startDownlaod: false });
   const [renderOptionalField, setRenderOptionalField] = useState<boolean | undefined>(false)
 
-  const [emptyFeaturesErrorMsg, setEmptyFeaturesErrorMsg] = useState<string[]>([])
+  //const [emptyFeaturesErrorMsg, setEmptyFeaturesErrorMsg] = useState<string[]>([])
   const [errorChapMsg, setErrorChapMsg] = useState('');
 
   const isValid = Boolean(selectedPeriodItems && (orgUnits.length > 0 || orgUnitLevel == undefined));
@@ -79,14 +78,17 @@ const PredictionPage = () => {
   }
 
   const isAnalyticsContentValid = (jsonResult : PredictionRequest) => {
-    let emptyFeatures : string[] = []
+    let emptyFeatures : ErrorResponse[] = []
     jsonResult.features.forEach((f : DataList) => {
+      //find the name of the feature
       if(f.data.length == 0) {
-        emptyFeatures.push(f.dhis2Id)
-      }
-    })
+        const data_element_name = [...modelSpesificSelectedDataElements].find(([k, v]) => v.selectedDataElementId === f.dhis2Id)?.[1].selectedDataElementName
+        const msg = 'Data element "' + data_element_name + '" returned no data.'
+        emptyFeatures.push({description: "Ensure you have exported the analytics tables in DHIS2.", title: msg})
+      
+    }})
     if(emptyFeatures.length > 0) {
-      setEmptyFeaturesErrorMsg(emptyFeatures)
+      setErrorMessages([...errorMessages, ...emptyFeatures])
       return false
     }
     return true
@@ -176,11 +178,7 @@ const PredictionPage = () => {
 
   return (
     <div className={styles.container}>
-
       <h1>{i18n.t('Select training data and create prediction')}</h1>
-
-      {JSON.stringify(emptyFeaturesErrorMsg)}
-      {JSON.stringify(modelSpesificSelectedDataElements?.values())}
 
       <SelectModel selectedModel={selectedModel} setSelectedModel={onSelectModel}/>
       <ModelFeatures setRenderOptionalField={setRenderOptionalField} renderOptionalField={renderOptionalField} features={selectedModel?.features} setModelSpesificSelectedDataElements={setModelSpesificSelectedDataElements} modelSpesificSelectedDataElements={modelSpesificSelectedDataElements} />
@@ -259,10 +257,10 @@ const PredictionPage = () => {
           <div key={index} className={styles.errorBar}>
             <div className={styles.errorHeader}>
               <IconError24 />
-              <span>{error.element} request failed</span>
+              <span>{error.title}</span>
             </div>
             <span className={styles.detailedError}>
-
+              {error.description}
             </span>
           </div>
         ))}        
