@@ -99,10 +99,15 @@ const PredictionPage = () => {
     if (jsonResult) {
       setStartDownload(prev => ({ ...prev, startDownlaod: false }));
 
-      //check if the data is empty
-      if(!isAnalyticsContentValid(jsonResult)) return
+      //if action is "Download", do not do any validation, just download the data
+      if(startDownload.action === "download") {
+        downloadData(); 
+        return;
+      } 
 
-      if(startDownload.action === "download") downloadData();
+      //if action is "Predict" or "Evaluate", check if the analytics contains row
+      if (!isAnalyticsContentValid(jsonResult)) return;
+
       if(startDownload.action === "predict") predict();     
       if(startDownload.action === "evaluate") evaluate();
     }

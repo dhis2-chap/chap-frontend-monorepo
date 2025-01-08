@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import i18n from "@dhis2/d2-i18n";
 import StyledDropzone from "./StyledDropzone";
-import PredictionTable from "./PredictionTable";
+import { FullPredictionResponseExtended } from "@dhis2-chap/chap-lib";
 import styles from "./styles/PredictionResult.module.css";
 import PredictionChart from "./PredictionChart";
 import useOrgUnits from "../../hooks/useOrgUnits";
@@ -12,7 +12,7 @@ import SetupInstruction from './SetupInstruction';
 import useDataElements from "../../hooks/useDataElements";
 import useDataElement from "../../hooks/useDataElement";
 import { useLocation } from "react-router-dom";
-import { DefaultService, FullPredictionResponse, PredictionResponse } from "@dhis2-chap/chap-lib";
+import { DefaultService, FullPredictionResponse, PredictionResponse, PredictionTable } from "@dhis2-chap/chap-lib";
 import { SelectImportMode } from "./SelectImportMode";
 
 import { UncertaintyAreaChart } from "@dhis2-chap/chap-lib";
@@ -20,7 +20,7 @@ import { UncertaintyAreaChart } from "@dhis2-chap/chap-lib";
 const PredictionResult = () => {
   
   const location = useLocation();
-  const [prediction, setPrediction] = useState<FullPredictionResponse>();
+  const [prediction, setPrediction] = useState<FullPredictionResponseExtended>();
   const [selectedTab, setSelectedTab] = useState<"chart" | "table">("chart");
   const [httpGetResultError, setHttpGetResultError] = useState<any>(undefined);
 
@@ -117,7 +117,7 @@ const PredictionResult = () => {
     return false;
   }
     //This add displayName to the orgUnits
-    const fillWithOrgUnit = (data: FullPredictionResponse) : FullPredictionResponse => {
+    const fillWithOrgUnit = (data: FullPredictionResponse) : FullPredictionResponseExtended => {
       return ({
         dataValues : data.dataValues.map((d: PredictionResponse) => {  
           return {
@@ -160,7 +160,7 @@ const PredictionResult = () => {
             {
               {
                 'chart': <UncertaintyAreaChart predictionTargetName={predictionTargetName} data={prediction} />,
-                'table': <PredictionTable predictionTargetName={predictionTargetName} data={prediction?.dataValues} />,
+                'table': <PredictionTable data={prediction} />,
               }[selectedTab]
             }
           </div>
