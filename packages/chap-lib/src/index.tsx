@@ -5,3 +5,7 @@ export { HighChartsData, EvaluationEntryExtend, EvaluationForSplitPoint, Evaluat
 export { ResultPlot } from './components/evaluation/ResultPlot/ResultPlot';
 export { ComparisonPlotList } from './components/evaluation/ComparisonPlotList/ComparisonPlotList'
 export { ComparionPlotWrapper } from './components/evaluation/ComparionPlotWrapper/ComparionPlotWrapper'
+export { PredictionTable } from './components/predictions/PredictionTable/PredictionTable';
+
+//interfaces
+export { FullPredictionResponseExtended, PredictionResponseExtended } from './interfaces/Prediction';
