@@ -7,6 +7,8 @@ import React, { useState } from "react";
 import HighchartsReact from 'highcharts-react-official';
 import styles from './UncertaintyAreaChart.module.css'
 import {Menu, MenuItem} from '@dhis2/ui'
+import { FullPredictionResponseExtended } from "../../../interfaces/Prediction";
+import { numberDateToString } from "../../../utils/PredictionResponse";
   
 accessibility(Highcharts);
 exporting(Highcharts);
@@ -38,7 +40,19 @@ const getChartOptions = (data : any, predictionTargetName : string) : Highcharts
       shared: true
     },
     xAxis: {
-      type: "category"
+      type: "category",
+      labels: {
+        enabled : true,
+        formatter: function() { return numberDateToString(this.value)},
+        style: {
+          fontSize: '0.9rem'
+        }
+      },
+    },
+    yAxis : {
+      title: {
+        text: "Number of cases"
+      }
     },
     credits: {
       text : "CHAP"
@@ -71,25 +85,16 @@ const getChartOptions = (data : any, predictionTargetName : string) : Highcharts
         color : "#004bbd",
         fillOpacity: 0.4,
       },
-      //low
-      /*{
-        type: "arearange",   
-        name: i18n.t("Quantile low"),
-        data: quantile_low,
-        zIndex: 1,
-        lineWidth: 0,
-        color : colors[7],
-        fillOpacity: 0.4,
-      }*/
     ],
   };
 };
 
 interface PredicationChartProps {
-  data : any
+  data : FullPredictionResponseExtended
   predictionTargetName : string
-  periode : string
 }
+
+
 
 function groupByOrgUnit(data : any) {
   const orgUnits = [...new Set(data.map((item : any) => item.orgUnit))];
