@@ -46,7 +46,7 @@ export class DefaultService {
     }
     /**
      * Evaluate
-     * Start a prediction task using the given data as training data.
+     * Start an evaluation task using the given data as training data.
      * Results can be retrieved using the get-results endpoint.
      * @param requestBody
      * @param nSplits
@@ -83,6 +83,32 @@ export class DefaultService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/list-models',
+        });
+    }
+    /**
+     * Get Logs
+     * Retrieve logs from a job
+     * @param jobId
+     * @param nLines
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static getLogsJobsJobIdLogsGet(
+        jobId: string,
+        nLines?: (number | null),
+    ): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/jobs/{job_id}/logs',
+            path: {
+                'job_id': jobId,
+            },
+            query: {
+                'n_lines': nLines,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
         });
     }
     /**

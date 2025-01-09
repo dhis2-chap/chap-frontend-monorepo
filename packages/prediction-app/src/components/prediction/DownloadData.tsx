@@ -20,8 +20,8 @@ interface DownloadDataProps {
 }
 
 export interface ErrorResponse {
-  error: any;
-  element: string;
+  description: any;
+  title: string;
 }
 
 const DownloadData = ({
@@ -66,8 +66,8 @@ const DownloadData = ({
     if (analyticError || geoJsonError) {
       const errorMessages: ErrorResponse[] = [];
 
-      analyticError && errorMessages.push({ error: analyticError, element: 'Analytics' });
-      geoJsonError && errorMessages.push({ error: geoJsonError, element: 'OrgUnits' });
+      analyticError && errorMessages.push({ description: JSON.stringify(analyticError), title: 'Analytics request failed' });
+      geoJsonError && errorMessages.push({ description: JSON.stringify(geoJsonError), title: 'OrgUnits request failed' });
       setErrorMessages(errorMessages);
       setStartDownload(prev => ({...prev, startDownload: false }));
     }

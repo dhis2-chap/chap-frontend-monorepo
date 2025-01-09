@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import i18n from "@dhis2/d2-i18n";
 import StyledDropzone from "./StyledDropzone";
-import PredictionTable from "./PredictionTable";
+import { FullPredictionResponseExtended } from "@dhis2-chap/chap-lib";
 import styles from "./styles/PredictionResult.module.css";
 import PredictionChart from "./PredictionChart";
 import useOrgUnits from "../../hooks/useOrgUnits";
@@ -12,7 +12,7 @@ import SetupInstruction from './SetupInstruction';
 import useDataElements from "../../hooks/useDataElements";
 import useDataElement from "../../hooks/useDataElement";
 import { useLocation } from "react-router-dom";
-import { DefaultService, FullPredictionResponse, PredictionResponse } from "@dhis2-chap/chap-lib";
+import { DefaultService, FullPredictionResponse, PredictionResponse, PredictionTable, PredictionMap } from "@dhis2-chap/chap-lib";
 import { SelectImportMode } from "./SelectImportMode";
 
 import { UncertaintyAreaChart } from "@dhis2-chap/chap-lib";
@@ -20,8 +20,8 @@ import { UncertaintyAreaChart } from "@dhis2-chap/chap-lib";
 const PredictionResult = () => {
   
   const location = useLocation();
-  const [prediction, setPrediction] = useState<FullPredictionResponse>();
-  const [selectedTab, setSelectedTab] = useState<"chart" | "table">("chart");
+  const [prediction, setPrediction] = useState<FullPredictionResponseExtended>();
+  const [selectedTab, setSelectedTab] = useState<"chart" | "table" | "map">("chart");
   const [httpGetResultError, setHttpGetResultError] = useState<any>(undefined);
 
   //This states hold the dataElement prediction would be imported to
@@ -117,7 +117,7 @@ const PredictionResult = () => {
     return false;
   }
     //This add displayName to the orgUnits
-    const fillWithOrgUnit = (data: FullPredictionResponse) : FullPredictionResponse => {
+    const fillWithOrgUnit = (data: FullPredictionResponse) : FullPredictionResponseExtended => {
       return ({
         dataValues : data.dataValues.map((d: PredictionResponse) => {  
           return {
@@ -154,13 +154,17 @@ const PredictionResult = () => {
             <Tab selected={selectedTab === "table"} onClick={() => setSelectedTab("table")}>
               Table
             </Tab>
+            <Tab selected={selectedTab === "map"} onClick={() => setSelectedTab("map")}>
+              Map
+            </Tab>
           </TabBar>
 
           <div className={styles.prediction}>
             {
               {
                 'chart': <UncertaintyAreaChart predictionTargetName={predictionTargetName} data={prediction} />,
-                'table': <PredictionTable predictionTargetName={predictionTargetName} data={prediction?.dataValues} />,
+                'table': <PredictionTable data={prediction} />,
+                'map': <PredictionMap data={prediction}/>,
               }[selectedTab]
             }
           </div>

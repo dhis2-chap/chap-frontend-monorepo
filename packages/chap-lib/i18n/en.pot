@@ -5,14 +5,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-12-17T13:28:09.875Z\n"
-"PO-Revision-Date: 2024-12-17T13:28:09.875Z\n"
+"POT-Creation-Date: 2025-01-09T14:36:20.266Z\n"
+"PO-Revision-Date: 2025-01-09T14:36:20.267Z\n"
 
 msgid "Quantile median"
 msgstr "Quantile median"
 
 msgid "Range"
 msgstr "Range"
-
-msgid "Quantile low"
-msgstr "Quantile low"

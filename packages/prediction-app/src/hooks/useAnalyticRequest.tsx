@@ -28,7 +28,7 @@ const useAnalyticRequest = (modelSpesificSelectedDataElements: ModelFeatureDataE
   const modelSpesificSelectedDataElementsArray = Array.from(modelSpesificSelectedDataElements);
   
   //filter out every DHIS2 dataElement ids
-  const dataElements = modelSpesificSelectedDataElementsArray.map(([key, value ]) => (value.selected_data_element)) as any; 
+  const dataElements = modelSpesificSelectedDataElementsArray.map(([key, value ]) => (value.selectedDataElementId)) as any; 
   
   const { loading, error, data } = useDataQuery(ANALYTICS_QUERY({ dataElements, periodes, orgUnit }));
 
@@ -37,8 +37,8 @@ const useAnalyticRequest = (modelSpesificSelectedDataElements: ModelFeatureDataE
     const featureRequest = modelSpesificSelectedDataElementsArray.map(([key, value]) => {
       return {
         featureId: key,
-        dhis2Id : value.selected_data_element,
-        data : convertDhis2AnlyticsToChap((data?.request as any).rows, value.selected_data_element)
+        dhis2Id : value.selectedDataElementId,
+        data : convertDhis2AnlyticsToChap((data?.request as any).rows, value.selectedDataElementId)
       }
     });
 

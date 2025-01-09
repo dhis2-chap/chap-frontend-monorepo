@@ -110,7 +110,7 @@ export const ResultPlot = ({data, modelName} : ResultPlotProps) => {
                             enabled: false
                         },
                     }]
-            } as Highcharts.Options}
+            }}
         />
     );
 }

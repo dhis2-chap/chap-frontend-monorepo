@@ -42,3 +42,9 @@
   color : green;
   font-weight: 500;
 }
+
+.importMode{
+  margin-bottom: 1rem;
+  max-width: 300px;
+  margin-top: 1rem;
+}
