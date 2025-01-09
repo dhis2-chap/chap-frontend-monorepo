@@ -12,7 +12,7 @@ import SetupInstruction from './SetupInstruction';
 import useDataElements from "../../hooks/useDataElements";
 import useDataElement from "../../hooks/useDataElement";
 import { useLocation } from "react-router-dom";
-import { DefaultService, FullPredictionResponse, PredictionResponse, PredictionTable } from "@dhis2-chap/chap-lib";
+import { DefaultService, FullPredictionResponse, PredictionResponse, PredictionTable, PredictionMap } from "@dhis2-chap/chap-lib";
 import { SelectImportMode } from "./SelectImportMode";
 
 import { UncertaintyAreaChart } from "@dhis2-chap/chap-lib";
@@ -21,7 +21,7 @@ const PredictionResult = () => {
   
   const location = useLocation();
   const [prediction, setPrediction] = useState<FullPredictionResponseExtended>();
-  const [selectedTab, setSelectedTab] = useState<"chart" | "table">("chart");
+  const [selectedTab, setSelectedTab] = useState<"chart" | "table" | "map">("chart");
   const [httpGetResultError, setHttpGetResultError] = useState<any>(undefined);
 
   //This states hold the dataElement prediction would be imported to
@@ -154,6 +154,9 @@ const PredictionResult = () => {
             <Tab selected={selectedTab === "table"} onClick={() => setSelectedTab("table")}>
               Table
             </Tab>
+            <Tab selected={selectedTab === "map"} onClick={() => setSelectedTab("map")}>
+              Map
+            </Tab>
           </TabBar>
 
           <div className={styles.prediction}>
@@ -161,6 +164,7 @@ const PredictionResult = () => {
               {
                 'chart': <UncertaintyAreaChart predictionTargetName={predictionTargetName} data={prediction} />,
                 'table': <PredictionTable data={prediction} />,
+                'map': <PredictionMap data={prediction}/>,
               }[selectedTab]
             }
           </div>
