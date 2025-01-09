@@ -1,10 +1,7 @@
 import React, {useEffect} from 'react';
-import { ResultPlot } from "@dhis2-chap/chap-lib";
-import { HighChartsData, EvaluationForSplitPoint, EvaluationPerOrgUnit, ComparisonPlotList } from "@dhis2-chap/chap-lib";
+import { HighChartsData, EvaluationForSplitPoint,  ComparisonPlotList } from "@dhis2-chap/chap-lib";
 import {SplitPeriodSelector} from "./SplitPeriodSelector";
-import {ComparisonPlot} from "@dhis2-chap/chap-lib/src/components/evaluation/ComparisonPlot/ComparisonPlot";
-import { data } from 'react-router-dom';
-const Virtuoso = React.lazy(() => import('react-virtuoso').then((module) => ({ default: module.Virtuoso })));
+
 
 interface EvaluationResultsChartProps {
   data: EvaluationForSplitPoint[];
@@ -70,21 +67,25 @@ interface ComparisonResultsChartProps {
 
 
 export const ComparisonDashboard: React.FC<ComparisonResultsChartProps> = ({ data, splitPeriods}) => {
-    
-
+    console.log('Data: ', data);
+    console.log('SplitPeriods: ', splitPeriods);
+    console.log('Data[0]: ', data[0]);
     const [orgUnitsData, setOrgUnitsData] = React.useState<EvaluationForSplitPoint>(data[0]);
-
-    //const [selectedSplitPeriod, setSelectedSplitPeriod] = React.useState<string>(data[0].splitPoint);
+    console.log('OrgUnitsData1: ', orgUnitsData);
 
     useEffect(() => {
         setOrgUnitsData(data[0]);
+        console.log('UseEffect: ', data);
+        console.log('UseEffect: ', orgUnitsData);
     },[data]);
   
     const handlePeriodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
       //setSelectedSplitPeriod(e.target.value);
       setOrgUnitsData(data.filter(o => o.splitPoint === e.target.value)[0]);
+      console.log('OnPeriodChange: ', orgUnitsData);
   };
 
+  console.log('OrgUnitsData2: ', orgUnitsData);
   return (
     <div>
       <SplitPeriodSelector
