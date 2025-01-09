@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {ComparisonDashboard} from './EvaluationResultDashboard';
-import { addModelName, processDataValues } from "../lib/dataProcessing";
-import { DataElement, HighChartsData, EvaluationEntry, EvaluationForSplitPoint, EvaluationEntryExtend, evaluationResultToViewData } from '@dhis2-chap/chap-lib'
+import { addModelName } from "../lib/dataProcessing";
+import { DataElement,  EvaluationForSplitPoint, EvaluationEntryExtend, evaluationResultToViewData } from '@dhis2-chap/chap-lib'
 
 const EvaluationResultChartFromFileSelector: React.FC = () => {
   const [data, setData] = useState<EvaluationEntryExtend[]>();
@@ -71,7 +71,6 @@ const EvaluationResultChartFromFileSelector: React.FC = () => {
 
       {(splitPeriods.length > 0) && (proceededData != undefined) &&
           <ComparisonDashboard data={proceededData} splitPeriods={splitPeriods}/>
-        //<EvaluationResultsDashboard data={data} splitPeriods={splitPeriods} />
       }
     </div>
   );
