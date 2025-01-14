@@ -20,8 +20,8 @@ import OrgUnitLevel from './OrgUnitLevel';
 import { ErrorResponse } from './DownloadData';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DataList, DefaultService, OpenAPI, PredictionResponse } from '@dhis2-chap/chap-lib';
-import { ModelSpec, PredictionRequest, Feature } from '@dhis2-chap/chap-lib';
+import { CancelablePromise, CrudService, DataList, DefaultService, JobResponse, OpenAPI, PredictionResponse } from '@dhis2-chap/chap-lib';
+import { ModelSpec, DatasetCreate, Feature } from '@dhis2-chap/chap-lib';
 import { useConfig } from '@dhis2/app-runtime';
 import Period from './Periods';
 import { PeriodDimension } from '@dhis2/analytics';
@@ -31,10 +31,6 @@ import { ModelFeatureDataElementMap } from '../../interfaces/ModelFeatureDataEle
 import saveAs from 'file-saver';
 import PredictEvaluateHelp from './PredictEvaluateHelp';
 
-const defaultPeriod = {
-  startMonth: '2023-04',
-  endMonth: '2024-03',
-};
 
 const PredictionPage = () => {
   
@@ -52,7 +48,7 @@ const PredictionPage = () => {
   const [errorMessages, setErrorMessages] = useState<ErrorResponse[]>([]);
   const [sendingDataToChap, setSendingDataToChap] = useState<boolean>(false);
 
-  const [jsonResult, setJsonResult] = useState<PredictionRequest | undefined>(undefined);
+  const [jsonResult, setJsonResult] = useState<DatasetCreate | undefined>(undefined);
   const [selectedPeriodItems, setSelectedPeriodItems] = useState();
 
   const [startDownload, setStartDownload] = useState<{action: "download" | "predict" | "evaluate", startDownlaod: boolean}>({ action: "download", startDownlaod: false });
@@ -72,12 +68,12 @@ const PredictionPage = () => {
     setSelectedModel(selected)
   }
 
-  const onClickDownloadOrPostData = (action : "download" | "predict" | "evaluate") => {
+  const onClickDownloadOrPostData = (action : "download" | "predict") => {
     setJsonResult(undefined);
     setStartDownload({ action: action, startDownlaod: true });
   }
 
-  const isAnalyticsContentValid = (jsonResult : PredictionRequest) => {
+  const isAnalyticsContentValid = (jsonResult : DatasetCreate) => {
     let emptyFeatures : ErrorResponse[] = []
     jsonResult.features.forEach((f : DataList) => {
       //find the name of the feature
@@ -109,7 +105,6 @@ const PredictionPage = () => {
       if (!isAnalyticsContentValid(jsonResult)) return;
 
       if(startDownload.action === "predict") predict();     
-      if(startDownload.action === "evaluate") evaluate();
     }
   }, [jsonResult]);
 
@@ -122,36 +117,37 @@ const PredictionPage = () => {
     saveAs(fileToSave, "chap_request_data_"+ today.toJSON() + '.json');
   }
 
-  const evaluate = async () => {
-    let request : PredictionRequest = jsonResult as PredictionRequest
-    request.n_periods = 3
-
-    await DefaultService.evaluateEvaluatePost(request)
-      .then((response: any) => {
-        setErrorChapMsg('');
-        setSendingDataToChap(false);
-        return navigate('/status');
-      })
-      .catch((error: any) => {
-        setSendingDataToChap(false);
-        setErrorChapMsg(error?.body?.detail);
-      });
-  }
-
   const predict = async () => {
-    let request : PredictionRequest = jsonResult as PredictionRequest
-    request.n_periods = 3
+    let request : DatasetCreate = jsonResult as DatasetCreate
+    //request.model_id = selectedModel?.name
+    request.name = selectedModel?.name as string
+    //request.model_id = selectedModel?.name
+    //request.n_periods = 3
+    let datasetId : string = ""
 
-    await DefaultService.predictPredictPost(request)
-      .then((response: any) => {
+    await CrudService.createDatasetCrudDatasetJsonPost(request)
+      .then((response: JobResponse) => {
         setErrorChapMsg('');
         setSendingDataToChap(false);
-        return navigate('/status');
+        datasetId = response.id;
+        
+        //return navigate('/status');
       })
       .catch((error: any) => {
         setSendingDataToChap(false);
         setErrorChapMsg(error?.body?.detail);
       });
+
+    /*await CrudService.createPredictionCrudPredictionPost(
+      {
+        dataset_id: datasetId as any,
+        //estimator_id: selectedModel?.name,
+        n_periods: 3,
+        //name: selectedModel?.name
+      }
+    
+    )*/
+
   };
 
   //checks that all selected orgUnits are on the same level
@@ -231,15 +227,6 @@ const PredictionPage = () => {
             onClick={() =>onClickDownloadOrPostData("predict")}
           >
             Predict
-          </Button>
-          <Button
-            icon={<IconArrowRight24 />}
-            primary
-            loading={sendingDataToChap}
-            disabled={!isValid || (startDownload.startDownlaod) || !orgUnitsSelectedIsValid()}
-            onClick={() =>onClickDownloadOrPostData("evaluate")}
-          >
-            Evaluate
           </Button>
         </div>
         <PredictEvaluateHelp/>

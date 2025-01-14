@@ -23,7 +23,7 @@ const Root = () => {
 
   const config = useConfig();
   
-  if(loading){
+  /*if(loading){
     return <></>
   }
 
@@ -41,7 +41,7 @@ const Root = () => {
     else{
       OpenAPI.BASE = config.baseUrl+'/api/routes/chap/run'
     }
-  }
+  }*/
 
   return (
     <>

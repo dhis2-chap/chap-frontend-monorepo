@@ -27,6 +27,7 @@ export type { FeatureCollectionModel } from './models/FeatureCollectionModel';
 export type { FeatureModel } from './models/FeatureModel';
 export type { FullPredictionResponse } from './models/FullPredictionResponse';
 export type { HTTPValidationError } from './models/HTTPValidationError';
+export type { JobDescription } from './models/JobDescription';
 export type { JobResponse } from './models/JobResponse';
 export type { LineStringModel } from './models/LineStringModel';
 export type { ModelSpec } from './models/ModelSpec';
