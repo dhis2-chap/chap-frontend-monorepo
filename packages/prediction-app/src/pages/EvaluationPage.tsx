@@ -1,10 +1,9 @@
 import React from 'react'
+import EvaluationOverview from '../features/evaluation-overview/EvaluationOverview'
 
 const EvaluationPage = () => {
   return (
-    <div>
-      <h2>Evaluations</h2>
-    </div>
+    <EvaluationOverview />
   )
 }
 
