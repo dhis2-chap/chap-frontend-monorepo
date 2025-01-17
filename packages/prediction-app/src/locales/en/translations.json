@@ -1,12 +1,10 @@
 {
     "About this app": "About this app",
     "No match found": "No match found",
-    "Period": "Period",
-    "Start month": "Start month",
-    "End month": "End month",
     "Organisation unit level": "Organisation unit level",
-    "Organisation unit level to import data to": "Organisation unit level to import data to",
+    "Organisation level to import data from": "Organisation level to import data from",
     "Organisation units": "Organisation units",
+    "Period": "Period",
     "Start date": "Start date",
     "End date": "End date",
     "Select training data and create prediction": "Select training data and create prediction",
@@ -38,5 +36,8 @@
     "Add data elements": "Add data elements",
     "Loading..": "Loading..",
     "Drag 'n' drop prediction/evaluation file, or click to select it": "Drag 'n' drop prediction/evaluation file, or click to select it",
-    "App settings": "App settings"
+    "App settings": "App settings",
+    "Organisation unit level to import data to": "Organisation unit level to import data to",
+    "Start month": "Start month",
+    "End month": "End month"
 }

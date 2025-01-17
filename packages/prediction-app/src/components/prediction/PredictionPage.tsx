@@ -13,7 +13,6 @@ import {
 } from '@dhis2/ui';
 import OrgUnits from './OrgUnits';
 import DataElement from './DataElement';
-import MonthlyPeriodSelect from './MonthlyPeriodSelect';
 import DownloadData from './DownloadData';
 import styles from './styles/PredictionPage.module.css';
 import OrgUnitLevel from './OrgUnitLevel';
@@ -51,7 +50,7 @@ const PredictionPage = () => {
   const [jsonResult, setJsonResult] = useState<DatasetCreate | undefined>(undefined);
   const [selectedPeriodItems, setSelectedPeriodItems] = useState();
 
-  const [startDownload, setStartDownload] = useState<{action: "download" | "predict" | "evaluate", startDownlaod: boolean}>({ action: "download", startDownlaod: false });
+  const [startDownload, setStartDownload] = useState<{action: "download" | "predict" | "evaluate", startDownload: boolean}>({ action: "download", startDownload: false });
   const [renderOptionalField, setRenderOptionalField] = useState<boolean | undefined>(false)
 
   //const [emptyFeaturesErrorMsg, setEmptyFeaturesErrorMsg] = useState<string[]>([])
@@ -70,7 +69,7 @@ const PredictionPage = () => {
 
   const onClickDownloadOrPostData = (action : "download" | "predict") => {
     setJsonResult(undefined);
-    setStartDownload({ action: action, startDownlaod: true });
+    setStartDownload({ action: action, startDownload: true });
   }
 
   const isAnalyticsContentValid = (jsonResult : DatasetCreate) => {
@@ -93,7 +92,7 @@ const PredictionPage = () => {
   //triggers when anayltics content is fetched
   useEffect(() => {
     if (jsonResult) {
-      setStartDownload(prev => ({ ...prev, startDownlaod: false }));
+      setStartDownload(prev => ({ ...prev, startDownload: false }));
 
       //if action is "Download", do not do any validation, just download the data
       if(startDownload.action === "download") {
@@ -138,16 +137,6 @@ const PredictionPage = () => {
         setErrorChapMsg(error?.body?.detail);
       });
 
-    /*await CrudService.createPredictionCrudPredictionPost(
-      {
-        dataset_id: datasetId as any,
-        //estimator_id: selectedModel?.name,
-        n_periods: 3,
-        //name: selectedModel?.name
-      }
-    
-    )*/
-
   };
 
   //checks that all selected orgUnits are on the same level
@@ -190,7 +179,7 @@ const PredictionPage = () => {
         <OrgUnits orgUnits={orgUnits} setOrgUnits={setOrgUnits} />
         {!orgUnitsSelectedIsValid() && (
           <p className={styles.error}>
-            Only select organization units that are one the same level.
+            Only select organisation units that are one the same level.
           </p>
         )}
         <OrgUnitLevel orgUnitLevels={orgUnitLevel} onChange={setOrgUnitLevel} />
@@ -209,10 +198,10 @@ const PredictionPage = () => {
         <div className={styles.buttons} >
           <Button
             icon={<IconDownload24 />}
-            loading={startDownload.startDownlaod}
+            loading={startDownload.startDownload}
             disabled={
               !isValid ||
-              (startDownload.startDownlaod && startDownload.action === "download") ||
+              (startDownload.startDownload && startDownload.action === "download") ||
               !orgUnitsSelectedIsValid()
             }
             onClick={() => onClickDownloadOrPostData("download")}
@@ -223,7 +212,7 @@ const PredictionPage = () => {
             icon={<IconArrowRight24 />}
             primary
             loading={sendingDataToChap}
-            disabled={!isValid || (startDownload.startDownlaod) || !orgUnitsSelectedIsValid()}
+            disabled={!isValid || (startDownload.startDownload) || !orgUnitsSelectedIsValid()}
             onClick={() =>onClickDownloadOrPostData("predict")}
           >
             Predict
@@ -232,7 +221,7 @@ const PredictionPage = () => {
         <PredictEvaluateHelp/>
 
         {<p className={styles.errorChap}>{errorChapMsg}</p>}
-        {startDownload.startDownlaod && isValid && (
+        {startDownload.startDownload && isValid && (
           <DownloadData
             model_id={selectedModel?.name}
             setJsonResult={setJsonResult}

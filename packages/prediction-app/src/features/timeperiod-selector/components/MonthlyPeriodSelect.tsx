@@ -1,34 +1,28 @@
 import PropTypes from "prop-types";
 import i18n from "@dhis2/d2-i18n";
-import MonthPicker from "./MonthPicker";
+
 import styles from "./styles/Period.module.css";
 import React from "react";
+import TimePeriodInputField from "./TimePeriodInputField";
+
 
 const MonthlyPeriodSelect = ({ period, onChange } : any) => {
-  const { startMonth, endMonth } = period;
+
 
   return (
     <div className={styles.container}>
       <h2>{i18n.t("Period")}</h2>
       <div className={styles.pickers}>
-        <MonthPicker
+        <TimePeriodInputField
           label={i18n.t("Start month")}
-          defaultVal={startMonth}
-          onChange={(startMonth) => onChange({ ...period, startMonth })}
-        />
-        <MonthPicker
+          onChange={(startMonth: any) => onChange({ ...period, startMonth })} periodeType={"week"} name={""}        />
+        <TimePeriodInputField
           label={i18n.t("End month")}
-          defaultVal={endMonth}
-          onChange={(endMonth) => onChange({ ...period, endMonth })}
-        />
+          onChange={(endMonth: any) => onChange({ ...period, endMonth })} periodeType={"week"} name={""}        />
       </div>
     </div>
   );
 };
 
-MonthlyPeriodSelect.propTypes = {
-  period: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
 
 export default MonthlyPeriodSelect;

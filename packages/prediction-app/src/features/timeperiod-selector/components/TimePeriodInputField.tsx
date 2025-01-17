@@ -1,28 +1,32 @@
 import cx from "classnames";
 import PropTypes from "prop-types";
 import React, { useRef, useLayoutEffect } from "react";
-import styles from "./styles/MonthPicker.module.css";
+import styles from "./MonthPicker.module.css";
+
+
+interface TimePeriodInputFieldProps {
+  periodeType : "week" | "month" | ""
+  label: string
+  name: string
+  onChange: (value: string) => void
+}
 
 // Fallback on browser native until full DatePicker support in @dhis2/ui
-const MonthPicker = ({ label, name, defaultVal, onChange, className } : any) => {
+const TimePeriodInputField = ({ label, name, onChange, periodeType } : TimePeriodInputFieldProps) => {
   const inputEl = useRef(null);
 
-  useLayoutEffect(() => {
-    if (inputEl.current && defaultVal) {
-      (inputEl.current as any).defaultValue = defaultVal.slice(0, 10);
-    }
-  }, [defaultVal]);
-
   return (
-    <div className={cx(styles.datePicker, className)}>
+    <div className={styles.datePicker} style={{opacity: periodeType === "" ? 0.6 : 1}}>
       <label className={styles.label}>{label}</label>
       <div className={styles.content}>
         <div className={styles.box}>
           <div className={styles.inputDiv}>
             <input
+              disabled={periodeType === ""}
+              
               className={styles.input}
               ref={inputEl}
-              type="month"
+              type={periodeType}
               name={name}
               onChange={(e) => onChange(e.target.value)}
             />
@@ -33,12 +37,4 @@ const MonthPicker = ({ label, name, defaultVal, onChange, className } : any) => 
   );
 };
 
-MonthPicker.propTypes = {
-  label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  className: PropTypes.string,
-  defaultVal: PropTypes.string,
-  name: PropTypes.string,
-};
-
-export default MonthPicker;
+export default TimePeriodInputField;

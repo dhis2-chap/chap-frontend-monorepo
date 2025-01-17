@@ -1,5 +1,6 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import { ModelFeatureDataElementMap } from "../interfaces/ModelFeatureDataElement";
+import { Datalayer, DatasetLayer } from "../features/new-dataset/interfaces/DataSetLayer";
 
 const ANALYTICS_QUERY = ({ dataElements = [], periodes = [], orgUnit = {} } = {}) => {
   return {
@@ -16,29 +17,38 @@ const ANALYTICS_QUERY = ({ dataElements = [], periodes = [], orgUnit = {} } = {}
 const convertDhis2AnlyticsToChap = (data: [[string, string, string, string]], dataElementId : string) : any[]=> {
   return data.filter(x => x[0] === dataElementId).map((row) => {
     return {
-      ou: row[1],
-      pe: row[2],
+      orgUnit: row[1],
+      period: row[2],
       value: parseFloat(row[3])
     };
   })
 }
 
-const useAnalyticRequest = (modelSpesificSelectedDataElements: ModelFeatureDataElementMap, periodes: any, orgUnit: any) => {
+const useAnalyticRequest = (dataLayers: DatasetLayer[], periodes: any, orgUnit: any) => {
   
-  const modelSpesificSelectedDataElementsArray = Array.from(modelSpesificSelectedDataElements);
-  
-  //filter out every DHIS2 dataElement ids
-  const dataElements = modelSpesificSelectedDataElementsArray.map(([key, value ]) => (value.selectedDataElementId)) as any; 
-  
+  //filter out every DHIS2 dataElement
+  const dataElements = dataLayers.map((d : DatasetLayer) => (d.dataSource)) as any;
+
+  //if all data will be fetched from CHAP
+  if(dataElements.length === 0) {
+    return {
+      data : [],
+      error : false,
+      loading : false,
+    }
+  }
+
   const { loading, error, data } = useDataQuery(ANALYTICS_QUERY({ dataElements, periodes, orgUnit }));
+
+
 
   if(!loading && data && !error){
     //divide the respons into the features (for instance population, diseases, etc)
-    const featureRequest = modelSpesificSelectedDataElementsArray.map(([key, value]) => {
+    const featureRequest = dataLayers.map((v : DatasetLayer) => {
       return {
-        featureId: key,
-        dhis2Id : value.selectedDataElementId,
-        data : convertDhis2AnlyticsToChap((data?.request as any).rows, value.selectedDataElementId)
+        featureId: v.feature,
+        dhis2Id : v.dataSource,
+        data : convertDhis2AnlyticsToChap((data?.request as any).rows, v.dataSource)
       }
     });
 

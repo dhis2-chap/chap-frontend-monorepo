@@ -13,9 +13,9 @@ interface DownloadDataProps {
   model_id : string | undefined;
   modelSpesificSelectedDataElements : ModelFeatureDataElementMap;
   
-  setStartDownload : Dispatch<SetStateAction<{ action: "download" | "predict" | "evaluate"; startDownlaod: boolean; }>>,
+  setStartDownload : Dispatch<SetStateAction<{ action: "download" | "predict" | "evaluate"; startDownload: boolean; }>>,
   setErrorMessages(errorMessages: ErrorResponse[]): void;
-  startDownload: { action: "download" | "predict" | "evaluate"; startDownlaod: boolean; }
+  startDownload: { action: "download" | "predict" | "evaluate"; startDownload: boolean; }
   setJsonResult: (result: any) => void;
 }
 

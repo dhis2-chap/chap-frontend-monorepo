@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './EvaluationDatasetHeader.module.css'
-import { Button, IconAdd16 } from '@dhis2/ui'
+import { Button, IconAdd24 } from '@dhis2/ui'
 
 interface PredictionHeaderProps {
   setNewDatsetDrawerOpen: (isOpen: boolean) => void
@@ -9,8 +9,8 @@ interface PredictionHeaderProps {
 const EvaluationDatasetHeader = ({setNewDatsetDrawerOpen} : PredictionHeaderProps) => {
   return (
     <div className={styles.evalutionDatasetHeader}>
-        <h2>Predictions</h2>
-        <Button onClick={() => setNewDatsetDrawerOpen(true)} icon={<IconAdd16/>} primary>Create dataset</Button>
+        <h3>Datasets</h3>
+        <Button onClick={() => setNewDatsetDrawerOpen(true)} icon={<IconAdd24/>} primary>Create dataset</Button>
     </div>
   )
 }

@@ -1,13 +1,14 @@
 import i18n from "@dhis2/d2-i18n";
 import { useEffect } from "react";
 import { SingleSelect, SingleSelectField, SingleSelectOption  } from "@dhis2/ui";
-import  useOrgUnitLevels from "../../hooks/useOrgUnitLevels";
+import  useOrgUnitLevels from "../../../hooks/useOrgUnitLevels";
 import React from "react";
-import styles from './styles/OrgUnitLevel.module.css';
+import styles from './OrgUnitLevel.module.css';
+import { IOrgUnitLevel } from "../interfaces/orgUnit";
 
 interface OrgUnitLevelProps {
-  orgUnitLevels : {id : string, level : number} | undefined,
-  onChange : (selected_level : {id : string, level : number}) => void
+  orgUnitLevels : IOrgUnitLevel | undefined,
+  onChange : (selected_level : IOrgUnitLevel) => void
 }
 
 const OrgUnitLevel = ({ orgUnitLevels, onChange } : OrgUnitLevelProps) => {
@@ -29,7 +30,7 @@ const OrgUnitLevel = ({ orgUnitLevels, onChange } : OrgUnitLevelProps) => {
     <div className={styles.selectField}>
       <SingleSelectField
         label={i18n.t("Organisation unit level")}
-        helpText={i18n.t("Organisation level to import data from")}
+        helpText={i18n.t("Organisation unit level to import data to")}
         tabIndex="1"
         selected={orgUnitLevels?.id}
         loading={loading}
