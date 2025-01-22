@@ -14,3 +14,20 @@ export const getEqualIntervals = (minValue, maxValue, numClasses = 5) => {
   
     return bins;
   };
+
+export const parseOrgUnits = (orgUnits) => {
+    return {'type':'FeatureCollections', 'features': orgUnits.map(ou => {
+        console.log(ou)
+        // get geotype
+        let type = 'Point'
+        if (ou.ty === 2) {
+            type = 'Polygon'
+            if (ou.co.substring(0, 4) === '[[[[') {
+                type = 'MultiPolygon'
+            }
+        };
+        const geom = {type, coordinates: JSON.parse(ou.co)};
+        return {'type':'Feature', 'id':ou.id, 'properties':{name:ou.na}, 'geometry':geom}
+        })
+    };
+};

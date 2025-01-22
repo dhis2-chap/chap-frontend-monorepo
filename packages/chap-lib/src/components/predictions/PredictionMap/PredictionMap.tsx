@@ -11,8 +11,8 @@ import MapItem from '../../maps/MapItem'
 import Choropleth from '../../maps/Choropleth'
 import Legend from '../../maps/Legend'
 import Basemap from '../../maps/Basemap'
-import OrgUnitGeoms from '../../maps/OrgUnitGeoms'
 import {getEqualIntervals} from '../../maps/utils'
+import useOrgUnits from '../../../hooks/useOrgUnits'
 
 interface PredictionMapProps {
   data : FullPredictionResponseExtended
@@ -26,13 +26,14 @@ export const PredictionMap = ({data} : PredictionMapProps) => {
   console.log(data)
 
   // get all orgunits
-  const orgUnits : any = getUniqeOrgUnits(data.dataValues);
-  console.log(orgUnits)
+  const orgUnitIds : any = getUniqeOrgUnits(data.dataValues);
+  console.log(orgUnitIds)
 
   // load orgunit geoms
   // TODO move to useEffect
-  const [geoJson, setGeoJson] = useState({});
-  OrgUnitGeoms({orgUnits:orgUnits, setResults:setGeoJson});
+  //const [geoJson, setGeoJson] = useState({});
+  //OrgUnitGeoms({orgUnits:orgUnits, setResults:setGeoJson});
+  const {orgUnits} = useOrgUnits(orgUnitIds);
 
   // add pred values to geoms once loaded
   /*
@@ -50,7 +51,7 @@ export const PredictionMap = ({data} : PredictionMapProps) => {
   const maxValue = Math.max(...values);
   const bins = getEqualIntervals(minValue, maxValue);
 
-  return geoJson ? (
+  return orgUnits ? (
     <div>
       <h3>Prediction Maps</h3>
       <div style={{display:'flex'}}>
@@ -68,7 +69,7 @@ export const PredictionMap = ({data} : PredictionMapProps) => {
                 <Choropleth
                   period={period}
                   prediction={data}
-                  geojson={geoJson}
+                  geojson={orgUnits}
                   bins={bins}
                   colors={colors}
                 />
