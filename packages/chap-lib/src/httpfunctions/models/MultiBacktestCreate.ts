@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type BackTestCreate = {
+export type MultiBacktestCreate = {
+    modelIds: Array<string>;
     datasetId: number;
-    modelId: string;
 };
 

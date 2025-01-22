@@ -9,21 +9,23 @@ import { ErrorResponse } from '../../interfaces/ErrorResponse';
 import { IOrgUnitLevel, OrgUnit } from '../../../orgunit-selector/interfaces/orgUnit';
 import { Period } from '../../../timeperiod-selector/interfaces/Period';
 import { DatasetLayer } from '../../../new-dataset/interfaces/DataSetLayer';
+import { DatasetCreate, ObservationBase } from '@dhis2-chap/chap-lib';
 
 interface DownloadAnalyticsDataProps {
   selectedPeriodItems: Period[];
   orgUnitLevel: IOrgUnitLevel | undefined;
   selectedOrgUnits: OrgUnit[];
-  model_id : string | undefined;
+  //model_id : string | undefined;
   analyticsDataLayers : DatasetLayer[];
   
   setStartDownload : Dispatch<SetStateAction<{ action: "download" | "predict" | "new-dataset"; startDownload: boolean; }>>,
   setErrorMessages(errorMessages: ErrorResponse[]): void;
   startDownload: { action: "download" | "predict" | "new-dataset"; startDownload: boolean; }
-  setAnalyticsResult: (result: any) => void;
+  setChapProvidedData: (result: DatasetCreate) => void;
+  setGeoJSon: (geoJson: any) => void;
 }
 
-const DownloadAnalyticsData = ({selectedPeriodItems, model_id, setStartDownload,orgUnitLevel,selectedOrgUnits,analyticsDataLayers,setErrorMessages,setAnalyticsResult}: DownloadAnalyticsDataProps) => {
+const DownloadAnalyticsData = ({selectedPeriodItems, setChapProvidedData, setGeoJSon, setStartDownload,orgUnitLevel,selectedOrgUnits,analyticsDataLayers,setErrorMessages}: DownloadAnalyticsDataProps) => {
 
   if(orgUnitLevel == undefined) return <></>
 
@@ -38,13 +40,25 @@ const DownloadAnalyticsData = ({selectedPeriodItems, model_id, setStartDownload,
   const { data: analyticData, error: analyticError, loading: analyticLoading } = useAnalyticRequest(analyticsDataLayers, flatternDhis2Periods(selectedPeriodItems), mergedOrgUnits);
   const { data: geoJson, error: geoJsonError, loading: geoJsonLoading } = useGeoJson(orgUnitLevel.level, selectedOrgUnits);
 
-  const createRequest = () => {
+  /*const createRequest = () => {
     return {
-      model_id : model_id,
+      //model_id : model_id,
       features : analyticData,
       orgUnitsGeoJson : geoJson,
     }
+  }*/
+
+  const convertDhis2AnlyticsToChap = (data: [[string, string, string, string]]) : ObservationBase[]=> {
+    return data.map((row) => {
+      return {
+        elementId: row[0],
+        orgUnit: row[1],
+        period: row[2],
+        value: parseFloat(row[3]),
+      } as ObservationBase;
+    })
   }
+  
 
   useEffect(() => {
     //if one of the data is still loading, return
@@ -52,7 +66,7 @@ const DownloadAnalyticsData = ({selectedPeriodItems, model_id, setStartDownload,
     //All data is fetched
     if (analyticData && geoJson) {
       setErrorMessages([]);
-      setAnalyticsResult(createRequest());
+      setChapProvidedData(convertDhis2AnlyticsToChap());
     }
 
     //if an error occured

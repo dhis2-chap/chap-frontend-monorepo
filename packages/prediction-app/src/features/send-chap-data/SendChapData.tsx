@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import DownloadAnalyticsData from './components/DownloadData/DownloadAnalyticsData';
-import { CrudService, DataList, DatasetCreate, FeatureCollectionModel, JobResponse, ModelSpec } from '@dhis2-chap/chap-lib';
+import { CrudService, DataList, DatasetCreate, DatasetMakeRequest, FeatureCollectionModel, FetchRequest, JobResponse, ModelSpec, ObservationBase } from '@dhis2-chap/chap-lib';
 import { ModelFeatureDataElementMap } from '../../interfaces/ModelFeatureDataElement';
 import { ErrorResponse } from './interfaces/ErrorResponse';
 import saveAs from 'file-saver';
@@ -71,7 +71,7 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
         } 
   
         //if action is "Predict" or "new-dataset", check if the analytics contains row
-        if (!isAnalyticsContentIsEmpty(analyticsResult.features)) return;
+        if (isAnalyticsContentIsEmpty(analyticsResult)) return;
   
         if(startDownload.action === "predict") predict();
         if(startDownload.action === "new-dataset") newDataset();     
@@ -80,12 +80,12 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
 
   
     //Check if the analytics content is empty, before sending it to CHAP
-    const isAnalyticsContentIsEmpty = (analyticsResult : DataList[]) => {
+    const isAnalyticsContentIsEmpty = (analyticsResult : DatasetCreate[]) => {
       let emptyFeatures : ErrorResponse[] = []
 
-      analyticsResult.forEach((f : DataList) => {
+      analyticsResult.forEach((f : DatasetCreate) => {
         //find the name of the feature
-        if(f.data.length == 0) {
+        if(f.observations.length == 0) {
           console.log(analyticsDataLayers)
           const layer = analyticsDataLayers.find((v : DatasetLayer) => v.dataSource === f.dhis2Id)
           const msg = 'Selected data source with feature name "' + layer?.feature + '" returned no data.'
@@ -93,33 +93,39 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
       }})
       if(emptyFeatures.length > 0) {
         setErrorMessages([...errorMessages, ...emptyFeatures])
-        return false
+        return true
       }
-      return true
+      return false
     }
   
-    const newDataset = () => {
+    const newDataset = async () => {
+      let request : DatasetCreate = getCHAPandDHIS2DataLayersTogheter()
+
+      await CrudService.createDatasetCrudDatasetsPost(request).then((response: JobResponse) => {
+        console.log(response)
+      })
+
 
     }
 
-    //Merge det features from the analytics, with the one from CHAP
-    const getCHAPandDHIS2DataLayersTogheter = () : DatasetCreate => {
+    //Merge det features from the analytics, with the one from CHAP, to create a PredictionRequest
+    const makeDataSet = () : DatasetMakeRequest => {
 
-      var chapLayers = chapDataLayers.map((v : DatasetLayer) => {
+      //create dataToBeFetched
+      var dataToBeFetched = chapDataLayers.map((v : DatasetLayer) => {
         return {
-          featureId : v.feature,
-          dhis2Id : v.dataSource,
-          data : [],
-        } as DataList
+          dataSourceName : v.dataSource,
+        } as FetchRequest
       })
 
       //append datalayers
-      const mergedFeatures = chapLayers.concat(analyticsResult?.features as DataList[])
+      const mergedFeatures = chapLayers.concat(analyticsResult?.observations as FetchRequest[])
 
       return {
         name : datasetName as string,
-        features : mergedFeatures,
-        orgUnitsGeoJson : analyticsResult?.orgUnitsGeoJson as FeatureCollectionModel,
+        dataToBeFetched : mergedFeatures,
+        geojson : analyticsResult?.geojson as FeatureCollectionModel,
+        providedData : analyticsResult?.observations as ObservationBase[],
       }
     }
 
@@ -132,7 +138,7 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
       //request.n_periods = 3
       let datasetId : string = ""
   
-      await CrudService.createDatasetCrudDatasetJsonPost(request)
+      /*await CrudService.createDatasetCrudDatasetJsonPost(request)
         .then((response: JobResponse) => {
           setErrorChapMsg('');
           datasetId = response.id;
@@ -141,7 +147,7 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
         })
         .catch((error: any) => {
           setErrorChapMsg(error?.body?.detail);
-        });
+        });*/
     };
 
   

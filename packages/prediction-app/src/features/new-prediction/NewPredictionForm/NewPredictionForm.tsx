@@ -9,6 +9,8 @@ import SelectDataLine from '../../new-dataset/components/NewDatasetForm/SelectDa
 import OrgUnitSelector from '../../orgunit-selector/OrgUnitSelector';
 import { SendChapData } from '../../send-chap-data/SendChapData';
 import TimePeriodeSelector from '../../timeperiod-selector/components/TimePeriodPicker';
+import SelectModel from './SelectModel';
+import { ModelSpec } from '@dhis2-chap/chap-lib';
 
 
 interface NewPredictionFormProps {
@@ -26,16 +28,23 @@ const NewPredictionForm = () => {
   const [selectedTimePeriodes, setSelectedTimePeriodes] = useState<Period[]>([]);
   const [orgUnitLevel, setOrgUnitLevel] = useState<IOrgUnitLevel | undefined>(undefined)
   const [datasetName, setDatasetName] = useState<string | undefined>("")
+  const [selecetedModel, setSelecetedModel] = useState<ModelSpec | undefined>(undefined)
     
   return (
     <>
-      <div className={styles.formWrapper}>
-        <InputField autoComplete="" label='Name of prediction' value={datasetName} onChange={(e) => setDatasetName(e.value)} placeholder='Malaria incidenc, climate for.. '/>
-        <SelectDataLine setDataLayers={setDataLayers} datasetLayers={dataLayers} predictMode={true}/>
-        <TimePeriodeSelector setTimePeriods={setSelectedTimePeriodes} />
-        <OrgUnitSelector orgUnits={selectedOrgUnits} setOrgUnits={setSelectedOrgUnits} orgUnitLevel={orgUnitLevel} setOrgUnitLevel={setOrgUnitLevel} />
-        <SendChapData datasetName={datasetName} dataLayers={dataLayers} onSendAction='new-dataset' orgUnitLevel={orgUnitLevel} selectedPeriodItems={selectedTimePeriodes} selectedOrgUnits={selectedOrgUnits} />
-      </div>
+      <div className={styles.newPredictionForm}>
+        <div className={styles.newPredictionTitle}>
+          <h2>Create new prediction</h2>
+        </div> 
+        <div className={styles.formWrapper}>
+          <SelectModel selectedModel={selecetedModel} setSelectedModel={setSelecetedModel}/>
+          <InputField autoComplete="" label='Name of prediction' value={datasetName} onChange={(e) => setDatasetName(e.value)} placeholder='Malaria incidenc, climate for.. '/>
+          <SelectDataLine setDataLayers={setDataLayers} datasetLayers={dataLayers} predictMode={true}/>
+          <TimePeriodeSelector setTimePeriods={setSelectedTimePeriodes} />
+          <OrgUnitSelector orgUnits={selectedOrgUnits} setOrgUnits={setSelectedOrgUnits} orgUnitLevel={orgUnitLevel} setOrgUnitLevel={setOrgUnitLevel} />
+          <SendChapData datasetName={datasetName} dataLayers={dataLayers} onSendAction='new-dataset' orgUnitLevel={orgUnitLevel} selectedPeriodItems={selectedTimePeriodes} selectedOrgUnits={selectedOrgUnits} />
+        </div>
+         </div>
     </>
   )
 }

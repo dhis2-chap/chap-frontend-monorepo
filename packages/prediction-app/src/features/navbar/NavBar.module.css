@@ -1,12 +1,17 @@
 .innerNavBar{
     margin: auto;
     display: flex;
-    justify-content: baseline;
+    justify-content: space-between;
     gap: 1rem;
     align-items: center;
     flex-direction: row;
     padding: 0 10px;
     height: 100%;
+}
+
+.leftNavBarLinks{
+    display: flex;
+    justify-content: baseline;
 }
 
 .outerNavBar{

@@ -114,7 +114,7 @@ const SelectDataLine = ({ datasetLayers, setDataLayers, predictMode }: SelectDat
               }
               <div className={styles.selectField}>
                 <SingleSelectField disabled={dl.feature === ""} label="Origin" onChange={(e) => onChangeClickSelectField(e, "origin", index)} selected={dl.origin}>
-                  <SingleSelectOption label={'DateElement (DHIS2)'} value={'dataElement'} />
+                  <SingleSelectOption label={'Data Element from DHIS2'} value={'dataElement'} />
                   <SingleSelectOption label={'CHAP'} value={'CHAP'} />
                 </SingleSelectField>
               </div>

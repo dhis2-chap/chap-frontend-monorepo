@@ -2,9 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type DataSet = {
-    id?: (number | null);
-    name: string;
-    polygons?: (string | null);
+export type FetchRequest = {
+    dataSourceName: string;
 };
 

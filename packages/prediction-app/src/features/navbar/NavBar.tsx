@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from '@dhis2/ui'
+import { Button, IconSettings24, Menu, MenuItem } from '@dhis2/ui'
 import React from 'react'
 import styles from './NavBar.module.css'
 import NavBarItem from './components/NavBarItem/NavBarItem'
@@ -13,23 +13,25 @@ const navBarItems = [
   {
     label: 'Evaluation',
     path : '/evaluations',
-  },
-  {
-    label: 'Settings',
-    path : '/settings',
-  },
-
-
+  }
 ]
 
 const NavBar = () => {
+
+  const handleSettingsClick = () => {
+    window.location.replace("/#settings")
+  }
+
   return (
     <div>
       <div className={styles.outerNavBar}>
         <div className={styles.innerNavBar} style={{maxWidth : maxWidth}}>
-         {navBarItems.map(({ path, label }, i) => (
-          <NavBarItem key={i} path={path} label={label}/>
-         ))}
+          <div className={styles.leftNavBarLinks}>
+            {navBarItems.map(({ path, label }, i) => (
+              <NavBarItem key={i} path={path} label={label}/>
+            ))}
+          </div>
+          <Button small icon={<IconSettings24/>} onClick={handleSettingsClick} ></Button>
         </div>
       </div>
     </div>

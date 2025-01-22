@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { FeatureModel } from './FeatureModel';
-export type FeatureCollectionModel = {
+import type { FeatureModel_Output } from './FeatureModel_Output';
+export type FeatureCollectionModel_Output = {
     type?: string;
-    features: Array<FeatureModel>;
+    features: Array<FeatureModel_Output>;
 };
 

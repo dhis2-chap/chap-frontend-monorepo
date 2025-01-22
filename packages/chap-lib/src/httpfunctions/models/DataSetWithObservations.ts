@@ -2,12 +2,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { chap_core__database__dataset_tables__FeatureCollectionModel_Input } from './chap_core__database__dataset_tables__FeatureCollectionModel_Input';
+import type { FeatureCollectionModel_Output } from './FeatureCollectionModel_Output';
 import type { ObservationBase } from './ObservationBase';
-export type DatasetCreate = {
+export type DataSetWithObservations = {
     name: string;
-    geojson?: chap_core__database__dataset_tables__FeatureCollectionModel_Input;
+    geojson?: FeatureCollectionModel_Output;
     type?: (string | null);
+    id: number;
     observations: Array<ObservationBase>;
 };
 

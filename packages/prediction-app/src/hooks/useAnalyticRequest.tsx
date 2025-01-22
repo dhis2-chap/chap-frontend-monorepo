@@ -1,6 +1,7 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import { ModelFeatureDataElementMap } from "../interfaces/ModelFeatureDataElement";
 import { Datalayer, DatasetLayer } from "../features/new-dataset/interfaces/DataSetLayer";
+import { DatasetMakeRequest, ObservationBase } from "@dhis2-chap/chap-lib";
 
 const ANALYTICS_QUERY = ({ dataElements = [], periodes = [], orgUnit = {} } = {}) => {
   return {
@@ -14,17 +15,13 @@ const ANALYTICS_QUERY = ({ dataElements = [], periodes = [], orgUnit = {} } = {}
   };
 };
 
-const convertDhis2AnlyticsToChap = (data: [[string, string, string, string]], dataElementId : string) : any[]=> {
-  return data.filter(x => x[0] === dataElementId).map((row) => {
-    return {
-      orgUnit: row[1],
-      period: row[2],
-      value: parseFloat(row[3])
-    };
-  })
+interface AnalyticsRespone {
+  data : [[string, string, string, string]] | [],
+  error : any,
+  loading : boolean,
 }
 
-const useAnalyticRequest = (dataLayers: DatasetLayer[], periodes: any, orgUnit: any) => {
+const useAnalyticRequest = (dataLayers: DatasetLayer[], periodes: any, orgUnit: any) : AnalyticsRespone => {
   
   //filter out every DHIS2 dataElement
   const dataElements = dataLayers.map((d : DatasetLayer) => (d.dataSource)) as any;
@@ -33,27 +30,18 @@ const useAnalyticRequest = (dataLayers: DatasetLayer[], periodes: any, orgUnit: 
   if(dataElements.length === 0) {
     return {
       data : [],
-      error : false,
+      error : "",
       loading : false,
-    }
+    } 
   }
 
   const { loading, error, data } = useDataQuery(ANALYTICS_QUERY({ dataElements, periodes, orgUnit }));
 
-
-
   if(!loading && data && !error){
     //divide the respons into the features (for instance population, diseases, etc)
-    const featureRequest = dataLayers.map((v : DatasetLayer) => {
-      return {
-        featureId: v.feature,
-        dhis2Id : v.dataSource,
-        data : convertDhis2AnlyticsToChap((data?.request as any).rows, v.dataSource)
-      }
-    });
 
     return {
-      data : featureRequest,
+      data : data?.request,
       error,
       loading,
     };

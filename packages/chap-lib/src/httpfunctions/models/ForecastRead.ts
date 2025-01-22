@@ -2,13 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type BackTestForecast = {
+export type ForecastRead = {
     period: string;
     orgUnit: string;
-    id?: (number | null);
-    backtestId: number;
-    lastTrainPeriod: string;
-    lastSeenPeriod: string;
     values?: Array<number>;
 };
 
