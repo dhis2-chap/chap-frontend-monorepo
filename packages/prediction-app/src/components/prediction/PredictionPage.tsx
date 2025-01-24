@@ -252,7 +252,6 @@ const PredictionPage = () => {
         {<p className={styles.errorChap}>{errorChapMsg}</p>}
         {startDownload.startDownlaod && isValid && (
           <DownloadData
-            selectedModelName={selectedModel?.name}
             setJsonResult={setJsonResult}
             modelSpesificSelectedDataElements={modelSpesificSelectedDataElements}
             startDownload={startDownload}
