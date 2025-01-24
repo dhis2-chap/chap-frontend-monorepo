@@ -114,7 +114,10 @@ const PredictionPage = () => {
   }, [jsonResult]);
 
   const downloadData = () => {
-    var fileToSave = new Blob([JSON.stringify(jsonResult, null, 2)], {
+    let request : PredictionRequest = jsonResult as PredictionRequest
+    request.estimator_id = selectedModel?.name
+
+    var fileToSave = new Blob([JSON.stringify(request, null, 2)], {
       type: 'application/json'
     });
 
@@ -249,6 +252,7 @@ const PredictionPage = () => {
         {<p className={styles.errorChap}>{errorChapMsg}</p>}
         {startDownload.startDownlaod && isValid && (
           <DownloadData
+            selectedModelName={selectedModel?.name}
             setJsonResult={setJsonResult}
             modelSpesificSelectedDataElements={modelSpesificSelectedDataElements}
             startDownload={startDownload}
