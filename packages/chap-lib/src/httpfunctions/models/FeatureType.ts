@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type BackTestCreate = {
-    datasetId: number;
-    modelId: string;
+export type FeatureType = {
+    displayName: string;
+    description: string;
+    name?: string;
 };
 

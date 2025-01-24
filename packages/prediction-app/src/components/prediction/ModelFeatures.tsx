@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { Feature } from '@dhis2-chap/chap-lib'
 import { Help, SingleSelect, SingleSelectField, SingleSelectFieldProps, SingleSelectOption } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
@@ -6,6 +6,7 @@ import styles from './styles/ModelFeature.module.css'
 import i18n from "@dhis2/d2-i18n";
 import { ModelFeatureDataElement, ModelFeatureDataElementMap } from '../../interfaces/ModelFeatureDataElement'
 import SwitchClimateSources from '../climateSource/SwitchClimateSources'
+import SearchSelectField from './SearchSelectField'
 
 interface ModelFeaturesProps {
   features : Feature[] | undefined
@@ -44,15 +45,14 @@ const ModelFeatures = ({features, modelSpesificSelectedDataElements, setModelSpe
     }
     setRenderOptionalField(e)
   }
+
   
-  const onChangeSelectField = (feature : Feature, e : SingleSelectFieldProps) =>{
-    if(e.selected === undefined){
-      return
-    }
+  const onChangeSearchSelectField = (feature : Feature, v : string) =>{
+
     //find name of dataElement
-    const dataElement = dataElements?.find((d : any) => d.id === e.selected)?.displayName
+    const dataElement = dataElements?.find((d : any) => d.id === v)?.displayName
   
-    const feature_with_selected_data_elements : ModelFeatureDataElement = {selectedDataElementId : e.selected, selectedDataElementName : dataElement, optional : feature.optional ?? false}
+    const feature_with_selected_data_elements : ModelFeatureDataElement = {selectedDataElementId : v, selectedDataElementName : dataElement, optional : feature.optional ?? false}
     setModelSpesificSelectedDataElements(new Map(modelSpesificSelectedDataElements.set(feature.id, feature_with_selected_data_elements)));
   }
 
@@ -61,14 +61,10 @@ const ModelFeatures = ({features, modelSpesificSelectedDataElements, setModelSpe
       <h3>Target data</h3>
       {features.filter(m => m.optional == false).map((f : Feature) => (
         <div key={f.id} className={styles.selectField}>
-          <SingleSelectField filterable noMatchText={i18n.t("No match found")} onChange={(e :  SingleSelectFieldProps) => onChangeSelectField(f, e)} label={f.name} helpText={f.description} selected={modelSpesificSelectedDataElements.get(f.id)?.selectedDataElementId}>
-              {dataElements?.map((d : any) => (
-                <SingleSelectOption key={d.id} value={d.id} label={d.displayName} />
-              ))}
-          </SingleSelectField>
+          <SearchSelectField feature={f} onChangeSearchSelectField={onChangeSearchSelectField}/>
         </div>
       ))}
- 
+
       <h3>Climate data</h3>
       <SwitchClimateSources setRenderOptionalField={onChangeOptionalField} renderOptionalField={renderOptionalField}/>
       
@@ -78,11 +74,7 @@ const ModelFeatures = ({features, modelSpesificSelectedDataElements, setModelSpe
 
       {renderOptionalField && features.filter(m => m.optional == true).map((f : Feature) => (
         <div key={f.id} className={styles.selectField}>
-          <SingleSelectField filterable noMatchText={i18n.t("No match found")} onChange={(e : any) => onChangeSelectField(f, e)} label={f.name} helpText={f.description} selected={modelSpesificSelectedDataElements.get(f.id)?.selectedDataElementId}>
-              {dataElements?.map((d : any) => (
-                <SingleSelectOption key={d.id} value={d.id} label={d.displayName} />
-              ))}
-          </SingleSelectField>
+          <SearchSelectField feature={f} onChangeSearchSelectField={onChangeSearchSelectField}/>
         </div>
       ))}
 

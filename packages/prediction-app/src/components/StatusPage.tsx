@@ -10,7 +10,7 @@ const StatusPage = () => {
 
   return (
     <div className={styles.statusContainer}>
-      <h2>CHAP Core - status for training and prediction</h2>
+      <h2>CHAP Core - evaluation and prediction status</h2>
       <p>
         <i>On this page, you could upload data to CHAP Core and download the latest prediction result.</i>
       </p>
