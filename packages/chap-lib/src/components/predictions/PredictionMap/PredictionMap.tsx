@@ -16,11 +16,12 @@ import useOrgUnits from '../../../hooks/useOrgUnits'
 
 interface PredictionMapProps {
   data : FullPredictionResponseExtended
+  predictionTargetName : string
 }
 
 const colors = ["#ffffcc", "#c2e699", "#78c679", "#31a354", "#006837"];
 
-export const PredictionMap = ({data} : PredictionMapProps) => {
+export const PredictionMap = ({data, predictionTargetName} : PredictionMapProps) => {
 
   console.log('init PredictionMap')
   console.log(data)
@@ -53,12 +54,13 @@ export const PredictionMap = ({data} : PredictionMapProps) => {
 
   return orgUnits ? (
     <div>
-      <h3>Prediction Maps</h3>
+      <h3>Prediction Map for {predictionTargetName}</h3>
+      <span><em>Median predictions</em></span>
       <div style={{display:'flex'}}>
         {periods.map((period : string, index : number) => {
           return (
             <div>
-              <h4>{i18n.t(numberDateToString(period))}</h4>
+              <h4>&#x1F551; {i18n.t(numberDateToString(period))}</h4>
               <MapItem
               key={period}
               index={index}

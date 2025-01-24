@@ -1,0 +1,22 @@
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.classItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.classSymbol {
+    width: 30px;
+    height: 1rem;
+    outline: black solid 1px;
+}
+
+.classLabel {
+    color: black;
+}

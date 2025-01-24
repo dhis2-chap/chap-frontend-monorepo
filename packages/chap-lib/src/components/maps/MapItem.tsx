@@ -25,7 +25,7 @@ const MapItem = ({ syncId, children } : any) => {
       <div
         ref={mapEl}
         style={{
-          width: "300px",
+          width: "320px",
           height: 300,
           margin: 10,
           border: "1px solid #555",
