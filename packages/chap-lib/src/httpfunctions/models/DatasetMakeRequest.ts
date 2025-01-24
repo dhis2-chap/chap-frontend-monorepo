@@ -2,11 +2,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { FetchRequest } from './FetchRequest';
 import type { ObservationBase } from './ObservationBase';
-export type DatasetCreate = {
+export type DatasetMakeRequest = {
     name: string;
     geojson?: (string | null);
     type?: (string | null);
-    observations: Array<ObservationBase>;
+    providedData: Array<ObservationBase>;
+    dataToBeFetched: Array<FetchRequest>;
 };
 

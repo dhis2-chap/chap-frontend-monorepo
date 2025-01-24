@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Body_create_dataset_csv_crud_dataset_csv_file_post = {
-    csv_file: Blob;
-    geojson_file: Blob;
+export type MultiBacktestCreate = {
+    modelIds: Array<string>;
+    datasetId: number;
 };
 

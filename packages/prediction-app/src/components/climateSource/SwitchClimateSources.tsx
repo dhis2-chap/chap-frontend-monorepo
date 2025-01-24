@@ -23,7 +23,7 @@ const SwitchClimateSources = ({setRenderOptionalField, renderOptionalField} : Sw
         </div>}
       </div>
       <div>
-        <Switch checked={!renderOptionalField} onChange={handleSwitch}/>
+        <Switch disabled checked={!renderOptionalField} onChange={handleSwitch}/>
       </div>
     </div>
   )

@@ -12,14 +12,10 @@ const REQUEST = {
 }
 
 const useOrgUnits = () => {
-  const [orgUnits, setOrgunits] = useState<{organisationUnits : any}>();
 
-  const { loading, error } = useDataQuery(REQUEST, {
-    onComplete: (data : any) => setOrgunits(data.orgUnits),
-  });
-
+  const { loading, error, data } = useDataQuery(REQUEST);
   return {
-    orgUnits,
+    orgUnits : (data as any)?.orgUnits,
     error,
     loading,
   };

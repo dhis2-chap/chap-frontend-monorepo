@@ -3,13 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 export type BackTestRead = {
-    dataset_id: number;
-    estimator_id: string;
+    datasetId: number;
+    modelId: string;
     id: number;
     name?: (string | null);
     timestamp?: (string | null);
-    start_date?: (string | null);
-    end_date?: (string | null);
-    org_unit_ids?: Array<string>;
+    startDate?: (string | null);
+    endDate?: (string | null);
+    orgUnitIds?: Array<string>;
 };
 

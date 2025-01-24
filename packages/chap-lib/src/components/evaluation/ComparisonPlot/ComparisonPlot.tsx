@@ -16,7 +16,7 @@ export const ComparisonPlot: React.FC<SideBySidePlotsProps> = ({ orgUnitsData })
                     {orgUnitsData.models.map((modelData, index) => {
                         return (
                             <div key={index} className={styles.comparionBoxSideBySideItem}>
-                                <ResultPlot data={modelData.data} modelName={modelData.modelName} />
+                                <ResultPlot syncZoom={orgUnitsData.models.length > 1} data={modelData.data} modelName={modelData.modelName} />
                             </div>
                         );
                     })}

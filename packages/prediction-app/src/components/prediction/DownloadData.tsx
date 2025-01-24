@@ -10,7 +10,6 @@ interface DownloadDataProps {
   period: any;
   orgUnitLevel: { id: string; level: number };
   orgUnits: { id: string, displayName : string }[];
-  model_id : string | undefined;
   modelSpesificSelectedDataElements : ModelFeatureDataElementMap;
   
   setStartDownload : Dispatch<SetStateAction<{ action: "download" | "predict" | "evaluate"; startDownlaod: boolean; }>>,
@@ -26,7 +25,6 @@ export interface ErrorResponse {
 
 const DownloadData = ({
   period,
-  model_id,
   setStartDownload,
   orgUnitLevel,
   orgUnits,
@@ -47,7 +45,6 @@ const DownloadData = ({
 
   const createRequest = () => {
     return {
-      model_id : model_id,
       features : analyticData,
       orgUnitsGeoJson : geoJson,
     }

@@ -2,13 +2,38 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { chap_core__rest_api_src__v1__routers__analytics__PredictionCreate } from '../models/chap_core__rest_api_src__v1__routers__analytics__PredictionCreate';
 import type { DataList } from '../models/DataList';
+import type { DatasetMakeRequest } from '../models/DatasetMakeRequest';
 import type { EvaluationEntry } from '../models/EvaluationEntry';
+import type { JobResponse } from '../models/JobResponse';
+import type { MultiBacktestCreate } from '../models/MultiBacktestCreate';
 import type { PredictionEntry } from '../models/PredictionEntry';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class AnalyticsService {
+    /**
+     * Make Dataset
+     * This endpoint creates a dataset from the provided data and the data to be fetched
+     * and puts it in the database
+     * @param requestBody
+     * @returns JobResponse Successful Response
+     * @throws ApiError
+     */
+    public static makeDatasetAnalyticsMakeDatasetPost(
+        requestBody: DatasetMakeRequest,
+    ): CancelablePromise<JobResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/analytics/make-dataset',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
     /**
      * Get Evaluation Entries
      * @param backtestId
@@ -22,11 +47,49 @@ export class AnalyticsService {
     ): CancelablePromise<Array<EvaluationEntry>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/analytics/evaluation_entry',
+            url: '/analytics/evaluation-entry',
             query: {
-                'backtest_id': backtestId,
+                'backtestId': backtestId,
                 'quantiles': quantiles,
             },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Create Backtest
+     * @param requestBody
+     * @returns JobResponse Successful Response
+     * @throws ApiError
+     */
+    public static createBacktestAnalyticsCreateBacktestsPost(
+        requestBody: MultiBacktestCreate,
+    ): CancelablePromise<Array<JobResponse>> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/analytics/create_backtests',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Make Prediction
+     * @param requestBody
+     * @returns JobResponse Successful Response
+     * @throws ApiError
+     */
+    public static makePredictionAnalyticsPredictionPost(
+        requestBody: chap_core__rest_api_src__v1__routers__analytics__PredictionCreate,
+    ): CancelablePromise<JobResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/analytics/prediction',
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 422: `Validation Error`,
             },
@@ -43,9 +106,9 @@ export class AnalyticsService {
     ): CancelablePromise<Array<PredictionEntry>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/analytics/prediction_entry/{prediction_id}',
+            url: '/analytics/prediction-entry/{predictionId}',
             path: {
-                'prediction_id': predictionId,
+                'predictionId': predictionId,
             },
             errors: {
                 422: `Validation Error`,
@@ -63,9 +126,9 @@ export class AnalyticsService {
     ): CancelablePromise<DataList> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/analytics/actual_cases/{backtest_id}',
+            url: '/analytics/actual-cases/{backtestId}',
             path: {
-                'backtest_id': backtestId,
+                'backtestId': backtestId,
             },
             errors: {
                 422: `Validation Error`,
