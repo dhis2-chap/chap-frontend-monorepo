@@ -1,6 +1,3 @@
 **/node_modules/
 **/.d2
 **/build/**
-
-# misc
-environment.yml

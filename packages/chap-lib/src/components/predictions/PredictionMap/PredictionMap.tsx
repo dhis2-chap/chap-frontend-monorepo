@@ -23,27 +23,12 @@ const colors = ["#ffffcc", "#c2e699", "#78c679", "#31a354", "#006837"];
 
 export const PredictionMap = ({data, predictionTargetName} : PredictionMapProps) => {
 
-  console.log('init PredictionMap')
-  console.log(data)
-
   // get all orgunits
   const orgUnitIds : any = getUniqeOrgUnits(data.dataValues);
-  console.log(orgUnitIds)
 
   // load orgunit geoms
-  // TODO move to useEffect
-  //const [geoJson, setGeoJson] = useState({});
-  //OrgUnitGeoms({orgUnits:orgUnits, setResults:setGeoJson});
+  // TODO move to useEffect? 
   const {orgUnits} = useOrgUnits(orgUnitIds);
-
-  // add pred values to geoms once loaded
-  /*
-  useEffect(() => {
-    if (geoJson) {
-
-    }
-  });
-  */
 
   // get and classify periods
   const periods = getUniqePeriods(data.dataValues);

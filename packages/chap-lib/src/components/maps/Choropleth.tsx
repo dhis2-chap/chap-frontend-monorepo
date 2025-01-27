@@ -12,8 +12,6 @@ const Choropleth = ({
   const map : any = useContext(MapContext);
 
   useEffect(() => {
-    console.log('Checking effect for geojson')
-    console.log(geojson)
     if (geojson.hasOwnProperty('features')) {
       const features = geojson.features.map((feature : any) => {
         const value = prediction.dataValues.find(
