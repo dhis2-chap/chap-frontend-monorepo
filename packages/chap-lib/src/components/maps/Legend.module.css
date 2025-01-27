@@ -1,7 +1,18 @@
 .legend {
+    width: 50%;
+    margin: auto;
+}
+
+.legendSymbols {
     display: flex;
     justify-content: center;
     gap: 20px;
+}
+
+.legendTitle {
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .classItem {

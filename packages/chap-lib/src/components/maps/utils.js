@@ -17,7 +17,6 @@ export const getEqualIntervals = (minValue, maxValue, numClasses = 5) => {
 
 export const parseOrgUnits = (orgUnits) => {
     return {'type':'FeatureCollections', 'features': orgUnits.map(ou => {
-        console.log(ou)
         // get geotype
         let type = 'Point'
         if (ou.ty === 2) {

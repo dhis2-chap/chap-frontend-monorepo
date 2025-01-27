@@ -1,6 +1,4 @@
 
-
-
 import React from 'react'
 import { useState, useEffect } from "react";
 import i18n from "@dhis2/d2-i18n";
@@ -13,13 +11,14 @@ import Legend from '../../maps/Legend'
 import Basemap from '../../maps/Basemap'
 import {getEqualIntervals} from '../../maps/utils'
 import useOrgUnits from '../../../hooks/useOrgUnits'
+import styles from "./PredictionMap.module.css"
 
 interface PredictionMapProps {
   data : FullPredictionResponseExtended
   predictionTargetName : string
 }
 
-const colors = ["#ffffcc", "#c2e699", "#78c679", "#31a354", "#006837"];
+const colors = ["#FFFFD4", "#FED98E", "#FE9929", "#D95F0E", "#993404"];
 
 export const PredictionMap = ({data, predictionTargetName} : PredictionMapProps) => {
 
@@ -27,7 +26,6 @@ export const PredictionMap = ({data, predictionTargetName} : PredictionMapProps)
   const orgUnitIds : any = getUniqeOrgUnits(data.dataValues);
 
   // load orgunit geoms
-  // TODO move to useEffect? 
   const {orgUnits} = useOrgUnits(orgUnitIds);
 
   // get and classify periods
@@ -39,12 +37,11 @@ export const PredictionMap = ({data, predictionTargetName} : PredictionMapProps)
 
   return orgUnits ? (
     <div>
-      <h3>Prediction Map for {predictionTargetName}</h3>
-      <span><em>Median predictions</em></span>
-      <div style={{display:'flex'}}>
+      <h3>Prediction Maps for {predictionTargetName}</h3>
+      <div className={styles.predictionMapGroup}>
         {periods.map((period : string, index : number) => {
           return (
-            <div>
+            <div className={styles.predictionMapCard} key={index}>
               <h4>&#x1F551; {i18n.t(numberDateToString(period))}</h4>
               <MapItem
               key={period}
@@ -66,7 +63,7 @@ export const PredictionMap = ({data, predictionTargetName} : PredictionMapProps)
           }
         )}
       </div>
-      <Legend bins={bins} colors={colors}/>
+      <Legend title={"Median Prediction for " + predictionTargetName} bins={bins} colors={colors}/>
     </div>
   ) : null
 }

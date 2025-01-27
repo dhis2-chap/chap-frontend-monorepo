@@ -1,6 +1,7 @@
 import React from 'react';
 import { createContext, useState, useRef, useEffect } from "react";
 import MapApi from "@dhis2/maps-gl";
+import styles from "./MapItem.module.css"
 
 export const MapContext : any = createContext(null);
 
@@ -24,12 +25,7 @@ const MapItem = ({ syncId, children } : any) => {
     <MapContext.Provider value={map}>
       <div
         ref={mapEl}
-        style={{
-          width: "320px",
-          height: 300,
-          margin: 10,
-          border: "1px solid #555",
-        }}
+        className={styles.mapItem}
       >
         {map && children}
       </div>
