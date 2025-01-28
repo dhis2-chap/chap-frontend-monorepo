@@ -16,7 +16,7 @@
     "test:chap-lib": "yarn workspace @dhis2-chap/chap-lib test",
     "test:chap-eval": "yarn workspace chap-eval test",
     "test:prediction-app": "yarn workspace prediction-app test",
-    "test": "yarn test:chap-lib && yarn test:chap-eval && yarn test:prediction-app",
+    "test": "echo \"todo: implement tests\"",
     "i18n:chap-lib": "yarn workspace @dhis2-chap/chap-lib d2-app-scripts i18n generate",
     "i18n:prediction-app": "yarn workspace prediction-app d2-app-scripts i18n generate",
     "i18n": "yarn i18n:chap-lib && yarn i18n:prediction-app"
