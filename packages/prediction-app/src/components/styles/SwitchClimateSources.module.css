@@ -10,5 +10,5 @@
 
 .smallText {
     font-size: 0.75rem;
-    margin-top: 0.15rem;
+    margin-block-start: 0.15rem;
 }

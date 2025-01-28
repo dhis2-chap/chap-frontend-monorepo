@@ -1,19 +1,19 @@
 .searchSelectField {
-    width: 100%;
+    inline-size: 100%;
     position: relative;
-    margin-bottom: 1rem;
+    margin-block-end: 1rem;
 }
 
 .inputField {
-    width: 100%;
-    margin-top: 2px;
+    inline-size: 100%;
+    margin-block-start: 2px;
     padding: 11px 12px;
     font-size: 14px;
     line-height: 16px;
     border: 1px solid rgb(160, 173, 186);
     border-radius: 3px;
     font-size: 14px;
-    height: 40px;
+    block-size: 40px;
 }
 
 .input[type='search']:focus {
@@ -39,13 +39,13 @@ input[type='search']:focus {
     margin: 0;
     border: 1px solid rgb(160, 173, 186);
     border-radius: 3px;
-    max-height: 300px;
-    max-width: 100%;
+    max-block-size: 300px;
+    max-inline-size: 100%;
     overflow-y: auto;
     position: absolute;
     background-color: #fff;
     z-index: 1;
-    width: 100%; /* Ensures dropdown takes full width of parent */
+    inline-size: 100%; /* Ensures dropdown takes full width of parent */
 }
 
 .dropDownItem {
@@ -55,13 +55,13 @@ input[type='search']:focus {
     padding: 10px;
     font-size: 14px;
     cursor: pointer;
-    border-bottom: 1px solid #eee;
+    border-block-end: 1px solid #eee;
 }
 
 .rightDropDownItem {
     color: dimgray;
     font-size: 0.7rem;
-    text-align: right;
+    text-align: end;
     line-height: 16px;
     font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo,
         Consolas, 'DejaVu Sans Mono', monospace;

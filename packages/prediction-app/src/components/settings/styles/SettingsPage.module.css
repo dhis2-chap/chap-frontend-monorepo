@@ -1,8 +1,8 @@
 .container {
     font-size: 14px;
-    margin-right: 24px;
-    margin-bottom: 100px;
-    max-width: 400px;
+    margin-inline-end: 24px;
+    margin-block-end: 100px;
+    max-inline-size: 400px;
 }
 
 .container h1 {

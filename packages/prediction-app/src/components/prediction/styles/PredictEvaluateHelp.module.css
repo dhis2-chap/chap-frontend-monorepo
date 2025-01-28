@@ -1,8 +1,8 @@
 .helpContainer {
     display: flex;
     justify-content: right;
-    width: 100%;
-    margin-top: 0.6rem;
+    inline-size: 100%;
+    margin-block-start: 0.6rem;
 }
 
 .popover {

@@ -4,7 +4,7 @@
 
 .warnAboutClimateData {
     color: rgb(187, 70, 13, 1);
-    margin-top: 2rem;
+    margin-block-start: 2rem;
     padding: 0rem;
     font-size: 14px;
 }

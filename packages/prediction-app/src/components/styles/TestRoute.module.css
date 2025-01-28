@@ -3,12 +3,12 @@
 }
 
 .outerContainer {
-    margin-top: 3rem;
+    margin-block-start: 3rem;
 }
 
 .errorContainer {
-    margin-right: 4rem;
-    max-width: 900px;
+    margin-inline-end: 4rem;
+    max-inline-size: 900px;
 
     overflow-x: auto;
 }
@@ -18,7 +18,7 @@
 }
 
 .link {
-    margin-top: 1rem;
+    margin-block-start: 1rem;
     font-size: 1.2rem;
 }
 

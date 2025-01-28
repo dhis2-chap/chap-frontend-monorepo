@@ -1,8 +1,8 @@
 .statusContainer {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    padding-bottom: 0.8rem;
+    inline-size: 100%;
+    padding-block-end: 0.8rem;
 }
 
 .ready {

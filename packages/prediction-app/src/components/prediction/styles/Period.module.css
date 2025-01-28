@@ -11,9 +11,9 @@
 
 .pickers > div {
     /* width: 49%; */
-    width: 100%;
+    inline-size: 100%;
 }
 
 .pickers input {
-    height: 36px;
+    block-size: 36px;
 }

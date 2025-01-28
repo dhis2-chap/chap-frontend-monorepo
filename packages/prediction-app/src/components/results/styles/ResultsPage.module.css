@@ -1,6 +1,6 @@
 .container {
-    margin-right: 24px;
-    margin-bottom: 100px;
+    margin-inline-end: 24px;
+    margin-block-end: 100px;
 }
 
 .container h1 {
@@ -15,8 +15,8 @@
 }
 
 .prediction {
-    margin-top: 20px;
-    min-height: 500px;
+    margin-block-start: 20px;
+    min-block-size: 500px;
 }
 
 .warning {
@@ -30,7 +30,7 @@
 }
 
 .post {
-    text-align: right;
+    text-align: end;
 }
 
 .redText {
@@ -44,7 +44,6 @@
 }
 
 .importMode {
-    margin-bottom: 1rem;
-    max-width: 300px;
-    margin-top: 1rem;
+    margin-block: 1rem;
+    max-inline-size: 300px;
 }

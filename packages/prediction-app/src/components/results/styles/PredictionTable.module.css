@@ -1,22 +1,22 @@
 .table {
-    width: 100%;
+    inline-size: 100%;
 }
 
 .table thead th {
-    text-align: right;
+    text-align: end;
 }
 
 .table thead th:first-child {
-    text-align: left;
+    text-align: start;
 }
 
 .table tbody th {
-    text-align: left;
+    text-align: start;
     font-weight: normal;
 }
 
 .table tbody td {
-    text-align: right;
+    text-align: end;
 }
 
 .quantile_low {
