@@ -1,14 +1,14 @@
-.switchWrapper{
-  display: flex;
-  justify-content: space-between;
-  background-color: #f5f5f5;
-  border-radius: 0.4rem;
-  padding: 1.0rem;
-  color: rgb(49, 49, 49);
-  align-items: center;
+.switchWrapper {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f5f5f5;
+    border-radius: 0.4rem;
+    padding: 1rem;
+    color: rgb(49, 49, 49);
+    align-items: center;
 }
 
-.smallText{
-  font-size: 0.75rem;
-  margin-top: 0.15rem;
+.smallText {
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
 }

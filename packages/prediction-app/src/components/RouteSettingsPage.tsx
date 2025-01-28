@@ -3,11 +3,11 @@ import TestRoute from './setup/TestRoute'
 import { Link } from 'react-router-dom'
 
 const RouteSettingsPage = () => {
-  return (
-    <>
-      <TestRoute/>
-    </>
-  )
+    return (
+        <>
+            <TestRoute />
+        </>
+    )
 }
 
 export default RouteSettingsPage

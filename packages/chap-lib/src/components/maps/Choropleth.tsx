@@ -1,56 +1,57 @@
-import { useContext, useEffect } from "react";
-import { MapContext } from "./MapItem";
+import { useContext, useEffect } from 'react'
+import { MapContext } from './MapItem'
 
 const Choropleth = ({
-  period,
-  prediction,
-  geojson,
-  dataElement = "median",
-  bins,
-  colors
-} : any) => {
-  const map : any = useContext(MapContext);
+    period,
+    prediction,
+    geojson,
+    dataElement = 'median',
+    bins,
+    colors,
+}: any) => {
+    const map: any = useContext(MapContext)
 
-  useEffect(() => {
-    if (geojson.hasOwnProperty('features')) {
-      const features = geojson.features.map((feature : any) => {
-        const value = prediction.dataValues.find(
-          (d : any) =>
-            d.period === period &&
-            d.orgUnit === feature.id &&
-            d.dataElement === dataElement
-        )?.value;
+    useEffect(() => {
+        if (geojson.hasOwnProperty('features')) {
+            const features = geojson.features.map((feature: any) => {
+                const value = prediction.dataValues.find(
+                    (d: any) =>
+                        d.period === period &&
+                        d.orgUnit === feature.id &&
+                        d.dataElement === dataElement
+                )?.value
 
-        const binIndex = bins.findIndex(
-          (bin : any) => value >= bin.startValue && value <= bin.endValue
-        );
+                const binIndex = bins.findIndex(
+                    (bin: any) =>
+                        value >= bin.startValue && value <= bin.endValue
+                )
 
-        const color = colors[binIndex];
+                const color = colors[binIndex]
 
-        return {
-          ...feature,
-          properties: {
-            ...feature.properties,
-            value: value || "No value",
-            color,
-          },
-        };
-      });
+                return {
+                    ...feature,
+                    properties: {
+                        ...feature.properties,
+                        value: value || 'No value',
+                        color,
+                    },
+                }
+            })
 
-      const config = {
-        type: "choropleth",
-        data: features,
-        opacity: 0.8,
-        hoverLabel: "{name} ({value})",
-      };
+            const config = {
+                type: 'choropleth',
+                data: features,
+                opacity: 0.8,
+                hoverLabel: '{name} ({value})',
+            }
 
-      map.addLayer(map.createLayer(config));
+            map.addLayer(map.createLayer(config))
 
-      map.fitBounds(map.getLayersBounds());
-    };
-  }, [map, period, prediction, dataElement, geojson, bins]);
+            map.fitBounds(map.getLayersBounds())
+        }
+    }, [map, period, prediction, dataElement, geojson, bins])
 
-  return null;
-};
+    return null
+}
 
-export default Choropleth;
+export default Choropleth

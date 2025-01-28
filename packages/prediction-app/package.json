@@ -1,30 +1,29 @@
 {
-  "name": "prediction-app",
-  "version": "1.0.2",
-  "description": "",
-  "license": "BSD-3-Clause",
-  "private": true,
-  "scripts": {
-    "build": "d2-app-scripts build",
-    "start": "d2-app-scripts start --allowJsxInJs",
-    "test": "d2-app-scripts test",
-    "deploy": "d2-app-scripts deploy"
-  },
-  "devDependencies": {
-    "@dhis2/cli-app-scripts": "12.0.0-alpha.25"
-  },
-  "dependencies": {
-    "@dhis2/analytics": "^26.9.3",
-    "@dhis2/app-runtime": "^3.12.0-alpha.2",
-    "@types/jest": "^29.5.14",
-    "@types/node": "^22.10.1",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "file-saver": "^2.0.5",
-    "jszip": "^3.10.1",
-    "react-dropzone": "^14.3.5",
-    "react-router-dom": "^7.0.2",
-    
-    "@dhis2-chap/chap-lib": "*"
-  }
+    "name": "prediction-app",
+    "version": "1.0.2",
+    "description": "",
+    "license": "BSD-3-Clause",
+    "private": true,
+    "scripts": {
+        "build": "d2-app-scripts build",
+        "start": "d2-app-scripts start --allowJsxInJs",
+        "test": "d2-app-scripts test",
+        "deploy": "d2-app-scripts deploy"
+    },
+    "devDependencies": {
+        "@dhis2/cli-app-scripts": "12.0.0-alpha.25"
+    },
+    "dependencies": {
+        "@dhis2/analytics": "^26.9.3",
+        "@dhis2/app-runtime": "^3.12.0-alpha.2",
+        "@types/jest": "^29.5.14",
+        "@types/node": "^22.10.1",
+        "@types/react": "^18.3.12",
+        "@types/react-dom": "^18.3.1",
+        "file-saver": "^2.0.5",
+        "jszip": "^3.10.1",
+        "react-dropzone": "^14.3.5",
+        "react-router-dom": "^7.0.2",
+        "@dhis2-chap/chap-lib": "*"
+    }
 }

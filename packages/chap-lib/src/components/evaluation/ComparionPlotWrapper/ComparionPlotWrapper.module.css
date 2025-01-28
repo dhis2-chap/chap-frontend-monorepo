@@ -1,34 +1,33 @@
-
-.orgUnitsSelction{
+.orgUnitsSelction {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
 
-.wrapper{
+.wrapper {
     display: flex;
     justify-content: space-between;
     gap: 2rem;
     margin-bottom: 10px;
 }
 
-.filter{
+.filter {
     min-width: 300px;
     background-color: #f9f9f9;
     padding: 1rem;
 }
 
-.plots{
+.plots {
     width: 100%;
 }
 
-.searchInput{
+.searchInput {
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 1rem;
 }
 
-.filterTitle{
+.filterTitle {
     font-size: 16px;
     font-weight: 600;
     margin-top: 1.25rem;

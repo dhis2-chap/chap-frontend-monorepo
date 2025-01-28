@@ -1,12 +1,12 @@
-.chartContainer{
-  display: flex;
-  width: 100%;
+.chartContainer {
+    display: flex;
+    width: 100%;
 }
 
-.chart{
-  width: 100%;
+.chart {
+    width: 100%;
 }
 
-.menu{
-  min-width: 130px;
+.menu {
+    min-width: 130px;
 }
