@@ -172,7 +172,7 @@ const PredictionResult = () => {
               {
                 'chart': <UncertaintyAreaChart predictionTargetName={predictionTargetName} data={prediction} />,
                 'table': <PredictionTable data={prediction} />,
-                'map': <PredictionMap data={prediction}/>,
+                'map': <PredictionMap predictionTargetName={predictionTargetName} data={prediction}/>,
               }[selectedTab]
             }
           </div>
