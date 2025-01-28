@@ -4,11 +4,11 @@
 /* eslint-disable */
 export type BackTestMetric = {
     id?: (number | null);
-    backtest_id: number;
-    metric_id: string;
-    period_id: string;
-    last_train_period_id: string;
-    last_seen_period_id: string;
+    backtestId: number;
+    metricId: string;
+    period: string;
+    lastTrainPeriod: string;
+    lastSeenPeriod: string;
     value: number;
 };
 

@@ -12,13 +12,12 @@ const EvaluationResult = () => {
   const [splitPeriods, setSplitPeriods] = useState<string[]>([]);
   const [proceededData, setProceededData] = useState<EvaluationForSplitPoint[]>()
   const [unProceededData, setUnProceededData] = useState<EvaluationResponse>()
+  const [isLoading, setIsLoading] = useState(false)
 
   const {orgUnits, error, loading} = useOrgUnits();
 
   useEffect(() => {
-    console.log(orgUnits, unProceededData)
     if (orgUnits && unProceededData) {
-      console.log(orgUnits)
       const processedData = evaluationResultToViewData(unProceededData.predictions, unProceededData.actualCases.data, "")
 
       //fill with orgUnitName
@@ -36,13 +35,11 @@ const EvaluationResult = () => {
     }
   }, [orgUnits, unProceededData])
 
-  const handleUnProceededData = (data : any) => {
 
-
-  }
   
 
   const fetchEvaluation = async () => {
+    setIsLoading(true)
     await DefaultService.getEvaluationResultsGetEvaluationResultsGet()
       .then((response : EvaluationResponse) => {
         setUnProceededData(response)
@@ -54,17 +51,11 @@ const EvaluationResult = () => {
         (err : any) => {
           setHttpError(err.toString())
         } 
-      )
+      ).finally(() => {
+        setIsLoading(false)
+      })
   }
 
-  const onResponse = (response : EvaluationResponse) => {
-    console.log(response)
-
-    //setPredictionTarget(data.diseaseId);
-    //setPostHttpError("");
-    //setPostStatus("initial");
-    //setPrediction(fillWithOrgUnit(data))
-  }
 
   useEffect(() => {
     fetchEvaluation();
@@ -74,9 +65,9 @@ const EvaluationResult = () => {
   return (
     <div>
 
-          <div className={styles.fetchEvaluationError}>
-            <p>{httpError}</p>
-          </div>
+
+          {httpError && <p>Not available</p>}
+          {isLoading && <p>Loading..</p> }
 
           {proceededData && <ComparionPlotWrapper evaluations={proceededData} splitPeriods={splitPeriods}/>}
     </div>

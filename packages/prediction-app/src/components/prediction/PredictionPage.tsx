@@ -125,8 +125,9 @@ const PredictionPage = () => {
   const evaluate = async () => {
     let request : PredictionRequest = jsonResult as PredictionRequest
     request.n_periods = 3
+    const nSplits = 10
 
-    await DefaultService.evaluateEvaluatePost(request)
+    await DefaultService.evaluateEvaluatePost(request, nSplits)
       .then((response: any) => {
         setErrorChapMsg('');
         setSendingDataToChap(false);
@@ -141,6 +142,7 @@ const PredictionPage = () => {
   const predict = async () => {
     let request : PredictionRequest = jsonResult as PredictionRequest
     request.n_periods = 3
+    request.estimator_id = selectedModel?.name
 
     await DefaultService.predictPredictPost(request)
       .then((response: any) => {
@@ -247,7 +249,6 @@ const PredictionPage = () => {
         {<p className={styles.errorChap}>{errorChapMsg}</p>}
         {startDownload.startDownlaod && isValid && (
           <DownloadData
-            model_id={selectedModel?.name}
             setJsonResult={setJsonResult}
             modelSpesificSelectedDataElements={modelSpesificSelectedDataElements}
             startDownload={startDownload}

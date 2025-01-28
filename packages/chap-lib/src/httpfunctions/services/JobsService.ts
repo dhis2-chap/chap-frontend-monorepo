@@ -5,17 +5,18 @@
 import type { DataBaseResponse } from '../models/DataBaseResponse';
 import type { EvaluationResponse } from '../models/EvaluationResponse';
 import type { FullPredictionResponse } from '../models/FullPredictionResponse';
+import type { JobDescription } from '../models/JobDescription';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class JobsService {
     /**
      * List Jobs
-     * nn    List all jobs currently in the queue
-     * @returns any Successful Response
+     * List all jobs currently in the queue
+     * @returns JobDescription Successful Response
      * @throws ApiError
      */
-    public static listJobsJobsGet(): CancelablePromise<Record<string, any>> {
+    public static listJobsJobsGet(): CancelablePromise<Array<JobDescription>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/jobs',

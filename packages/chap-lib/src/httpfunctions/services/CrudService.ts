@@ -5,13 +5,18 @@
 import type { BackTestCreate } from '../models/BackTestCreate';
 import type { BackTestFull } from '../models/BackTestFull';
 import type { BackTestRead } from '../models/BackTestRead';
-import type { Body_create_dataset_csv_crud_dataset_csv_file_post } from '../models/Body_create_dataset_csv_crud_dataset_csv_file_post';
+import type { Body_create_dataset_csv_crud_datasets_csvFile_post } from '../models/Body_create_dataset_csv_crud_datasets_csvFile_post';
+import type { chap_core__rest_api_src__v1__routers__crud__PredictionCreate } from '../models/chap_core__rest_api_src__v1__routers__crud__PredictionCreate';
 import type { DataBaseResponse } from '../models/DataBaseResponse';
-import type { DataSet } from '../models/DataSet';
 import type { DatasetCreate } from '../models/DatasetCreate';
 import type { DataSetRead } from '../models/DataSetRead';
+import type { DataSetWithObservations } from '../models/DataSetWithObservations';
+import type { DebugEntry } from '../models/DebugEntry';
+import type { FeatureSource } from '../models/FeatureSource';
+import type { FeatureType } from '../models/FeatureType';
 import type { JobResponse } from '../models/JobResponse';
-import type { PredictionCreate } from '../models/PredictionCreate';
+import type { ModelSpecRead } from '../models/ModelSpecRead';
+import type { PredictionRead } from '../models/PredictionRead';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -27,9 +32,9 @@ export class CrudService {
     ): CancelablePromise<BackTestFull> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/crud/backtest/{backtest_id}',
+            url: '/crud/backtest/{backtestId}',
             path: {
-                'backtest_id': backtestId,
+                'backtestId': backtestId,
             },
             errors: {
                 422: `Validation Error`,
@@ -72,12 +77,12 @@ export class CrudService {
      * @returns JobResponse Successful Response
      * @throws ApiError
      */
-    public static createPredictionCrudPredictionPost(
-        requestBody: PredictionCreate,
+    public static createPredictionCrudPredictionsPost(
+        requestBody: chap_core__rest_api_src__v1__routers__crud__PredictionCreate,
     ): CancelablePromise<JobResponse> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/crud/prediction',
+            url: '/crud/predictions',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -86,23 +91,54 @@ export class CrudService {
         });
     }
     /**
-     * Get Dataset
-     * @param datasetId
-     * @returns DataSet Successful Response
+     * Get Prediction
+     * @param predictionId
+     * @returns PredictionRead Successful Response
      * @throws ApiError
      */
-    public static getDatasetCrudDatasetDatasetIdGet(
-        datasetId: number,
-    ): CancelablePromise<DataSet> {
+    public static getPredictionCrudPredictionsPredictionIdGet(
+        predictionId: number,
+    ): CancelablePromise<PredictionRead> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/crud/dataset/{dataset_id}',
+            url: '/crud/predictions/{predictionId}',
             path: {
-                'dataset_id': datasetId,
+                'predictionId': predictionId,
             },
             errors: {
                 422: `Validation Error`,
             },
+        });
+    }
+    /**
+     * Get Dataset
+     * @param datasetId
+     * @returns DataSetWithObservations Successful Response
+     * @throws ApiError
+     */
+    public static getDatasetCrudDatasetsDatasetIdGet(
+        datasetId: number,
+    ): CancelablePromise<DataSetWithObservations> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/datasets/{datasetId}',
+            path: {
+                'datasetId': datasetId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get Datasets
+     * @returns DataSetRead Successful Response
+     * @throws ApiError
+     */
+    public static getDatasetsCrudDatasetsGet(): CancelablePromise<Array<DataSetRead>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/datasets',
         });
     }
     /**
@@ -111,12 +147,12 @@ export class CrudService {
      * @returns JobResponse Successful Response
      * @throws ApiError
      */
-    public static createDatasetCrudDatasetJsonPost(
+    public static createDatasetCrudDatasetsPost(
         requestBody: DatasetCreate,
     ): CancelablePromise<JobResponse> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/crud/dataset/json',
+            url: '/crud/datasets',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -130,12 +166,12 @@ export class CrudService {
      * @returns DataBaseResponse Successful Response
      * @throws ApiError
      */
-    public static createDatasetCsvCrudDatasetCsvFilePost(
-        formData: Body_create_dataset_csv_crud_dataset_csv_file_post,
+    public static createDatasetCsvCrudDatasetsCsvFilePost(
+        formData: Body_create_dataset_csv_crud_datasets_csvFile_post,
     ): CancelablePromise<DataBaseResponse> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/crud/dataset/csv_file',
+            url: '/crud/datasets/csvFile',
             formData: formData,
             mediaType: 'multipart/form-data',
             errors: {
@@ -157,17 +193,17 @@ export class CrudService {
     /**
      * Get Debug Entry
      * @param debugId
-     * @returns any Successful Response
+     * @returns DebugEntry Successful Response
      * @throws ApiError
      */
     public static getDebugEntryCrudDebugDebugIdGet(
         debugId: number,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<DebugEntry> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/crud/debug/{debug_id}',
+            url: '/crud/debug/{debugId}',
             path: {
-                'debug_id': debugId,
+                'debugId': debugId,
             },
             errors: {
                 422: `Validation Error`,
@@ -175,14 +211,36 @@ export class CrudService {
         });
     }
     /**
-     * Get Datasets
-     * @returns DataSetRead Successful Response
+     * List Feature Types
+     * @returns FeatureType Successful Response
      * @throws ApiError
      */
-    public static getDatasetsCrudDatasetsGet(): CancelablePromise<Array<DataSetRead>> {
+    public static listFeatureTypesCrudFeatureTypesGet(): CancelablePromise<Array<FeatureType>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/crud/datasets',
+            url: '/crud/feature-types',
+        });
+    }
+    /**
+     * List Feature Types
+     * @returns FeatureSource Successful Response
+     * @throws ApiError
+     */
+    public static listFeatureTypesCrudFeatureSourcesGet(): CancelablePromise<Array<FeatureSource>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/feature-sources',
+        });
+    }
+    /**
+     * List Models
+     * @returns ModelSpecRead Successful Response
+     * @throws ApiError
+     */
+    public static listModelsCrudModelsGet(): CancelablePromise<Array<ModelSpecRead>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/models',
         });
     }
 }

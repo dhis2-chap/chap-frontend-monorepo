@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type BackTestCreate = {
+export type chap_core__rest_api_src__v1__routers__crud__PredictionCreate = {
     datasetId: number;
-    modelId: string;
+    estimatorId: string;
+    nPeriods: number;
 };
 

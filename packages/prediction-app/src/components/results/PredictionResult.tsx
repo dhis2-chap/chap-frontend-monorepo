@@ -24,6 +24,8 @@ const PredictionResult = () => {
   const [selectedTab, setSelectedTab] = useState<"chart" | "table" | "map">("chart");
   const [httpGetResultError, setHttpGetResultError] = useState<any>(undefined);
 
+  const [isLoading, setIsLoading] = useState(false)
+
   //This states hold the dataElement prediction would be imported to
   const [qLowDataElement, setqLowDataElementId] = useState<{displayName : string, id : string} | null>(null);
   const [qMedianDataElement, setqMedianDataElementId] = useState<{displayName : string, id : string}  | null>(null)
@@ -63,7 +65,7 @@ const PredictionResult = () => {
   }
 
   const fetchOrHandleFileDropData = async (data? : FullPredictionResponse) => {
-      
+      setIsLoading(true)
       let response : FullPredictionResponse | undefined = data;
       //if not data is not passed in, fetch data
       if(!data){
@@ -72,6 +74,9 @@ const PredictionResult = () => {
         })
         .catch((err : any) => {
           setHttpGetResultError(err.toString())
+        })
+        .finally(() => {
+          setIsLoading(false)
         })
       }
       //handle response
@@ -139,9 +144,12 @@ const PredictionResult = () => {
 
   return (
     <div className={styles.container}>
-    {httpGetResultError && <p className={styles.redText}>{(httpGetResultError)}</p>}
+      {orgUnitLoading && <p>Loading metadata from DHIS2.. </p> }
+      {isLoading && <p>Loading predictions..</p> }
+      
+    {httpGetResultError && <p>Not available</p>}
     <StyledDropzone disabled={orgUnitLoading} onLoad={fetchOrHandleFileDropData} />
-
+      
     
       {
       //If predication is null, show only "Upload file"-area

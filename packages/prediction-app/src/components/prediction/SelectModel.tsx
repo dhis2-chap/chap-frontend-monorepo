@@ -81,8 +81,8 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
   }
 
   const onChangeModel = (event : any) => {
-    const selcted = models?.find((d : ModelSpec) => d.name === event.selected) as ModelSpec
-    setSelectedModel(selcted)
+    const selected = models?.find((d : ModelSpec) => d.name === event.selected) as ModelSpec
+    setSelectedModel(selected)
   }
 
   useEffect(() => {

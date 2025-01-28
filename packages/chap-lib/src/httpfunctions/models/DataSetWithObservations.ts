@@ -3,10 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ObservationBase } from './ObservationBase';
-export type DatasetCreate = {
+export type DataSetWithObservations = {
     name: string;
     geojson?: (string | null);
     type?: (string | null);
+    id: number;
     observations: Array<ObservationBase>;
 };
 
