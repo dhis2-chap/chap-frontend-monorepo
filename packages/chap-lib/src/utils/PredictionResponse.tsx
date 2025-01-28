@@ -27,7 +27,7 @@ export const numberDateToString = (date : string | number) : string => {
   const monthName = monthNames[parseInt(month) - 1];
 
   if(monthName === undefined) {
-    return "Invalid date";
+    return String(date);
   }
 
   return `${monthName} ${year}`;

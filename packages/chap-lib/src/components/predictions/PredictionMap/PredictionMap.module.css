@@ -1,0 +1,13 @@
+.predictionMapGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    width: 100%;
+}
+
+.predictionMapCard {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 320px;
+}
