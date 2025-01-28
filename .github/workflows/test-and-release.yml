@@ -11,9 +11,27 @@ jobs:
     lint-commits:
         uses: dhis2/workflows-platform/.github/workflows/lint-commits.yml@v1
     lint:
-        uses: dhis2/workflows-platform/.github/workflows/lint.yml@v1
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: yarn
+            - run: yarn install --frozen-lockfile
+            - run: yarn i18n
+            - run: yarn lint
     test:
-        uses: dhis2/workflows-platform/.github/workflows/test.yml@v1
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: yarn
+            - run: yarn install --frozen-lockfile
+            - run: yarn i18n
+            - run: yarn test
     # e2e:
     #     uses: dhis2/workflows-platform/.github/workflows/legacy-e2e.yml@v1
     #     # Skips forks and dependabot PRs

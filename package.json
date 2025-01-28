@@ -6,6 +6,21 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "lint": "d2-style check",
+    "format": "d2-style apply",
+    "build:chap-lib": "yarn workspace chap-lib build",
+    "build:chap-eval": "yarn workspace chap-eval build",
+    "build:prediction-app": "yarn workspace prediction-app build",
+    "build": "yarn build:chap-lib && yarn build:chap-eval && yarn build:prediction-app",
+    "test:chap-lib": "yarn workspace chap-lib test",
+    "test:chap-eval": "yarn workspace chap-eval test",
+    "test:prediction-app": "yarn workspace prediction-app test",
+    "test": "yarn test:chap-lib && yarn test:chap-eval && yarn test:prediction-app",
+    "i18n:chap-lib": "yarn workspace chap-lib d2-app-scripts i18n generate",
+    "i18n:prediction-app": "yarn workspace prediction-app d2-app-scripts i18n generate",
+    "i18n": "yarn i18n:chap-lib && yarn i18n:prediction-app"
+  },
   "dependencies": {
     "@dhis2/d2-i18n": "^1.1.3",
     "@dhis2/ui": "^9.11.7",
