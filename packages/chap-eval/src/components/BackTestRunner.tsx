@@ -53,8 +53,8 @@ const BacktestRunner: React.FC = () => {
             return
         }
         createBacktestMutation.mutate({
-            dataset_id: +selectedDataset,
-            estimator_id: selectedModel,
+            datasetId: +selectedDataset,
+            modelId: selectedModel,
         })
     }
 
@@ -149,11 +149,11 @@ const BacktestSelector = (props: BacktestSelectorProps) => {
                 const estimator_name =
                     backtests?.find(
                         (backtest) => backtest.id === +selectedBacktests[0]
-                    )?.estimator_id || 'Model1'
+                    )?.modelId || 'Model1'
                 const estimator_name2 =
                     backtests?.find(
                         (backtest) => backtest.id === +selectedBacktests[1]
-                    )?.estimator_id || 'Model2'
+                    )?.modelId || 'Model2'
                 const data = await getViewData(
                     +selectedBacktests[0],
                     +selectedBacktests[1],
@@ -197,7 +197,7 @@ const BacktestSelector = (props: BacktestSelectorProps) => {
                                     )
                                 } // Disable other options if 2 are selected
                             />
-                            {backtest.estimator_id}
+                            {backtest.modelId}
                         </label>
                     </li>
                 ))}
