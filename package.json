@@ -23,7 +23,6 @@
     },
     "dependencies": {
         "@dhis2/d2-i18n": "^1.1.3",
-        "@dhis2/ui": "^9.11.7",
         "@types/highcharts": "^5.0.44",
         "highcharts": "11.4.8",
         "highcharts-react-official": "^3.2.1",
