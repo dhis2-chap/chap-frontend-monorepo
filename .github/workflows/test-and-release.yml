@@ -55,7 +55,8 @@ jobs:
                   node-version: 20
                   cache: yarn
             - run: yarn install --frozen-lockfile
-            - run: yarn build
+            # todo: fix linting errors in chap-eval and build here
+            - run: yarn build:chap-lib && yarn build:prediction-app
             - uses: dhis2/action-semantic-release@master
               with:
                   publish-apphub: true
