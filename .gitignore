@@ -1,4 +1,5 @@
 **/node_modules/
 **/.d2
 **/build/**
+**/src/locales/
 .vscode
