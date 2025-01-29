@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Highcharts from 'highcharts'
 //import HighchartsMore from 'highcharts/highcharts-more';
-import { DefaultService } from '@dhis2-chap/chap-lib'
+import { DefaultService, EvaluationEntryExtend } from '@dhis2-chap/chap-lib'
 import { PredictionResponse } from '@dhis2-chap/chap-lib'
 import { ResultPlot } from '@dhis2-chap/chap-lib'
 import { createHighChartsData, HighChartsData } from '@dhis2-chap/chap-lib'
@@ -42,7 +42,8 @@ const processDataValues = (data: PredictionResponse[]): Record<string, any> => {
     Object.keys(groupedData).forEach((orgUnit) => {
         let groupedDatum = groupedData[orgUnit]
         let dataElement = createHighChartsData(
-            groupedDatum,
+            // todo: type me
+            groupedDatum as any,
             (item) => item.dataElement
         )
         orgUnitsProcessedData[orgUnit] = dataElement
@@ -71,6 +72,8 @@ const PredictionResultsChart = () => {
                     <ResultPlot
                         data={orgUnitsData[orgUnit]}
                         modelName={'ModelName'}
+                        // todo: check on value here
+                        syncZoom={false}
                     />
                 </div>
             ))}

@@ -55,8 +55,7 @@ jobs:
                   node-version: 20
                   cache: yarn
             - run: yarn install --frozen-lockfile
-            # todo: also build eval app
-            - run: yarn build:chap-lib && yarn build:prediction-app
+            - run: yarn build
             - uses: dhis2/action-semantic-release@master
               with:
                   publish-apphub: true
