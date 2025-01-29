@@ -32,6 +32,7 @@ jobs:
             - run: yarn install --frozen-lockfile
             - run: yarn i18n
             - run: yarn test
+
     # e2e:
     #     uses: dhis2/workflows-platform/.github/workflows/legacy-e2e.yml@v1
     #     # Skips forks and dependabot PRs
@@ -39,12 +40,31 @@ jobs:
     #     secrets: inherit
     #     with:
     #         api_version: 42
+
     release:
         needs: [lint-commits, lint, test]
-        uses: dhis2/workflows-platform/.github/workflows/release.yml@v1
         # Skips forks and dependabot PRs
         if: '!github.event.push.repository.fork'
-        secrets:
-            # Pass secrets since they can't be inherited cross-organization
-            DHIS2_BOT_GITHUB_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
-            DHIS2_BOT_APPHUB_TOKEN: ${{ secrets.DHIS2_BOT_APPHUB_TOKEN }}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: yarn
+            - run: yarn install --frozen-lockfile
+            # todo: also build eval app
+            - run: yarn build:chap-lib && yarn build:prediction-app
+            - uses: dhis2/action-semantic-release@master
+              with:
+                  publish-apphub: true
+                  publish-github: true
+                  github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
+                  apphub-token: ${{ secrets.DHIS2_BOT_APPHUB_TOKEN }}
+            # todo: also deploy eval app on github
+            - uses: dhis2/deploy-build@master
+              with:
+                  build-dir: packages/prediction-app/build/app
+                  github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
