@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Highcharts from 'highcharts'
 //import HighchartsMore from 'highcharts/highcharts-more';
-import { DefaultService, EvaluationEntryExtend } from '@dhis2-chap/chap-lib'
+import { DefaultService } from '@dhis2-chap/chap-lib'
 import { PredictionResponse } from '@dhis2-chap/chap-lib'
 import { ResultPlot } from '@dhis2-chap/chap-lib'
 import { createHighChartsData, HighChartsData } from '@dhis2-chap/chap-lib'
