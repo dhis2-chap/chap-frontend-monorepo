@@ -1,5 +1,5 @@
 .legend {
-    width: 50%;
+    inline-size: 50%;
     margin: auto;
 }
 
@@ -12,7 +12,7 @@
 .legendTitle {
     font-style: italic;
     text-align: center;
-    margin-bottom: 10px;
+    margin-block-end: 10px;
 }
 
 .classItem {
@@ -23,8 +23,8 @@
 }
 
 .classSymbol {
-    width: 30px;
-    height: 1rem;
+    inline-size: 30px;
+    block-size: 1rem;
     outline: black solid 1px;
 }
 

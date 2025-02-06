@@ -3,10 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export type EvaluationEntry = {
-    orgUnit: string;
-    period: string;
-    quantile: number;
-    value: number;
-    splitPeriod: string;
-};
-
+    orgUnit: string
+    period: string
+    quantile: number
+    value: number
+    splitPeriod: string
+}

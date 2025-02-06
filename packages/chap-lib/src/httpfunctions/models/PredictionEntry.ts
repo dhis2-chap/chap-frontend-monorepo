@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type PredictionEntry = {
-    orgUnit: string;
-    period: string;
-    quantile: number;
-    value: number;
-};
-
+    orgUnit: string
+    period: string
+    quantile: number
+    value: number
+}

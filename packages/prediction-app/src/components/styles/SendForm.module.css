@@ -1,4 +1,4 @@
-.loading{
-    margin-top: 1rem;
-    width: 100%;
+.loading {
+    margin-block-start: 1rem;
+    inline-size: 100%;
 }

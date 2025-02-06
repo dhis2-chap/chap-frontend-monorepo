@@ -1,29 +1,29 @@
-import { EvaluationEntry } from "../httpfunctions";
+import { EvaluationEntry } from '../httpfunctions'
 
 export interface EvaluationEntryExtend extends EvaluationEntry {
-  modelName? : string
+    modelName?: string
 }
 
 export interface EvaluationForSplitPoint {
-  evaluation : EvaluationPerOrgUnit[],
-  splitPoint : string
+    evaluation: EvaluationPerOrgUnit[]
+    splitPoint: string
 }
 
 export interface EvaluationPerOrgUnit {
-  orgUnitName : string;
-  orgUnitId : string;
-  models : ModelData[];
+    orgUnitName: string
+    orgUnitId: string
+    models: ModelData[]
 }
 
 export interface HighChartsData {
-  periods: string[];
-  ranges: number[][];
-  averages: number[][];
-  realValues?: number[];
-  midranges?: number[][];
+    periods: string[]
+    ranges: number[][]
+    averages: number[][]
+    realValues?: number[]
+    midranges?: number[][]
 }
 
 export interface ModelData {
-  data : HighChartsData,
-  modelName : string
+    data: HighChartsData
+    modelName: string
 }

@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type ForecastRead = {
-    period: string;
-    orgUnit: string;
-    values?: Array<number>;
-};
-
+    period: string
+    orgUnit: string
+    values?: Array<number>
+}

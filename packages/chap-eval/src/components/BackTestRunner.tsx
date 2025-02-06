@@ -1,51 +1,65 @@
-import React, { useState, useCallback } from "react";
-import { useQuery, useMutation, QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { evaluationResultToViewData } from "@dhis2-chap/chap-lib";
-import {CrudService, DefaultService, AnalyticsService} from "@dhis2-chap/chap-lib";
-import {addModelName} from "../lib/dataProcessing";
-import {ComparisonDashboard} from "../components/EvaluationResultDashboard";
-import {EvaluationForSplitPoint} from "@dhis2-chap/chap-lib";
+import React, { useState, useCallback } from 'react'
+import {
+    useQuery,
+    useMutation,
+    QueryClient,
+    QueryClientProvider,
+} from '@tanstack/react-query'
+import { evaluationResultToViewData } from '@dhis2-chap/chap-lib'
+import {
+    CrudService,
+    DefaultService,
+    AnalyticsService,
+} from '@dhis2-chap/chap-lib'
+import { addModelName } from '../lib/dataProcessing'
+import { ComparisonDashboard } from '../components/EvaluationResultDashboard'
+import { EvaluationForSplitPoint } from '@dhis2-chap/chap-lib'
 
 // Initialize Query Client
-const queryClient = new QueryClient();
-const api = CrudService;
+const queryClient = new QueryClient()
+const api = CrudService
 const BacktestRunner: React.FC = () => {
-    const [selectedDataset, setSelectedDataset] = useState<string | null>(null);
-    const [selectedModel, setSelectedModel] = useState<string | null>(null);
+    const [selectedDataset, setSelectedDataset] = useState<string | null>(null)
+    const [selectedModel, setSelectedModel] = useState<string | null>(null)
 
     // Fetch datasets
-    const { data: datasets, isPending: datasetsLoading } = useQuery({queryKey: ["datasets"],
-        queryFn: api.getDatasetsCrudDatasetsGet});
+    const { data: datasets, isPending: datasetsLoading } = useQuery({
+        queryKey: ['datasets'],
+        queryFn: api.getDatasetsCrudDatasetsGet,
+    })
 
     // Fetch models (replace with your model fetching logic)
-    const { data: models, isPending: modelsLoading } = useQuery({queryKey: ["models"],queryFn: DefaultService.listModelsListModelsGet});
+    const { data: models, isPending: modelsLoading } = useQuery({
+        queryKey: ['models'],
+        queryFn: DefaultService.listModelsListModelsGet,
+    })
 
     // Create backtest mutation
     const createBacktestMutation = useMutation({
         mutationFn: api.createBacktestCrudBacktestPost,
         onSuccess: (data) => {
-            alert(`Backtest started! Job ID: ${data.id}`);
+            alert(`Backtest started! Job ID: ${data.id}`)
         },
         onError: (error) => {
-            console.error(error);
-            alert(`Error starting backtest: ${error}`);
+            console.error(error)
+            alert(`Error starting backtest: ${error}`)
         },
-    });
+    })
 
     // Handlers
     const handleRunBacktest = () => {
         if (!selectedDataset || !selectedModel) {
-            alert("Please select both a dataset and a model!");
-            return;
+            alert('Please select both a dataset and a model!')
+            return
         }
         createBacktestMutation.mutate({
-            dataset_id: +selectedDataset,
-            estimator_id: selectedModel,
-        });
-    };
+            datasetId: +selectedDataset,
+            modelId: selectedModel,
+        })
+    }
 
     if (datasetsLoading || modelsLoading) {
-        return <div>Loading...</div>;
+        return <div>Loading...</div>
     }
 
     return (
@@ -53,7 +67,10 @@ const BacktestRunner: React.FC = () => {
             <h1>Run Backtest</h1>
             <div>
                 <h2>Select Dataset</h2>
-                <select onChange={(e) => setSelectedDataset(e.target.value)} value={selectedDataset || ""}>
+                <select
+                    onChange={(e) => setSelectedDataset(e.target.value)}
+                    value={selectedDataset || ''}
+                >
                     <option value="" disabled>
                         Select a dataset
                     </option>
@@ -66,7 +83,10 @@ const BacktestRunner: React.FC = () => {
             </div>
             <div>
                 <h2>Select Model</h2>
-                <select onChange={(e) => setSelectedModel(e.target.value)} value={selectedModel || ""}>
+                <select
+                    onChange={(e) => setSelectedModel(e.target.value)}
+                    value={selectedModel || ''}
+                >
                     <option value="" disabled>
                         Select a model
                     </option>
@@ -77,58 +97,82 @@ const BacktestRunner: React.FC = () => {
                     ))}
                 </select>
             </div>
-            <button onClick={handleRunBacktest} disabled={createBacktestMutation.isPending}>
-                {createBacktestMutation.isPending ? "Running..." : "Run Backtest"}
+            <button
+                onClick={handleRunBacktest}
+                disabled={createBacktestMutation.isPending}
+            >
+                {createBacktestMutation.isPending
+                    ? 'Running...'
+                    : 'Run Backtest'}
             </button>
         </div>
-    );
-};
+    )
+}
 
 interface BacktestSelectorProps {
-    setData: (data: EvaluationForSplitPoint[]) => void;
+    setData: (data: EvaluationForSplitPoint[]) => void
 }
 
 const BacktestSelector = (props: BacktestSelectorProps) => {
-    const fetchBacktests = useCallback(() => CrudService.getBacktestsCrudBacktestGet(), []);
-    const { data: backtests, isPending, isError, error } = useQuery({
-        queryKey: ["backtests"],
+    const fetchBacktests = useCallback(
+        () => CrudService.getBacktestsCrudBacktestGet(),
+        []
+    )
+    const {
+        data: backtests,
+        isPending,
+        isError,
+        error,
+    } = useQuery({
+        queryKey: ['backtests'],
         queryFn: fetchBacktests,
-    });
-    const [selectedBacktests, setSelectedBacktests] = useState<string[]>([]);
+    })
+    const [selectedBacktests, setSelectedBacktests] = useState<string[]>([])
 
     // Toggle backtest selection
     const toggleSelection = (id: string) => {
         setSelectedBacktests((prev) => {
             if (prev.includes(id)) {
-                return prev.filter((backtestId) => backtestId !== id); // Remove if already selected
+                return prev.filter((backtestId) => backtestId !== id) // Remove if already selected
             } else if (prev.length < 2) {
-                return [...prev, id]; // Add if less than 2 selected
+                return [...prev, id] // Add if less than 2 selected
             }
-            return prev; // Prevent selecting more than 2
-        });
-    };
+            return prev // Prevent selecting more than 2
+        })
+    }
 
     const handleRun = async () => {
-            if (selectedBacktests.length === 2) {
-        console.log("Running with backtests:", selectedBacktests);
+        if (selectedBacktests.length === 2) {
+            console.log('Running with backtests:', selectedBacktests)
 
-        try {
-            const estimator_name = backtests?.find((backtest) => backtest.id === +selectedBacktests[0])?.estimator_id || "Model1";
-            const estimator_name2 = backtests?.find((backtest) => backtest.id === +selectedBacktests[1])?.estimator_id || "Model2";
-            const data = await getViewData(+selectedBacktests[0], +selectedBacktests[1], estimator_name, estimator_name2);
-            props.setData(data);
-        } catch (error) {
-            console.error("Error running backtests:", error);
+            try {
+                const estimator_name =
+                    backtests?.find(
+                        (backtest) => backtest.id === +selectedBacktests[0]
+                    )?.modelId || 'Model1'
+                const estimator_name2 =
+                    backtests?.find(
+                        (backtest) => backtest.id === +selectedBacktests[1]
+                    )?.modelId || 'Model2'
+                const data = await getViewData(
+                    +selectedBacktests[0],
+                    +selectedBacktests[1],
+                    estimator_name,
+                    estimator_name2
+                )
+                props.setData(data)
+            } catch (error) {
+                console.error('Error running backtests:', error)
+            }
+        } else {
+            console.warn('You must select exactly two backtests.')
         }
-    } else {
-        console.warn("You must select exactly two backtests.");
     }
-    };
 
-    if (isPending) return <p>Loading backtests...</p>;
+    if (isPending) return <p>Loading backtests...</p>
     if (isError) {
-        console.error("Error fetching backtests:", error);
-        return <p>Error loading backtests.</p>;
+        console.error('Error fetching backtests:', error)
+        return <p>Error loading backtests.</p>
     }
 
     return (
@@ -140,14 +184,20 @@ const BacktestSelector = (props: BacktestSelectorProps) => {
                         <label>
                             <input
                                 type="checkbox"
-                                checked={selectedBacktests.includes(String(backtest.id))}
-                                onChange={() => toggleSelection(String(backtest.id))}
+                                checked={selectedBacktests.includes(
+                                    String(backtest.id)
+                                )}
+                                onChange={() =>
+                                    toggleSelection(String(backtest.id))
+                                }
                                 disabled={
                                     selectedBacktests.length === 2 &&
-                                    !selectedBacktests.includes(String(backtest.id))
+                                    !selectedBacktests.includes(
+                                        String(backtest.id)
+                                    )
                                 } // Disable other options if 2 are selected
                             />
-                            {backtest.estimator_id}
+                            {backtest.modelId}
                         </label>
                     </li>
                 ))}
@@ -159,45 +209,61 @@ const BacktestSelector = (props: BacktestSelectorProps) => {
                 Show
             </button>
         </div>
-    );
-};
-const getViewData = async (backtestId: number, backtestId2: number, estimator_name: string, estimator_name2: string): Promise<EvaluationForSplitPoint[]> => {
-    const quantiles = [0.05, 0.25, 0.5, 0.75, 0.95];
+    )
+}
+const getViewData = async (
+    backtestId: number,
+    backtestId2: number,
+    estimator_name: string,
+    estimator_name2: string
+): Promise<EvaluationForSplitPoint[]> => {
+    const quantiles = [0.05, 0.25, 0.5, 0.75, 0.95]
     try {
         // Fetch evaluation entries
-        const data = await AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
-            backtestId,
-            quantiles
-        );
-        const data2 = await AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
-            backtestId2,
-            quantiles);
-        
-        let namedData = addModelName(data, estimator_name);
-        let namedData2 = addModelName(data2, estimator_name2);
-        namedData = namedData.concat(namedData2);
+        const data =
+            await AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
+                backtestId,
+                quantiles
+            )
+        const data2 =
+            await AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
+                backtestId2,
+                quantiles
+            )
+
+        let namedData = addModelName(data, estimator_name)
+        let namedData2 = addModelName(data2, estimator_name2)
+        namedData = namedData.concat(namedData2)
 
         // Fetch actual cases
-        const response2 = await AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(backtestId2);
-        return evaluationResultToViewData(namedData, response2.data);
+        const response2 =
+            await AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(
+                backtestId2
+            )
+        return evaluationResultToViewData(namedData, response2.data)
     } catch (error) {
-        console.error("Error fetching HighCharts data:", error);
-        throw error; // Rethrow the error so the caller can handle it
+        console.error('Error fetching HighCharts data:', error)
+        throw error // Rethrow the error so the caller can handle it
     }
 }
 
 const BacktestViewer: React.FC = () => {
-    const [data, setData] = useState<EvaluationForSplitPoint[]>();
-    const res = (data) ? <ComparisonDashboard data={data} splitPeriods={data.map((item)=>item.splitPoint)}/> : <p>Loading...</p>;
+    const [data, setData] = useState<EvaluationForSplitPoint[]>()
+    const res = data ? (
+        <ComparisonDashboard
+            data={data}
+            splitPeriods={data.map((item) => item.splitPoint)}
+        />
+    ) : (
+        <p>Loading...</p>
+    )
     return (
-            <div>
-                <BacktestSelector setData={setData} />
-                {res}
-            </div>
-        );
-};
-
-
+        <div>
+            <BacktestSelector setData={setData} />
+            {res}
+        </div>
+    )
+}
 
 // Wrap the component in QueryClientProvider
 const App: React.FC = () => (
@@ -205,6 +271,6 @@ const App: React.FC = () => (
         <BacktestRunner />
         <BacktestViewer />
     </QueryClientProvider>
-);
+)
 
-export default App;
+export default App

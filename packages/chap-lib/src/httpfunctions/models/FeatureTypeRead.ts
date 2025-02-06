@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type FeatureTypeRead = {
-    displayName: string;
-    description: string;
-    name: string;
-};
-
+    displayName: string
+    description: string
+    name: string
+}

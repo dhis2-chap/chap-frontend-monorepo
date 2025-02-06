@@ -3,6 +3,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type DataBaseResponse = {
-    id: number;
-};
-
+    id: number
+}

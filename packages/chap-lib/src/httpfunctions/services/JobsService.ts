@@ -2,13 +2,13 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { DataBaseResponse } from '../models/DataBaseResponse';
-import type { EvaluationResponse } from '../models/EvaluationResponse';
-import type { FullPredictionResponse } from '../models/FullPredictionResponse';
-import type { JobDescription } from '../models/JobDescription';
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { DataBaseResponse } from '../models/DataBaseResponse'
+import type { EvaluationResponse } from '../models/EvaluationResponse'
+import type { FullPredictionResponse } from '../models/FullPredictionResponse'
+import type { JobDescription } from '../models/JobDescription'
+import type { CancelablePromise } from '../core/CancelablePromise'
+import { OpenAPI } from '../core/OpenAPI'
+import { request as __request } from '../core/request'
 export class JobsService {
     /**
      * List Jobs
@@ -20,7 +20,7 @@ export class JobsService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/jobs',
-        });
+        })
     }
     /**
      * Get Job Status
@@ -29,18 +29,18 @@ export class JobsService {
      * @throws ApiError
      */
     public static getJobStatusJobsJobIdGet(
-        jobId: string,
+        jobId: string
     ): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/jobs/{job_id}',
             path: {
-                'job_id': jobId,
+                job_id: jobId,
             },
             errors: {
                 422: `Validation Error`,
             },
-        });
+        })
     }
     /**
      * Get Prediction Result
@@ -49,18 +49,18 @@ export class JobsService {
      * @throws ApiError
      */
     public static getPredictionResultJobsJobIdPredictionResultGet(
-        jobId: string,
+        jobId: string
     ): CancelablePromise<FullPredictionResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/jobs/{job_id}/prediction_result',
             path: {
-                'job_id': jobId,
+                job_id: jobId,
             },
             errors: {
                 422: `Validation Error`,
             },
-        });
+        })
     }
     /**
      * Get Evaluation Result
@@ -69,18 +69,18 @@ export class JobsService {
      * @throws ApiError
      */
     public static getEvaluationResultJobsJobIdEvaluationResultGet(
-        jobId: string,
+        jobId: string
     ): CancelablePromise<EvaluationResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/jobs/{job_id}/evaluation_result',
             path: {
-                'job_id': jobId,
+                job_id: jobId,
             },
             errors: {
                 422: `Validation Error`,
             },
-        });
+        })
     }
     /**
      * Get Database Result
@@ -89,17 +89,17 @@ export class JobsService {
      * @throws ApiError
      */
     public static getDatabaseResultJobsJobIdDatabaseResultGet(
-        jobId: string,
+        jobId: string
     ): CancelablePromise<DataBaseResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/jobs/{job_id}/database_result',
             path: {
-                'job_id': jobId,
+                job_id: jobId,
             },
             errors: {
                 422: `Validation Error`,
             },
-        });
+        })
     }
 }

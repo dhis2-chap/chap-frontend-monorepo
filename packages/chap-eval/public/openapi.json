@@ -7,9 +7,7 @@
     "paths": {
         "/crud/backtest/{backtest_id}": {
             "get": {
-                "tags": [
-                    "crud"
-                ],
+                "tags": ["crud"],
                 "summary": "Get Backtest",
                 "operationId": "get_backtest_crud_backtest__backtest_id__get",
                 "parameters": [
@@ -49,9 +47,7 @@
         },
         "/crud/backtest": {
             "get": {
-                "tags": [
-                    "crud"
-                ],
+                "tags": ["crud"],
                 "summary": "Get Backtests",
                 "operationId": "get_backtests_crud_backtest_get",
                 "responses": {
@@ -72,9 +68,7 @@
                 }
             },
             "post": {
-                "tags": [
-                    "crud"
-                ],
+                "tags": ["crud"],
                 "summary": "Create Backtest",
                 "operationId": "create_backtest_crud_backtest_post",
                 "requestBody": {
@@ -113,9 +107,7 @@
         },
         "/crud/dataset/{dataset_id}": {
             "get": {
-                "tags": [
-                    "crud"
-                ],
+                "tags": ["crud"],
                 "summary": "Get Dataset",
                 "operationId": "get_dataset_crud_dataset__dataset_id__get",
                 "parameters": [
@@ -155,9 +147,7 @@
         },
         "/crud/datasets": {
             "get": {
-                "tags": [
-                    "crud"
-                ],
+                "tags": ["crud"],
                 "summary": "Get Datasets",
                 "operationId": "get_datasets_crud_datasets_get",
                 "responses": {
@@ -180,9 +170,7 @@
         },
         "/analytics/evaluation_entry": {
             "get": {
-                "tags": [
-                    "analytics"
-                ],
+                "tags": ["analytics"],
                 "summary": "Get Evaluation Entries",
                 "operationId": "get_evaluation_entries_analytics_evaluation_entry_get",
                 "parameters": [
@@ -238,9 +226,7 @@
         },
         "/analytics/actual_cases/{backtest_id}": {
             "get": {
-                "tags": [
-                    "analytics"
-                ],
+                "tags": ["analytics"],
                 "summary": "Get Actual Cases",
                 "operationId": "get_actual_cases_analytics_actual_cases__backtest_id__get",
                 "parameters": [
@@ -561,10 +547,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "dataset_id",
-                    "estimator_id"
-                ],
+                "required": ["dataset_id", "estimator_id"],
                 "title": "BackTestCreate"
             },
             "BackTestForecast": {
@@ -722,11 +705,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "dataset_id",
-                    "estimator_id",
-                    "id"
-                ],
+                "required": ["dataset_id", "estimator_id", "id"],
                 "title": "BackTestRead"
             },
             "Coordinates": {
@@ -785,11 +764,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "pe",
-                    "ou",
-                    "value"
-                ],
+                "required": ["pe", "ou", "value"],
                 "title": "DataElement"
             },
             "DataList": {
@@ -811,11 +786,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "featureId",
-                    "dhis2Id",
-                    "data"
-                ],
+                "required": ["featureId", "dhis2Id", "data"],
                 "title": "DataList"
             },
             "DataSet": {
@@ -848,9 +819,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "name"
-                ],
+                "required": ["name"],
                 "title": "DataSet"
             },
             "DataSetRead": {
@@ -865,10 +834,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "id",
-                    "name"
-                ],
+                "required": ["id", "name"],
                 "title": "DataSetRead"
             },
             "EvaluationEntry": {
@@ -918,10 +884,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "actualCases",
-                    "predictions"
-                ],
+                "required": ["actualCases", "predictions"],
                 "title": "EvaluationResponse"
             },
             "Feature": {
@@ -945,11 +908,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "id",
-                    "name",
-                    "description"
-                ],
+                "required": ["id", "name", "description"],
                 "title": "Feature"
             },
             "FeatureCollectionModel": {
@@ -968,9 +927,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "features"
-                ],
+                "required": ["features"],
                 "title": "FeatureCollectionModel"
             },
             "FeatureModel": {
@@ -1009,10 +966,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "geometry",
-                    "id"
-                ],
+                "required": ["geometry", "id"],
                 "title": "FeatureModel"
             },
             "FullPredictionResponse": {
@@ -1030,10 +984,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "diseaseId",
-                    "dataValues"
-                ],
+                "required": ["diseaseId", "dataValues"],
                 "title": "FullPredictionResponse"
             },
             "HTTPValidationError": {
@@ -1065,9 +1016,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "coordinates"
-                ],
+                "required": ["coordinates"],
                 "title": "LineStringModel"
             },
             "ModelSpec": {
@@ -1108,11 +1057,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "name",
-                    "parameters",
-                    "features"
-                ],
+                "required": ["name", "parameters", "features"],
                 "title": "ModelSpec"
             },
             "MultiLineStringModel": {
@@ -1134,9 +1079,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "coordinates"
-                ],
+                "required": ["coordinates"],
                 "title": "MultiLineStringModel"
             },
             "MultiPointModel": {
@@ -1155,9 +1098,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "coordinates"
-                ],
+                "required": ["coordinates"],
                 "title": "MultiPointModel"
             },
             "MultiPolygonModel": {
@@ -1182,19 +1123,12 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "coordinates"
-                ],
+                "required": ["coordinates"],
                 "title": "MultiPolygonModel"
             },
             "PeriodType": {
                 "type": "string",
-                "enum": [
-                    "week",
-                    "month",
-                    "any",
-                    "year"
-                ],
+                "enum": ["week", "month", "any", "year"],
                 "title": "PeriodType"
             },
             "PointModel": {
@@ -1209,9 +1143,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "coordinates"
-                ],
+                "required": ["coordinates"],
                 "title": "PointModel"
             },
             "PolygonModel": {
@@ -1233,9 +1165,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "coordinates"
-                ],
+                "required": ["coordinates"],
                 "title": "PolygonModel"
             },
             "PredictionRequest": {
@@ -1262,10 +1192,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "orgUnitsGeoJson",
-                    "features"
-                ],
+                "required": ["orgUnitsGeoJson", "features"],
                 "title": "PredictionRequest"
             },
             "PredictionResponse": {
@@ -1288,12 +1215,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "orgUnit",
-                    "dataElement",
-                    "period",
-                    "value"
-                ],
+                "required": ["orgUnit", "dataElement", "period", "value"],
                 "title": "PredictionResponse"
             },
             "State": {
@@ -1313,10 +1235,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "ready",
-                    "status"
-                ],
+                "required": ["ready", "status"],
                 "title": "State"
             },
             "ValidationError": {
@@ -1345,11 +1264,7 @@
                     }
                 },
                 "type": "object",
-                "required": [
-                    "loc",
-                    "msg",
-                    "type"
-                ],
+                "required": ["loc", "msg", "type"],
                 "title": "ValidationError"
             }
         }

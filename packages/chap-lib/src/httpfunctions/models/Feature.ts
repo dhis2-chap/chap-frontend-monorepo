@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type Feature = {
-    id: string;
-    name: string;
-    description: string;
-    optional?: boolean;
-};
-
+    id: string
+    name: string
+    description: string
+    optional?: boolean
+}

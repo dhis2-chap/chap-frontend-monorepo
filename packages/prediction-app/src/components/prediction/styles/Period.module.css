@@ -1,19 +1,19 @@
 .container {
-  margin: 0 0 1rem 0;
+    margin: 0 0 1rem 0;
 }
 
 .pickers {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .pickers > div {
-  /* width: 49%; */
-  width: 100%;
+    /* width: 49%; */
+    inline-size: 100%;
 }
 
 .pickers input {
-  height: 36px;
+    block-size: 36px;
 }
