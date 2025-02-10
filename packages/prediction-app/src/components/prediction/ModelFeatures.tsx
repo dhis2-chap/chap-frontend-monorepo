@@ -27,17 +27,6 @@ interface ModelFeaturesProps {
     renderOptionalField: boolean | undefined
 }
 
-const dataElementQuery = {
-    results: {
-        resource: 'dataElements',
-        params: {
-            paging: false,
-            filter: 'domainType:eq:AGGREGATE',
-            fields: 'id,code,displayName',
-        },
-    },
-}
-
 const ModelFeatures = ({
     features,
     modelSpesificSelectedDataElements,
@@ -45,8 +34,6 @@ const ModelFeatures = ({
     setRenderOptionalField,
     renderOptionalField,
 }: ModelFeaturesProps) => {
-    const { loading, error, data } = useDataQuery(dataElementQuery)
-    const dataElements = (data?.results as any)?.dataElements
 
     if (!features) {
         return <></>
@@ -66,15 +53,11 @@ const ModelFeatures = ({
         setRenderOptionalField(e)
     }
 
-    const onChangeSearchSelectField = (feature: Feature, v: string) => {
-        //find name of dataElement
-        const dataElement = dataElements?.find(
-            (d: any) => d.id === v
-        )?.displayName
+    const onChangeSearchSelectField = (feature : Feature, dataItemId : string, dataItemDisplayName : string) => {
 
         const feature_with_selected_data_elements: ModelFeatureDataElement = {
-            selectedDataElementId: v,
-            selectedDataElementName: dataElement,
+            selectedDataElementId: dataItemId,
+            selectedDataElementName: dataItemDisplayName,
             optional: feature.optional ?? false,
         }
         setModelSpesificSelectedDataElements(

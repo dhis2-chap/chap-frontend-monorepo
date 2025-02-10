@@ -70,8 +70,8 @@ const PredictionPage = () => {
 
     const [startDownload, setStartDownload] = useState<{
         action: 'download' | 'predict' | 'evaluate'
-        startDownlaod: boolean
-    }>({ action: 'download', startDownlaod: false })
+        startDownload: boolean
+    }>({ action: 'download', startDownload: false })
     const [renderOptionalField, setRenderOptionalField] = useState<
         boolean | undefined
     >(false)
@@ -97,7 +97,7 @@ const PredictionPage = () => {
         action: 'download' | 'predict' | 'evaluate'
     ) => {
         setJsonResult(undefined)
-        setStartDownload({ action: action, startDownlaod: true })
+        setStartDownload({ action: action, startDownload: true })
     }
 
     const isAnalyticsContentValid = (jsonResult: PredictionRequest) => {
@@ -110,7 +110,7 @@ const PredictionPage = () => {
                 ].find(([k, v]) => v.selectedDataElementId === f.dhis2Id)?.[1]
                     .selectedDataElementName
                 const msg =
-                    'Data element "' + data_element_name + '" returned no data.'
+                    'Data item "' + data_element_name + '" returned no data.'
                 emptyFeatures.push({
                     description:
                         'Ensure you have exported the analytics tables in DHIS2.',
@@ -128,7 +128,7 @@ const PredictionPage = () => {
     //triggers when anayltics content is fetched
     useEffect(() => {
         if (jsonResult) {
-            setStartDownload((prev) => ({ ...prev, startDownlaod: false }))
+            setStartDownload((prev) => ({ ...prev, startDownload: false }))
 
             //if action is "Download", do not do any validation, just download the data
             if (startDownload.action === 'download') {
@@ -138,6 +138,8 @@ const PredictionPage = () => {
 
             //if action is "Predict" or "Evaluate", check if the analytics contains row
             if (!isAnalyticsContentValid(jsonResult)) return
+
+            setSendingDataToChap(true)
 
             if (startDownload.action === 'predict') predict()
             if (startDownload.action === 'evaluate') evaluate()
@@ -164,12 +166,12 @@ const PredictionPage = () => {
         await DefaultService.evaluateEvaluatePost(request, nSplits)
             .then((response: any) => {
                 setErrorChapMsg('')
-                setSendingDataToChap(false)
                 return navigate('/status')
             })
             .catch((error: any) => {
-                setSendingDataToChap(false)
                 setErrorChapMsg(error?.body?.detail)
+            }).finally(() => {
+                setSendingDataToChap(false)
             })
     }
 
@@ -181,12 +183,13 @@ const PredictionPage = () => {
         await DefaultService.predictPredictPost(request)
             .then((response: any) => {
                 setErrorChapMsg('')
-                setSendingDataToChap(false)
                 return navigate('/status')
             })
             .catch((error: any) => {
-                setSendingDataToChap(false)
+                
                 setErrorChapMsg(error?.body?.detail)
+            }).finally(() => {
+                setSendingDataToChap(false)
             })
     }
 
@@ -272,10 +275,10 @@ const PredictionPage = () => {
                     <div className={styles.buttons}>
                         <Button
                             icon={<IconDownload24 />}
-                            loading={startDownload.startDownlaod}
+                            loading={startDownload.startDownload}
                             disabled={
                                 !isValid ||
-                                (startDownload.startDownlaod &&
+                                (startDownload.startDownload &&
                                     startDownload.action === 'download') ||
                                 !orgUnitsSelectedIsValid()
                             }
@@ -291,7 +294,7 @@ const PredictionPage = () => {
                             loading={sendingDataToChap}
                             disabled={
                                 !isValid ||
-                                startDownload.startDownlaod ||
+                                startDownload.startDownload ||
                                 !orgUnitsSelectedIsValid()
                             }
                             onClick={() => onClickDownloadOrPostData('predict')}
@@ -304,7 +307,7 @@ const PredictionPage = () => {
                             loading={sendingDataToChap}
                             disabled={
                                 !isValid ||
-                                startDownload.startDownlaod ||
+                                startDownload.startDownload ||
                                 !orgUnitsSelectedIsValid()
                             }
                             onClick={() =>
@@ -317,14 +320,14 @@ const PredictionPage = () => {
                     <PredictEvaluateHelp />
 
                     {<p className={styles.errorChap}>{errorChapMsg}</p>}
-                    {startDownload.startDownlaod && isValid && (
+                    {startDownload.startDownload && isValid && (
                         <DownloadData
                             setJsonResult={setJsonResult}
                             modelSpesificSelectedDataElements={
                                 modelSpesificSelectedDataElements
                             }
-                            startDownload={startDownload}
                             setStartDownload={setStartDownload}
+                            startDownload={startDownload}
                             period={selectedPeriodItems}
                             setErrorMessages={setErrorMessages}
                             orgUnits={orgUnits}
