@@ -10,7 +10,6 @@ import PostResult from './PostResult'
 import SelectDataValues from './SelectDataValues'
 import SetupInstruction from './SetupInstruction'
 import useDataElements from '../../hooks/useDataElements'
-import useDataElement from '../../hooks/useDataElement'
 import { useLocation } from 'react-router-dom'
 import {
     DefaultService,
@@ -22,6 +21,7 @@ import {
 import { SelectImportMode } from './SelectImportMode'
 
 import { UncertaintyAreaChart } from '@dhis2-chap/chap-lib'
+import useFindDataItem from '../../hooks/useDataItem'
 
 const PredictionResult = () => {
     const location = useLocation()
@@ -58,7 +58,7 @@ const PredictionResult = () => {
         null
     )
     const { displayName: predictionTargetName } =
-        useDataElement(predictionTargetId)
+        useFindDataItem(predictionTargetId)
 
     //Used to display the name of the orgUnit in the table/chart
     const { orgUnits, loading: orgUnitLoading } = useOrgUnits()
@@ -294,7 +294,7 @@ const PredictionResult = () => {
                         />
                         <SelectDataValues
                             label={i18n.t(
-                                'Select data element for medium quantile'
+                                'Select data element for median quantile'
                             )}
                             dataElements={dataElementsMedian}
                             onChange={setqMedianDataElementId}
