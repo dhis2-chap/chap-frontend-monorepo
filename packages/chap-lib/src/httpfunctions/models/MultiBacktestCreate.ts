@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type MultiBacktestCreate = {
-    modelIds: Array<string>;
-    datasetId: number;
-};
-
+    modelIds: Array<string>
+    datasetId: number
+}

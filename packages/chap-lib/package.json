@@ -1,11 +1,11 @@
 {
     "name": "@dhis2-chap/chap-lib",
     "version": "1.0.0",
-    "module": "./build\\es\\index.js",
+    "module": "./build/es/index.js",
     "types": "./build/es/index.d.ts",
     "license": "MIT",
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "12.0.0-alpha.25",
+        "@dhis2/cli-app-scripts": "^12.2.0",
         "@types/css-modules": "^1.0.5",
         "@types/node": "^22.10.1",
         "typescript": "^5.7.2"
@@ -19,14 +19,15 @@
         "generate": "yarn openapi --input ./public/openapi.json --output ./src/httpfunctions",
         "generate-localhost": "yarn openapi --input http://localhost:8000/v1/openapi.json --output ./src/httpfunctions"
     },
-    "main": "./build\\cjs\\index.js",
+    "main": "./build/cjs/index.js",
     "exports": {
-        "import": "./build\\es\\index.js",
-        "require": "./build\\cjs\\index.js"
+        "import": "./build/es/index.js",
+        "require": "./build/cjs/index.js"
     },
     "dependencies": {
         "@dhis2-chap/chap-lib": "*",
         "@dhis2/maps-gl": "^4.0.1",
+        "@dhis2/ui": "^10.1.10",
         "openapi-typescript-codegen": "^0.29.0"
     }
 }

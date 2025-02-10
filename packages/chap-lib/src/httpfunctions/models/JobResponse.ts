@@ -3,6 +3,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type JobResponse = {
-    id: string;
-};
-
+    id: string
+}

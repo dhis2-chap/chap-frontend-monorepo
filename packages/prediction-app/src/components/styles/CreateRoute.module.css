@@ -1,39 +1,39 @@
-.outerContainer{
-    margin-top: 3rem;
+.outerContainer {
+    margin-block-start: 3rem;
 }
 
-.container{
-    max-width: 500px;
+.container {
+    max-inline-size: 500px;
     margin: auto;
 }
 
-.sendButton{
-    margin-top: 1rem;
+.sendButton {
+    margin-block-start: 1rem;
     display: flex;
     justify-content: right;
 }
 
-.error{
-    max-width: 800px;
+.error {
+    max-inline-size: 800px;
     margin: auto;
     color: red;
     overflow-x: auto;
     border: 1px solid black;
     padding: 0.5rem;
-    max-height: 500px;
-    width: 900px;
+    max-block-size: 500px;
+    inline-size: 900px;
     overflow-y: scroll;
-    margin-bottom: 2rem;
+    margin-block-end: 2rem;
 }
 
-.ok{
+.ok {
     font-weight: 500;
     text-align: center;
     color: green;
 }
 
-.tips{
-    margin-top: 0.4rem;
+.tips {
+    margin-block-start: 0.4rem;
     font-size: 0.8rem;
     color: gray;
 }

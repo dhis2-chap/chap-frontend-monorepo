@@ -1,1 +1,1 @@
-declare module "@dhis2/maps-gl"
+declare module '@dhis2/maps-gl'

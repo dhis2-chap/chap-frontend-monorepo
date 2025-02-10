@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type DebugEntry = {
-    id?: (number | null);
-    timestamp: number;
-};
-
+    id?: number | null
+    timestamp: number
+}

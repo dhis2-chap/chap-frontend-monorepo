@@ -1,36 +1,33 @@
-
-.orgUnitsSelction{
+.orgUnitsSelction {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-block-end: 20px;
 }
 
-.wrapper{
+.wrapper {
     display: flex;
     justify-content: space-between;
     gap: 2rem;
-    margin-bottom: 10px;
+    margin-block-end: 10px;
 }
 
-.filter{
-    min-width: 300px;
+.filter {
+    min-inline-size: 300px;
     background-color: #f9f9f9;
     padding: 1rem;
 }
 
-.plots{
-    width: 100%;
+.plots {
+    inline-size: 100%;
 }
 
-.searchInput{
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-bottom: 1rem;
+.searchInput {
+    padding-inline: 1rem;
+    padding-block-end: 1rem;
 }
 
-.filterTitle{
+.filterTitle {
     font-size: 16px;
     font-weight: 600;
-    margin-top: 1.25rem;
-    margin-bottom: 0.25rem;
+    margin-block: 1.25rem 0.25rem;
 }

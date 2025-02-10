@@ -1,9 +1,9 @@
-.textWarning{
-    color : orange;
+.textWarning {
+    color: orange;
     font-weight: 400;
 }
 
-.wrapper{
+.wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -11,7 +11,7 @@
     padding: 0.2rem 0.8rem 0.2rem 0.8rem;
 }
 
-.wrapperWarning{
+.wrapperWarning {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,5 +22,3 @@
     border-radius: 9px;
     background-color: rgb(255, 246, 238);
 }
-
-

@@ -1,10 +1,10 @@
 .selectField {
-  margin: 0.45rem 0rem 0.45rem 0rem;
+    margin: 0.45rem 0rem 0.45rem 0rem;
 }
 
-.warnAboutClimateData{
-  color: rgb(187, 70, 13, 1);
-  margin-top: 2rem;
-  padding: 0rem;
-  font-size: 14px;
+.warnAboutClimateData {
+    color: rgb(187, 70, 13, 1);
+    margin-block-start: 2rem;
+    padding: 0rem;
+    font-size: 14px;
 }

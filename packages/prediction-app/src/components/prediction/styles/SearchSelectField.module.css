@@ -1,79 +1,81 @@
-.searchSelectField{
-  width: 100%;
-  position: relative;
-  margin-bottom: 1rem;
+.searchSelectField {
+    inline-size: 100%;
+    position: relative;
+    margin-block-end: 1rem;
 }
 
 .inputField {
-  width: 100%;
-  margin-top: 2px;
-  padding: 11px 12px;
-  font-size: 14px;
-  line-height: 16px;
-  border: 1px solid rgb(160, 173, 186);
-  border-radius: 3px;
-  font-size: 14px;
-  height: 40px;
+    inline-size: 100%;
+    margin-block-start: 2px;
+    padding: 11px 12px;
+    font-size: 14px;
+    line-height: 16px;
+    border: 1px solid rgb(160, 173, 186);
+    border-radius: 3px;
+    font-size: 14px;
+    block-size: 40px;
 }
 
-.input[type="search"]:focus{
-  background-color: rgb(0, 105, 92);
-  color: black; /* Optional text color */
+.input[type='search']:focus {
+    background-color: rgb(0, 105, 92);
+    color: black; /* Optional text color */
 }
 
-input[type="search"] {
-  padding: 10px;
-  border-radius: 4px;
-  transition: background-color 0s; /* Smooth transition for color change */
+input[type='search'] {
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0s; /* Smooth transition for color change */
 }
 
-input[type="search"]:focus {
-  outline: 3px solid #147cd7; /* Custom outline color */
+input[type='search']:focus {
+    outline: 3px solid #147cd7; /* Custom outline color */
 }
 
 .dropDown {
-  list-style-type: none;
-  box-shadow: rgba(33, 41, 52, 0.1) 0px 10px 15px -3px, rgba(33, 41, 52, 0.05) 0px 4px 6px -2px;
-  padding: 0;
-  margin: 0;
-  border: 1px solid rgb(160, 173, 186);
-  border-radius: 3px;
-  max-height: 300px;
-  max-width: 100%;
-  overflow-y: auto;
-  position: absolute;
-  background-color: #fff;
-  z-index: 1;
-  width: 100%; /* Ensures dropdown takes full width of parent */
+    list-style-type: none;
+    box-shadow: rgba(33, 41, 52, 0.1) 0px 10px 15px -3px,
+        rgba(33, 41, 52, 0.05) 0px 4px 6px -2px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid rgb(160, 173, 186);
+    border-radius: 3px;
+    max-block-size: 300px;
+    max-inline-size: 100%;
+    overflow-y: auto;
+    position: absolute;
+    background-color: #fff;
+    z-index: 1;
+    inline-size: 100%; /* Ensures dropdown takes full width of parent */
 }
 
 .dropDownItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  font-size: 14px;
-  cursor: pointer;
-  border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-block-end: 1px solid #eee;
 }
 
-.rightDropDownItem{
-  color: dimgray;
-  font-size: 0.7rem;
-  text-align: right;
-  line-height: 16px;
-  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+.rightDropDownItem {
+    color: dimgray;
+    font-size: 0.7rem;
+    text-align: end;
+    line-height: 16px;
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo,
+        Consolas, 'DejaVu Sans Mono', monospace;
 }
 
-.label{
-  line-height: 19px;
-  font-size: 14px;
-  color : rgb(33, 41, 52)
+.label {
+    line-height: 19px;
+    font-size: 14px;
+    color: rgb(33, 41, 52);
 }
 
-.infoSearchItem{
-  padding: 10px;
+.infoSearchItem {
+    padding: 10px;
 
-  text-align: center;
-  font-size: 14px;
+    text-align: center;
+    font-size: 14px;
 }

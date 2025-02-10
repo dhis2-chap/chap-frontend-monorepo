@@ -1,19 +1,19 @@
 {
-  "compilerOptions": {
-    "target": "ES2021",
-    "module": "ESNext",
-    "declaration": true,
-    "declarationDir": "build/es",
-    "outDir": "build/es",
-    "strict": true,
-    "jsx": "react",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "allowJs": true, // Allows importing JavaScript files
-    "checkJs": false // Optional: Skip type-checking for JavaScript files
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "build", "dist"]
+    "compilerOptions": {
+        "target": "ES2021",
+        "module": "ESNext",
+        "declaration": true,
+        "declarationDir": "build/es",
+        "outDir": "build/es",
+        "strict": true,
+        "jsx": "react",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "allowJs": true, // Allows importing JavaScript files
+        "checkJs": false // Optional: Skip type-checking for JavaScript files
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "build", "dist"]
 }

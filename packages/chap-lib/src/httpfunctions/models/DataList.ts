@@ -2,10 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { DataElement } from './DataElement';
+import type { DataElement } from './DataElement'
 export type DataList = {
-    featureId: string;
-    dhis2Id: string;
-    data: Array<DataElement>;
-};
-
+    featureId: string
+    dhis2Id: string
+    data: Array<DataElement>
+}

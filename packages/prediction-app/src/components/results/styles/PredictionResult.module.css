@@ -1,48 +1,48 @@
 .container {
-  margin-right: 24px;
-  margin-bottom: 100px;
+    margin-inline-end: 24px;
+    margin-block-end: 100px;
 }
 
 .container h1 {
-  color: var(--colors-grey900);
-  font-size: 24px;
-  font-weight: 500;
+    color: var(--colors-grey900);
+    font-size: 24px;
+    font-weight: 500;
 }
 
 .container h2 {
-  font-size: 16px;
-  margin: 20px 0 8px;
+    font-size: 16px;
+    margin: 20px 0 8px;
 }
 
-.prediction{
-  margin-top: 20px;
-  min-height: 300px;
+.prediction {
+    margin-block-start: 20px;
+    min-block-size: 300px;
 }
 
-.warning{
-  color: orange;
-  font-weight: 500;
+.warning {
+    color: orange;
+    font-weight: 500;
 }
 
-.footer{
-  display: flex;
-  justify-content: right;
+.footer {
+    display: flex;
+    justify-content: right;
 }
 
-.post{
-  text-align: right;
+.post {
+    text-align: end;
 }
 
-.redText{
-  color : red;
-  font-weight: 500;
+.redText {
+    color: red;
+    font-weight: 500;
 }
 
-.greenText{
-  color : green;
-  font-weight: 500;
+.greenText {
+    color: green;
+    font-weight: 500;
 }
 
-.container{
-  max-width: 1000px;
+.container {
+    max-inline-size: 1000px;
 }

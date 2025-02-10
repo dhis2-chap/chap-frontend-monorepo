@@ -1,33 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { DefaultService } from "@dhis2-chap/chap-lib";
-import { processDataValues } from "../lib/dataProcessing";
-import { evaluationResultToViewData } from "@dhis2-chap/chap-lib";
-import EvaluationResultsDashboard from './EvaluationResultDashboard';
-import { EvaluationForSplitPoint } from "@dhis2-chap/chap-lib"
-import {HighChartsData} from "@dhis2-chap/chap-lib";
+import React, { useEffect, useState } from 'react'
+import { DefaultService } from '@dhis2-chap/chap-lib'
+import { processDataValues } from '../lib/dataProcessing'
+import { evaluationResultToViewData } from '@dhis2-chap/chap-lib'
+import EvaluationResultsDashboard from './EvaluationResultDashboard'
+import { EvaluationForSplitPoint } from '@dhis2-chap/chap-lib'
+import { HighChartsData } from '@dhis2-chap/chap-lib'
 
 const ApiLoadedEvaluationResultsChart: React.FC = () => {
-  const [data, setData] = useState<EvaluationForSplitPoint[]>([]);
-  const [splitPeriods, setSplitPeriods] = useState<string[]>([]);
+    const [data, setData] = useState<EvaluationForSplitPoint[]>([])
+    const [splitPeriods, setSplitPeriods] = useState<string[]>([])
 
-  const getData = async () => {
-    const response = await DefaultService.getEvaluationResultsGetEvaluationResultsGet();
-    const processedData = evaluationResultToViewData(response.predictions, response.actualCases.data, "Prediction model");
-    setData(processedData);
-    setSplitPeriods(Object.keys(processedData));
-  };
+    const getData = async () => {
+        const response =
+            await DefaultService.getEvaluationResultsGetEvaluationResultsGet()
+        const processedData = evaluationResultToViewData(
+            response.predictions,
+            response.actualCases.data,
+            'Prediction model'
+        )
+        setData(processedData)
+        setSplitPeriods(Object.keys(processedData))
+    }
 
-  useEffect(() => {
-    getData();
-  }, []);
+    useEffect(() => {
+        getData()
+    }, [])
 
-  if (!splitPeriods.length) return <div>Loading...</div>;
+    if (!splitPeriods.length) return <div>Loading...</div>
 
-  return <EvaluationResultsDashboard data={data} splitPeriods={splitPeriods} />;
-};
+    return (
+        <EvaluationResultsDashboard data={data} splitPeriods={splitPeriods} />
+    )
+}
 
-export default ApiLoadedEvaluationResultsChart;
-
+export default ApiLoadedEvaluationResultsChart
 
 // import React from 'react'
 // import {ResultPlot} from "./ResultPlot";
