@@ -110,7 +110,7 @@ const PredictionPage = () => {
                 ].find(([k, v]) => v.selectedDataElementId === f.dhis2Id)?.[1]
                     .selectedDataElementName
                 const msg =
-                    'Data element "' + data_element_name + '" returned no data.'
+                    'Data item "' + data_element_name + '" returned no data.'
                 emptyFeatures.push({
                     description:
                         'Ensure you have exported the analytics tables in DHIS2.',
@@ -324,7 +324,6 @@ const PredictionPage = () => {
                                 modelSpesificSelectedDataElements
                             }
                             startDownload={startDownload}
-                            setStartDownload={setStartDownload}
                             period={selectedPeriodItems}
                             setErrorMessages={setErrorMessages}
                             orgUnits={orgUnits}
