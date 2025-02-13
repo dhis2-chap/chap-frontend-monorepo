@@ -11,13 +11,6 @@ interface DownloadDataProps {
     orgUnitLevel: { id: string; level: number }
     orgUnits: { id: string; displayName: string }[]
     modelSpesificSelectedDataElements: ModelFeatureDataElementMap
-
-    setStartDownload: Dispatch<
-        SetStateAction<{
-            action: 'download' | 'predict' | 'evaluate'
-            startDownlaod: boolean
-        }>
-    >
     setErrorMessages(errorMessages: ErrorResponse[]): void
     startDownload: {
         action: 'download' | 'predict' | 'evaluate'
