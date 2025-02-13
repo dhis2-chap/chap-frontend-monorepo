@@ -294,7 +294,7 @@ const PredictionResult = () => {
                         />
                         <SelectDataValues
                             label={i18n.t(
-                                'Select data element for medium quantile'
+                                'Select data element for median quantile'
                             )}
                             dataElements={dataElementsMedian}
                             onChange={setqMedianDataElementId}
