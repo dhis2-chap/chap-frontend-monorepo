@@ -139,6 +139,8 @@ const PredictionPage = () => {
             //if action is "Predict" or "Evaluate", check if the analytics contains row
             if (!isAnalyticsContentValid(jsonResult)) return
 
+            setSendingDataToChap(true)
+
             if (startDownload.action === 'predict') predict()
             if (startDownload.action === 'evaluate') evaluate()
         }
@@ -164,12 +166,12 @@ const PredictionPage = () => {
         await DefaultService.evaluateEvaluatePost(request, nSplits)
             .then((response: any) => {
                 setErrorChapMsg('')
-                setSendingDataToChap(false)
                 return navigate('/status')
             })
             .catch((error: any) => {
-                setSendingDataToChap(false)
                 setErrorChapMsg(error?.body?.detail)
+            }).finally(() => {
+                setSendingDataToChap(false)
             })
     }
 
@@ -181,12 +183,13 @@ const PredictionPage = () => {
         await DefaultService.predictPredictPost(request)
             .then((response: any) => {
                 setErrorChapMsg('')
-                setSendingDataToChap(false)
                 return navigate('/status')
             })
             .catch((error: any) => {
-                setSendingDataToChap(false)
+                
                 setErrorChapMsg(error?.body?.detail)
+            }).finally(() => {
+                setSendingDataToChap(false)
             })
     }
 
