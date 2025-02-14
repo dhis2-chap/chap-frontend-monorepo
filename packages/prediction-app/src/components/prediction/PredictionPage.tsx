@@ -326,6 +326,7 @@ const PredictionPage = () => {
                             modelSpesificSelectedDataElements={
                                 modelSpesificSelectedDataElements
                             }
+                            setStartDownload={setStartDownload}
                             startDownload={startDownload}
                             period={selectedPeriodItems}
                             setErrorMessages={setErrorMessages}

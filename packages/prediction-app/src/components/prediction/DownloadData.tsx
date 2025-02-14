@@ -16,7 +16,8 @@ interface DownloadDataProps {
         action: 'download' | 'predict' | 'evaluate'
         startDownlaod: boolean
     }
-    setJsonResult: (result: any) => void
+    setJsonResult: (result: any) => void;
+    setStartDownload: Dispatch<SetStateAction<{ action: "download" | "predict" | "evaluate"; startDownlaod: boolean; }>>
 }
 
 export interface ErrorResponse {
@@ -90,7 +91,7 @@ const DownloadData = ({
                     title: 'OrgUnits request failed',
                 })
             setErrorMessages(errorMessages)
-            setStartDownload((prev) => ({ ...prev, startDownload: false }))
+            setStartDownload((prev : any) => ({ ...prev, startDownload: false }))
         }
     }, [analyticLoading, geoJsonLoading])
 
