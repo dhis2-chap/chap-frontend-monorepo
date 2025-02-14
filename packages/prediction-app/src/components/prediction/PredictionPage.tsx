@@ -70,8 +70,8 @@ const PredictionPage = () => {
 
     const [startDownload, setStartDownload] = useState<{
         action: 'download' | 'predict' | 'evaluate'
-        startDownlaod: boolean
-    }>({ action: 'download', startDownlaod: false })
+        startDownload: boolean
+    }>({ action: 'download', startDownload: false })
     const [renderOptionalField, setRenderOptionalField] = useState<
         boolean | undefined
     >(false)
@@ -97,7 +97,7 @@ const PredictionPage = () => {
         action: 'download' | 'predict' | 'evaluate'
     ) => {
         setJsonResult(undefined)
-        setStartDownload({ action: action, startDownlaod: true })
+        setStartDownload({ action: action, startDownload: true })
     }
 
     const isAnalyticsContentValid = (jsonResult: PredictionRequest) => {
@@ -128,7 +128,7 @@ const PredictionPage = () => {
     //triggers when anayltics content is fetched
     useEffect(() => {
         if (jsonResult) {
-            setStartDownload((prev) => ({ ...prev, startDownlaod: false }))
+            setStartDownload((prev) => ({ ...prev, startDownload: false }))
 
             //if action is "Download", do not do any validation, just download the data
             if (startDownload.action === 'download') {
@@ -275,10 +275,10 @@ const PredictionPage = () => {
                     <div className={styles.buttons}>
                         <Button
                             icon={<IconDownload24 />}
-                            loading={startDownload.startDownlaod}
+                            loading={startDownload.startDownload}
                             disabled={
                                 !isValid ||
-                                (startDownload.startDownlaod &&
+                                (startDownload.startDownload &&
                                     startDownload.action === 'download') ||
                                 !orgUnitsSelectedIsValid()
                             }
@@ -294,7 +294,7 @@ const PredictionPage = () => {
                             loading={sendingDataToChap}
                             disabled={
                                 !isValid ||
-                                startDownload.startDownlaod ||
+                                startDownload.startDownload ||
                                 !orgUnitsSelectedIsValid()
                             }
                             onClick={() => onClickDownloadOrPostData('predict')}
@@ -307,7 +307,7 @@ const PredictionPage = () => {
                             loading={sendingDataToChap}
                             disabled={
                                 !isValid ||
-                                startDownload.startDownlaod ||
+                                startDownload.startDownload ||
                                 !orgUnitsSelectedIsValid()
                             }
                             onClick={() =>
@@ -320,7 +320,7 @@ const PredictionPage = () => {
                     <PredictEvaluateHelp />
 
                     {<p className={styles.errorChap}>{errorChapMsg}</p>}
-                    {startDownload.startDownlaod && isValid && (
+                    {startDownload.startDownload && isValid && (
                         <DownloadData
                             setJsonResult={setJsonResult}
                             modelSpesificSelectedDataElements={
