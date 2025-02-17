@@ -60,7 +60,7 @@ jobs:
             # release action looks for it
             # https://github.com/dhis2/action-semantic-release/blob/master/plugins/publish-github.js#L12
             - run: yarn build:chap-lib && yarn build:prediction-app && yarn cp-build
-            - uses: dhis2/action-semantic-release@master
+            - uses: dhis2/action-semantic-release@v1.5.8
               with:
                   publish-apphub: true
                   publish-github: true
