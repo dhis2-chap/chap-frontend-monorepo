@@ -25,7 +25,7 @@
         "require": "./build/cjs/index.js"
     },
     "dependencies": {
-        "@dhis2-chap/chap-lib": "1.0.0",
+        "@dhis2-chap/chap-lib": "*",
         "@dhis2/maps-gl": "^4.0.1",
         "@dhis2/ui": "^10.1.10",
         "openapi-typescript-codegen": "^0.29.0"
