@@ -1,7 +1,7 @@
 {
     "name": "@dhis2-chap/chap-lib",
     "version": "1.0.3",
-    "module": "./build/es/index.js",
+    "module": "./build\\es\\index.js",
     "types": "./build/es/index.d.ts",
     "license": "MIT",
     "devDependencies": {
