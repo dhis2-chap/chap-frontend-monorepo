@@ -1,0 +1,97 @@
+.modelSelectContainer {
+    padding: 0px;
+}
+
+.modelSelectTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.loadingText {
+    font-size: 1rem;
+    color: gray;
+}
+
+.modelGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    padding: 20px;
+}
+
+.modelCard {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    background-color: #fff;
+}
+
+.modelCard:hover {
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modelCard.selected {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+}
+
+.modelAuthor {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.modelAuthorLogo {
+    height: 32px;
+    width: 32px;
+    margin-right: 2px;
+}
+
+.modelAuthorName {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.modelHumanName {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.modelUsage {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.modelFeatures {
+    font-size: 0.8rem;
+    color: #444;
+    list-style: none;
+    padding: 0;
+    margin-top: 8px;
+}
+
+.modelFeatureItem {
+    margin: 2px 0;
+}
+
+.selectButton {
+    margin-top: 12px;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.selectButton:hover {
+    background-color: #0056b3;
+}
