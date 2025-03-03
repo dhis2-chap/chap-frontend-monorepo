@@ -11,19 +11,13 @@ interface DownloadDataProps {
     orgUnitLevel: { id: string; level: number }
     orgUnits: { id: string; displayName: string }[]
     modelSpesificSelectedDataElements: ModelFeatureDataElementMap
-
-    setStartDownload: Dispatch<
-        SetStateAction<{
-            action: 'download' | 'predict' | 'evaluate'
-            startDownlaod: boolean
-        }>
-    >
     setErrorMessages(errorMessages: ErrorResponse[]): void
     startDownload: {
         action: 'download' | 'predict' | 'evaluate'
-        startDownlaod: boolean
+        startDownload: boolean
     }
-    setJsonResult: (result: any) => void
+    setJsonResult: (result: any) => void;
+    setStartDownload: Dispatch<SetStateAction<{ action: "download" | "predict" | "evaluate"; startDownload: boolean; }>>
 }
 
 export interface ErrorResponse {
@@ -97,7 +91,7 @@ const DownloadData = ({
                     title: 'OrgUnits request failed',
                 })
             setErrorMessages(errorMessages)
-            setStartDownload((prev) => ({ ...prev, startDownload: false }))
+            setStartDownload(prev  => ({ ...prev, startDownload: false }))
         }
     }, [analyticLoading, geoJsonLoading])
 
