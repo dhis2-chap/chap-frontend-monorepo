@@ -34,9 +34,10 @@
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.modelCard.selected {
-    border-color: #007bff;
+.selectedModelDetails {
     background-color: #f0f8ff;
+    padding: 15px;
+    border-radius: 7px;
 }
 
 .modelAuthor {
