@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Coordinates } from './Coordinates'
+import type { Coordinates } from './Coordinates';
 export type PointModel = {
-    type?: string
-    coordinates: Coordinates
-}
+    type?: string;
+    coordinates: Coordinates;
+};
+

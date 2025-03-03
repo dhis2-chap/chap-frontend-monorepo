@@ -3,8 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export type ObservationBase = {
-    period: string
-    orgUnit: string
-    value: number | null
-    elementId: string | null
-}
+    period: string;
+    orgUnit: string;
+    value: (number | null);
+    elementId: (string | null);
+};
+

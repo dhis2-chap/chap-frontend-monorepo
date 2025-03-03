@@ -3,7 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type DataElement = {
-    pe: string
-    ou: string
-    value: number | null
-}
+    pe: string;
+    ou: string;
+    value: (number | null);
+};
+

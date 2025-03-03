@@ -2,11 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ForecastRead } from './ForecastRead'
+import type { ForecastRead } from './ForecastRead';
 export type PredictionRead = {
-    datasetId: number
-    estimatorId: string
-    nPeriods: number
-    id: number
-    forecasts: Array<ForecastRead>
-}
+    datasetId: number;
+    estimatorId: string;
+    nPeriods: number;
+    id: number;
+    forecasts: Array<ForecastRead>;
+};
+

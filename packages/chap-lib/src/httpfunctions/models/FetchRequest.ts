@@ -3,5 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type FetchRequest = {
-    dataSourceName: string
-}
+    dataSourceName: string;
+};
+
