@@ -9,6 +9,8 @@ import ErrorPage from './components/ErrorPage'
 import StatusPage from './components/StatusPage'
 import React from 'react'
 import './App.css'
+import PageWrapper from './components/PageWrapper'
+import EvaluationPage from './pages/EvaluationPage'
 
 const router = createHashRouter([
     {
@@ -22,12 +24,12 @@ const router = createHashRouter([
         ],
     },
     {
-        path: '/',
+        path: '/old',
         element: <Root />,
         errorElement: <ErrorPage />,
         children: [
             {
-                path: '/',
+                path: '/predict',
                 element: <PredictionPage />,
             },
             {
@@ -46,6 +48,24 @@ const router = createHashRouter([
                 path: 'route-settings',
                 element: <RouteSettingsPage />,
             },
+        ],
+    },
+    { 
+        path: '/',
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: "/",
+                element: <PageWrapper component={<PredictionPage/>}/>
+            },
+            {
+                path: "/evaluations",
+                element: <PageWrapper component={<EvaluationPage/>}/>
+            },
+            {
+                path: "/settings",
+                element: <PageWrapper component={<SettingsPage/>}/>
+            }
         ],
     },
 ])
