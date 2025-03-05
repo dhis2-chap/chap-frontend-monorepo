@@ -37,11 +37,13 @@ const useAnalyticRequest = (dataLayers: DatasetLayer[], periodes: any, orgUnit: 
 
   const { loading, error, data } = useDataQuery(ANALYTICS_QUERY({ dataElements, periodes, orgUnit }));
 
+  console.log(data);
+
   if(!loading && data && !error){
     //divide the respons into the features (for instance population, diseases, etc)
 
     return {
-      data : data?.request,
+      data : data?.request?.rows,
       error,
       loading,
     };

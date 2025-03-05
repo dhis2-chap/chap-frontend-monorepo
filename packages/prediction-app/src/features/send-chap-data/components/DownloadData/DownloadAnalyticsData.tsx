@@ -17,15 +17,14 @@ interface DownloadAnalyticsDataProps {
   selectedOrgUnits: OrgUnit[];
   model_id : string | undefined;
   analyticsDataLayers: DatasetLayer[];
-
   setStartDownload: Dispatch<SetStateAction<{ action: "download" | "predict" | "new-dataset"; startDownload: boolean; }>>,
   setErrorMessages(errorMessages: ErrorResponse[]): void;
   startDownload: { action: "download" | "predict" | "new-dataset"; startDownload: boolean; }
-  setChapProvidedData: (result: DatasetCreate) => void;
   setGeoJSon: (geoJson: any) => void;
+  setObservations: Dispatch<SetStateAction<ObservationBase[] | undefined>>;
 }
 
-const DownloadAnalyticsData = ({ selectedPeriodItems, setChapProvidedData, setGeoJSon, setStartDownload, orgUnitLevel, selectedOrgUnits, analyticsDataLayers, setErrorMessages }: DownloadAnalyticsDataProps) => {
+const DownloadAnalyticsData = ({ selectedPeriodItems, setGeoJSon, setObservations, setStartDownload, orgUnitLevel, selectedOrgUnits, analyticsDataLayers, setErrorMessages }: DownloadAnalyticsDataProps) => {
 
   if (orgUnitLevel == undefined) return <></>
 
@@ -48,7 +47,7 @@ const DownloadAnalyticsData = ({ selectedPeriodItems, setChapProvidedData, setGe
     }
   }*/
 
-  const convertDhis2AnlyticsToChap = (data: [[string, string, string, string]]): ObservationBase[] => {
+  const convertDhis2AnlyticsToChap = (data: [[string, string, string, string]] | []): ObservationBase[] => {
     return data.map((row) => {
       return {
         elementId: row[0],
@@ -66,7 +65,8 @@ const DownloadAnalyticsData = ({ selectedPeriodItems, setChapProvidedData, setGe
     //All data is fetched
     if (analyticData && geoJson) {
       setErrorMessages([]);
-      setChapProvidedData(convertDhis2AnlyticsToChap(analyticData));
+      setGeoJSon(geoJson);
+      setObservations(convertDhis2AnlyticsToChap(analyticData));
     }
 
     //if an error occured

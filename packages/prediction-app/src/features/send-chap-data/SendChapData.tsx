@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import DownloadAnalyticsData from './components/DownloadData/DownloadAnalyticsData';
-import { CrudService, DataList, DatasetCreate, DatasetMakeRequest, FeatureCollectionModel, FetchRequest, JobResponse, ModelSpec, ObservationBase } from '@dhis2-chap/chap-lib';
+import { CrudService, DataList, DatasetCreate, DatasetMakeRequest, FeatureCollectionModel_Output, FetchRequest, JobResponse, ModelSpec, ObservationBase } from '@dhis2-chap/chap-lib';
 import { ModelFeatureDataElementMap } from '../../interfaces/ModelFeatureDataElement';
 import { ErrorResponse } from './interfaces/ErrorResponse';
 import saveAs from 'file-saver';
@@ -31,7 +31,8 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
     const [startDownload, setStartDownload] = useState<{action: "download" | "predict" | "new-dataset", startDownload: boolean}>({ action: "download", startDownload: false });
     
     //Keeping the analytics content (including geojson), before sending to CHAP
-    const [analyticsResult, setAnalyticsResult] = useState<DatasetCreate | undefined>(undefined);
+    const [observations, setObservations] = useState<ObservationBase[] | undefined>(undefined);
+    const [geoJSON, setGeoJSON] = useState<FeatureCollectionModel_Output | undefined>();
    
     const analyticsDataLayers : DatasetLayer[] = dataLayers.filter((dataLayer) => dataLayer.origin === 'dataElement');
     const chapDataLayers : DatasetLayer[] = dataLayers.filter((dataLayer) => dataLayer.origin === 'CHAP');
@@ -55,13 +56,15 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
 
     //This will render the DownloadAnalyticsData components, which will fetch the analytics content from DHIS2
     const onClickDownloadOrPostData = (action : "download" | "predict" | "new-dataset") => {
-      setAnalyticsResult(undefined);
+      setObservations(undefined);
+      setGeoJSON(undefined);
+      setErrorMessages([]);
       setStartDownload({ action: action, startDownload: true });
     }
 
     //Triggered when anayltics content is fetched
     useEffect(() => {
-      if (analyticsResult) {
+      if (observations && geoJSON) {
         setStartDownload(prev => ({ ...prev, startDownload: false }));
 
         //if action is "download", do not do any validation
@@ -70,18 +73,20 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
           return;
         } 
   
-        //if action is "Predict" or "new-dataset", check if the analytics contains row
-        if (isAnalyticsContentIsEmpty(analyticsResult)) return;
+        //if action is "predict" or "new-dataset", check if the analytics contains row
+        if (isAnalyticsContentIsEmpty(observations)) return;
   
         if(startDownload.action === "predict") predict();
         if(startDownload.action === "new-dataset") newDataset();     
       }
-    }, [analyticsResult]);
+    }, [observations, geoJSON]);
 
   
     //Check if the analytics content is empty, before sending it to CHAP
-    const isAnalyticsContentIsEmpty = (analyticsResult : DatasetCreate[]) => {
-      let emptyFeatures : ErrorResponse[] = []
+    const isAnalyticsContentIsEmpty = (analyticsResult : ObservationBase[]) => {
+      return true
+
+      /*let emptyFeatures : ErrorResponse[] = []
 
       analyticsResult.forEach((f : DatasetCreate) => {
         //find the name of the feature
@@ -95,7 +100,7 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
         setErrorMessages([...errorMessages, ...emptyFeatures])
         return true
       }
-      return false
+      return false*/
     }
   
     const newDataset = async () => {
@@ -118,14 +123,11 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
         } as FetchRequest
       })
 
-      //append datalayers
-      const mergedFeatures = chapLayers.concat(analyticsResult?.observations as FetchRequest[])
-
       return {
         name : datasetName as string,
-        dataToBeFetched : mergedFeatures,
-        geojson : analyticsResult?.geojson as FeatureCollectionModel,
-        providedData : analyticsResult?.observations as ObservationBase[],
+        dataToBeFetched,
+        geojson : geoJSON as FeatureCollectionModel_Output,
+        providedData : observations as ObservationBase[],
       }
     }
 
@@ -149,6 +151,19 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
           setErrorChapMsg(error?.body?.detail);
         });*/
     };
+
+    const getCHAPandDHIS2DataLayersTogheter = () : DatasetCreate => {
+      return {
+        observations : observations as ObservationBase[],
+        geojson : geoJSON as FeatureCollectionModel_Output,
+        name : datasetName as string,
+        /*dataToBeFetched : dataLayers.map((v : DatasetLayer) => {
+          return {
+            dataSourceName : v.dataSource,
+          } as FetchRequest
+        })*/
+      }
+    }
 
   
     const downloadData = () => {
@@ -176,7 +191,8 @@ export const SendChapData = ({onSendAction, datasetName, selectedPeriodItems, se
         {startDownload.startDownload && formValid() && (
           <DownloadAnalyticsData
             model_id={selectedModel?.name}
-            setAnalyticsResult={setAnalyticsResult}
+            setObservations={setObservations}
+            setGeoJSon={setGeoJSON}
             analyticsDataLayers={analyticsDataLayers}
             startDownload={startDownload}
             setStartDownload={setStartDownload}

@@ -23,11 +23,11 @@ const features: Feature[] = [
 ]
 
 const chapSources: Datalayer[] = [
-  { name: "ERA5-Land precipitation", featureType: "Rainfall", id: "ERA5-Land precipitation" },
-  { name: "Population (WorldPop)", featureType: "Population", id: "Population (WorldPop)" },
-  { name: "CRISP Mean Dailytemp", featureType: "Population", id: "CRISP Mean Dailytemp" },
-  { name: "LocalMet Office precipitation", featureType: "Rainfall", id: "LocalMet Office precipitation" },
-  { name: "Disease cases from hospitals", featureType: "Disease cases", id: "Disease cases from hospitals" },
+  { name: "ERA5-Land precipitation", featureType: "rainfall", id: "ERA5-Land precipitation" },
+  { name: "Population (WorldPop)", featureType: "population", id: "Population (WorldPop)" },
+  { name: "CHIRPS Mean Dailytemp", featureType: "rainfall", id: "CHIRPS Mean Dailytemp" },
+  { name: "LocalMet Office precipitation", featureType: "population", id: "LocalMet Office precipitation" },
+  { name: "Disease cases from hospitals", featureType: "disease_cases", id: "Disease cases from hospitals" },
 ]
 
 const dataElementQuery = {
