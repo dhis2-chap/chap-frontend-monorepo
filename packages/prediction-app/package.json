@@ -25,6 +25,7 @@
         "file-saver": "^2.0.5",
         "jszip": "^3.10.1",
         "react-dropzone": "^14.3.5",
+        "react-modern-drawer": "^1.4.0",
         "react-router-dom": "^7.0.2"
     }
 }
