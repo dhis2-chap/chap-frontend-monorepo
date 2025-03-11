@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-02-13T09:18:16.937Z\n"
-"PO-Revision-Date: 2025-02-13T09:18:16.937Z\n"
+"POT-Creation-Date: 2025-03-11T10:54:35.673Z\n"
+"PO-Revision-Date: 2025-03-11T10:54:35.674Z\n"
 
 msgid "About this app"
 msgstr "About this app"
@@ -43,9 +43,6 @@ msgstr "Select training data and create prediction"
 
 msgid "Training period"
 msgstr "Training period"
-
-msgid "Select a model"
-msgstr "Select a model"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
@@ -139,3 +136,6 @@ msgstr "Drag 'n' drop prediction/evaluation file, or click to select it"
 
 msgid "App settings"
 msgstr "App settings"
+
+msgid "Select a model"
+msgstr "Select a model"
