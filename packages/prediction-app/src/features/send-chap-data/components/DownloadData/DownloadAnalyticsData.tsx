@@ -22,9 +22,10 @@ interface DownloadAnalyticsDataProps {
   startDownload: { action: "download" | "predict" | "new-dataset"; startDownload: boolean; }
   setGeoJSon: (geoJson: any) => void;
   setObservations: Dispatch<SetStateAction<ObservationBase[] | undefined>>;
+  setFeatureDataItemMapper : Dispatch<SetStateAction<{featureName: string, dateItemId: string}[]>>
 }
 
-const DownloadAnalyticsData = ({ selectedPeriodItems, setGeoJSon, setObservations, setStartDownload, orgUnitLevel, selectedOrgUnits, analyticsDataLayers, setErrorMessages }: DownloadAnalyticsDataProps) => {
+const DownloadAnalyticsData = ({ selectedPeriodItems, setGeoJSon, setObservations, setFeatureDataItemMapper, setStartDownload, orgUnitLevel, selectedOrgUnits, analyticsDataLayers, setErrorMessages }: DownloadAnalyticsDataProps) => {
 
   if (orgUnitLevel == undefined) return <></>
 
@@ -47,10 +48,29 @@ const DownloadAnalyticsData = ({ selectedPeriodItems, setGeoJSon, setObservation
     }
   }*/
 
-  const convertDhis2AnlyticsToChap = (data: [[string, string, string, string]] | []): ObservationBase[] => {
-    return data.map((row) => {
+
+  const getFeatureDataItemMapper = (dataItemIds: string[]) => {
+    return dataItemIds.map((dei) => {
       return {
-        elementId: row[0],
+        featureName : analyticsDataLayers.filter((l) => l.dataSource === dei)[0].feature,
+        dateItemId : dei,
+      };
+    });
+  }
+  
+
+  const convertDhis2AnlyticsToChap = (data: [[string, string, string, string]] | []): ObservationBase[] => {
+
+    // find id to feature name mapping
+    //get every unique dataElement id
+    const dataElementIds = [...new Set(data.map((row) => row[0]))];
+    const featureDataItemMapper = getFeatureDataItemMapper(dataElementIds);
+    setFeatureDataItemMapper(featureDataItemMapper);
+
+    return data.map((row) => {
+      // @ts-ignore
+      return {
+        featureName: featureDataItemMapper.filter(l => l.dateItemId === row[0])[0].featureName,
         orgUnit: row[1],
         period: row[2],
         value: parseFloat(row[3]),

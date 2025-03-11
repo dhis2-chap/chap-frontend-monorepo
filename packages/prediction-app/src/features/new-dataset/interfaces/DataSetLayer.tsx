@@ -1,6 +1,6 @@
 export interface DatasetLayer {
   feature : string;
-  origin : "dataElement" | "CHAP" | "";
+  origin : "dataItem" | "CHAP" | "";
   dataSource : string;
 }
 

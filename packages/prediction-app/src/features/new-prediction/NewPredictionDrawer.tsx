@@ -11,18 +11,21 @@ interface NewPredictionDrawerProps {
 }
 
 const NewPredictionDrawer = ({setIsOpen, isOpen} : NewPredictionDrawerProps) => {
+
+  const size = window.innerWidth < 900 ? '100vw' : '1000px'
+
   return (
     <div>
-            <Drawer
-                  open={isOpen}
-                  onClose={() => setIsOpen(false)}
-                  direction='right'
-                  size="60vw"
-              >
-                <div className={styles.drawerWrapper}>
-                  <NewPredictionForm/>
-                </div>
-            </Drawer>
+      <Drawer
+            open={isOpen}
+            onClose={() => setIsOpen(false)}
+            direction='right'
+            size={size}
+        >
+          <div className={styles.drawerWrapper}>
+            <NewPredictionForm onClose={() => setIsOpen(false)}/>
+          </div>
+      </Drawer>
     </div>
   )
 }

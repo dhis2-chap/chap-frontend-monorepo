@@ -7,11 +7,12 @@ import CreateRoutePage from './components/CreateRoutePage'
 import RouteSettingsPage from './components/RouteSettingsPage'
 import ErrorPage from './components/ErrorPage'
 import StatusPage from './components/StatusPage'
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
 import PageWrapper from './components/PageWrapper'
 import EvaluationPage from './pages/EvaluationPage'
 import PredictionOverview from './features/predictions-overview/PredictionOverview'
+import SetChapUrl from './features/route-api/SetChapUrl'
 
 const router = createHashRouter([
     {
@@ -72,7 +73,14 @@ const router = createHashRouter([
 ])
 
 const App = () => {
-    return <RouterProvider router={router}></RouterProvider>
+
+    const [isLoadingRouteConfig, setIsLoadingRouteConfig] = useState(true)
+  
+    
+    return     <>
+    <SetChapUrl setIsLoadingRouteConfig={setIsLoadingRouteConfig}/>
+    { !isLoadingRouteConfig && <RouterProvider router={router}></RouterProvider>}
+  </>
 }
 
 export default App

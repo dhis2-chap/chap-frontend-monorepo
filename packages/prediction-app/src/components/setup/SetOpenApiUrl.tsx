@@ -63,7 +63,7 @@ const SetOpenApiUrl = ({
                     value={baseURL}
                     onChange={(e: any) => onChangeUrl(e.value)}
                     placeholder={
-                        fetching ? 'Loading..' : 'http://localhost:8000'
+                        fetching ? 'Loading..' : ''
                     }
                 />
 

@@ -55,9 +55,11 @@ const SearchSelectField = ({
         }
     }
 
-    useEffect(() => {
+    //removed, since unknown why needed
+    /*useEffect(() => {
+        console.log(feature)
         setQuery('')
-    }, [feature])
+    }, [feature])*/
 
     useEffect(() => {
         if (query.length === 0) {

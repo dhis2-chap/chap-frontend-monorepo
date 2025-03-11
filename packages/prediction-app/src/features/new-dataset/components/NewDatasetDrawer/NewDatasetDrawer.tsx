@@ -23,7 +23,7 @@ const NewDatasetDrawer = ({isOpen, setIsOpen} : NewDatasetDrawerProps) => {
             size={size}
         >
       <div className={styles.drawerWrapper}>
-        <NewDatasetStepper/>
+        <NewDatasetStepper onClose={() => setIsOpen(false)}/>
       </div>
       </Drawer>
     </div>

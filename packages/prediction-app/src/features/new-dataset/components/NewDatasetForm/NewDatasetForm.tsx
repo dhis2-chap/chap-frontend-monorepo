@@ -36,7 +36,7 @@ const NewDatasetForm = () => {
         <SelectDataLine setDataLayers={setDataLayers} datasetLayers={dataLayers} />
         <TimePeriodeSelector setTimePeriods={setSelectedTimePeriodes} />
         <OrgUnitSelector orgUnits={selectedOrgUnits} setOrgUnits={setSelectedOrgUnits} orgUnitLevel={orgUnitLevel} setOrgUnitLevel={setOrgUnitLevel} />
-        <SendChapData datasetName={datasetName} dataLayers={dataLayers} onSendAction='new-dataset' orgUnitLevel={orgUnitLevel} selectedPeriodItems={selectedTimePeriodes} selectedOrgUnits={selectedOrgUnits} />
+        <SendChapData name={datasetName} dataLayers={dataLayers} onSendAction='new-dataset' orgUnitLevel={orgUnitLevel} selectedPeriodItems={selectedTimePeriodes} selectedOrgUnits={selectedOrgUnits} />
       </div>
     </>
   )

@@ -4,6 +4,7 @@ import styles from './SelectDataLine.module.css'
 import { Datalayer, DatasetLayer } from '../../../interfaces/DataSetLayer';
 import { Feature } from '@dhis2-chap/chap-lib';
 import { useDataQuery } from '@dhis2/app-runtime';
+import SearchSelectField from '../../../../../components/prediction/SearchSelectField';
 
 interface SelectDataLineProps {
   setDataLayers: (datasetLayer: DatasetLayer[]) => void;
@@ -16,36 +17,23 @@ interface SelectDataLineProps {
 
 const features: Feature[] = [
   { name: "Rainfall", id: "rainfall", description: "Feature 1" },
-  { name: "Mean temperature", id: "mean_temp", description: "Feature 2" },
+  { name: "Mean temperature", id: "mean_temperature", description: "Feature 2" },
   { name: "Population", id: "population", description: "Feature 3" },
   { name: "Max temperature", id: "max_temp", description: "Feature 5" },
   { name: "Disease cases", id: "disease_cases", description: "Feature 5" },
 ]
 
 const chapSources: Datalayer[] = [
-  { name: "ERA5-Land precipitation", featureType: "rainfall", id: "ERA5-Land precipitation" },
-  { name: "Population (WorldPop)", featureType: "population", id: "Population (WorldPop)" },
-  { name: "CHIRPS Mean Dailytemp", featureType: "rainfall", id: "CHIRPS Mean Dailytemp" },
-  { name: "LocalMet Office precipitation", featureType: "population", id: "LocalMet Office precipitation" },
-  { name: "Disease cases from hospitals", featureType: "disease_cases", id: "Disease cases from hospitals" },
+  { name: "ERA5-Land precipitation", featureType: "rainfall", id: "GLOBAL/ERA5-Land/total-precipitation" },
+  { name: "ERA5-Land Temperature Mean", featureType: "mean_temperature", id: "GLOBAL/ERA5-Land/mean-temperature" },
+  { name: "Population (WorldPop)", featureType: "population", id: "GLOBAL/Worldpop/total-population" },
+  { name: "CHIRPS Mean Dailytemp", featureType: "rainfall", id: "GLOBAL/CHIRPS/total-precipitation" },
+  { name: "IRI Total Precipitation", featureType: "population", id: "GLOBLA/IRI/total-precipitation" },
+  { name: "Disease cases from hospitals", featureType: "disease_cases", id: "LOCAL/HMIS/malaria-cases" },
 ]
-
-const dataElementQuery = {
-  results: {
-    resource: "dataElements",
-    params: {
-      paging: false,
-      filter: "domainType:eq:AGGREGATE",
-      fields: "id,displayName",
-    },
-  },
-};
 
 
 const SelectDataLine = ({ datasetLayers, setDataLayers, predictMode }: SelectDataLineProps) => {
-
-  const { loading, error, data } = useDataQuery(dataElementQuery);
-  const dataElements: { id: string, displayName: string }[] = (data?.results as any)?.dataElements;
 
 
   const onChangeClickSelectField = (e: SingleSelectProps, type: "feature" | "origin" | "dataSource", index: number) => {
@@ -87,6 +75,15 @@ const SelectDataLine = ({ datasetLayers, setDataLayers, predictMode }: SelectDat
     return nonSelectedFeatures
   }
 
+  //temp create e method, converting search field output to match format used in this file
+  const onChangeSearchSelectField = (dataItemId: string, index : number) => {
+    //find index
+
+    const selected = { selected: dataItemId }
+    
+    onChangeClickSelectField(selected, "dataSource", index)
+  }
+
 
   return (
     <div>
@@ -94,40 +91,50 @@ const SelectDataLine = ({ datasetLayers, setDataLayers, predictMode }: SelectDat
 
       <div className={styles.selectDataLineWrapper}>
 
-        {datasetLayers.map((dl, index) => (
+        {datasetLayers.map((dataLayer, index) => (
           <div>
             <div className={styles.dataLineWrapper}>
               {predictMode ?
                 <div className={styles.predictLabel}>
-                  {features.filter(f => f.id === dl.feature)[0]?.name}
+                  {features.filter(f => f.id === dataLayer.feature)[0]?.name}
                 </div>
                 :
                 <div className={styles.selectField}>
-
-                  <SingleSelectField label="Feature" onChange={(e) => onChangeClickSelectField(e, "feature", index)} selected={dl.feature}>
+                  <SingleSelectField label="Feature" onChange={(e) => onChangeClickSelectField(e, "feature", index)} selected={dataLayer.feature}>
                     {getNonSelectedFeatures(index).map((f) => (
                       <SingleSelectOption label={f.name} value={f.id} />
                     ))}
                   </SingleSelectField>
-
                 </div>
               }
               <div className={styles.selectField}>
-                <SingleSelectField disabled={dl.feature === ""} label="Origin" onChange={(e) => onChangeClickSelectField(e, "origin", index)} selected={dl.origin}>
-                  <SingleSelectOption label={'Data Element from DHIS2'} value={'dataElement'} />
-                  <SingleSelectOption label={'CHAP'} value={'CHAP'} />
+                <SingleSelectField disabled={dataLayer.feature === ""} label="Origin" onChange={(e) => onChangeClickSelectField(e, "origin", index)} selected={dataLayer.origin}>
+                  <SingleSelectOption label={'Data from DHIS2'} value={'dataItem'} />
+                  <SingleSelectOption label={'Data from CHAP'} value={'CHAP'} />
                 </SingleSelectField>
               </div>
               <div className={styles.selectField}>
-                <SingleSelectField disabled={dl.origin === ""} filterable={dl.origin === "dataElement"} label="Data source" onChange={(e) => onChangeClickSelectField(e, "dataSource", index)} selected={dl.dataSource}>
-                  {dl.origin == "dataElement" && dataElements.map((de) => (
-                    <SingleSelectOption label={de.displayName} value={de.id} />
-                  ))}
-                  {dl.origin == "CHAP" && chapSources.map((de: Datalayer) => (
-                    //if feature is the same type as the Feature selected
-                    de.featureType === dl.feature && <SingleSelectOption label={de.name} value={de.id} />
-                  ))}
-                </SingleSelectField>
+                {(dataLayer.origin === "CHAP" || dataLayer.origin === "") && 
+                  <SingleSelectField disabled={dataLayer.origin === ""} label="Data name source" onChange={(e) => onChangeClickSelectField(e, "dataSource", index)} selected={dataLayer.dataSource}>
+                    {chapSources.map((de: Datalayer) => (
+                      //if feature is the same type as the Feature selected
+                      de.featureType === dataLayer.feature && <SingleSelectOption label={de.name} value={de.id} />
+                    ))}
+                  </SingleSelectField>
+                } 
+                { dataLayer.origin === "dataItem" && <SearchSelectField
+                            feature={{
+                                name: features.filter(
+                                    (f) => f.id === dataLayer.feature
+                                )[0].name,
+                                id: dataLayer.feature,
+                                description: "",
+                            }}
+                            onChangeSearchSelectField={
+                               (e, dataItemId) => onChangeSearchSelectField(dataItemId, index)
+                            }
+                        />
+                  }
               </div>
               {!predictMode && <div>
                 <Button onClick={() => removeLayer(index)} destructive large icon={<IconDelete24 />}></Button>

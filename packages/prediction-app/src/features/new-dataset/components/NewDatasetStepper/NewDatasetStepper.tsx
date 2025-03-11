@@ -2,18 +2,23 @@ import React, { useState } from 'react'
 import NewDatasetForm from '../NewDatasetForm/NewDatasetForm'
 import styles from './NewDatasetStepper.module.css'
 import { DatasetLayer } from '../../interfaces/DataSetLayer'
-import { Button, IconArrowLeft16, IconArrowLeft24, IconArrowRight16, IconArrowRight24 } from '@dhis2/ui'
+import { Button, IconArrowLeft16, IconArrowLeft24, IconArrowRight16, IconArrowRight24, IconCross24 } from '@dhis2/ui'
 import { PeriodTypeSelector } from '../../../timeperiod-selector/components/PeriodTypeSelector'
 
 
+interface NewDatasetStepperProps {
+  onClose : () => void
+}
 
-const NewDatasetStepper = () => {
+
+const NewDatasetStepper = ({onClose} : NewDatasetStepperProps) => {
 
   return (
     <>
       <div className={styles.newDatasetWrapper}>
         <div className={styles.newEvaluationDatsetTitle}>
           <h2>Create new evaluation dataset</h2>
+          <Button icon={<IconCross24 />} onClick={onClose}/>
         </div>
 
         <NewDatasetForm />
