@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type FetchRequest = {
+    featureName: string;
     dataSourceName: string;
 };
 

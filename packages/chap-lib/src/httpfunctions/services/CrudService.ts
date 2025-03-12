@@ -6,7 +6,6 @@ import type { BackTestCreate } from '../models/BackTestCreate';
 import type { BackTestFull } from '../models/BackTestFull';
 import type { BackTestRead } from '../models/BackTestRead';
 import type { Body_create_dataset_csv_crud_datasets_csvFile_post } from '../models/Body_create_dataset_csv_crud_datasets_csvFile_post';
-import type { chap_core__rest_api_src__v1__routers__crud__PredictionCreate } from '../models/chap_core__rest_api_src__v1__routers__crud__PredictionCreate';
 import type { DataBaseResponse } from '../models/DataBaseResponse';
 import type { DatasetCreate } from '../models/DatasetCreate';
 import type { DataSetRead } from '../models/DataSetRead';
@@ -15,6 +14,7 @@ import type { DebugEntry } from '../models/DebugEntry';
 import type { FeatureSource } from '../models/FeatureSource';
 import type { JobResponse } from '../models/JobResponse';
 import type { ModelSpecRead } from '../models/ModelSpecRead';
+import type { PredictionCreate } from '../models/PredictionCreate';
 import type { PredictionRead } from '../models/PredictionRead';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -77,7 +77,7 @@ export class CrudService {
      * @throws ApiError
      */
     public static createPredictionCrudPredictionsPost(
-        requestBody: chap_core__rest_api_src__v1__routers__crud__PredictionCreate,
+        requestBody: PredictionCreate,
     ): CancelablePromise<JobResponse> {
         return __request(OpenAPI, {
             method: 'POST',

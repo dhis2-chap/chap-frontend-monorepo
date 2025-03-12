@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type chap_core__rest_api_src__v1__routers__crud__PredictionCreate = {
+export type PredictionCreate = {
     datasetId: number;
     estimatorId: string;
     nPeriods: number;

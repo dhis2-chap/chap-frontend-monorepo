@@ -7,6 +7,8 @@ export type PredictionRead = {
     datasetId: number;
     estimatorId: string;
     nPeriods: number;
+    name: string;
+    created: string;
     id: number;
     forecasts: Array<ForecastRead>;
 };

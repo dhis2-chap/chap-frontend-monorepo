@@ -3,11 +3,14 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { FeatureCollectionModel } from './FeatureCollectionModel';
+import type { FetchRequest } from './FetchRequest';
 import type { ObservationBase } from './ObservationBase';
-export type DatasetCreate = {
+export type MakePredictionRequest = {
     name: string;
     geojson: FeatureCollectionModel;
     type?: (string | null);
-    observations: Array<ObservationBase>;
+    providedData: Array<ObservationBase>;
+    dataToBeFetched: Array<FetchRequest>;
+    modelId: string;
 };
 
