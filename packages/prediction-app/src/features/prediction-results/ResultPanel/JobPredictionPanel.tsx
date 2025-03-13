@@ -20,12 +20,13 @@ interface JobPredictionPanel {
 
 const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false)
-    const [predictionToImport, setPredictionToImport] = useState<
-        PredictionInfo | undefined
+    const [predictionIdToImport, setPredictionToImport] = useState<
+        string | undefined
     >(undefined)
 
-    const onClickImport = () => {
+    const onClickImport = (predictionId: string) => {
         setIsImportModalOpen(true)
+        setPredictionToImport(predictionId)
     }
 
     const getStatusColor = (status: string | undefined) => {
@@ -71,14 +72,19 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                     jobPredictions.status
                                 )}
                             >
-                                {jobPredictions.status}
+                                {jobPredictions.status.replaceAll(
+                                    'active',
+                                    'In progress..'
+                                )}
                             </span>
                         </div>
                         <div className={styles.flexItemRight}>
                             {jobPredictions.type === 'prediction' ? (
                                 <Button
                                     icon={<IconArrowRight24 />}
-                                    onClick={onClickImport}
+                                    onClick={() =>
+                                        onClickImport(jobPredictions.id)
+                                    }
                                     small
                                 >
                                     Import prediction
@@ -103,7 +109,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                 <ImportPrediction
                     setIsImportModalOpen={setIsImportModalOpen}
                     isImportModalOpen={isImportModalOpen}
-                    predictionToImport={predictionToImport}
+                    predictionIdToImport={predictionIdToImport}
                 />
             )}
         </>

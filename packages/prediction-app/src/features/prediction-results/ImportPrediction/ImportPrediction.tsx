@@ -6,13 +6,13 @@ import { CrudService, PredictionInfo } from '@dhis2-chap/chap-lib'
 interface ImportPredictionProps {
     setIsImportModalOpen: (value: boolean) => void
     isImportModalOpen: boolean
-    predictionToImport: PredictionInfo | undefined
+    predictionIdToImport: string | undefined
 }
 
 const ImportPrediction = ({
     isImportModalOpen,
     setIsImportModalOpen,
-    predictionToImport,
+    predictionIdToImport,
 }: ImportPredictionProps) => {
     //fetch all prediction values
     const fetchPredictionSamples = async (predictionId: number) => {
@@ -24,7 +24,8 @@ const ImportPrediction = ({
     }
 
     useEffect(() => {
-        if (predictionToImport) fetchPredictionSamples(predictionToImport?.id)
+        if (predictionIdToImport)
+            fetchPredictionSamples(Number(predictionIdToImport))
     }, [])
 
     return (

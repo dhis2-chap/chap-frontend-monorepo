@@ -78,7 +78,7 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
         // Run fetchJobs at load
         //fetchJobs(0)
         //fetchPredictions()
-    }, [triggerUpdateJobs])
+    }, [])
 
     const getResults = (): JobPrediction[] => {
         const results: JobPrediction[] = []
@@ -101,7 +101,7 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
         jobs.forEach((job) => {
             results.push({
                 id: job.id,
-                name: 'my job..',
+                name: 'Job',
                 created: new Date(job.start_time),
                 type: 'job',
                 status: job.status,
