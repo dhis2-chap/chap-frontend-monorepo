@@ -15,6 +15,7 @@ import type { FeatureSource } from '../models/FeatureSource';
 import type { JobResponse } from '../models/JobResponse';
 import type { ModelSpecRead } from '../models/ModelSpecRead';
 import type { PredictionCreate } from '../models/PredictionCreate';
+import type { PredictionInfo } from '../models/PredictionInfo';
 import type { PredictionRead } from '../models/PredictionRead';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -68,6 +69,17 @@ export class CrudService {
             errors: {
                 422: `Validation Error`,
             },
+        });
+    }
+    /**
+     * Get Predictions
+     * @returns PredictionInfo Successful Response
+     * @throws ApiError
+     */
+    public static getPredictionsCrudPredictionsGet(): CancelablePromise<Array<PredictionInfo>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/predictions',
         });
     }
     /**

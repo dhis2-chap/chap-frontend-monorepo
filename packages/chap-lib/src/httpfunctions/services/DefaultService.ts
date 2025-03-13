@@ -5,6 +5,7 @@
 import type { EvaluationResponse } from '../models/EvaluationResponse';
 import type { Feature } from '../models/Feature';
 import type { FullPredictionResponse } from '../models/FullPredictionResponse';
+import type { HealthResponse } from '../models/HealthResponse';
 import type { ModelSpec } from '../models/ModelSpec';
 import type { PredictionRequest } from '../models/PredictionRequest';
 import type { State } from '../models/State';
@@ -181,6 +182,17 @@ export class DefaultService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/status',
+        });
+    }
+    /**
+     * Health
+     * @returns HealthResponse Successful Response
+     * @throws ApiError
+     */
+    public static healthHealthGet(): CancelablePromise<HealthResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/health',
         });
     }
 }

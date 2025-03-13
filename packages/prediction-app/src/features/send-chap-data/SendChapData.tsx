@@ -1,93 +1,129 @@
 import React, { useEffect, useState } from 'react'
-import DownloadAnalyticsData from './components/DownloadData/DownloadAnalyticsData';
-import { AnalyticsService, chap_core__rest_api_src__v1__routers__analytics__PredictionCreate, CrudService, DataList, DatasetCreate, DatasetMakeRequest, FeatureCollectionModel_Output, FetchRequest, JobResponse, ModelSpec, ObservationBase } from '@dhis2-chap/chap-lib';
-import { ModelFeatureDataElementMap } from '../../interfaces/ModelFeatureDataElement';
-import { ErrorResponse } from './interfaces/ErrorResponse';
-import saveAs from 'file-saver';
-import { IconError24 } from '@dhis2/ui';
-import styles from './SendChapData.module.css';
-import SendOrDownloadButtons from './components/SendOrDownloadButtons/SendOrDownloadButtons';
-import { IOrgUnitLevel, OrgUnit } from '../orgunit-selector/interfaces/orgUnit';
-import { Period } from '../timeperiod-selector/interfaces/Period';
-import { Datalayer, DatasetLayer } from '../new-dataset/interfaces/DataSetLayer';
-import { time } from 'console';
-import { data } from 'react-router-dom';
-import { useConfig } from '@dhis2/app-runtime';
+import DownloadAnalyticsData from './components/DownloadData/DownloadAnalyticsData'
+import {
+    AnalyticsService,
+    CrudService,
+    DataList,
+    DatasetCreate,
+    DatasetMakeRequest,
+    FeatureCollectionModel,
+    FetchRequest,
+    JobResponse,
+    MakePredictionRequest,
+    ModelSpec,
+    ModelSpecRead,
+    ObservationBase,
+    PredictionCreate,
+} from '@dhis2-chap/chap-lib'
+import { ModelFeatureDataElementMap } from '../../interfaces/ModelFeatureDataElement'
+import { ErrorResponse } from './interfaces/ErrorResponse'
+import saveAs from 'file-saver'
+import { IconError24 } from '@dhis2/ui'
+import styles from './SendChapData.module.css'
+import SendOrDownloadButtons from './components/SendOrDownloadButtons/SendOrDownloadButtons'
+import { IOrgUnitLevel, OrgUnit } from '../orgunit-selector/interfaces/orgUnit'
+import { Period } from '../timeperiod-selector/interfaces/Period'
+import { Datalayer, DatasetLayer } from '../new-dataset/interfaces/DataSetLayer'
+import { time } from 'console'
+import { data } from 'react-router-dom'
+import { useConfig } from '@dhis2/app-runtime'
 
 interface SendChapDataProps {
-  onSendAction : "predict" | "new-dataset"
-  selectedPeriodItems : Period[]
-  selectedOrgUnits : OrgUnit[]
-  orgUnitLevel : IOrgUnitLevel | undefined
-  dataLayers : DatasetLayer[]
-  name : string | undefined,
-  selectedModel? : ModelSpec | undefined
+    onSendAction: 'predict' | 'new-dataset'
+    selectedPeriodItems: Period[]
+    selectedOrgUnits: OrgUnit[]
+    orgUnitLevel: IOrgUnitLevel | undefined
+    dataLayers: DatasetLayer[]
+    name: string | undefined
+    selectedModel?: ModelSpecRead | undefined
+    onDrawerClose: () => void
 }
 
-export const SendChapData = ({onSendAction, selectedModel, name: datasetName, selectedPeriodItems, selectedOrgUnits: selectedOrgUnits, orgUnitLevel, dataLayers} : SendChapDataProps) => {
-
-
+export const SendChapData = ({
+    onSendAction,
+    onDrawerClose,
+    selectedModel,
+    name: datasetName,
+    selectedPeriodItems,
+    selectedOrgUnits: selectedOrgUnits,
+    orgUnitLevel,
+    dataLayers,
+}: SendChapDataProps) => {
     //States applies for both "predict" and "new-dataset"
-    const [startDownload, setStartDownload] = useState<{action: "download" | "predict" | "new-dataset", startDownload: boolean}>({ action: "download", startDownload: false });
-    
-    //Keeping the analytics content (including geojson), before sending to CHAP
-    const [observations, setObservations] = useState<ObservationBase[] | undefined>(undefined);
-    const [geoJSON, setGeoJSON] = useState<FeatureCollectionModel_Output | undefined>();
-   
-    const analyticsDataLayers : DatasetLayer[] = dataLayers.filter((dataLayer) => dataLayer.origin === 'dataItem');
+    const [startDownload, setStartDownload] = useState<{
+        action: 'download' | 'predict' | 'new-dataset'
+        startDownload: boolean
+    }>({ action: 'download', startDownload: false })
 
-    const [featureDataItemMapper, setFeatureDataItemMapper] = useState<{featureName: string, dateItemId: string}[]>([]);
+    //Keeping the analytics content (including geojson), before sending to CHAP
+    const [observations, setObservations] = useState<
+        ObservationBase[] | undefined
+    >(undefined)
+    const [geoJSON, setGeoJSON] = useState<FeatureCollectionModel | undefined>()
+
+    const analyticsDataLayers: DatasetLayer[] = dataLayers.filter(
+        (dataLayer) => dataLayer.origin === 'dataItem'
+    )
+
+    const [featureDataItemMapper, setFeatureDataItemMapper] = useState<
+        { featureName: string; dateItemId: string }[]
+    >([])
 
     //State for validation, request status etc..
-    const [errorMessages, setErrorMessages] = useState<ErrorResponse[]>([]);
-    const [errorChapMsg, setErrorChapMsg] = useState('');
-
+    const [errorMessages, setErrorMessages] = useState<ErrorResponse[]>([])
+    const [errorChapMsg, setErrorChapMsg] = useState('')
 
     const formValid = () => {
-      if (orgUnitLevel === undefined) return false;
-      if (selectedOrgUnits.length == 0) return false;
-      if (selectedPeriodItems.length == 0) return false;
-      if (datasetName === "") return false;
-      if (selectedPeriodItems.length == 0) return false;
-      if (dataLayers.length == 0) return false;
-      if (dataLayers.some((v : DatasetLayer) => v.feature === "" || v.dataSource === "" || v.origin === "")) return false;
-      return true;
+        if (orgUnitLevel === undefined) return false
+        if (selectedOrgUnits.length == 0) return false
+        if (selectedPeriodItems.length == 0) return false
+        if (datasetName === '') return false
+        if (selectedPeriodItems.length == 0) return false
+        if (dataLayers.length == 0) return false
+        if (
+            dataLayers.some(
+                (v: DatasetLayer) =>
+                    v.feature === '' || v.dataSource === '' || v.origin === ''
+            )
+        )
+            return false
+        return true
     }
-    
 
     //This will render the DownloadAnalyticsData components, which will fetch the analytics content from DHIS2
-    const onClickDownloadOrPostData = (action : "download" | "predict" | "new-dataset") => {
-      setObservations(undefined);
-      setGeoJSON(undefined);
-      setErrorMessages([]);
-      setStartDownload({ action: action, startDownload: true });
+    const onClickDownloadOrPostData = (
+        action: 'download' | 'predict' | 'new-dataset'
+    ) => {
+        setObservations(undefined)
+        setGeoJSON(undefined)
+        setErrorMessages([])
+        setStartDownload({ action: action, startDownload: true })
     }
 
     //Triggered when anayltics content is fetched
     useEffect(() => {
-      if (observations && geoJSON) {
-        setStartDownload(prev => ({ ...prev, startDownload: false }));
+        if (observations && geoJSON) {
+            setStartDownload((prev) => ({ ...prev, startDownload: false }))
 
-        //if action is "download", do not do any validation
-        if(startDownload.action === "download") {
-          downloadData(); 
-          return;
-        } 
-  
-        //if action is "predict" or "new-dataset", check if the analytics contains row
-        if (isAnalyticsContentIsEmpty(observations)) return;
-  
-        if(startDownload.action === "predict") predict();
-        if(startDownload.action === "new-dataset") newDataset();     
-      }
-    }, [observations, geoJSON]);
+            //if action is "download", do not do any validation
+            if (startDownload.action === 'download') {
+                downloadData()
+                return
+            }
 
-  
+            //if action is "predict" or "new-dataset", check if the analytics contains row
+            if (isAnalyticsContentIsEmpty(observations)) return
+
+            if (startDownload.action === 'predict') predict()
+            if (startDownload.action === 'new-dataset') newDataset()
+        }
+    }, [observations, geoJSON])
+
     //Check if the analytics content is empty, before sending it to CHAP
-    const isAnalyticsContentIsEmpty = (analyticsResult : ObservationBase[]) => {
-      return false
+    const isAnalyticsContentIsEmpty = (analyticsResult: ObservationBase[]) => {
+        return false
 
-      /*let emptyFeatures : ErrorResponse[] = []
+        /*let emptyFeatures : ErrorResponse[] = []
 
       analyticsResult.forEach((f : DatasetCreate) => {
         //find the name of the feature
@@ -104,148 +140,152 @@ export const SendChapData = ({onSendAction, selectedModel, name: datasetName, se
       return false*/
     }
 
-    const config = useConfig();
+    const config = useConfig()
 
     const getMetadate = () => {
         return {
-          userId : config?.systemInfo?.systemId || "Unknown",
-          appVersion : config?.appVersion?.full || "Unknown",
-          dhis2Version : config?.systemInfo?.version || "Unknown",
-          dataItemMapper : featureDataItemMapper
+            userId: config?.systemInfo?.systemId || 'Unknown',
+            appVersion: config?.appVersion?.full || 'Unknown',
+            dhis2Version: config?.systemInfo?.version || 'Unknown',
+            dataItemMapper: featureDataItemMapper,
         }
     }
 
-
-
-    const getCommonRequestData = () => {
-      return {
-        type : "this is not yet configured",
-        name : datasetName as string,
-        dataToBeFetched : getDataToBeFetched(),
-        metadata : getMetadate(),
-        observations : observations as ObservationBase[],
-        geojson : geoJSON as FeatureCollectionModel_Output,
-      }
-    }
-
-    const getNewDatasetRequest = () : DatasetCreate => {
-      return {
-        ...getCommonRequestData(),
-      }
-    }
-
-    const getPredictionRequest = () : chap_core__rest_api_src__v1__routers__analytics__PredictionCreate => {
-      return { 
-        modelId : selectedModel?.name as string,
-        ...getCommonRequestData(),
-      }
-    }
-
-    const getDataToBeFetched = () : FetchRequest[] => {
-      return dataLayers.filter(dl => dl.origin === "CHAP").map((v : DatasetLayer) => {
+    const getCommonRequestData = (type: 'dataset' | 'predict') => {
         return {
-          dataSourceName : v.dataSource,
-          featureId : v.feature,
-        } as FetchRequest
-      })
+            type: 'predict',
+            name: datasetName as string,
+            dataToBeFetched: getDataToBeFetched(),
+            metadata: getMetadate(),
+            providedData: observations as ObservationBase[],
+            geojson: geoJSON as FeatureCollectionModel,
+        }
     }
 
-  
+    const getNewDatasetRequest = (): DatasetCreate => {
+        return {
+            observations: [], //remove when new dataset is using providedData
+            ...getCommonRequestData('dataset'),
+        }
+    }
+
+    const getPredictionRequest = (): MakePredictionRequest => {
+        return {
+            modelId: selectedModel?.name as string,
+            ...getCommonRequestData('predict'),
+        }
+    }
+
+    const getDataToBeFetched = (): FetchRequest[] => {
+        return dataLayers
+            .filter((dl) => dl.origin === 'CHAP')
+            .map((v: DatasetLayer) => {
+                return {
+                    dataSourceName: v.dataSource,
+                    featureName: v.feature,
+                } as FetchRequest
+            })
+    }
+
     const newDataset = async () => {
-      let request : DatasetCreate = getNewDatasetRequest()
+        let request: DatasetCreate = getNewDatasetRequest()
 
-      await CrudService.createDatasetCrudDatasetsPost(request)
-        .then((response: JobResponse) => {
-          setErrorChapMsg('');
+        await CrudService.createDatasetCrudDatasetsPost(request)
+            .then((response: JobResponse) => {
+                setErrorChapMsg('')
 
-          //return navigate('/status');
-        })
-        .catch((error: any) => {
-          if(error?.body?.detail)
-            setErrorChapMsg(JSON.stringify(error?.body?.detail));
-          else
-            setErrorChapMsg("An error occured while sending the request to CHAP Core.")
-        });
+                //return navigate('/status');
+            })
+            .catch((error: any) => {
+                if (error?.body?.detail)
+                    setErrorChapMsg(JSON.stringify(error?.body?.detail))
+                else
+                    setErrorChapMsg(
+                        'An error occured while sending the request to CHAP Core.'
+                    )
+            })
     }
 
-  
     const predict = async () => {
-      let request : chap_core__rest_api_src__v1__routers__analytics__PredictionCreate = getPredictionRequest()
-      request.name = selectedModel?.name as string
-  
-      await AnalyticsService.makePredictionAnalyticsPredictionPost(request)
-        .then((response: JobResponse) => {
-          setErrorChapMsg('');
+        let request: MakePredictionRequest = getPredictionRequest()
 
-          //return navigate('/status');
-        })
-        .catch((error: any) => {
-          if(error?.body?.detail)
-            setErrorChapMsg(JSON.stringify(error?.body?.detail));
-          else
-            setErrorChapMsg("An error occured while sending the request to CHAP Core.")
-        });
-    };
-
-
+        await AnalyticsService.makePredictionAnalyticsPredictionPost(request)
+            .then((response: JobResponse) => {
+                setErrorChapMsg('')
+                onDrawerClose()
+            })
+            .catch((error: any) => {
+                if (error?.body?.detail)
+                    setErrorChapMsg(JSON.stringify(error?.body?.detail))
+                else
+                    setErrorChapMsg(
+                        'An error occured while sending the request to CHAP Core.'
+                    )
+            })
+    }
 
     const downloadData = () => {
+        let content = {}
 
-      let content = {}
+        if (onSendAction === 'predict') {
+            content = getPredictionRequest()
+        }
+        if (onSendAction === 'new-dataset') {
+            content = getNewDatasetRequest()
+        }
 
-      if(onSendAction === "predict") {
-        content = getPredictionRequest()
-      }
-      if(onSendAction === "new-dataset") {
-        content = getNewDatasetRequest()
-      }
+        var fileToSave = new Blob([JSON.stringify(content, null, 2)], {
+            type: 'application/json',
+        })
 
-      var fileToSave = new Blob([JSON.stringify(content, null, 2)], {
-        type: 'application/json'
-      });
-  
-      const today = new Date();
-      saveAs(fileToSave, onSendAction.replaceAll("-", "_")+"_chap_request_data_"+ today.toJSON() + '.json');
+        const today = new Date()
+        saveAs(
+            fileToSave,
+            onSendAction.replaceAll('-', '_') +
+                '_chap_request_data_' +
+                today.toJSON() +
+                '.json'
+        )
     }
 
-  return (
-    <div>
-      <SendOrDownloadButtons
-        formValid={formValid()}
-        onButtonSendAction={onSendAction}
-        onClickDownloadOrPostData={onClickDownloadOrPostData}
-        orgUnits={selectedOrgUnits}
-        startDownload={startDownload}
-      />
-      
-      {<p className={styles.errorChap}>{errorChapMsg}</p>}
-        {startDownload.startDownload && formValid() && (
-          <DownloadAnalyticsData
-            setFeatureDataItemMapper={setFeatureDataItemMapper}
-            model_id={selectedModel?.name}
-            setObservations={setObservations}
-            setGeoJSon={setGeoJSON}
-            analyticsDataLayers={analyticsDataLayers}
-            startDownload={startDownload}
-            setStartDownload={setStartDownload}
-            selectedPeriodItems={selectedPeriodItems}
-            setErrorMessages={setErrorMessages}
-            selectedOrgUnits={selectedOrgUnits}
-            orgUnitLevel={orgUnitLevel}
-          />
-        )}
+    return (
+        <div>
+            <SendOrDownloadButtons
+                formValid={formValid()}
+                onButtonSendAction={onSendAction}
+                onClickDownloadOrPostData={onClickDownloadOrPostData}
+                orgUnits={selectedOrgUnits}
+                startDownload={startDownload}
+            />
 
-        {errorMessages.map((error: ErrorResponse, index) => (
-          <div key={index} className={styles.errorBar}>
-            <div className={styles.errorHeader}>
-              <IconError24 />
-              <span>{error.title}</span>
-            </div>
-            <span className={styles.detailedError}>
-              {error.description}
-            </span>
-          </div>
-        ))}        
-    </div>
-  )
+            {<p className={styles.errorChap}>{errorChapMsg}</p>}
+            {startDownload.startDownload && formValid() && (
+                <DownloadAnalyticsData
+                    setFeatureDataItemMapper={setFeatureDataItemMapper}
+                    model_id={selectedModel?.name}
+                    setObservations={setObservations}
+                    setGeoJSon={setGeoJSON}
+                    analyticsDataLayers={analyticsDataLayers}
+                    startDownload={startDownload}
+                    setStartDownload={setStartDownload}
+                    selectedPeriodItems={selectedPeriodItems}
+                    setErrorMessages={setErrorMessages}
+                    selectedOrgUnits={selectedOrgUnits}
+                    orgUnitLevel={orgUnitLevel}
+                />
+            )}
+
+            {errorMessages.map((error: ErrorResponse, index) => (
+                <div key={index} className={styles.errorBar}>
+                    <div className={styles.errorHeader}>
+                        <IconError24 />
+                        <span>{error.title}</span>
+                    </div>
+                    <span className={styles.detailedError}>
+                        {error.description}
+                    </span>
+                </div>
+            ))}
+        </div>
+    )
 }

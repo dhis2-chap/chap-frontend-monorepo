@@ -4,16 +4,27 @@ import NewPredictionDrawer from '../new-prediction/NewPredictionDrawer'
 import PredictionResults from '../prediction-results/PredictionResults'
 
 const PredictionOverview = () => {
-  const [newPredictionDrawerOpen, setNewPredictionDrawerOpen] = useState<boolean>(false)
-  
+    const [newPredictionDrawerOpen, setNewPredictionDrawerOpen] =
+        useState<boolean>(false)
+    const [triggerUpdateJobs, setTriggerUpdateJobs] = useState({})
 
-  return (
-    <div>
-      <PredictionHeader setNewPredictionDrawerOpen={setNewPredictionDrawerOpen}/>
-      <NewPredictionDrawer isOpen={newPredictionDrawerOpen} setIsOpen={setNewPredictionDrawerOpen} />
-      <PredictionResults />
-    </div>
-  )
+    const onDrawerClose = () => {
+        setNewPredictionDrawerOpen(false)
+        setTriggerUpdateJobs({})
+    }
+
+    return (
+        <div>
+            <PredictionHeader
+                setNewPredictionDrawerOpen={setNewPredictionDrawerOpen}
+            />
+            <NewPredictionDrawer
+                isOpen={newPredictionDrawerOpen}
+                onDrawerClose={onDrawerClose}
+            />
+            <PredictionResults triggerUpdateJobs={triggerUpdateJobs} />
+        </div>
+    )
 }
 
 export default PredictionOverview

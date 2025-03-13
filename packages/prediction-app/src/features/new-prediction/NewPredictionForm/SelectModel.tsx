@@ -1,68 +1,39 @@
 import React, { useEffect, useState } from 'react'
-import { DefaultService, Feature, ModelSpec } from '@dhis2-chap/chap-lib';
+import { CrudService, DefaultService, Feature, FeatureTypeRead, ModelSpecRead } from '@dhis2-chap/chap-lib';
 import { SingleSelectField, SingleSelectOption } from '@dhis2/ui';
 import i18n from "@dhis2/d2-i18n";
 
 interface SelectModelProps {
-  selectedModel : ModelSpec | undefined
-  setSelectedModel : (m : ModelSpec) => void
+  selectedModel : ModelSpecRead | undefined
+  setSelectedModel : (m : ModelSpecRead | undefined) => void
 }
 
-const offlineModel : ModelSpec = {
-  name : "Download data (CHAP is offline)",
-  parameters : [],
-  features : [
-  {
-    id : "population",
-    description : "Select the data element for population",
-    name : "Population",
-    optional : false
-  },
-  {
-    id : "disease",
-    description : "Select the data element for disease cases",
-    name : "Disease cases",
-    optional : false
-  },
-  {
-    id: "rainfall",
-    name: "Rainfall",
-    description: "The amount of rainfall in mm",
-    optional: true
-  },
-  {
-    id: "mean_temperature",
-    name: "Mean Temperature",
-    description: "The average temperature in degrees Celsius",
-    optional: true
-  },
-]
-}
-
-
-const createTargetAsFeature = (target_name : string) : Feature => {
-  return {
-    id : target_name,
-    description : "",
-    optional : false,
-    name : target_name.replaceAll("_", " ")
+const offlineModel : ModelSpecRead = {
+  name: "Download data (CHAP is offline)",
+  id: 0,
+  description: "Download data from the CHAP API",
+  covariates: [],
+  target: {
+    name: "target",
+    description: "target",
+    displayName: ''
   }
-
 }
+
 
 const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
 
-  const [models, setModels] = useState<ModelSpec[]>([])
+  const [models, setModels] = useState<ModelSpecRead[]>([])
   const [isLoadingModels, setIsLoadingModels] = useState(true)
   
     
   const getModels = async () => {
-    await DefaultService.listModelsListModelsGet()
-      .then((response : ModelSpec[]) => {
+    await CrudService.listModelsCrudModelsGet()
+      .then((response : ModelSpecRead[]) => {
 
         //turn target_name into a feature
-        let models : ModelSpec[] = response.map((d : ModelSpec) => {
-          d.features = d.features.concat(d.targets ? [createTargetAsFeature(d.targets)] : [])
+        let models : ModelSpecRead[] = response.map((d : ModelSpecRead) => {
+          d.covariates = d.covariates.concat(d.target)
           return d
         })
 
@@ -78,7 +49,7 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
   }
 
   const onChangeModel = (event : any) => {
-    const selcted = models?.find((d : ModelSpec) => d.name === event.selected) as ModelSpec
+    const selcted = models?.find((d : ModelSpecRead) => d.name === event.selected) as ModelSpecRead
     setSelectedModel(selcted)
   }
 
@@ -90,7 +61,7 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
   return (
     <div>
       <SingleSelectField label={i18n.t('Select a model')} loading={isLoadingModels} placeholder='Select the model to use in prediction' onChange={onChangeModel} selected={selectedModel?.name}>
-        {models?.map((d : ModelSpec) => (
+        {models?.map((d : ModelSpecRead) => (
           <SingleSelectOption key={d.name} value={d.name} label={d.name}  />
         ))}
       </SingleSelectField>
