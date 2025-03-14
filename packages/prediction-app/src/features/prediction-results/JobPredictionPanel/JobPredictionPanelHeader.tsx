@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './JobPredictionPanel.module.css'
 import { JobPrediction } from '../interfaces/JobPrediction'
 
-const JobResultPanelHeader = () => {
+const PanelHeader = () => {
     return (
         <div>
             <div
@@ -20,4 +20,4 @@ const JobResultPanelHeader = () => {
     )
 }
 
-export default JobResultPanelHeader
+export default PanelHeader

@@ -12,5 +12,6 @@ export type MakePredictionRequest = {
     providedData: Array<ObservationBase>;
     dataToBeFetched: Array<FetchRequest>;
     modelId: string;
+    metaData?: Record<string, any>;
 };
 

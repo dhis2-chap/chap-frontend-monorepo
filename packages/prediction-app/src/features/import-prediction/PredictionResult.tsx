@@ -85,10 +85,18 @@ const PredictionResult = ({
         { q: 0.9, name: 'quantile_high' },
     ]
 
+    const getPredictorId = () => {
+        return (
+            prediction_unprocessed?.metaData?.dataItemMapper?.find(
+                (m: any) => m.featureName === 'disease_cases'
+            ).dataItemId ?? ''
+        )
+    }
+
     const getFullPredictionResponseExtended =
         (): FullPredictionResponseExtended => {
             return {
-                diseaseId: prediction_unprocessed.estimatorId,
+                diseaseId: predictionTargetId,
                 dataValues: prediction_unprocessed.forecasts.flatMap(
                     (forecast) => {
                         return quantiles.map((quantile) => {
@@ -111,9 +119,8 @@ const PredictionResult = ({
     const { dataElements: dataElementsHigh } = useDataElements('CHAP_HIGH')
 
     //PredicationTargetId comes from the uploaded file, this is used to fetch the name of the disease
-    const [predictionTargetId, setPredictionTarget] = useState<string | null>(
-        prediction_unprocessed.estimatorId
-    )
+    const predictionTargetId = getPredictorId()
+
     const { displayName: predictionTargetName } =
         useFindDataItem(predictionTargetId)
 

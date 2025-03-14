@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import JobPredictionPanel from './ResultPanel/JobPredictionPanel'
-import JobResultPanelHeader from './ResultPanel/JobResultPanelHeader'
+import React, { useEffect, useRef, useState } from 'react'
+import JobPredictionPanel from './JobPredictionPanel/JobPredictionPanel'
+import PanelHeader from './JobPredictionPanel/JobPredictionPanelHeader'
 import {
     AnalyticsService,
+    ApiError,
     CrudService,
     DefaultService,
     JobDescription,
@@ -10,6 +11,9 @@ import {
     PredictionInfo,
 } from '@dhis2-chap/chap-lib'
 import { JobPrediction } from './interfaces/JobPrediction'
+import FetchError from './FetchError/FetchError'
+import LoadingJobPrediction from './LoadingJobPrediction/LoadingJobPrediction'
+import { NoJobPrediction } from './NoJobPrediction/NoJobPrediction'
 
 interface Job {
     id: string
@@ -27,46 +31,94 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
     const [predictions, setPredictions] = useState<PredictionInfo[]>([])
     const [result, setResult] = useState<JobPrediction[]>([])
 
-    const [isFetching, setIsFetching] = useState(false)
+    const [fetchJobError, setFetchJobError] = useState<string | undefined>()
+    const [fetchPredictionError, setFetchPredictionError] = useState<
+        string | undefined
+    >()
 
-    const puller = async (onPageLoad: boolean) => {
-        if (isFetching) {
-            return // Prevent concurrent processing
+    const [onPageLoading, setOnPageLoading] = useState(true)
+
+    const puller = async (
+        onPageLoad: boolean,
+        local_jobs: JobDescription[]
+    ) => {
+        const fetched_jobs = await fetchJobs()
+
+        if (onPageLoad) {
+            //if on load, fetch predictions and set jobs
+            setPredictions(await fetchPredictions())
+            setJobs(local_jobs)
+            setOnPageLoading(false)
         }
-        setIsFetching(true)
 
-        if (onPageLoad) setPredictions(await fetchPredictions())
-
-        let fetched_jobs = await fetchJobs()
-        console.log('start to fetch', fetched_jobs.length)
-        setJobs(fetched_jobs)
-
-        if (
-            JSON.stringify(jobs) === JSON.stringify(fetched_jobs) &&
-            !onPageLoad
+        console.log(
+            'comparing jobs',
+            JSON.stringify(fetched_jobs.length),
+            JSON.stringify(local_jobs.length)
         )
-            return puller(false)
+        if (
+            //if content is the same as stored, not set the results, just proceed to next fetch jobs
 
-        //await two second, and fetch jobs again
+            JSON.stringify(fetched_jobs) === JSON.stringify(local_jobs)
+        ) {
+            return puller(false, fetched_jobs)
+        }
+
+        //await two second, and fetch jobs again, since a prediction/job exisits for a short time in both jobs and get predictions
         await new Promise((resolve) => setTimeout(resolve, 2_000))
-        fetched_jobs = await fetchJobs()
+        //fetched_jobs = await fetchJobs()
         const fetched_predictions = await fetchPredictions()
+
+        console.log(
+            'is not equal, set jobs and predictions',
+            fetched_jobs.length,
+            jobs.length
+        )
 
         setJobs(fetched_jobs)
         setPredictions(fetched_predictions)
 
-        puller(false)
-
-        //return () => clearInterval(interval)
+        //start new pull, not on page load
+        puller(false, fetched_jobs)
     }
 
     const fetchJobs = async (): Promise<JobDescription[]> => {
-        const response = await JobsService.listJobsJobsGet().then()
+        let response: JobDescription[] = []
+        for (let i = 0; i < 3; i++) {
+            try {
+                response = await JobsService.listJobsJobsGet()
+                break
+            } catch (error) {
+                if (i === 2) {
+                    setFetchJobError(
+                        (error as ApiError)?.message ??
+                            "Couldn't fetch predictions"
+                    )
+                    return []
+                }
+            }
+        }
+        setFetchJobError(undefined)
         return response
     }
 
     const fetchPredictions = async (): Promise<PredictionInfo[]> => {
-        const response = await CrudService.getPredictionsCrudPredictionsGet()
+        let response: PredictionInfo[] = []
+        for (let i = 0; i < 3; i++) {
+            try {
+                response = await CrudService.getPredictionsCrudPredictionsGet()
+                break
+            } catch (error) {
+                if (i === 2) {
+                    setFetchPredictionError(
+                        (error as ApiError)?.message ??
+                            "Couldn't fetch predictions"
+                    )
+                    return []
+                }
+            }
+        }
+        setFetchPredictionError(undefined)
         return response
     }
 
@@ -76,12 +128,7 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
     }, [jobs, predictions])
 
     useEffect(() => {
-        //will tirgger every 2 seconds and when drawer close
-        puller(true)
-
-        // Run fetchJobs at load
-        //fetchJobs(0)
-        //fetchPredictions()
+        puller(true, [])
     }, [])
 
     const getResults = (): JobPrediction[] => {
@@ -127,7 +174,11 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
 
     return (
         <div>
-            <JobResultPanelHeader />
+            <FetchError error={fetchJobError} type="job" />
+            <FetchError error={fetchPredictionError} type="prediction" />
+            {onPageLoading && <LoadingJobPrediction />}
+            {result.length > 0 && <PanelHeader />}
+            {result.length == 0 && !onPageLoading && <NoJobPrediction />}
             <JobPredictionPanel jobPredictions={result} />
         </div>
     )

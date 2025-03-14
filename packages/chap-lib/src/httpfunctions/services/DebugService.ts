@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { JobResponse } from '../models/JobResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -28,6 +29,17 @@ export class DebugService {
             errors: {
                 422: `Validation Error`,
             },
+        });
+    }
+    /**
+     * Trigger Exception
+     * @returns JobResponse Successful Response
+     * @throws ApiError
+     */
+    public static triggerExceptionDebugTriggerExceptionPost(): CancelablePromise<JobResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/debug/trigger-exception',
         });
     }
     /**

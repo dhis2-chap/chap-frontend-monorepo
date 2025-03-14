@@ -11,6 +11,7 @@ import type { DatasetCreate } from '../models/DatasetCreate';
 import type { DataSetRead } from '../models/DataSetRead';
 import type { DataSetWithObservations } from '../models/DataSetWithObservations';
 import type { DebugEntry } from '../models/DebugEntry';
+import type { FailedJobRead } from '../models/FailedJobRead';
 import type { FeatureSource } from '../models/FeatureSource';
 import type { JobResponse } from '../models/JobResponse';
 import type { ModelSpecRead } from '../models/ModelSpecRead';
@@ -230,6 +231,37 @@ export class CrudService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/crud/feature-sources',
+        });
+    }
+    /**
+     * Get Failed Jobs
+     * @returns FailedJobRead Successful Response
+     * @throws ApiError
+     */
+    public static getFailedJobsCrudFailedJobsGet(): CancelablePromise<Array<FailedJobRead>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/failedJobs',
+        });
+    }
+    /**
+     * Delete Failed Job
+     * @param failedJobId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static deleteFailedJobCrudFailedJobsFailedJobIdDelete(
+        failedJobId: number,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/crud/failedJobs/{failedJobId}',
+            path: {
+                'failedJobId': failedJobId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
         });
     }
     /**

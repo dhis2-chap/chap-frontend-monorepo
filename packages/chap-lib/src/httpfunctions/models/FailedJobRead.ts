@@ -2,13 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PredictionInfo = {
-    datasetId: number;
-    estimatorId: string;
-    nPeriods: number;
-    name: string;
+export type FailedJobRead = {
+    message: string;
     created: string;
-    metaData?: Record<string, any>;
     id: number;
 };
 

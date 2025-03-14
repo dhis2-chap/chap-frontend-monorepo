@@ -52,7 +52,7 @@ const NewPredictionForm = ({ onDrawerClose }: NewPredictionFormProps) => {
         <>
             <div className={styles.newPredictionForm}>
                 <div className={styles.newPredictionTitle}>
-                    <h2>Create new prediction</h2>
+                    <h2>New prediction</h2>
                     <Button
                         icon={<IconCross24 />}
                         onClick={onDrawerClose}

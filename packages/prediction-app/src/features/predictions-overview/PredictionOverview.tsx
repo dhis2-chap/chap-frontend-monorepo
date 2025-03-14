@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import PredictionHeader from './components/PredictionHeader/PredictionHeader'
 import NewPredictionDrawer from '../new-prediction/NewPredictionDrawer'
 import PredictionResults from '../prediction-results/PredictionResults'
+import PageHeader from '../common-features/PageHeader/PageHeader'
 
 const PredictionOverview = () => {
     const [newPredictionDrawerOpen, setNewPredictionDrawerOpen] =
@@ -15,8 +15,10 @@ const PredictionOverview = () => {
 
     return (
         <div>
-            <PredictionHeader
-                setNewPredictionDrawerOpen={setNewPredictionDrawerOpen}
+            <PageHeader
+                setDrawerOpen={setNewPredictionDrawerOpen}
+                pageTitle="Predictions"
+                setDrawerOpenText="New prediction"
             />
             <NewPredictionDrawer
                 isOpen={newPredictionDrawerOpen}

@@ -12,13 +12,15 @@ const SaveOpenApiUrl = ({
     existingUrl,
     setIsOpen,
 }: SaveOpenApiUrlProps) => {
+    const slicedBaseUrl = baseURL.endsWith('/') ? baseURL.slice(0, -1) : baseURL
+
     const {
         called,
         error,
         loading: dataStoreLoading,
         mutate,
     } = useUpdateDataStore(
-        { url: baseURL },
+        { url: slicedBaseUrl },
         'backend-url',
         existingUrl == null ? 'create' : 'update'
     )

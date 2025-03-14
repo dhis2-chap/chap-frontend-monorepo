@@ -25,6 +25,7 @@ export type { DataSource } from './models/DataSource';
 export type { DebugEntry } from './models/DebugEntry';
 export type { EvaluationEntry } from './models/EvaluationEntry';
 export type { EvaluationResponse } from './models/EvaluationResponse';
+export type { FailedJobRead } from './models/FailedJobRead';
 export type { Feature } from './models/Feature';
 export type { FeatureCollectionModel } from './models/FeatureCollectionModel';
 export type { FeatureModel } from './models/FeatureModel';

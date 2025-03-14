@@ -2,9 +2,14 @@
     color: green;
 }
 
+.status_not_ok {
+    color: red;
+}
+
 .errorContainer {
-    margin-inline-end: 4rem;
-    max-inline-size: 900px;
+    overflow-x: auto;
+    width: 100%;
+    color: rgb(175, 64, 64);
 }
 
 .container {
@@ -44,8 +49,4 @@ th {
     text-align: left;
     padding: 0.5rem;
     border-bottom: 1px solid #ddd;
-}
-
-.status_not_ok {
-    color: rgb(175, 64, 64);
 }

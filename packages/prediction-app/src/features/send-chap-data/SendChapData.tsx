@@ -66,7 +66,7 @@ export const SendChapData = ({
     )
 
     const [featureDataItemMapper, setFeatureDataItemMapper] = useState<
-        { featureName: string; dateItemId: string }[]
+        { featureName: string; dataItemId: string }[]
     >([])
 
     //State for validation, request status etc..
@@ -156,7 +156,7 @@ export const SendChapData = ({
             type: 'predict',
             name: datasetName as string,
             dataToBeFetched: getDataToBeFetched(),
-            metadata: getMetadate(),
+            metaData: getMetadate(),
             providedData: observations as ObservationBase[],
             geojson: geoJSON as FeatureCollectionModel,
         }

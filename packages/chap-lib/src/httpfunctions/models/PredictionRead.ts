@@ -9,6 +9,7 @@ export type PredictionRead = {
     nPeriods: number;
     name: string;
     created: string;
+    metaData?: Record<string, any>;
     id: number;
     forecasts: Array<ForecastRead>;
 };
