@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ResultPanel from './ResultPanel/JobPredictionPanel'
+import JobPredictionPanel from './ResultPanel/JobPredictionPanel'
 import JobResultPanelHeader from './ResultPanel/JobResultPanelHeader'
 import {
     AnalyticsService,
@@ -27,9 +27,16 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
     const [predictions, setPredictions] = useState<PredictionInfo[]>([])
     const [result, setResult] = useState<JobPrediction[]>([])
 
+    const [isFetching, setIsFetching] = useState(false)
+
     const puller = async (onPageLoad: boolean) => {
-        //fetch prediction after get jobs, then fetch predictions
-        //await new Promise((resolve) => setTimeout(resolve, delay))
+        if (isFetching) {
+            return // Prevent concurrent processing
+        }
+        setIsFetching(true)
+
+        if (onPageLoad) setPredictions(await fetchPredictions())
+
         let fetched_jobs = await fetchJobs()
         console.log('start to fetch', fetched_jobs.length)
         setJobs(fetched_jobs)
@@ -40,13 +47,10 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
         )
             return puller(false)
 
-        console.log('continue', fetched_jobs.length)
         //await two second, and fetch jobs again
-        //await new Promise((resolve) => setTimeout(resolve, 2_000))
+        await new Promise((resolve) => setTimeout(resolve, 2_000))
         fetched_jobs = await fetchJobs()
         const fetched_predictions = await fetchPredictions()
-
-        console.log(fetched_predictions)
 
         setJobs(fetched_jobs)
         setPredictions(fetched_predictions)
@@ -124,7 +128,7 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
     return (
         <div>
             <JobResultPanelHeader />
-            <ResultPanel jobPredictions={result} />
+            <JobPredictionPanel jobPredictions={result} />
         </div>
     )
 }

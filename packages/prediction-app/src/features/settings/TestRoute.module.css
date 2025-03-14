@@ -2,19 +2,14 @@
     color: green;
 }
 
-.outerContainer {
-    margin-block-start: 3rem;
-}
-
 .errorContainer {
     margin-inline-end: 4rem;
     max-inline-size: 900px;
-
-    overflow-x: auto;
 }
 
 .container {
     padding: 0rem;
+    overflow: auto;
 }
 
 .settingsTable {
@@ -23,13 +18,26 @@
     margin-bottom: 2rem;
 }
 
+.tableWrapper {
+    min-height: 240px;
+}
+
 table {
     border-collapse: collapse;
+    overflow-x: auto;
 }
 
 .cellTable {
-    padding: 0.5rem;
+    padding: 0.5rem 2rem 0.5rem 0;
     border: none;
+    vertical-align: top;
+}
+
+.cellTableLarge {
+    padding: 0.5rem 2rem 0.5rem 0;
+    border: none;
+    vertical-align: top;
+    min-width: 350px;
 }
 
 th {

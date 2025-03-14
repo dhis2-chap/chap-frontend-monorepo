@@ -53,8 +53,8 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
 
     return (
         <>
-            {jobPredictions.map((jobPredictions: JobPrediction) => (
-                <div className={styles.boxPanel}>
+            {jobPredictions.map((jobPredictions: JobPrediction, i) => (
+                <div key={i} className={styles.boxPanel}>
                     <div className={styles.jobPredictionPanelContainer}>
                         <div className={styles.flexMedium}>
                             {jobPredictions.name}

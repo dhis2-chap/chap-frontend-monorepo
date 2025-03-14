@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { InputField, Button, IconSave24, IconArrowRight16 } from '@dhis2/ui'
-import styles from '../styles/CreateRoute.module.css'
-import TestRoute from './TestRoute'
+import styles from './CreateRoute.module.css'
+import TestRoute from './Settings'
 import { useNavigate, useRoutes } from 'react-router-dom'
 import useGetRoute from '../../hooks/useGetRoute'
 import { useConfig } from '@dhis2/app-runtime'
@@ -43,7 +43,7 @@ const Setup = () => {
     }, [route])
 
     const naviagteToTestRoute = () => {
-        window.location.replace('#/route-settings')
+        window.location.replace('#/settings')
     }
 
     return (

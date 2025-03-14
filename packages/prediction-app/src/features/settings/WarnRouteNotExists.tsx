@@ -3,7 +3,7 @@ import React from 'react'
 import useGetRoute from '../../hooks/useGetRoute'
 import { NoticeBox } from '@dhis2/ui'
 import { Link } from 'react-router-dom'
-import style from '../styles/WarnRouteNotExists.module.css'
+import style from './WarnRouteNotExists.module.css'
 
 const WarnRouteNotExists = () => {
     const { loading, route, error } = useGetRoute()

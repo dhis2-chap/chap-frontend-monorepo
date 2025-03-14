@@ -3,7 +3,7 @@ import { Button } from '@dhis2/ui'
 import { Modal } from '@dhis2/ui'
 import React, { useEffect, useState } from 'react'
 import { OpenAPI } from '@dhis2-chap/chap-lib'
-import styles from '../styles/SetOpenApiUrl.module.css'
+import styles from './SetOpenApiUrl.module.css'
 import { IconSave16 } from '@dhis2/ui'
 import { IconSave24 } from '@dhis2/ui'
 import useUpdateDataStore, { REQUEST } from '../../hooks/useUpdateDataStore'
@@ -62,9 +62,7 @@ const SetOpenApiUrl = ({
                     disabled={fetching}
                     value={baseURL}
                     onChange={(e: any) => onChangeUrl(e.value)}
-                    placeholder={
-                        fetching ? 'Loading..' : ''
-                    }
+                    placeholder={fetching ? 'Loading..' : ''}
                 />
 
                 <div className={styles.footer}>

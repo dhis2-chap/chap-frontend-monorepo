@@ -13,6 +13,9 @@ import PageWrapper from './components/PageWrapper'
 import EvaluationPage from './pages/EvaluationPage'
 import PredictionOverview from './features/predictions-overview/PredictionOverview'
 import SetChapUrl from './features/route-api/SetChapUrl'
+import CreateRoute from './features/settings/CreateRoute'
+import TestRoute from './features/settings/Settings'
+import Settings from './features/settings/Settings'
 
 const router = createHashRouter([
     {
@@ -52,35 +55,37 @@ const router = createHashRouter([
             },
         ],
     },
-    { 
+    {
         path: '',
         errorElement: <ErrorPage />,
         children: [
             {
-                path: "/",
-                element: <PageWrapper component={<PredictionOverview/>}/>
+                path: '/',
+                element: <PageWrapper component={<PredictionOverview />} />,
             },
             {
-                path: "/evaluations",
-                element: <PageWrapper component={<EvaluationPage/>}/>
+                path: '/evaluations',
+                element: <PageWrapper component={<EvaluationPage />} />,
             },
             {
-                path: "/settings",
-                element: <PageWrapper component={<SettingsPage/>}/>
-            }
+                path: '/settings',
+                element: <PageWrapper component={<Settings />} />,
+            },
         ],
     },
 ])
 
 const App = () => {
-
     const [isLoadingRouteConfig, setIsLoadingRouteConfig] = useState(true)
-  
-    
-    return     <>
-    <SetChapUrl setIsLoadingRouteConfig={setIsLoadingRouteConfig}/>
-    { !isLoadingRouteConfig && <RouterProvider router={router}></RouterProvider>}
-  </>
+
+    return (
+        <>
+            <SetChapUrl setIsLoadingRouteConfig={setIsLoadingRouteConfig} />
+            {!isLoadingRouteConfig && (
+                <RouterProvider router={router}></RouterProvider>
+            )}
+        </>
+    )
 }
 
 export default App

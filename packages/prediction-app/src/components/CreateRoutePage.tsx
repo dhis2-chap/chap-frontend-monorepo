@@ -1,5 +1,5 @@
 import React from 'react'
-import Setup from './setup/CreateRoute'
+import Setup from '../features/settings/CreateRoute'
 
 const CreateRoutePage = () => {
     return <Setup />

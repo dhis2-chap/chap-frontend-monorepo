@@ -1,7 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal } from '@dhis2/ui'
-import PredictionResult from '../../../components/results/PredictionResult'
-import { CrudService, PredictionInfo } from '@dhis2-chap/chap-lib'
+import styles from './ImportPrediction.module.css'
+
+import {
+    CrudService,
+    PredictionInfo,
+    PredictionRead,
+} from '@dhis2-chap/chap-lib'
+import PredictionResult from '../../import-prediction/PredictionResult'
 
 interface ImportPredictionProps {
     setIsImportModalOpen: (value: boolean) => void
@@ -14,12 +20,14 @@ const ImportPrediction = ({
     setIsImportModalOpen,
     predictionIdToImport,
 }: ImportPredictionProps) => {
+    const [result, setResult] = useState<PredictionRead>()
+
     //fetch all prediction values
     const fetchPredictionSamples = async (predictionId: number) => {
         await CrudService.getPredictionCrudPredictionsPredictionIdGet(
             predictionId
         ).then((response: any) => {
-            console.log(response)
+            setResult(response)
         })
     }
 
@@ -31,20 +39,27 @@ const ImportPrediction = ({
     return (
         <div>
             {isImportModalOpen && (
-                <Modal
-                    onClose={() => {
-                        setIsImportModalOpen(false)
-                    }}
-                >
-                    <div>
-                        {/*show spinner while loading*/}
+                <>
+                    <Modal
+                        className={styles.modal}
+                        onClose={() => {
+                            setIsImportModalOpen(false)
+                        }}
+                    >
+                        <>
+                            {/*show spinner while loading*/}
 
-                        {/*when loaded show results and view to import*/}
+                            {/*when loaded show results and view to import*/}
 
-                        {/*make a copy of this file in folder features/import-prediction*/}
-                        <PredictionResult />
-                    </div>
-                </Modal>
+                            {/*make a copy of this file in folder features/import-prediction*/}
+                            {result && (
+                                <PredictionResult
+                                    prediction_unprocessed={result}
+                                />
+                            )}
+                        </>
+                    </Modal>
+                </>
             )}
         </div>
     )
