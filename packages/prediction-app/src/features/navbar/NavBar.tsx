@@ -4,38 +4,45 @@ import styles from './NavBar.module.css'
 import NavBarItem from './components/NavBarItem/NavBarItem'
 import { maxWidth } from '../../components/PageWrapper'
 
-
 const navBarItems = [
-  {
-    label: 'Predictions',
-    path : '/',
-  },
-  {
-    label: 'Evaluation',
-    path : '/evaluations',
-  }
+    {
+        label: 'Predictions',
+        path: '/',
+    },
+    {
+        label: 'Evaluation',
+        path: '/evaluations',
+    },
 ]
 
 const NavBar = () => {
+    const handleSettingsClick = () => {
+        window.location.replace('/#settings')
+    }
 
-  const handleSettingsClick = () => {
-    window.location.replace("/#settings")
-  }
-
-  return (
-    <div>
-      <div className={styles.outerNavBar}>
-        <div className={styles.innerNavBar} style={{maxWidth : maxWidth}}>
-          <div className={styles.leftNavBarLinks}>
-            {navBarItems.map(({ path, label }, i) => (
-              <NavBarItem key={i} path={path} label={label}/>
-            ))}
-          </div>
-          <Button small icon={<IconSettings24/>} onClick={handleSettingsClick} ></Button>
+    return (
+        <div>
+            <div className={styles.outerNavBar}>
+                <div
+                    className={styles.innerNavBar}
+                    style={{ maxWidth: maxWidth }}
+                >
+                    <div className={styles.leftNavBarLinks}>
+                        {navBarItems.map(({ path, label }, i) => (
+                            <NavBarItem key={i} path={path} label={label} />
+                        ))}
+                    </div>
+                    <Button
+                        small
+                        icon={<IconSettings24 />}
+                        onClick={handleSettingsClick}
+                    >
+                        Settings
+                    </Button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  )
+    )
 }
 
 export default NavBar
