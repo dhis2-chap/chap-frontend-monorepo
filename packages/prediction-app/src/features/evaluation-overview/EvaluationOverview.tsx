@@ -5,7 +5,7 @@ import PageHeader from '../common-features/PageHeader/PageHeader'
 import { EvaluationMediumTitle } from './EvaluationMediumTitle/EvaluationUnderTitle'
 
 const EvaluationOverview = () => {
-    const [newDatsetDrawerOpen, setNewDatsetDrawerOpen] =
+    const [newDatasetDrawerOpen, setNewDatasetDrawerOpen] =
         useState<boolean>(false)
 
     return (
@@ -13,11 +13,11 @@ const EvaluationOverview = () => {
             <PageHeader
                 pageTitle="Evaluation"
                 setDrawerOpenText="New dataset"
-                setDrawerOpen={setNewDatsetDrawerOpen}
+                setDrawerOpen={setNewDatasetDrawerOpen}
             />
             <NewDatasetDrawer
-                isOpen={newDatsetDrawerOpen}
-                setIsOpen={setNewDatsetDrawerOpen}
+                isOpen={newDatasetDrawerOpen}
+                setIsOpen={setNewDatasetDrawerOpen}
             />
 
             <EvaluationMediumTitle title="Datasets" />

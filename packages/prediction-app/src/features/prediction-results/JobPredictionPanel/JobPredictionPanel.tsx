@@ -7,6 +7,8 @@ import {
     IconArrowRight24,
     IconDelete24,
     IconImportItems24,
+    IconInfo16,
+    IconInfo24,
     IconView16,
     IconView24,
 } from '@dhis2/ui'
@@ -53,53 +55,63 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
 
     return (
         <>
-            {jobPredictions.map((jobPredictions: JobPrediction, i) => (
+            {jobPredictions.map((jobPrediction: JobPrediction, i) => (
                 <div key={i} className={styles.boxPanel}>
                     <div className={styles.jobPredictionPanelContainer}>
                         <div className={styles.flexMedium}>
-                            {jobPredictions.name}
+                            {jobPrediction.name}
                         </div>
                         <div className={styles.flexMedium}>
-                            {jobPredictions.created.toDateString() +
+                            {jobPrediction.created.toDateString() +
                                 ', ' +
-                                jobPredictions.created
+                                jobPrediction.created
                                     .toLocaleTimeString()
                                     .slice(0, 5)}
                         </div>
                         <div className={styles.flexMedium}>
                             <span
                                 className={getStatusColor(
-                                    jobPredictions.status
+                                    jobPrediction.status
                                 )}
                             >
-                                {jobPredictions.status.replaceAll(
+                                {jobPrediction.status.replaceAll(
                                     'active',
                                     'In progress..'
                                 )}
                             </span>
                         </div>
                         <div className={styles.flexItemRight}>
-                            {jobPredictions.type === 'prediction' ? (
+                            {jobPrediction.type === 'prediction' ? (
                                 <Button
                                     icon={<IconArrowRight24 />}
                                     onClick={() =>
-                                        onClickImport(jobPredictions.id)
+                                        onClickImport(jobPrediction.id)
                                     }
                                     small
                                 >
                                     Import prediction
                                 </Button>
                             ) : (
-                                <div className={styles.buttonGroup}>
-                                    {/*
-                                    button not yet supported by chap core
-                                    <Button small>Logs</Button>
-                                    <Button small destructive>
-                                        Cancel job
-                                    </Button>
-                                    
-                                    */}
-                                </div>
+                                <>
+                                    {jobPrediction.status === 'Failed' && 
+                                    <div className={styles.buttonGroup}>
+                                        <Button
+                                            icon={<IconInfo24 />} 
+                                            small
+                                            onClick={() => alert('Reason for failure: ' + jobPrediction.description)}
+                                        >
+                                            Details
+                                        </Button>
+                                        <Button
+                                            icon={<IconDelete24 />} 
+                                            small
+                                            destructive
+                                            onClick={() => alert('Not yet implemented, should delete failed job')}
+                                        >
+                                            Remove
+                                        </Button>
+                                    </div>}
+                                </>
                             )}
                         </div>
                     </div>

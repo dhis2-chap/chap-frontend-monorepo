@@ -6,6 +6,7 @@ import {
     ApiError,
     CrudService,
     DefaultService,
+    FailedJobRead,
     JobDescription,
     JobsService,
     PredictionInfo,
@@ -44,8 +45,8 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
     ) => {
         const fetched_jobs = await fetchJobs()
 
+        //if on load, fetch predictions and set jobs
         if (onPageLoad) {
-            //if on load, fetch predictions and set jobs
             setPredictions(await fetchPredictions())
             setJobs(local_jobs)
             setOnPageLoading(false)
@@ -56,9 +57,9 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
             JSON.stringify(fetched_jobs.length),
             JSON.stringify(local_jobs.length)
         )
-        if (
-            //if content is the same as stored, not set the results, just proceed to next fetch jobs
 
+        //if content is the same as stored, not set the results, just proceed to next fetch jobs
+        if (
             JSON.stringify(fetched_jobs) === JSON.stringify(local_jobs)
         ) {
             return puller(false, fetched_jobs)
@@ -83,8 +84,17 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
     }
 
     const fetchJobs = async (): Promise<JobDescription[]> => {
+        const [jobs, failedJobs]: [JobDescription[], JobDescription[]] = await Promise.all([
+            fetchActiveJobs(),
+            fetchFailedJobs()
+        ])
+        const allJobs: JobDescription[] = [...jobs, ...failedJobs]
+        return allJobs
+    }
+
+    const fetchActiveJobs = async (): Promise<JobDescription[]> => {
         let response: JobDescription[] = []
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 6; i++) {
             try {
                 response = await JobsService.listJobsJobsGet()
                 break
@@ -92,7 +102,7 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
                 if (i === 2) {
                     setFetchJobError(
                         (error as ApiError)?.message ??
-                            "Couldn't fetch predictions"
+                            "Couldn't fetch jobs"
                     )
                     return []
                 }
@@ -100,6 +110,36 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
         }
         setFetchJobError(undefined)
         return response
+    }
+
+    const fetchFailedJobs = async (): Promise<JobDescription[]> => {
+        // Fetch failed jobs from api
+        let response: FailedJobRead[] = []
+        for (let i = 0; i < 6; i++) {
+            try {
+                response = await CrudService.getFailedJobsCrudFailedJobsGet()
+                break
+            } catch (error) {
+                if (i === 2) {
+                    setFetchJobError(
+                        (error as ApiError)?.message ??
+                            "Couldn't fetch failed jobs"
+                    )
+                    return []
+                }
+            }
+        }
+        
+        // Convert FailedJobRead[] to JobDescription[]
+        const jobs: JobDescription[] = response.map((failedJob): JobDescription => ({
+            id: failedJob.id.toString(),
+            description: failedJob.message,
+            status: 'Failed',
+            start_time: failedJob.created,
+            hostname: 'unknown'
+        }))
+        setFetchJobError(undefined)
+        return jobs
     }
 
     const fetchPredictions = async (): Promise<PredictionInfo[]> => {
