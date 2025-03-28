@@ -5,7 +5,7 @@
 import type { ForecastRead } from './ForecastRead';
 export type PredictionRead = {
     datasetId: number;
-    estimatorId: string;
+    modelId: string;
     nPeriods: number;
     name: string;
     created: string;

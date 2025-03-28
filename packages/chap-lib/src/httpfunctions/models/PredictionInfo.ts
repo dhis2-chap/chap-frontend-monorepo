@@ -4,7 +4,7 @@
 /* eslint-disable */
 export type PredictionInfo = {
     datasetId: number;
-    estimatorId: string;
+    modelId: string;
     nPeriods: number;
     name: string;
     created: string;

@@ -151,9 +151,8 @@ export const SendChapData = ({
         }
     }
 
-    const getCommonRequestData = (type: 'dataset' | 'predict') => {
+    const getCommonRequestData = () => {
         return {
-            type: 'predict',
             name: datasetName as string,
             dataToBeFetched: getDataToBeFetched(),
             metaData: getMetadate(),
@@ -162,17 +161,16 @@ export const SendChapData = ({
         }
     }
 
-    const getNewDatasetRequest = (): DatasetCreate => {
-        return {
-            observations: [], //remove when new dataset is using providedData
-            ...getCommonRequestData('dataset'),
-        }
+    const getNewDatasetRequest = (): DatasetMakeRequest => {
+        return getCommonRequestData()
     }
 
     const getPredictionRequest = (): MakePredictionRequest => {
         return {
+            //could consider to remove later
+            type: 'predict',
             modelId: selectedModel?.name as string,
-            ...getCommonRequestData('predict'),
+            ...getCommonRequestData(),
         }
     }
 
@@ -188,13 +186,12 @@ export const SendChapData = ({
     }
 
     const newDataset = async () => {
-        let request: DatasetCreate = getNewDatasetRequest()
+        let request: DatasetMakeRequest = getNewDatasetRequest()
 
-        await CrudService.createDatasetCrudDatasetsPost(request)
+        await AnalyticsService.makeDatasetAnalyticsMakeDatasetPost(request)
             .then((response: JobResponse) => {
                 setErrorChapMsg('')
-
-                //return navigate('/status');
+                onDrawerClose()
             })
             .catch((error: any) => {
                 if (error?.body?.detail)

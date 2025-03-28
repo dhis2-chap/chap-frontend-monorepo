@@ -3,6 +3,7 @@ import { boolean } from '@dhis2/ui'
 import NewDatasetDrawer from '../new-dataset/components/NewDatasetDrawer/NewDatasetDrawer'
 import PageHeader from '../common-features/PageHeader/PageHeader'
 import { EvaluationMediumTitle } from './EvaluationMediumTitle/EvaluationUnderTitle'
+import Datasets from '../datasets/Datasets'
 
 const EvaluationOverview = () => {
     const [newDatasetDrawerOpen, setNewDatasetDrawerOpen] =
@@ -21,6 +22,7 @@ const EvaluationOverview = () => {
             />
 
             <EvaluationMediumTitle title="Datasets" />
+            <Datasets />
 
             <EvaluationMediumTitle title="Results" />
         </div>
