@@ -36,12 +36,12 @@ interface SendChapDataProps {
     dataLayers: DatasetLayer[]
     name: string | undefined
     selectedModel?: ModelSpecRead | undefined
-    onDrawerClose: () => void
+    onDrawerSubmit: () => void
 }
 
 export const SendChapData = ({
     onSendAction,
-    onDrawerClose,
+    onDrawerSubmit,
     selectedModel,
     name: datasetName,
     selectedPeriodItems,
@@ -191,7 +191,7 @@ export const SendChapData = ({
         await AnalyticsService.makeDatasetAnalyticsMakeDatasetPost(request)
             .then((response: JobResponse) => {
                 setErrorChapMsg('')
-                onDrawerClose()
+                onDrawerSubmit()
             })
             .catch((error: any) => {
                 if (error?.body?.detail)
@@ -209,7 +209,7 @@ export const SendChapData = ({
         await AnalyticsService.makePredictionAnalyticsPredictionPost(request)
             .then((response: JobResponse) => {
                 setErrorChapMsg('')
-                onDrawerClose()
+                onDrawerSubmit()
             })
             .catch((error: any) => {
                 if (error?.body?.detail)

@@ -2,7 +2,11 @@ import React from 'react'
 import styles from './LoadingJobPrediction.module.css'
 import { CircularLoader } from '@dhis2/ui'
 
-const LoadingJobPrediction = () => {
+interface LoadingJobPredictionProps {
+    type: 'predictions' | 'datasets' | 'evaluations'
+}
+
+const LoadingJobPrediction = ({ type }: LoadingJobPredictionProps) => {
     return (
         <>
             <div className={styles.loaderWrapper}>
@@ -11,7 +15,7 @@ const LoadingJobPrediction = () => {
                 </div>
             </div>
             <p className={styles.textLoad}>
-                <i>Loading predictions</i>
+                <i>Loading {type}</i>
             </p>
         </>
     )

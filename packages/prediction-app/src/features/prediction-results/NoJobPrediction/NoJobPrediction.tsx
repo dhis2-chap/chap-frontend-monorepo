@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './NoJobPrediction.module.css'
 
-export const NoJobPrediction = () => {
-    return (
-        <div className={styles.text}>
-            No predictions found, start by clicking "New prediction"
-        </div>
-    )
+interface NoJobPredictionProps {
+    type: 'predictions' | 'datasets' | 'evaluations' | 'job'
+}
+
+export const NoJobPrediction = ({ type }: NoJobPredictionProps) => {
+    return <div className={styles.text}>No {type} found</div>
 }

@@ -13,19 +13,23 @@ import {
 import { PeriodTypeSelector } from '../../../timeperiod-selector/components/PeriodTypeSelector'
 
 interface NewDatasetStepperProps {
-    onClose: () => void
+    onDrawerSubmit: () => void
+    onDrawerClose: () => void
 }
 
-const NewDatasetStepper = ({ onClose }: NewDatasetStepperProps) => {
+const NewDatasetStepper = ({
+    onDrawerClose,
+    onDrawerSubmit,
+}: NewDatasetStepperProps) => {
     return (
         <>
             <div className={styles.newDatasetWrapper}>
                 <div className={styles.newEvaluationDatsetTitle}>
                     <h2>New evaluation dataset</h2>
-                    <Button icon={<IconCross24 />} onClick={onClose} />
+                    <Button icon={<IconCross24 />} onClick={onDrawerClose} />
                 </div>
 
-                <NewDatasetForm onDrawerClose={onClose} />
+                <NewDatasetForm onDrawerSubmit={onDrawerSubmit} />
 
                 {/*
           {

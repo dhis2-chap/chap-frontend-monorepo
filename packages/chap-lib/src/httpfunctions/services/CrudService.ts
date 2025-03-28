@@ -28,12 +28,12 @@ export class CrudService {
      * @returns BackTestFull Successful Response
      * @throws ApiError
      */
-    public static getBacktestCrudBacktestBacktestIdGet(
+    public static getBacktestCrudBacktestsBacktestIdGet(
         backtestId: number,
     ): CancelablePromise<BackTestFull> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/crud/backtest/{backtestId}',
+            url: '/crud/backtests/{backtestId}',
             path: {
                 'backtestId': backtestId,
             },
@@ -47,10 +47,10 @@ export class CrudService {
      * @returns BackTestRead Successful Response
      * @throws ApiError
      */
-    public static getBacktestsCrudBacktestGet(): CancelablePromise<Array<BackTestRead>> {
+    public static getBacktestsCrudBacktestsGet(): CancelablePromise<Array<BackTestRead>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/crud/backtest',
+            url: '/crud/backtests',
         });
     }
     /**
@@ -59,12 +59,12 @@ export class CrudService {
      * @returns JobResponse Successful Response
      * @throws ApiError
      */
-    public static createBacktestCrudBacktestPost(
+    public static createBacktestCrudBacktestsPost(
         requestBody: BackTestCreate,
     ): CancelablePromise<JobResponse> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/crud/backtest',
+            url: '/crud/backtests',
             body: requestBody,
             mediaType: 'application/json',
             errors: {

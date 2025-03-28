@@ -4,7 +4,10 @@ import PanelHeader from './JobPredictionPanel/JobPredictionPanelHeader'
 import {
     AnalyticsService,
     ApiError,
+    BackTestRead,
+    CancelablePromise,
     CrudService,
+    DataSetRead,
     DefaultService,
     FailedJobRead,
     JobDescription,
@@ -24,12 +27,15 @@ interface Job {
 }
 
 export interface PredictionResultsProps {
-    triggerUpdateJobs: any
+    type: 'predictions' | 'datasets' | 'evaluations'
 }
 
-const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
+const PredictionResults = ({ type }: PredictionResultsProps) => {
     const [jobs, setJobs] = useState<JobDescription[]>([])
     const [predictions, setPredictions] = useState<PredictionInfo[]>([])
+    const [datasets, setDatasets] = useState<DataSetRead[]>([])
+    const [evaluations, setEvaluations] = useState<BackTestRead[]>([])
+
     const [result, setResult] = useState<JobPrediction[]>([])
 
     const [fetchJobError, setFetchJobError] = useState<string | undefined>()
@@ -39,6 +45,24 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
 
     const [onPageLoading, setOnPageLoading] = useState(true)
 
+    const setFetchEveluationPredictionDataset = () => {
+        switch (type) {
+            case 'predictions':
+                return fetchPredictions(
+                    CrudService.getPredictionsCrudPredictionsGet()
+                ).then((e) => setPredictions(e as PredictionInfo[]))
+            case 'datasets':
+                return fetchPredictions(
+                    CrudService.getDatasetsCrudDatasetsGet()
+                ).then((e) => setDatasets(e as DataSetRead[]))
+            case 'evaluations':
+                return fetchPredictions(
+                    CrudService.getBacktestsCrudBacktestsGet()
+                ).then((e) => setEvaluations(e as BackTestRead[]))
+            // rurn fetchEvaluations()
+        }
+    }
+
     const puller = async (
         onPageLoad: boolean,
         local_jobs: JobDescription[]
@@ -47,47 +71,30 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
 
         //if on load, fetch predictions and set jobs
         if (onPageLoad) {
-            setPredictions(await fetchPredictions())
-            setJobs(local_jobs)
+            await setFetchEveluationPredictionDataset()
+            setJobs(fetched_jobs)
             setOnPageLoading(false)
         }
 
-        console.log(
-            'comparing jobs',
-            JSON.stringify(fetched_jobs.length),
-            JSON.stringify(local_jobs.length)
-        )
-
         //if content is the same as stored, not set the results, just proceed to next fetch jobs
-        if (
-            JSON.stringify(fetched_jobs) === JSON.stringify(local_jobs)
-        ) {
+        if (JSON.stringify(fetched_jobs) === JSON.stringify(local_jobs)) {
             return puller(false, fetched_jobs)
         }
 
         //await two second, and fetch jobs again, since a prediction/job exisits for a short time in both jobs and get predictions
-        await new Promise((resolve) => setTimeout(resolve, 2_000))
+        await new Promise((resolve) => setTimeout(resolve, 4_000))
         //fetched_jobs = await fetchJobs()
-        const fetched_predictions = await fetchPredictions()
-
-        console.log(
-            'is not equal, set jobs and predictions',
-            fetched_jobs.length,
-            jobs.length
-        )
+        await setFetchEveluationPredictionDataset()
 
         setJobs(fetched_jobs)
-        setPredictions(fetched_predictions)
 
         //start new pull, not on page load
         puller(false, fetched_jobs)
     }
 
     const fetchJobs = async (): Promise<JobDescription[]> => {
-        const [jobs, failedJobs]: [JobDescription[], JobDescription[]] = await Promise.all([
-            fetchActiveJobs(),
-            fetchFailedJobs()
-        ])
+        const [jobs, failedJobs]: [JobDescription[], JobDescription[]] =
+            await Promise.all([fetchActiveJobs(), fetchFailedJobs()])
         const allJobs: JobDescription[] = [...jobs, ...failedJobs]
         return allJobs
     }
@@ -101,8 +108,7 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
             } catch (error) {
                 if (i === 2) {
                     setFetchJobError(
-                        (error as ApiError)?.message ??
-                            "Couldn't fetch jobs"
+                        (error as ApiError)?.message ?? "Couldn't fetch jobs"
                     )
                     return []
                 }
@@ -129,43 +135,47 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
                 }
             }
         }
-        
+
         // Convert FailedJobRead[] to JobDescription[]
-        const jobs: JobDescription[] = response.map((failedJob): JobDescription => ({
-            id: failedJob.id.toString(),
-            description: failedJob.message,
-            status: 'Failed',
-            start_time: failedJob.created,
-            hostname: 'unknown'
-        }))
+        const jobs: JobDescription[] = response.map(
+            (failedJob): JobDescription => ({
+                id: failedJob.id.toString(),
+                description: failedJob.message,
+                status: 'Failed',
+                start_time: failedJob.created,
+                hostname: 'unknown',
+                type: 'job',
+            })
+        )
         setFetchJobError(undefined)
         return jobs
     }
 
-    const fetchPredictions = async (): Promise<PredictionInfo[]> => {
-        let response: PredictionInfo[] = []
-        for (let i = 0; i < 3; i++) {
+    const fetchPredictions = async (
+        service: CancelablePromise<
+            Array<PredictionInfo | BackTestRead | DataSetRead>
+        >
+    ) => {
+        for (let i = 0; i < 5; i++) {
             try {
-                response = await CrudService.getPredictionsCrudPredictionsGet()
-                break
+                const response = await service
+                setFetchPredictionError(undefined)
+                return response
             } catch (error) {
-                if (i === 2) {
+                if (i === 4) {
                     setFetchPredictionError(
-                        (error as ApiError)?.message ??
-                            "Couldn't fetch predictions"
+                        (error as ApiError)?.message ?? `Couldn't fetch ${type}`
                     )
                     return []
                 }
             }
         }
-        setFetchPredictionError(undefined)
-        return response
     }
 
     //when either jobs or predictions change, merge results
     useEffect(() => {
         setResult(getResults())
-    }, [jobs, predictions])
+    }, [jobs, predictions, evaluations, datasets])
 
     useEffect(() => {
         puller(true, [])
@@ -173,6 +183,26 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
 
     const getResults = (): JobPrediction[] => {
         const results: JobPrediction[] = []
+
+        datasets.forEach((dataset) => {
+            results.push({
+                id: dataset.id.toString(),
+                name: dataset.name,
+                created: new Date(dataset.created ?? ''),
+                type: 'dataset',
+                status: 'Completed',
+            })
+        })
+
+        evaluations.forEach((evaluation) => {
+            results.push({
+                id: evaluation.id.toString(),
+                name: evaluation.name ?? '',
+                created: new Date(evaluation.timestamp ?? ''),
+                type: 'evaluation',
+                status: 'Completed',
+            })
+        })
 
         predictions.forEach((completed) => {
             results.push({
@@ -184,12 +214,18 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
 
                 //prediction specific
                 datasetId: completed.datasetId,
-                estimatorId: completed.estimatorId,
+                estimatorId: completed.modelId,
                 nPeriods: completed.nPeriods,
             })
         })
 
-        jobs.forEach((job) => {
+        const job_type_dict = {
+            predictions: 'prediction',
+            datasets: 'create_dataset',
+            evaluations: 'backtest',
+        }
+
+        jobs.filter((o) => o.type == job_type_dict[type]).forEach((job) => {
             results.push({
                 id: job.id,
                 name: 'Job',
@@ -212,10 +248,12 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
     return (
         <div>
             <FetchError error={fetchJobError} type="job" />
-            <FetchError error={fetchPredictionError} type="prediction" />
-            {onPageLoading && <LoadingJobPrediction />}
+            <FetchError error={fetchPredictionError} type={type} />
+            {onPageLoading && <LoadingJobPrediction type={type} />}
             {result.length > 0 && <PanelHeader />}
-            {result.length == 0 && !onPageLoading && <NoJobPrediction />}
+            {result.length == 0 && !onPageLoading && (
+                <NoJobPrediction type={type} />
+            )}
             <JobPredictionPanel jobPredictions={result} />
         </div>
     )

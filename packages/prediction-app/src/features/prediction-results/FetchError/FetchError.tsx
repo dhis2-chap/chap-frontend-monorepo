@@ -4,7 +4,7 @@ import { Button, NoticeBox } from '@dhis2/ui'
 
 interface FetchErrorProps {
     error: string | undefined
-    type: 'job' | 'prediction' | 'dataset'
+    type: 'predictions' | 'datasets' | 'evaluations' | 'job'
 }
 
 const FetchError = ({ error, type }: FetchErrorProps) => {

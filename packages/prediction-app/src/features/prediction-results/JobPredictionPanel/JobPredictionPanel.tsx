@@ -16,6 +16,7 @@ import ImportPrediction from '../ImportPrediction/ImportPrediction'
 import { JobPrediction } from '../interfaces/JobPrediction'
 import { PredictionInfo } from '@dhis2-chap/chap-lib'
 import { CrudService } from '@dhis2-chap/chap-lib'
+import JobFailedButton from './JobFailedButton/JobFailedButton'
 
 interface JobPredictionPanel {
     jobPredictions: JobPrediction[]
@@ -28,7 +29,9 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
     >(undefined)
 
     const [showJobDetails, setShowJobDetails] = useState(false)
-    const [jobDetailsToShow, setJobDetailsToShow] = useState<JobPrediction | undefined>(undefined)
+    const [jobDetailsToShow, setJobDetailsToShow] = useState<
+        JobPrediction | undefined
+    >(undefined)
 
     const onClickImport = (predictionId: string) => {
         setIsImportModalOpen(true)
@@ -38,14 +41,19 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
     const onClickRemoveFailed = (predictionId: string) => {
         let msg = 'Are you sure you want to permanently remove this failed job?'
         if (confirm(msg) == true) {
-            CrudService.deleteFailedJobCrudFailedJobsFailedJobIdDelete(parseInt(predictionId))
+            CrudService.deleteFailedJobCrudFailedJobsFailedJobIdDelete(
+                parseInt(predictionId)
+            )
         }
     }
 
     const onClickJobDetails = (jobPrediction: JobPrediction) => {
         setShowJobDetails(true)
         setJobDetailsToShow(jobPrediction)
-        alert('Should show job details in modal (not finished): \n\n' + jobPrediction.description)
+        alert(
+            'Should show job details in modal (not finished): \n\n' +
+                jobPrediction.description
+        )
     }
 
     const getStatusColor = (status: string | undefined) => {
@@ -87,9 +95,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                         </div>
                         <div className={styles.flexMedium}>
                             <span
-                                className={getStatusColor(
-                                    jobPrediction.status
-                                )}
+                                className={getStatusColor(jobPrediction.status)}
                             >
                                 {jobPrediction.status.replaceAll(
                                     'active',
@@ -98,40 +104,58 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                             </span>
                         </div>
                         <div className={styles.flexItemRight}>
-                            {jobPrediction.type === 'prediction' ? (
-                                <Button
-                                    icon={<IconArrowRight24 />}
-                                    onClick={() =>
-                                        onClickImport(jobPrediction.id)
-                                    }
-                                    small
-                                >
-                                    Import prediction
-                                </Button>
-                            ) : (
-                                <>
-                                    {jobPrediction.status === 'Failed' && 
-                                    <div className={styles.buttonGroup}>
-                                        <Button
-                                            icon={<IconInfo24 />} 
-                                            small
-                                            onClick={() => onClickJobDetails(jobPrediction)}
-                                        >
-                                            Details
-                                        </Button>
-                                        <Button
-                                            icon={<IconDelete24 />} 
-                                            small
-                                            destructive
-                                            onClick={() =>
-                                                onClickRemoveFailed(jobPrediction.id)
-                                            }
-                                        >
-                                            Remove
-                                        </Button>
-                                    </div>}
-                                </>
-                            )}
+                            {
+                                {
+                                    prediction: (
+                                        <>
+                                            <Button
+                                                icon={<IconArrowRight24 />}
+                                                onClick={() =>
+                                                    onClickImport(
+                                                        jobPrediction.id
+                                                    )
+                                                }
+                                                small
+                                            >
+                                                Import prediction
+                                            </Button>
+                                        </>
+                                    ),
+                                    job: (
+                                        <>
+                                            {jobPrediction.status ==
+                                                'Failed' && (
+                                                <JobFailedButton
+                                                    jobPrediction={
+                                                        jobPrediction
+                                                    }
+                                                    onClickJobDetails={
+                                                        onClickJobDetails
+                                                    }
+                                                    onClickRemoveFailed={
+                                                        onClickRemoveFailed
+                                                    }
+                                                />
+                                            )}
+                                        </>
+                                    ),
+                                    dataset: (
+                                        <>
+                                            <Button
+                                                icon={<IconArrowRight24 />}
+                                                small
+                                            >
+                                                Evaluate
+                                            </Button>
+                                        </>
+                                    ),
+                                    evaluation: (
+                                        <>
+                                            <Button small>View</Button>
+                                        </>
+                                    ),
+                                }[jobPrediction.type]
+                            }
                         </div>
                     </div>
                 </div>

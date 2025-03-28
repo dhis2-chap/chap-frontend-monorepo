@@ -9,5 +9,6 @@ export type DataSetWithObservations = {
     type?: (string | null);
     id: number;
     observations: Array<ObservationBase>;
+    created: (string | null);
 };
 
