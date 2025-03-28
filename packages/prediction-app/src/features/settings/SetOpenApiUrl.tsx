@@ -7,7 +7,6 @@ import styles from './SetOpenApiUrl.module.css'
 import { IconSave16 } from '@dhis2/ui'
 import { IconSave24 } from '@dhis2/ui'
 import useUpdateDataStore, { REQUEST } from '../../hooks/useUpdateDataStore'
-import useGetDataStore from '../../hooks/useGetDataStore'
 import SaveOpenApiUrl from './SaveOpenApiUrl'
 import { useConfig } from '@dhis2/app-runtime'
 import { useNavigate } from 'react-router-dom'
@@ -55,8 +54,8 @@ const SetOpenApiUrl = ({
                 <p>
                     Use this setting when you do not have CHAP installed as a
                     backend server, but have a running instance of CHAP Core on
-                    the local machine. If not set, Prediction App use the
-                    default value: <i>{baseUrl}</i>
+                    the local machine. If not set, Modeling App use the default
+                    value: <i>{baseUrl}</i>
                 </p>
                 <InputField
                     disabled={fetching}

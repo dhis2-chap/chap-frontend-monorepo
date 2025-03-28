@@ -4,6 +4,7 @@ import {
     IconDelete16,
     IconDelete24,
     InputField,
+    NoticeBox,
     SingleSelect,
     SingleSelectField,
     SingleSelectOption,
@@ -25,48 +26,26 @@ interface SelectDataLineProps {
 ///temporarily dummy data
 
 const features: Feature[] = [
-    { name: 'Rainfall', id: 'rainfall', description: 'Feature 1' },
     {
-        name: 'Mean temperature',
+        id: 'rainfall',
+        name: 'Rainfall',
+        description: 'The amount of rainfall in mm',
+        optional: true,
+    },
+    {
         id: 'mean_temperature',
-        description: 'Feature 2',
+        name: 'Mean Temperature',
+        description: 'The average temperature in degrees Celsius',
+        optional: true,
     },
-    { name: 'Population', id: 'population', description: 'Feature 3' },
-    { name: 'Max temperature', id: 'max_temp', description: 'Feature 5' },
-    { name: 'Disease cases', id: 'disease_cases', description: 'Feature 5' },
-]
+    {
+        id: 'population',
+        name: 'Population',
+        description: 'The population of the area',
+        optional: false,
+    },
 
-const chapSources: Datalayer[] = [
-    {
-        name: 'ERA5-Land precipitation',
-        featureType: 'rainfall',
-        id: 'GLOBAL/ERA5-Land/total-precipitation',
-    },
-    {
-        name: 'ERA5-Land Temperature Mean',
-        featureType: 'mean_temperature',
-        id: 'GLOBAL/ERA5-Land/mean-temperature',
-    },
-    {
-        name: 'Population (WorldPop)',
-        featureType: 'population',
-        id: 'GLOBAL/Worldpop/total-population',
-    },
-    {
-        name: 'CHIRPS Mean Dailytemp',
-        featureType: 'rainfall',
-        id: 'GLOBAL/CHIRPS/total-precipitation',
-    },
-    {
-        name: 'IRI Total Precipitation',
-        featureType: 'population',
-        id: 'GLOBLA/IRI/total-precipitation',
-    },
-    {
-        name: 'Disease cases from hospitals',
-        featureType: 'disease_cases',
-        id: 'LOCAL/HMIS/malaria-cases',
-    },
+    { name: 'Disease cases', id: 'disease_cases', description: 'Feature 5' },
 ]
 
 const SelectDataLine = ({
@@ -134,15 +113,22 @@ const SelectDataLine = ({
     //temp create e method, converting search field output to match format used in this file
     const onChangeSearchSelectField = (dataItemId: string, index: number) => {
         //find index
-
         const selected = { selected: dataItemId }
-
         onChangeClickSelectField(selected, 'dataSource', index)
     }
 
     return (
         <div>
             <h3>Data layers</h3>
+            <NoticeBox title="Origin">
+                The modeling app supports direct retrieval of the ERA5-Land data
+                without the need of the DHIS2 Climate App. If you are using an
+                ERA5-Land source, we recommend utilizing this direct retrieval
+                method by selecting the "ERA5-Land" origin. For local data
+                sources or the CHIRPS dataset, please select DHIS2 as the
+                origin, and then choose the specific data element where the data
+                has been imported.
+            </NoticeBox>
 
             <div className={styles.selectDataLineWrapper}>
                 {datasetLayers.map((dataLayer, index) => (
@@ -194,13 +180,19 @@ const SelectDataLine = ({
                                     }
                                     selected={dataLayer.origin}
                                 >
+                                    {chapSources.some((source) =>
+                                        source.supportedFeatures.includes(
+                                            dataLayer.feature
+                                        )
+                                    ) && (
+                                        <SingleSelectOption
+                                            label={'ERA5-Land'}
+                                            value={'CHAP'}
+                                        />
+                                    )}
                                     <SingleSelectOption
                                         label={'DHIS2'}
                                         value={'dataItem'}
-                                    />
-                                    <SingleSelectOption
-                                        label={'CHAP'}
-                                        value={'CHAP'}
                                     />
                                 </SingleSelectField>
                             </div>
@@ -227,7 +219,9 @@ const SelectDataLine = ({
                                                 ) && (
                                                     <SingleSelectOption
                                                         key={de.name}
-                                                        label={de.displayName}
+                                                        label={`${de.dataset.toUpperCase()} - ${
+                                                            de.displayName
+                                                        }`}
                                                         value={de.dataset}
                                                     />
                                                 )
