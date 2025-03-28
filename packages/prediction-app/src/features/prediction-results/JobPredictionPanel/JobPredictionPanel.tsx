@@ -27,6 +27,9 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
         string | undefined
     >(undefined)
 
+    const [showJobDetails, setShowJobDetails] = useState(false)
+    const [jobDetailsToShow, setJobDetailsToShow] = useState<JobPrediction | undefined>(undefined)
+
     const onClickImport = (predictionId: string) => {
         setIsImportModalOpen(true)
         setPredictionToImport(predictionId)
@@ -37,6 +40,12 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
         if (confirm(msg) == true) {
             CrudService.deleteFailedJobCrudFailedJobsFailedJobIdDelete(parseInt(predictionId))
         }
+    }
+
+    const onClickJobDetails = (jobPrediction: JobPrediction) => {
+        setShowJobDetails(true)
+        setJobDetailsToShow(jobPrediction)
+        alert('Should show job details in modal (not finished): \n\n' + jobPrediction.description)
     }
 
     const getStatusColor = (status: string | undefined) => {
@@ -106,7 +115,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                         <Button
                                             icon={<IconInfo24 />} 
                                             small
-                                            onClick={() => alert('Reason for failure: ' + jobPrediction.description)}
+                                            onClick={() => onClickJobDetails(jobPrediction)}
                                         >
                                             Details
                                         </Button>
@@ -134,6 +143,13 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                     predictionIdToImport={predictionIdToImport}
                 />
             )}
+            {/*
+            {showJobDetails && (
+                <JobDetails
+                    jobPrediction={jobDetailsToShow}
+                />
+            )}
+            */}
         </>
     )
 }

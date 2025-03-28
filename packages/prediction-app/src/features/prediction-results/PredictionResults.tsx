@@ -203,10 +203,7 @@ const PredictionResults = ({ triggerUpdateJobs }: PredictionResultsProps) => {
         })
 
         results.sort((a, b) => {
-            if (a.type === b.type) {
-                return b.created.getTime() - a.created.getTime()
-            }
-            return a.type === 'job' ? -1 : 1
+            return b.created.getTime() - a.created.getTime()
         })
 
         return results
