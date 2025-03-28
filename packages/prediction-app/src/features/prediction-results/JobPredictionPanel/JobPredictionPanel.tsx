@@ -15,6 +15,7 @@ import {
 import ImportPrediction from '../ImportPrediction/ImportPrediction'
 import { JobPrediction } from '../interfaces/JobPrediction'
 import { PredictionInfo } from '@dhis2-chap/chap-lib'
+import { CrudService } from '@dhis2-chap/chap-lib'
 
 interface JobPredictionPanel {
     jobPredictions: JobPrediction[]
@@ -29,6 +30,13 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
     const onClickImport = (predictionId: string) => {
         setIsImportModalOpen(true)
         setPredictionToImport(predictionId)
+    }
+
+    const onClickRemoveFailed = (predictionId: string) => {
+        let msg = 'Are you sure you want to permanently remove this failed job?'
+        if (confirm(msg) == true) {
+            CrudService.deleteFailedJobCrudFailedJobsFailedJobIdDelete(parseInt(predictionId))
+        }
     }
 
     const getStatusColor = (status: string | undefined) => {
@@ -106,7 +114,9 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                             icon={<IconDelete24 />} 
                                             small
                                             destructive
-                                            onClick={() => alert('Not yet implemented, should delete failed job')}
+                                            onClick={() =>
+                                                onClickRemoveFailed(jobPrediction.id)
+                                            }
                                         >
                                             Remove
                                         </Button>
