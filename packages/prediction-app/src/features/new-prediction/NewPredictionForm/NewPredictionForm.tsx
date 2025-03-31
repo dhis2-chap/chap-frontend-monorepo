@@ -16,9 +16,13 @@ import { ModelSpec, ModelSpecRead } from '@dhis2-chap/chap-lib'
 
 interface NewPredictionFormProps {
     onDrawerClose: () => void
+    onDrawerSubmit: () => void
 }
 
-const NewPredictionForm = ({ onDrawerClose }: NewPredictionFormProps) => {
+const NewPredictionForm = ({
+    onDrawerClose,
+    onDrawerSubmit,
+}: NewPredictionFormProps) => {
     const [dataLayers, setDataLayers] = useState<DatasetLayer[]>([])
 
     const [selectedOrgUnits, setSelectedOrgUnits] = useState<OrgUnit[]>([])
@@ -85,7 +89,7 @@ const NewPredictionForm = ({ onDrawerClose }: NewPredictionFormProps) => {
                         setOrgUnitLevel={setOrgUnitLevel}
                     />
                     <SendChapData
-                        onDrawerClose={onDrawerClose}
+                        onDrawerSubmit={onDrawerSubmit}
                         selectedModel={selecetedModel}
                         name={datasetName}
                         dataLayers={dataLayers}

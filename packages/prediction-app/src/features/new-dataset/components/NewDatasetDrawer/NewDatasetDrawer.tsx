@@ -5,29 +5,36 @@ import 'react-modern-drawer/dist/index.css'
 import NewDatasetForm from '../NewDatasetForm/NewDatasetForm'
 import NewDatasetStepper from '../NewDatasetStepper/NewDatasetStepper'
 
-interface NewDatasetDrawerProps{
-  isOpen: boolean
-  setIsOpen: (isOpen: boolean) => void
+interface NewDatasetDrawerProps {
+    isOpen: boolean
+    onDrawerSubmit: () => void
+    onDrawerClose: () => void
 }
 
-const NewDatasetDrawer = ({isOpen, setIsOpen} : NewDatasetDrawerProps) => {
+const NewDatasetDrawer = ({
+    isOpen,
+    onDrawerSubmit,
+    onDrawerClose,
+}: NewDatasetDrawerProps) => {
+    const size = window.innerWidth < 900 ? '100vw' : '1000px'
 
-  const size = window.innerWidth < 900 ? '100vw' : '1000px'
-
-  return (
-    <div>
-        <Drawer
-            open={isOpen}
-            onClose={() => setIsOpen(false)}
-            direction='right'
-            size={size}
-        >
-      <div className={styles.drawerWrapper}>
-        <NewDatasetStepper onClose={() => setIsOpen(false)}/>
-      </div>
-      </Drawer>
-    </div>
-  )
+    return (
+        <div>
+            <Drawer
+                open={isOpen}
+                onClose={onDrawerClose}
+                direction="right"
+                size={size}
+            >
+                <div className={styles.drawerWrapper}>
+                    <NewDatasetStepper
+                        onDrawerClose={onDrawerClose}
+                        onDrawerSubmit={onDrawerSubmit}
+                    />
+                </div>
+            </Drawer>
+        </div>
+    )
 }
 
 export default NewDatasetDrawer

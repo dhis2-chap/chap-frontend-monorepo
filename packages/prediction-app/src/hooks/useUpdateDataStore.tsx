@@ -8,7 +8,7 @@ export const REQUEST = (
     method: 'update' | 'create'
 ) => {
     return {
-        resource: `dataStore/chap/${key}`,
+        resource: `dataStore/modeling/${key}`,
         type: method,
         id: '',
         data: data,

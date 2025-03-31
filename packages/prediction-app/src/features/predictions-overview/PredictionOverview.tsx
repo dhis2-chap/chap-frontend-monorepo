@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NewPredictionDrawer from '../new-prediction/NewPredictionDrawer'
 import PredictionResults from '../prediction-results/PredictionResults'
 import PageHeader from '../common-features/PageHeader/PageHeader'
@@ -6,12 +6,19 @@ import PageHeader from '../common-features/PageHeader/PageHeader'
 const PredictionOverview = () => {
     const [newPredictionDrawerOpen, setNewPredictionDrawerOpen] =
         useState<boolean>(false)
-    const [triggerUpdateJobs, setTriggerUpdateJobs] = useState({})
 
-    const onDrawerClose = () => {
+    const [reRenderDatasetEvaluation, setReRenderDatasetEvaluation] =
+        useState<boolean>(false)
+
+    const onDrawerSubmit = () => {
+        setReRenderDatasetEvaluation(false)
         setNewPredictionDrawerOpen(false)
-        setTriggerUpdateJobs({})
     }
+
+    //dirty solution, i know..
+    useEffect(() => {
+        setReRenderDatasetEvaluation(true)
+    }, [reRenderDatasetEvaluation])
 
     return (
         <div>
@@ -22,9 +29,12 @@ const PredictionOverview = () => {
             />
             <NewPredictionDrawer
                 isOpen={newPredictionDrawerOpen}
-                onDrawerClose={onDrawerClose}
+                onDrawerClose={() => setNewPredictionDrawerOpen(false)}
+                onDrawerSubmit={onDrawerSubmit}
             />
-            <PredictionResults triggerUpdateJobs={triggerUpdateJobs} />
+            {reRenderDatasetEvaluation && (
+                <PredictionResults type="predictions" />
+            )}
         </div>
     )
 }

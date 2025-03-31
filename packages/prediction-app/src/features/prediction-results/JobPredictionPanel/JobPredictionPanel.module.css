@@ -14,12 +14,6 @@
     padding: 0.6rem;
 }
 
-.buttonGroup {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: flex-end;
-}
-
 .flexMedium {
     flex: 1 1 0;
 }

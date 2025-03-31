@@ -26,10 +26,10 @@ import { Period } from '../../../timeperiod-selector/interfaces/Period'
 import { ModelFeatureDataElementMap } from '../../../../interfaces/ModelFeatureDataElement'
 
 interface NewDatasetFormProps {
-    onDrawerClose: () => void
+    onDrawerSubmit: () => void
 }
 
-const NewDatasetForm = ({ onDrawerClose }: NewDatasetFormProps) => {
+const NewDatasetForm = ({ onDrawerSubmit }: NewDatasetFormProps) => {
     const [dataLayers, setDataLayers] = useState<DatasetLayer[]>([
         { feature: '', origin: '', dataSource: '' },
     ])
@@ -65,7 +65,7 @@ const NewDatasetForm = ({ onDrawerClose }: NewDatasetFormProps) => {
                     setOrgUnitLevel={setOrgUnitLevel}
                 />
                 <SendChapData
-                    onDrawerClose={onDrawerClose}
+                    onDrawerSubmit={onDrawerSubmit}
                     name={datasetName}
                     dataLayers={dataLayers}
                     onSendAction="new-dataset"
