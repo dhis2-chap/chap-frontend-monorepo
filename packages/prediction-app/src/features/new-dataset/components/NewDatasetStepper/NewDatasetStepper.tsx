@@ -20,8 +20,8 @@ const NewDatasetStepper = ({ onClose }: NewDatasetStepperProps) => {
     return (
         <>
             <div className={styles.newDatasetWrapper}>
-                <div className={styles.newEvaluationDatsetTitle}>
-                    <h2>New evaluation dataset</h2>
+                <div className={styles.newEvaluationDatasetTitle}>
+                    <h2>New validation dataset</h2>
                     <Button icon={<IconCross24 />} onClick={onClose} />
                 </div>
 

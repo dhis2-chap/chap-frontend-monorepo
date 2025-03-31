@@ -11,7 +11,7 @@ import SelectDataLine from '../../new-dataset/components/NewDatasetForm/SelectDa
 import OrgUnitSelector from '../../orgunit-selector/OrgUnitSelector'
 import { SendChapData } from '../../send-chap-data/SendChapData'
 import TimePeriodeSelector from '../../timeperiod-selector/components/TimePeriodPicker'
-import SelectModel from './SelectModel'
+import SelectModel from '../../select-model/SelectModel'
 import { ModelSpec, ModelSpecRead } from '@dhis2-chap/chap-lib'
 
 interface NewPredictionFormProps {

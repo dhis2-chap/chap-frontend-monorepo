@@ -1,8 +1,11 @@
-.newDatasetWrapper{
+.formWrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   padding: 2rem 3rem 2rem 3rem;
 }
 
-.newEvaluationDatasetTitle{
+.newEvaluationTitle{
   margin-bottom: 2rem;
   display: flex;
   justify-content: space-between;
