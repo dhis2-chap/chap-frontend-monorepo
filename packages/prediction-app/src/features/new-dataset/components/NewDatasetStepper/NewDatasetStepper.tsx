@@ -24,7 +24,7 @@ const NewDatasetStepper = ({
     return (
         <>
             <div className={styles.newDatasetWrapper}>
-                <div className={styles.newEvaluationDatsetTitle}>
+                <div className={styles.newEvaluationDatasetTitle}>
                     <h2>New evaluation dataset</h2>
                     <Button icon={<IconCross24 />} onClick={onDrawerClose} />
                 </div>

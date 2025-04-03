@@ -13,18 +13,9 @@ const EvaluationOverview = () => {
     const [newEvaluationDrawerOpen, setNewEvaluationDrawerOpen] =
         useState<boolean>(false)
 
-    const [reRenderDatasetEvaluation, setReRenderDatasetEvaluation] =
-        useState<boolean>(false)
-
     const onDrawerSubmit = () => {
-        setReRenderDatasetEvaluation(false)
         setNewDatasetDrawerOpen(false)
     }
-
-    //dirty solution, i know..
-    useEffect(() => {
-        setReRenderDatasetEvaluation(true)
-    }, [reRenderDatasetEvaluation])
 
     return (
         <div>
@@ -33,7 +24,7 @@ const EvaluationOverview = () => {
                 setDrawerOpenText="New Dataset"
                 setDrawerOpen={setNewDatasetDrawerOpen}
             />
-            {reRenderDatasetEvaluation && <PredictionResults type="datasets" />}
+            <PredictionResults type="datasets" />
             <NewDatasetDrawer
                 isOpen={newDatasetDrawerOpen}
                 onDrawerClose={() => setNewDatasetDrawerOpen(false)}
@@ -45,12 +36,12 @@ const EvaluationOverview = () => {
                 setDrawerOpenText="New Evaluation"
                 setDrawerOpen={setNewEvaluationDrawerOpen}
             />
-            {reRenderDatasetEvaluation && <PredictionResults type="evaluations" />}
+            <PredictionResults type="evaluations" />
             <NewEvaluationDrawer
                 isOpen={newEvaluationDrawerOpen}
                 setIsOpen={setNewEvaluationDrawerOpen}
             />
-            
+
         </div>
     )
 }

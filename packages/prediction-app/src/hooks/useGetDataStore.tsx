@@ -8,7 +8,7 @@ import type {
 const REQUEST = (key: string): Query => {
     return {
         request: {
-            resource: `dataStore/chap/${key}`,
+            resource: `dataStore/modeling/${key}`,
         },
     }
 }
