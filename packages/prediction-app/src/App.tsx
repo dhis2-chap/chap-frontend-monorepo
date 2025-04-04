@@ -1,4 +1,4 @@
-import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider, Navigate } from 'react-router-dom'
 import Root from './components/Root'
 import PredictionPage from './components/prediction/PredictionPage'
 import ResultsPage from './components/results/ResultsPage'
@@ -61,11 +61,15 @@ const router = createHashRouter([
         children: [
             {
                 path: '/',
-                element: <PageWrapper component={<PredictionOverview />} />,
+                element: <Navigate to="/evaluate" replace />,
             },
             {
-                path: '/evaluations',
+                path: '/evaluate',
                 element: <PageWrapper component={<EvaluationPage />} />,
+            },
+            {
+                path: '/import',
+                element: <PageWrapper component={<PredictionOverview />} />,
             },
             {
                 path: '/settings',

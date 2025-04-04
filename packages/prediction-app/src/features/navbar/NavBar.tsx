@@ -6,12 +6,12 @@ import { maxWidth } from '../../components/PageWrapper'
 
 const navBarItems = [
     {
-        label: 'Predictions',
-        path: '/',
+        label: 'Evaluate',
+        path: '/evaluate',
     },
     {
-        label: 'Evaluation',
-        path: '/evaluations',
+        label: 'Import',
+        path: '/import',
     },
 ]
 

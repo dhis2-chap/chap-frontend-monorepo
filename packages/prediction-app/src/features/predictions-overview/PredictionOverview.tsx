@@ -24,7 +24,7 @@ const PredictionOverview = () => {
         <div>
             <PageHeader
                 setDrawerOpen={setNewPredictionDrawerOpen}
-                pageTitle="Predictions"
+                pageTitle="Import Predictions"
                 setDrawerOpenText="New prediction"
             />
             <NewPredictionDrawer
