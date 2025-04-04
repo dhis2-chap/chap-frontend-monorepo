@@ -16,7 +16,9 @@ import ImportPrediction from '../ImportPrediction/ImportPrediction'
 import { JobPrediction } from '../interfaces/JobPrediction'
 import { PredictionInfo } from '@dhis2-chap/chap-lib'
 import { CrudService } from '@dhis2-chap/chap-lib'
+import { DataSetRead } from '@dhis2-chap/chap-lib'
 import JobFailedButton from './JobFailedButton/JobFailedButton'
+import NewEvaluationDrawer from '../../new-evaluation/components/NewEvaluationDrawer'
 
 interface JobPredictionPanel {
     jobPredictions: JobPrediction[]
@@ -27,6 +29,9 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
     const [predictionIdToImport, setPredictionToImport] = useState<
         string | undefined
     >(undefined)
+    const [newEvaluationDrawerOpen, setNewEvaluationDrawerOpen] =
+        useState<boolean>(false)
+    const [datasetIdToEvaluate, setDatasetIdToEvaluate] = useState<number | undefined>(undefined)
 
     const [showJobDetails, setShowJobDetails] = useState(false)
     const [jobDetailsToShow, setJobDetailsToShow] = useState<
@@ -76,6 +81,12 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
         )} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(
             date.getSeconds()
         )}`
+    }
+
+    const onClickEvaluateDataset = (datasetId : number | undefined) => {
+        console.log('clicked evaluate dataset id', datasetId)
+        setDatasetIdToEvaluate(datasetId)
+        setNewEvaluationDrawerOpen(true)
     }
 
     return (
@@ -143,6 +154,9 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                         <>
                                             <Button
                                                 icon={<IconArrowRight24 />}
+                                                onClick={() => 
+                                                    onClickEvaluateDataset(jobPrediction.id)
+                                                }
                                                 small
                                             >
                                                 Evaluate
@@ -174,6 +188,11 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                 />
             )}
             */}
+            <NewEvaluationDrawer
+                isOpen={newEvaluationDrawerOpen}
+                setIsOpen={setNewEvaluationDrawerOpen}
+                datasetIdToEvaluate={datasetIdToEvaluate}
+            />
         </>
     )
 }

@@ -46,6 +46,7 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
     const [onPageLoading, setOnPageLoading] = useState(true)
 
     const setFetchEveluationPredictionDataset = () => {
+        console.log('should fetch', type)
         switch (type) {
             case 'predictions':
                 return fetchPredictions(
@@ -244,6 +245,8 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
 
         return results
     }
+
+    console.log('results for', type, result)
 
     return (
         <div>

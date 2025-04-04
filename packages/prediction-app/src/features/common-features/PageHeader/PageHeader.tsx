@@ -3,26 +3,28 @@ import styles from './PageHeader.module.css'
 import { Button, IconAdd16 } from '@dhis2/ui'
 
 interface PageHeaderProps {
-    setDrawerOpen: (isOpen: boolean) => void
-    setDrawerOpenText: string
     pageTitle: string
+    setDrawerOpen?: (isOpen: boolean) => void
+    setDrawerOpenText?: string
 }
 
 const PageHeader = ({
-    setDrawerOpen,
     pageTitle,
+    setDrawerOpen,
     setDrawerOpenText,
 }: PageHeaderProps) => {
     return (
         <div className={styles.predictionHeader}>
             <h2>{pageTitle}</h2>
-            <Button
-                onClick={() => setDrawerOpen(true)}
-                icon={<IconAdd16 />}
-                primary
-            >
-                {setDrawerOpenText}
-            </Button>
+            {setDrawerOpen && setDrawerOpenText && (
+                <Button
+                    onClick={() => setDrawerOpen(true)}
+                    icon={<IconAdd16 />}
+                    primary
+                >
+                    {setDrawerOpenText}
+                </Button>
+            )}
         </div>
     )
 }
