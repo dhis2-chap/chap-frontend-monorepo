@@ -15,6 +15,7 @@ import type { FailedJobRead } from '../models/FailedJobRead';
 import type { FeatureSource } from '../models/FeatureSource';
 import type { JobResponse } from '../models/JobResponse';
 import type { ModelSpecRead } from '../models/ModelSpecRead';
+import type { ModelTemplateConfig } from '../models/ModelTemplateConfig';
 import type { PredictionCreate } from '../models/PredictionCreate';
 import type { PredictionInfo } from '../models/PredictionInfo';
 import type { PredictionRead } from '../models/PredictionRead';
@@ -273,6 +274,29 @@ export class CrudService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/crud/models',
+        });
+    }
+    /**
+     * List Models From Model Templates
+     * @returns ModelSpecRead Successful Response
+     * @throws ApiError
+     */
+    public static listModelsFromModelTemplatesCrudModelsFromModelTemplatesGet(): CancelablePromise<Array<ModelSpecRead>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/models-from-model-templates',
+        });
+    }
+    /**
+     * List Model Templates
+     * Lists all model templates by reading local config files and presenting models.
+     * @returns ModelTemplateConfig Successful Response
+     * @throws ApiError
+     */
+    public static listModelTemplatesCrudModelTemplatesGet(): CancelablePromise<Array<ModelTemplateConfig>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/modelTemplates',
         });
     }
 }

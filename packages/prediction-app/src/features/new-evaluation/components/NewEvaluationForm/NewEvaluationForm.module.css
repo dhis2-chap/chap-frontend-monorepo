@@ -11,6 +11,11 @@
     justify-content: space-between;
     align-items: center;
   }
+
+  .buttons {
+    display: flex;
+    justify-content: end;
+  }
   
   .navFooterOuter{
     width: 100%;

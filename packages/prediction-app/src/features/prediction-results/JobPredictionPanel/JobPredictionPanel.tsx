@@ -3,6 +3,7 @@ import styles from './JobPredictionPanel.module.css'
 import {
     boolean,
     Button,
+    Modal,
     IconArrowRight16,
     IconArrowRight24,
     IconDelete24,
@@ -19,6 +20,7 @@ import { CrudService } from '@dhis2-chap/chap-lib'
 import { DataSetRead } from '@dhis2-chap/chap-lib'
 import JobFailedButton from './JobFailedButton/JobFailedButton'
 import NewEvaluationDrawer from '../../new-evaluation/components/NewEvaluationDrawer'
+import EvaluationResult from '../../import-prediction/EvaluationResult'
 
 interface JobPredictionPanel {
     jobPredictions: JobPrediction[]
@@ -29,8 +31,12 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
     const [predictionIdToImport, setPredictionToImport] = useState<
         string | undefined
     >(undefined)
+
     const [newEvaluationDrawerOpen, setNewEvaluationDrawerOpen] =
         useState<boolean>(false)
+    const [showEvaluationResultModal, setShowEvaluationResultModal] = useState<boolean>(false)
+    const [evaluationResultId, setEvaluationResultId] = useState<number | undefined>(undefined)
+
     const [datasetIdToEvaluate, setDatasetIdToEvaluate] = useState<number | undefined>(undefined)
 
     const [showJobDetails, setShowJobDetails] = useState(false)
@@ -41,6 +47,11 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
     const onClickImport = (predictionId: string) => {
         setIsImportModalOpen(true)
         setPredictionToImport(predictionId)
+    }
+
+    const onClickViewEvaluation = (evaluationId: number) => {
+        setShowEvaluationResultModal(true)
+        setEvaluationResultId(evaluationId)
     }
 
     const onClickRemoveFailed = (predictionId: string) => {
@@ -88,6 +99,8 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
         setDatasetIdToEvaluate(datasetId)
         setNewEvaluationDrawerOpen(true)
     }
+
+    console.log('socalled jobPredictions', jobPredictions)
 
     return (
         <>
@@ -165,7 +178,15 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                     ),
                                     evaluation: (
                                         <>
-                                            <Button small>View</Button>
+                                            <Button
+                                                icon={<IconArrowRight24 />}
+                                                onClick={() => 
+                                                    onClickViewEvaluation(jobPrediction.id)
+                                                }
+                                                small
+                                            >
+                                                View
+                                            </Button>
                                         </>
                                     ),
                                 }[jobPrediction.type]
@@ -174,6 +195,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                     </div>
                 </div>
             ))}
+
             {isImportModalOpen && (
                 <ImportPrediction
                     setIsImportModalOpen={setIsImportModalOpen}
@@ -181,18 +203,22 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                     predictionIdToImport={predictionIdToImport}
                 />
             )}
-            {/*
-            {showJobDetails && (
-                <JobDetails
-                    jobPrediction={jobDetailsToShow}
-                />
-            )}
-            */}
+
             <NewEvaluationDrawer
                 isOpen={newEvaluationDrawerOpen}
                 setIsOpen={setNewEvaluationDrawerOpen}
                 datasetIdToEvaluate={datasetIdToEvaluate}
             />
+            {showEvaluationResultModal && (
+                <Modal
+                    className={styles.evaluationModal}
+                    onClose={() => {
+                        setShowEvaluationResultModal(false)
+                    }}
+                >
+                    <EvaluationResult evaluationId={evaluationResultId} />
+                </Modal>
+            )}
         </>
     )
 }

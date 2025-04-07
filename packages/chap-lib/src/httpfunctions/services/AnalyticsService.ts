@@ -132,7 +132,7 @@ export class AnalyticsService {
     ): CancelablePromise<DataList> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/analytics/actual-cases/{backtestId}',
+            url: '/analytics/actualCases/{backtestId}',
             path: {
                 'backtestId': backtestId,
             },

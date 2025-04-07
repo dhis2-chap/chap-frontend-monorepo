@@ -11,6 +11,7 @@ import {
 } from '@dhis2/ui'
 import DatasetDetails from '../../../dataset-details/DatasetDetails'
 import SelectModel from '../../../select-model/SelectModel'
+import { CrudService } from '@dhis2-chap/chap-lib'
 
 interface NewEvaluationFormProps {
     onDrawerClose: () => void
@@ -20,6 +21,19 @@ interface NewEvaluationFormProps {
 const NewEvaluationForm = ({ onDrawerClose, datasetIdToEvaluate }: NewEvaluationFormProps) => {
     const [evaluationName, setEvaluationName] = useState<string | undefined>('')
     const [selectedModel, setSelectedModel] = useState<any>(undefined)
+
+    const onClickEvaluate = () : any => {
+        console.log('should evaluate', evaluationName, datasetIdToEvaluate, selectedModel)
+        if (evaluationName && datasetIdToEvaluate && selectedModel) {
+            const response = CrudService.createBacktestCrudBacktestsPost({
+                name: evaluationName,
+                datasetId: datasetIdToEvaluate,
+                modelId: selectedModel.name,
+            })
+            console.log('evaluate response', response)
+            onDrawerClose()
+        }
+    }
 
     return (
         <>
@@ -44,9 +58,15 @@ const NewEvaluationForm = ({ onDrawerClose, datasetIdToEvaluate }: NewEvaluation
 
                 <SelectModel selectedModel={selectedModel} setSelectedModel={setSelectedModel}/>
                 
-                <Button primary>
-                    Fake Evaluate Button
-                </Button>
+                <div className={styles.buttons} >
+                    <Button
+                        primary
+                        icon={<IconArrowRight24 />}
+                        onClick={onClickEvaluate}
+                    >
+                        Evaluate
+                    </Button>
+                </div>
             </div>
         </>
     )

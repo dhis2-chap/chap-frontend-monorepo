@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {
+    AnalyticsService,
     ComparionPlotWrapper,
+    CrudService,
     DefaultService,
     EvaluationForSplitPoint,
     EvaluationResponse,
@@ -8,11 +10,11 @@ import {
     getSplitPeriod,
 } from '@dhis2-chap/chap-lib'
 import styles from './styles/EvaluationResult.module.css'
-import StyledDropzone from './StyledDropzone'
+//import StyledDropzone from './StyledDropzone'
 import useOrgUnitRoots from '../../hooks/useOrgUnitRoots'
 import useOrgUnits from '../../hooks/useOrgUnits'
 
-const EvaluationResult = () => {
+const EvaluationResult = ({ evaluationId } : any) => {
     //const [evaluation, setEvaluation] = useState<Record<string, Record<string, HighChartsData>> | undefined>(undefined)
     const [httpError, setHttpError] = useState<string>('')
     const [splitPeriods, setSplitPeriods] = useState<string[]>([])
@@ -54,17 +56,31 @@ const EvaluationResult = () => {
 
     const fetchEvaluation = async () => {
         setIsLoading(true)
-        await DefaultService.getEvaluationResultsGetEvaluationResultsGet()
-            .then((response: EvaluationResponse) => {
-                setUnProceededData(response)
-                //add id to process data
-            })
-            .catch((err: any) => {
-                setHttpError(err.toString())
-            })
-            .finally(() => {
-                setIsLoading(false)
-            })
+        //setHttpError(undefined)
+
+        const quantiles = [0.1, 0.25, 0.50, 0.75, 0.9]
+    
+        try {
+            const [evaluationEntries, actualCases] = await Promise.all([
+                AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(evaluationId, quantiles),
+                AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(evaluationId),
+            ])
+    
+            // Merge and send to state
+            const mergedResponse : EvaluationResponse = {
+                predictions: evaluationEntries,
+                actualCases: actualCases,
+            }
+            console.log('merged response', mergedResponse)
+    
+            setUnProceededData(mergedResponse)
+
+        } catch (err: any) {
+            setHttpError(err.toString())
+
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     useEffect(() => {
