@@ -5,6 +5,7 @@ import {
     SingleSelectOption,
 } from '@dhis2/ui'
 import React from 'react'
+import { getPeriodNameFromId } from '../../../utils/Time'
 
 interface SplitPeriodSelectorProps {
     splitPeriods: string[]
@@ -31,7 +32,7 @@ const SplitPeriodSelector = ({
                     {splitPeriods.map((splitPeriod, i) => (
                         <SingleSelectOption
                             key={i}
-                            label={splitPeriod}
+                            label={getPeriodNameFromId(splitPeriod)}
                             value={splitPeriod}
                         />
                     ))}

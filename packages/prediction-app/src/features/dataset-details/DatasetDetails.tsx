@@ -1,27 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { CrudService, DataSetRead } from '@dhis2-chap/chap-lib';
+import { getPeriodNameFromId } from '../utils/Time';
 import { Button, SingleSelectField, SingleSelectOption, CircularLoader, NoticeBox, Card } from '@dhis2/ui';
 import styles from './DatasetDetails.module.css'
-
-const PeriodToIso = (periodString : any) => {
-    // this should be moved to utils probably
-    // or actually just use import { getPeriodNameFromId } from '@dhis2/multi-period-dimension'
-    console.log('period', periodString)
-    if (!periodString) return 'NA'
-    if (periodString.length == 4) {
-        return periodString
-    }
-    if (periodString.length == 6) {
-        const year = periodString.slice(0, 4)
-        const month = periodString.slice(4, 6)
-        return `${year}-${month}`
-    }
-    if (periodString.length == 5) {
-        const year = periodString.slice(0, 4)
-        const week = periodString.slice(5, 6)
-        return `${year}-W${week}`
-    }
-}
 
 interface DatasetDetailsProps {
     datasetId : number | undefined
@@ -102,7 +83,7 @@ const DatasetDetails = ({ datasetId } : DatasetDetailsProps ) => {
                 </div>
                 <div>
                     <span className={styles.label}>Time period: </span>
-                    <span>{PeriodToIso(datasetSummary.startPeriod)} to {PeriodToIso(datasetSummary.endPeriod)}</span>
+                    <span>{getPeriodNameFromId(datasetSummary.startPeriod)} to {getPeriodNameFromId(datasetSummary.endPeriod)}</span>
                 </div>
                 <div>
                     <span className={styles.label}>Covariates: </span>
