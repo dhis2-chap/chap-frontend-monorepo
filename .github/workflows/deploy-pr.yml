@@ -3,8 +3,8 @@ name: deploy-pr
 on:
     pull_request:
         paths:
-            - 'packeges/prediction-app/**'
-            - 'packeges/chap-lib/**'
+            - 'packages/modeling-app/**'
+            - 'packages/chap-lib/**'
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.head_ref }}

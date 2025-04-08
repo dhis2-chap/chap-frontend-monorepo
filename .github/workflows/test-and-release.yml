@@ -56,10 +56,10 @@ jobs:
                   cache: yarn
             - run: yarn install --frozen-lockfile
             # todo: fix linting errors in chap-eval and build here too
-            # `cp-build` moves the prediction app build to where the semantic
+            # `cp-build` moves the modeling app build to where the semantic
             # release action looks for it
             # https://github.com/dhis2/action-semantic-release/blob/master/plugins/publish-github.js#L12
-            - run: yarn build:chap-lib && yarn build:prediction-app && yarn cp-build
+            - run: yarn build:chap-lib && yarn build:modeling-app && yarn cp-build
             - uses: dhis2/action-semantic-release@master
               with:
                   publish-apphub: true
@@ -70,5 +70,5 @@ jobs:
             # todo: also deploy eval app on github
             - uses: dhis2/deploy-build@master
               with:
-                  build-dir: packages/prediction-app/build/app
+                  build-dir: packages/modeling-app/build/app
                   github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
