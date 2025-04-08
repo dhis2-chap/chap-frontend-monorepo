@@ -40,7 +40,7 @@ const NewEvaluationForm = ({ onDrawerClose, datasetIdToEvaluate }: NewEvaluation
             <div className={styles.formWrapper}>
 
                 <div className={styles.newEvaluationTitle}>
-                    <h2>New evaluation</h2>
+                    <h2>New model evaluation</h2>
                     <Button icon={<IconCross24 />} onClick={onDrawerClose} />
                 </div>
 

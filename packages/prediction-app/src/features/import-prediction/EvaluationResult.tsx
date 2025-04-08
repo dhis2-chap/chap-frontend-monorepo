@@ -93,10 +93,12 @@ const EvaluationResult = ({ evaluationId } : any) => {
             {isLoading && <p>Loading..</p>}
 
             {proceededData && (
-                <ComparionPlotWrapper
-                    evaluations={proceededData}
-                    splitPeriods={splitPeriods}
-                />
+                <>
+                    <ComparionPlotWrapper
+                        evaluations={proceededData}
+                        splitPeriods={splitPeriods}
+                    />
+                </>
             )}
         </div>
     )

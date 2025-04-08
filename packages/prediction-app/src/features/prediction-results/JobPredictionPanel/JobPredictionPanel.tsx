@@ -12,7 +12,10 @@ import {
     IconInfo24,
     IconView16,
     IconView24,
-    IconArchive24
+    IconArchive24,
+    IconVisualizationAreaStacked24,
+    IconLaunch24,
+    IconRuler24
 } from '@dhis2/ui'
 import ImportPrediction from '../ImportPrediction/ImportPrediction'
 import { JobPrediction } from '../interfaces/JobPrediction'
@@ -141,7 +144,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                             {jobPrediction.status == 
                                             'SUCCESS' && (
                                                 <Button
-                                                    icon={<IconArrowRight24 />}
+                                                    icon={<IconLaunch24 />}
                                                     onClick={() =>
                                                         onClickImport(
                                                             jobPrediction.result
@@ -159,7 +162,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                             {jobPrediction.status == 
                                             'SUCCESS' && (
                                                 <Button
-                                                    icon={<IconArrowRight24 />}
+                                                    icon={<IconRuler24 />}
                                                     onClick={() => 
                                                         onClickEvaluateDataset(jobPrediction.result)
                                                     }
@@ -175,7 +178,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                             {jobPrediction.status == 
                                             'SUCCESS' && (
                                                 <Button
-                                                    icon={<IconArrowRight24 />}
+                                                    icon={<IconVisualizationAreaStacked24 />}
                                                     onClick={() => 
                                                         onClickViewEvaluation(jobPrediction.result)
                                                     }
