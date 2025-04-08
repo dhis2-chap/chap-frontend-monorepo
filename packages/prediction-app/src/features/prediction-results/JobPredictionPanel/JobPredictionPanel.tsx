@@ -113,7 +113,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
         setNewEvaluationDrawerOpen(true)
     }
 
-    console.log('socalled jobPredictions', jobPredictions)
+    //console.log('socalled jobPredictions', jobPredictions)
 
     return (
         <>

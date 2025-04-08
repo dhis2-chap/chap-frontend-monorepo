@@ -18,6 +18,7 @@ import { JobPrediction } from './interfaces/JobPrediction'
 import FetchError from './FetchError/FetchError'
 import LoadingJobPrediction from './LoadingJobPrediction/LoadingJobPrediction'
 import { NoJobPrediction } from './NoJobPrediction/NoJobPrediction'
+import usePolling from '../../hooks/UsePolling'
 
 interface Job {
     id: string
@@ -45,79 +46,6 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
 
     const [onPageLoading, setOnPageLoading] = useState(true)
 
-    const setFetchEveluationPredictionDataset = () => {
-        console.log('should fetch', type)
-        switch (type) {
-            case 'predictions':
-                return fetchPredictions(
-                    CrudService.getPredictionsCrudPredictionsGet()
-                ).then((e) => setPredictions(e as PredictionInfo[]))
-            case 'datasets':
-                return fetchPredictions(
-                    CrudService.getDatasetsCrudDatasetsGet()
-                ).then((e) => setDatasets(e as DataSetRead[]))
-            case 'evaluations':
-                return fetchPredictions(
-                    CrudService.getBacktestsCrudBacktestsGet()
-                ).then((e) => setEvaluations(e as BackTestRead[]))
-            // rurn fetchEvaluations()
-        }
-    }
-
-    const puller = async (
-        onPageLoad: boolean,
-        local_jobs: JobDescription[]
-    ) => {
-        const fetched_jobs = await fetchJobs()
-
-        //if on load, fetch predictions and set jobs
-        if (onPageLoad) {
-            await setFetchEveluationPredictionDataset()
-            setJobs(fetched_jobs)
-            setOnPageLoading(false)
-        }
-
-        //if content is the same as stored, not set the results, just proceed to next fetch jobs
-        //if (JSON.stringify(fetched_jobs) === JSON.stringify(local_jobs)) {
-        //    return puller(false, fetched_jobs)
-        //}
-
-        //only keep polling if any jobs noncompleted
-        //const noncomplete_jobs = fetched_jobs.filter((j) => (j.status == 'PENDING') || (j.status == 'STARTED'))
-        //if (noncomplete_jobs.length == 0) {
-        //    return
-        //}
-
-        //await X second, and fetch jobs again, since a prediction/job exisits for a short time in both jobs and get predictions
-        await new Promise((resolve) => setTimeout(resolve, 4_000))
-        //fetched_jobs = await fetchJobs()
-        await setFetchEveluationPredictionDataset()
-
-        setJobs(fetched_jobs)
-
-        //start new pull, not on page load
-        puller(false, fetched_jobs)
-    }
-
-    const fetchJobs = async (): Promise<JobDescription[]> => {
-        let jobs: JobDescription[] = []
-        for (let i = 0; i < 6; i++) {
-            try {
-                jobs = await JobsService.listJobsJobsGet()
-                break
-            } catch (error) {
-                if (i === 2) {
-                    setFetchJobError(
-                        (error as ApiError)?.message ?? "Couldn't fetch jobs"
-                    )
-                    return []
-                }
-            }
-        }
-        setFetchJobError(undefined)
-        return jobs
-    }
-
     const fetchPredictions = async (
         service: CancelablePromise<
             Array<PredictionInfo | BackTestRead | DataSetRead>
@@ -139,14 +67,43 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
         }
     }
 
-    //when either jobs or predictions change, merge results
-    useEffect(() => {
-        setResult(getResults())
-    }, [jobs, predictions, evaluations, datasets])
+    const setFetchEveluationPredictionDataset = () => {
+        console.log('should fetch', type)
+        switch (type) {
+            case 'predictions':
+                return fetchPredictions(
+                    CrudService.getPredictionsCrudPredictionsGet()
+                ).then((e) => setPredictions(e as PredictionInfo[]))
+            case 'datasets':
+                return fetchPredictions(
+                    CrudService.getDatasetsCrudDatasetsGet()
+                ).then((e) => setDatasets(e as DataSetRead[]))
+            case 'evaluations':
+                return fetchPredictions(
+                    CrudService.getBacktestsCrudBacktestsGet()
+                ).then((e) => setEvaluations(e as BackTestRead[]))
+            // rurn fetchEvaluations()
+        }
+    }
 
-    useEffect(() => {
-        puller(true, [])
-    }, [])
+    const fetchJobs = async (): Promise<JobDescription[]> => {
+        let jobs: JobDescription[] = []
+        for (let i = 0; i < 6; i++) {
+            try {
+                jobs = await JobsService.listJobsJobsGet()
+                break
+            } catch (error) {
+                if (i === 2) {
+                    setFetchJobError(
+                        (error as ApiError)?.message ?? "Couldn't fetch jobs"
+                    )
+                    return []
+                }
+            }
+        }
+        setFetchJobError(undefined)
+        return jobs
+    }
 
     const getResults = (): JobPrediction[] => {
         const results: JobPrediction[] = []
@@ -215,7 +172,7 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
                 //description: job.description,
             })
         })
-        console.log('filtered jobs', jobs)
+        //console.log('filtered jobs', jobs)
 
         results.sort((a, b) => {
             return b.created.getTime() - a.created.getTime()
@@ -224,7 +181,64 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
         return results
     }
 
-    console.log('results for', type, result)
+    /*
+    const puller = async (
+        onPageLoad: boolean,
+        local_jobs: JobDescription[]
+    ) => {
+        const fetched_jobs = await fetchJobs()
+
+        //if on load, fetch predictions and set jobs
+        if (onPageLoad) {
+            await setFetchEveluationPredictionDataset()
+            setJobs(fetched_jobs)
+            setOnPageLoading(false)
+        }
+
+        //if content is the same as stored, not set the results, just proceed to next fetch jobs
+        //if (JSON.stringify(fetched_jobs) === JSON.stringify(local_jobs)) {
+        //    return puller(false, fetched_jobs)
+        //}
+
+        //only keep polling if any jobs noncompleted
+        //const noncomplete_jobs = fetched_jobs.filter((j) => (j.status == 'PENDING') || (j.status == 'STARTED'))
+        //if (noncomplete_jobs.length == 0) {
+        //    return
+        //}
+
+        //await X second, and fetch jobs again, since a prediction/job exisits for a short time in both jobs and get predictions
+        await new Promise((resolve) => setTimeout(resolve, 4_000))
+        //fetched_jobs = await fetchJobs()
+        await setFetchEveluationPredictionDataset()
+
+        setJobs(fetched_jobs)
+
+        //start new pull, not on page load
+        puller(false, fetched_jobs)
+    }
+    */
+
+    const puller = async () => {
+        console.log('pulling...')
+        await setFetchEveluationPredictionDataset()
+        const fetched_jobs = await fetchJobs()
+        setJobs(fetched_jobs)
+        setOnPageLoading(false)
+    }
+
+    // trigger initial data pull
+    useEffect(() => {
+        puller()
+    }, [])
+
+    // trigger job pulling every X seconds
+    usePolling(puller, 5000)
+
+    // listen for changes to jobs, datasets, evaluations, predictions, and update results in ui
+    useEffect(() => {
+        setResult(getResults())
+        console.log('results for', type, result)
+    }, [jobs, predictions, evaluations, datasets])
 
     return (
         <div>
