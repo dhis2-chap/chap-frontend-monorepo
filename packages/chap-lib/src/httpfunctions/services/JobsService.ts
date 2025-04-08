@@ -43,6 +43,26 @@ export class JobsService {
         });
     }
     /**
+     * Get Logs
+     * @param jobId
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static getLogsJobsJobIdLogsGet(
+        jobId: string,
+    ): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/jobs/{job_id}/logs',
+            path: {
+                'job_id': jobId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Get Prediction Result
      * @param jobId
      * @returns FullPredictionResponse Successful Response

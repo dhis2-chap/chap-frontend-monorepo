@@ -12,6 +12,7 @@ import {
     IconInfo24,
     IconView16,
     IconView24,
+    IconArchive24
 } from '@dhis2/ui'
 import ImportPrediction from '../ImportPrediction/ImportPrediction'
 import { JobPrediction } from '../interfaces/JobPrediction'
@@ -19,6 +20,7 @@ import { PredictionInfo } from '@dhis2-chap/chap-lib'
 import { CrudService } from '@dhis2-chap/chap-lib'
 import { DataSetRead } from '@dhis2-chap/chap-lib'
 import JobFailedButton from './JobFailedButton/JobFailedButton'
+import JobLogs from './JobLogs/JobLogs'
 import NewEvaluationDrawer from '../../new-evaluation/components/NewEvaluationDrawer'
 import EvaluationResult from '../../import-prediction/EvaluationResult'
 
@@ -39,10 +41,8 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
 
     const [datasetIdToEvaluate, setDatasetIdToEvaluate] = useState<number | undefined>(undefined)
 
-    const [showJobDetails, setShowJobDetails] = useState(false)
-    const [jobDetailsToShow, setJobDetailsToShow] = useState<
-        JobPrediction | undefined
-    >(undefined)
+    const [showJobLogs, setShowJobLogs] = useState(false)
+    const [jobLogsId, setJobLogsId] = useState<string | undefined>(undefined)
 
     const onClickImport = (predictionId: string) => {
         setIsImportModalOpen(true)
@@ -54,6 +54,11 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
         setEvaluationResultId(evaluationId)
     }
 
+    const onClickViewLogs = (jobId: string) => {
+        setShowJobLogs(true)
+        setJobLogsId(jobId)
+    }
+
     const onClickRemoveFailed = (predictionId: string) => {
         let msg = 'Are you sure you want to permanently remove this failed job?'
         if (confirm(msg) == true) {
@@ -61,15 +66,6 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                 parseInt(predictionId)
             )
         }
-    }
-
-    const onClickJobDetails = (jobPrediction: JobPrediction) => {
-        setShowJobDetails(true)
-        setJobDetailsToShow(jobPrediction)
-        alert(
-            'Should show job details in modal (not finished): \n\n' +
-                jobPrediction.description
-        )
     }
 
     const getStatusColor = (status: string | undefined) => {
@@ -158,24 +154,6 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                             )}
                                         </>
                                     ),
-                                    job: (
-                                        <>
-                                            {jobPrediction.status ==
-                                                'FAILED' && (
-                                                <JobFailedButton
-                                                    jobPrediction={
-                                                        jobPrediction
-                                                    }
-                                                    onClickJobDetails={
-                                                        onClickJobDetails
-                                                    }
-                                                    onClickRemoveFailed={
-                                                        onClickRemoveFailed
-                                                    }
-                                                />
-                                            )}
-                                        </>
-                                    ),
                                     dataset: (
                                         <>
                                             {jobPrediction.status == 
@@ -210,6 +188,20 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                     ),
                                 }[jobPrediction.type]
                             }
+
+                            {jobPrediction.status == 
+                                'FAILURE' && (
+                                    <Button
+                                        icon={<IconArchive24 />}
+                                        onClick={() => 
+                                            onClickViewLogs(jobPrediction.id)
+                                        }
+                                        small
+                                    >
+                                        Logs
+                                    </Button>
+                            )}
+
                         </div>
                     </div>
                 </div>
@@ -236,6 +228,17 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                     }}
                 >
                     <EvaluationResult evaluationId={evaluationResultId} />
+                </Modal>
+            )}
+
+            {showJobLogs && (
+                <Modal
+                    className={styles.jobLogsModal}
+                    onClose={() => {
+                        setShowJobLogs(false)
+                    }}
+                >
+                    <JobLogs jobId={jobLogsId} />
                 </Modal>
             )}
         </>

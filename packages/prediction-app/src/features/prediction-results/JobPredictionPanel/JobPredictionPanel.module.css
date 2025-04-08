@@ -54,3 +54,8 @@
     width: 95vw !important;
     height: 95vh !important;
 }
+
+.jobLogsModal {
+    width: 80vw !important;
+    max-height: 80vh !important;
+}
