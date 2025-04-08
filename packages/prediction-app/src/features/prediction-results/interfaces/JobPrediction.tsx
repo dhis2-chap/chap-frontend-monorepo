@@ -5,6 +5,8 @@ export interface JobPrediction {
     name: string
     created: Date
 
+    result?: string | undefined
+
     datasetId?: number
     estimatorId?: string
     nPeriods?: number

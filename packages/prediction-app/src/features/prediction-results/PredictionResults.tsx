@@ -78,11 +78,17 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
         }
 
         //if content is the same as stored, not set the results, just proceed to next fetch jobs
-        if (JSON.stringify(fetched_jobs) === JSON.stringify(local_jobs)) {
-            return puller(false, fetched_jobs)
-        }
+        //if (JSON.stringify(fetched_jobs) === JSON.stringify(local_jobs)) {
+        //    return puller(false, fetched_jobs)
+        //}
 
-        //await two second, and fetch jobs again, since a prediction/job exisits for a short time in both jobs and get predictions
+        //only keep polling if any jobs noncompleted
+        //const noncomplete_jobs = fetched_jobs.filter((j) => (j.status == 'PENDING') || (j.status == 'STARTED'))
+        //if (noncomplete_jobs.length == 0) {
+        //    return
+        //}
+
+        //await X second, and fetch jobs again, since a prediction/job exisits for a short time in both jobs and get predictions
         await new Promise((resolve) => setTimeout(resolve, 4_000))
         //fetched_jobs = await fetchJobs()
         await setFetchEveluationPredictionDataset()
@@ -94,17 +100,10 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
     }
 
     const fetchJobs = async (): Promise<JobDescription[]> => {
-        const [jobs, failedJobs]: [JobDescription[], JobDescription[]] =
-            await Promise.all([fetchActiveJobs(), fetchFailedJobs()])
-        const allJobs: JobDescription[] = [...jobs, ...failedJobs]
-        return allJobs
-    }
-
-    const fetchActiveJobs = async (): Promise<JobDescription[]> => {
-        let response: JobDescription[] = []
+        let jobs: JobDescription[] = []
         for (let i = 0; i < 6; i++) {
             try {
-                response = await JobsService.listJobsJobsGet()
+                jobs = await JobsService.listJobsJobsGet()
                 break
             } catch (error) {
                 if (i === 2) {
@@ -115,39 +114,6 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
                 }
             }
         }
-        setFetchJobError(undefined)
-        return response
-    }
-
-    const fetchFailedJobs = async (): Promise<JobDescription[]> => {
-        // Fetch failed jobs from api
-        let response: FailedJobRead[] = []
-        for (let i = 0; i < 6; i++) {
-            try {
-                response = await CrudService.getFailedJobsCrudFailedJobsGet()
-                break
-            } catch (error) {
-                if (i === 2) {
-                    setFetchJobError(
-                        (error as ApiError)?.message ??
-                            "Couldn't fetch failed jobs"
-                    )
-                    return []
-                }
-            }
-        }
-
-        // Convert FailedJobRead[] to JobDescription[]
-        const jobs: JobDescription[] = response.map(
-            (failedJob): JobDescription => ({
-                id: failedJob.id.toString(),
-                description: failedJob.message,
-                status: 'Failed',
-                start_time: failedJob.created,
-                hostname: 'unknown',
-                type: 'job',
-            })
-        )
         setFetchJobError(undefined)
         return jobs
     }
@@ -187,57 +153,69 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
 
         datasets.forEach((dataset) => {
             results.push({
-                id: dataset.id.toString(),
+                id: 'Unknown',
                 name: dataset.name,
                 created: new Date(dataset.created ?? ''),
                 type: 'dataset',
-                status: 'Completed',
+                status: 'SUCCESS',
+                result: dataset.id.toString(),
             })
         })
 
         evaluations.forEach((evaluation) => {
             results.push({
-                id: evaluation.id.toString(),
+                id: 'Unknown',
                 name: evaluation.name ?? '',
-                created: new Date(evaluation.timestamp ?? ''),
+                created: new Date(evaluation.created ?? ''),
                 type: 'evaluation',
-                status: 'Completed',
+                status: 'SUCCESS',
+                result: evaluation.id.toString(),
             })
         })
 
-        predictions.forEach((completed) => {
+        predictions.forEach((prediction) => {
             results.push({
-                id: completed.id.toString(),
-                name: completed.name,
-                created: new Date(completed.created),
+                id: 'Unknown',
+                name: prediction.name,
+                created: new Date(prediction.created),
                 type: 'prediction',
-                status: 'Completed',
+                status: 'SUCCESS',
+                result: prediction.id.toString(),
 
                 //prediction specific
-                datasetId: completed.datasetId,
-                estimatorId: completed.modelId,
-                nPeriods: completed.nPeriods,
+                datasetId: prediction.datasetId,
+                estimatorId: prediction.modelId,
+                nPeriods: prediction.nPeriods,
             })
         })
 
         const job_type_dict = {
-            predictions: 'prediction',
+            predictions: 'create_prediction',
             datasets: 'create_dataset',
-            evaluations: 'backtest',
+            evaluations: 'create_backtest',
         }
 
-        jobs.filter((o) => o.type == job_type_dict[type]).forEach((job) => {
+        const job_type_make_singular = {
+            predictions: 'prediction',
+            datasets: 'dataset',
+            evaluations: 'evaluation',
+        }
+
+        // jobs results are only meant to add more info on jobs that didnt succeed
+        jobs.filter((o) => (o.status != 'SUCCESS') && (o.type == job_type_dict[type])).forEach((job) => {
             results.push({
                 id: job.id,
-                name: 'Job',
+                name: job.name,
                 created: new Date(job.start_time),
-                type: 'job',
+                type: job_type_make_singular[type],
                 status: job.status,
+                //result: job?.result,
                 //job specific
-                hostname: job.start_time,
-                description: job.description,
+                //hostname: job.start_time,
+                //description: job.description,
             })
         })
+        console.log('filtered jobs', jobs)
 
         results.sort((a, b) => {
             return b.created.getTime() - a.created.getTime()

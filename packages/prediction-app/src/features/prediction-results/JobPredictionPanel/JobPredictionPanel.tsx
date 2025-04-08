@@ -74,14 +74,27 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
 
     const getStatusColor = (status: string | undefined) => {
         switch (status) {
-            case 'In progress..':
+            case 'STARTED':
                 return styles.inProgress
-            case 'active':
+            case 'PENDING':
                 return styles.notStarted
-            case 'Failed':
+            case 'FAILURE':
                 return styles.failed
             default:
                 return styles.completed
+        }
+    }
+
+    const getStatusText = (status: string | undefined) => {
+        switch (status) {
+            case 'STARTED':
+                return 'In progress..'
+            case 'PENDING':
+                return 'Pending..'
+            case 'FAILURE':
+                return 'Failed'
+            default:
+                return 'Completed'
         }
     }
 
@@ -121,10 +134,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                             <span
                                 className={getStatusColor(jobPrediction.status)}
                             >
-                                {jobPrediction.status.replaceAll(
-                                    'active',
-                                    'In progress..'
-                                )}
+                                {getStatusText(jobPrediction.status)}
                             </span>
                         </div>
                         <div className={styles.flexItemRight}>
@@ -132,23 +142,26 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                 {
                                     prediction: (
                                         <>
-                                            <Button
-                                                icon={<IconArrowRight24 />}
-                                                onClick={() =>
-                                                    onClickImport(
-                                                        jobPrediction.id
-                                                    )
-                                                }
-                                                small
-                                            >
-                                                Import prediction
-                                            </Button>
+                                            {jobPrediction.status == 
+                                            'SUCCESS' && (
+                                                <Button
+                                                    icon={<IconArrowRight24 />}
+                                                    onClick={() =>
+                                                        onClickImport(
+                                                            jobPrediction.result
+                                                        )
+                                                    }
+                                                    small
+                                                >
+                                                    Import prediction
+                                                </Button>
+                                            )}
                                         </>
                                     ),
                                     job: (
                                         <>
                                             {jobPrediction.status ==
-                                                'Failed' && (
+                                                'FAILED' && (
                                                 <JobFailedButton
                                                     jobPrediction={
                                                         jobPrediction
@@ -165,28 +178,34 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                     ),
                                     dataset: (
                                         <>
-                                            <Button
-                                                icon={<IconArrowRight24 />}
-                                                onClick={() => 
-                                                    onClickEvaluateDataset(jobPrediction.id)
-                                                }
-                                                small
-                                            >
-                                                Evaluate
-                                            </Button>
+                                            {jobPrediction.status == 
+                                            'SUCCESS' && (
+                                                <Button
+                                                    icon={<IconArrowRight24 />}
+                                                    onClick={() => 
+                                                        onClickEvaluateDataset(jobPrediction.result)
+                                                    }
+                                                    small
+                                                >
+                                                    Evaluate
+                                                </Button>
+                                            )}
                                         </>
                                     ),
                                     evaluation: (
                                         <>
-                                            <Button
-                                                icon={<IconArrowRight24 />}
-                                                onClick={() => 
-                                                    onClickViewEvaluation(jobPrediction.id)
-                                                }
-                                                small
-                                            >
-                                                View
-                                            </Button>
+                                            {jobPrediction.status == 
+                                            'SUCCESS' && (
+                                                <Button
+                                                    icon={<IconArrowRight24 />}
+                                                    onClick={() => 
+                                                        onClickViewEvaluation(jobPrediction.result)
+                                                    }
+                                                    small
+                                                >
+                                                    View
+                                                </Button>
+                                            )}
                                         </>
                                     ),
                                 }[jobPrediction.type]
