@@ -153,7 +153,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                                                     }
                                                     small
                                                 >
-                                                    Import prediction
+                                                    Publish
                                                 </Button>
                                             )}
                                         </>
