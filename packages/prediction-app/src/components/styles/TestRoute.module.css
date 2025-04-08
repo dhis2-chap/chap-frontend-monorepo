@@ -17,9 +17,25 @@
     padding: 0rem;
 }
 
-.link {
-    margin-block-start: 1rem;
-    font-size: 1.2rem;
+.settingsTable {
+    border-collapse: collapse;
+    border: none;
+    margin-bottom: 2rem;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.cellTable {
+    padding: 0.5rem;
+    border: none;
+}
+
+th {
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
 }
 
 .status_not_ok {

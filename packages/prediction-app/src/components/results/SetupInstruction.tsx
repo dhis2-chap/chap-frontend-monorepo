@@ -23,7 +23,7 @@ const SetupInstruction = ({
                         <>
                             <p>
                                 {i18n.t(
-                                    'It seems like you missing Data Elements for CHAP prediction.'
+                                    'It seems like you missing Data Elements for prediction.'
                                 )}
                             </p>
                         </>

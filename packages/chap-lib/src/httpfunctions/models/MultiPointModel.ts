@@ -2,8 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Coordinates } from './Coordinates'
+import type { Coordinates } from './Coordinates';
 export type MultiPointModel = {
-    type?: string
-    coordinates: Array<Coordinates>
-}
+    type?: string;
+    coordinates: Array<Coordinates>;
+};
+

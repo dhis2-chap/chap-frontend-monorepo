@@ -1,0 +1,52 @@
+.status_ok {
+    color: green;
+}
+
+.status_not_ok {
+    color: red;
+}
+
+.errorContainer {
+    overflow-x: auto;
+    width: 100%;
+    color: rgb(175, 64, 64);
+}
+
+.container {
+    padding: 0rem;
+    overflow: auto;
+}
+
+.settingsTable {
+    border-collapse: collapse;
+    border: none;
+    margin-bottom: 2rem;
+}
+
+.tableWrapper {
+    min-height: 240px;
+}
+
+table {
+    border-collapse: collapse;
+    overflow-x: auto;
+}
+
+.cellTable {
+    padding: 0.5rem 2rem 0.5rem 0;
+    border: none;
+    vertical-align: top;
+}
+
+.cellTableLarge {
+    padding: 0.5rem 2rem 0.5rem 0;
+    border: none;
+    vertical-align: top;
+    min-width: 350px;
+}
+
+th {
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+}

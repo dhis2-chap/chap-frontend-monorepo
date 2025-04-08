@@ -1,5 +1,5 @@
 import React from 'react'
-import TestRoute from './setup/TestRoute'
+import TestRoute from '../features/settings/Settings'
 import { Link } from 'react-router-dom'
 
 const RouteSettingsPage = () => {

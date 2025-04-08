@@ -3,7 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type State = {
-    ready: boolean
-    status: string
-    progress?: number
-}
+    ready: boolean;
+    status: string;
+    progress?: number;
+};
+

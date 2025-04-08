@@ -1,0 +1,5 @@
+.drawerWrapper{
+  padding: 1rem;
+  overflow-y: scroll;
+  height: 100%;
+}

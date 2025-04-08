@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CancelablePromise } from '../core/CancelablePromise'
-import { OpenAPI } from '../core/OpenAPI'
-import { request as __request } from '../core/request'
+import type { JobResponse } from '../models/JobResponse';
+import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
+import { request as __request } from '../core/request';
 export class DebugService {
     /**
      * Run Add Numbers
@@ -16,19 +17,30 @@ export class DebugService {
      */
     public static runAddNumbersDebugAddNumbersGet(
         a: number,
-        b: number
+        b: number,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/debug/add-numbers',
             query: {
-                a: a,
-                b: b,
+                'a': a,
+                'b': b,
             },
             errors: {
                 422: `Validation Error`,
             },
-        })
+        });
+    }
+    /**
+     * Trigger Exception
+     * @returns JobResponse Successful Response
+     * @throws ApiError
+     */
+    public static triggerExceptionDebugTriggerExceptionPost(): CancelablePromise<JobResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/debug/trigger-exception',
+        });
     }
     /**
      * Get Status
@@ -38,17 +50,17 @@ export class DebugService {
      * @throws ApiError
      */
     public static getStatusDebugGetStatusGet(
-        taskId?: string | null
+        taskId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/debug/get-status',
             query: {
-                task_id: taskId,
+                'task_id': taskId,
             },
             errors: {
                 422: `Validation Error`,
             },
-        })
+        });
     }
 }

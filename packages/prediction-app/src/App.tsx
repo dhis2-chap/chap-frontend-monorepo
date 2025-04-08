@@ -1,4 +1,4 @@
-import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider, Navigate } from 'react-router-dom'
 import Root from './components/Root'
 import PredictionPage from './components/prediction/PredictionPage'
 import ResultsPage from './components/results/ResultsPage'
@@ -7,8 +7,15 @@ import CreateRoutePage from './components/CreateRoutePage'
 import RouteSettingsPage from './components/RouteSettingsPage'
 import ErrorPage from './components/ErrorPage'
 import StatusPage from './components/StatusPage'
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
+import PageWrapper from './components/PageWrapper'
+import EvaluationPage from './pages/EvaluationPage'
+import PredictionOverview from './features/predictions-overview/PredictionOverview'
+import SetChapUrl from './features/route-api/SetChapUrl'
+import CreateRoute from './features/settings/CreateRoute'
+import TestRoute from './features/settings/Settings'
+import Settings from './features/settings/Settings'
 
 const router = createHashRouter([
     {
@@ -22,12 +29,12 @@ const router = createHashRouter([
         ],
     },
     {
-        path: '/',
+        path: 'old',
         element: <Root />,
         errorElement: <ErrorPage />,
         children: [
             {
-                path: '/',
+                path: 'predict',
                 element: <PredictionPage />,
             },
             {
@@ -48,10 +55,41 @@ const router = createHashRouter([
             },
         ],
     },
+    {
+        path: '',
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: '/',
+                element: <Navigate to="/evaluate" replace />,
+            },
+            {
+                path: '/evaluate',
+                element: <PageWrapper component={<EvaluationPage />} />,
+            },
+            {
+                path: '/import',
+                element: <PageWrapper component={<PredictionOverview />} />,
+            },
+            {
+                path: '/settings',
+                element: <PageWrapper component={<Settings />} />,
+            },
+        ],
+    },
 ])
 
 const App = () => {
-    return <RouterProvider router={router}></RouterProvider>
+    const [isLoadingRouteConfig, setIsLoadingRouteConfig] = useState(true)
+
+    return (
+        <>
+            <SetChapUrl setIsLoadingRouteConfig={setIsLoadingRouteConfig} />
+            {!isLoadingRouteConfig && (
+                <RouterProvider router={router}></RouterProvider>
+            )}
+        </>
+    )
 }
 
 export default App

@@ -3,6 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export type DataSetRead = {
-    id: number
-    name: string
-}
+    id: number;
+    name: string;
+    created: (string | null);
+    covariates: Array<string>;
+};
+
