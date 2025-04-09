@@ -68,7 +68,7 @@ const router = createHashRouter([
                 element: <PageWrapper component={<EvaluationPage />} />,
             },
             {
-                path: '/import',
+                path: '/predict',
                 element: <PageWrapper component={<PredictionOverview />} />,
             },
             {

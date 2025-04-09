@@ -19,8 +19,11 @@
 }
 
 .flexItemRight {
+    display: flex;
+    justify-content: end;
     text-align: right;
     flex: 1 1 0;
+    gap: 3px;
 }
 
 .inProgress {

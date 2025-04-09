@@ -95,7 +95,7 @@ const Settings = () => {
             <h2>Settings</h2>
 
             <table className={styles.settingsTable}>
-                <tr>
+                <tr style={{ display:'none' }}>
                     <td className={styles.cellTable}>
                         <b>{config?.appName} is connecting to Chap Core via:</b>
                     </td>

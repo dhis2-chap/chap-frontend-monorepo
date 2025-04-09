@@ -99,32 +99,6 @@ export class DefaultService {
         });
     }
     /**
-     * Get Logs
-     * Retrieve logs from a job
-     * @param jobId
-     * @param nLines
-     * @returns string Successful Response
-     * @throws ApiError
-     */
-    public static getLogsJobsJobIdLogsGet(
-        jobId: string,
-        nLines?: (number | null),
-    ): CancelablePromise<string> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/jobs/{job_id}/logs',
-            path: {
-                'job_id': jobId,
-            },
-            query: {
-                'n_lines': nLines,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
      * List Features
      * List all available features
      * @returns Feature Successful Response

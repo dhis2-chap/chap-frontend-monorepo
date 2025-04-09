@@ -92,11 +92,14 @@ export const ComparionPlotWrapper = ({
         setSelectedOrgUnits(selectedOrgUnit)
     }
 
+    console.log(evaluations)
+
     return (
         <>
             <div className={styles.wrapper}>
                 <div className={styles.filter}>
                     <div>
+                        <h2>Model evaluation</h2>
                         <div className={styles.filterTitle}>Split period:</div>
                         <SplitPeriodSelector
                             splitPeriods={splitPeriods}

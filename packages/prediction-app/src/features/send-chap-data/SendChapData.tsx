@@ -206,7 +206,7 @@ export const SendChapData = ({
     const predict = async () => {
         let request: MakePredictionRequest = getPredictionRequest()
 
-        await AnalyticsService.makePredictionAnalyticsPredictionPost(request)
+        await AnalyticsService.makePredictionAnalyticsMakePredictionPost(request)
             .then((response: JobResponse) => {
                 setErrorChapMsg('')
                 onDrawerSubmit()
