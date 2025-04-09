@@ -256,7 +256,7 @@ const PredictionResult = ({
         <div className={styles.container}>
             <div className={styles.innerContainer}>
                 {orgUnitLoading && <p>Loading metadata from DHIS2.. </p>}
-                <h1>Import: {prediction_unprocessed.name}</h1>
+                <h1>Prediction: {prediction_unprocessed.name}</h1>
                 {
                     //If predication is null, show only "Upload file"-area
 

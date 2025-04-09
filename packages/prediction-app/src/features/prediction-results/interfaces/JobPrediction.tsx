@@ -1,9 +1,11 @@
 export interface JobPrediction {
     id: string
     status: string
-    type: 'prediction' | 'job' | 'dataset' | 'evaluation'
+    type: 'prediction' | 'dataset' | 'evaluation'
     name: string
     created: Date
+
+    result?: string | undefined
 
     datasetId?: number
     estimatorId?: string

@@ -12,13 +12,18 @@ import {
     IconInfo24,
     IconView16,
     IconView24,
+    IconArchive24,
+    IconVisualizationAreaStacked24,
+    IconLaunch24,
+    IconRuler24
 } from '@dhis2/ui'
 import ImportPrediction from '../ImportPrediction/ImportPrediction'
 import { JobPrediction } from '../interfaces/JobPrediction'
 import { PredictionInfo } from '@dhis2-chap/chap-lib'
 import { CrudService } from '@dhis2-chap/chap-lib'
 import { DataSetRead } from '@dhis2-chap/chap-lib'
-import JobFailedButton from './JobFailedButton/JobFailedButton'
+import JobPredictionPanelItem from './JobPredictionPanelItem/JobPredictionPanelItem'
+import JobLogs from './JobLogs/JobLogs'
 import NewEvaluationDrawer from '../../new-evaluation/components/NewEvaluationDrawer'
 import EvaluationResult from '../../import-prediction/EvaluationResult'
 
@@ -39,10 +44,8 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
 
     const [datasetIdToEvaluate, setDatasetIdToEvaluate] = useState<number | undefined>(undefined)
 
-    const [showJobDetails, setShowJobDetails] = useState(false)
-    const [jobDetailsToShow, setJobDetailsToShow] = useState<
-        JobPrediction | undefined
-    >(undefined)
+    const [showJobLogs, setShowJobLogs] = useState(false)
+    const [jobLogsId, setJobLogsId] = useState<string | undefined>(undefined)
 
     const onClickImport = (predictionId: string) => {
         setIsImportModalOpen(true)
@@ -54,44 +57,18 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
         setEvaluationResultId(evaluationId)
     }
 
-    const onClickRemoveFailed = (predictionId: string) => {
-        let msg = 'Are you sure you want to permanently remove this failed job?'
+    const onClickViewLogs = (jobId: string) => {
+        setShowJobLogs(true)
+        setJobLogsId(jobId)
+    }
+
+    const onClickRemove = (obj: any) => {
+        let msg = 'Are you sure you want to permanently remove this item?'
         if (confirm(msg) == true) {
             CrudService.deleteFailedJobCrudFailedJobsFailedJobIdDelete(
-                parseInt(predictionId)
+                999
             )
         }
-    }
-
-    const onClickJobDetails = (jobPrediction: JobPrediction) => {
-        setShowJobDetails(true)
-        setJobDetailsToShow(jobPrediction)
-        alert(
-            'Should show job details in modal (not finished): \n\n' +
-                jobPrediction.description
-        )
-    }
-
-    const getStatusColor = (status: string | undefined) => {
-        switch (status) {
-            case 'In progress..':
-                return styles.inProgress
-            case 'active':
-                return styles.notStarted
-            case 'Failed':
-                return styles.failed
-            default:
-                return styles.completed
-        }
-    }
-
-    const formatDateTime = (date: Date) => {
-        const pad = (num: number) => num.toString().padStart(2, '0')
-        return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
-            date.getDate()
-        )} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(
-            date.getSeconds()
-        )}`
     }
 
     const onClickEvaluateDataset = (datasetId : number | undefined) => {
@@ -100,102 +77,24 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
         setNewEvaluationDrawerOpen(true)
     }
 
-    console.log('socalled jobPredictions', jobPredictions)
+    //console.log('socalled jobPredictions', jobPredictions)
 
     return (
         <>
+            {/* add job panel items */}
             {jobPredictions.map((jobPrediction: JobPrediction, i) => (
-                <div key={i} className={styles.boxPanel}>
-                    <div className={styles.jobPredictionPanelContainer}>
-                        <div className={styles.flexMedium}>
-                            {jobPrediction.name}
-                        </div>
-                        <div className={styles.flexMedium}>
-                            {jobPrediction.created.toDateString() +
-                                ', ' +
-                                jobPrediction.created
-                                    .toLocaleTimeString()
-                                    .slice(0, 5)}
-                        </div>
-                        <div className={styles.flexMedium}>
-                            <span
-                                className={getStatusColor(jobPrediction.status)}
-                            >
-                                {jobPrediction.status.replaceAll(
-                                    'active',
-                                    'In progress..'
-                                )}
-                            </span>
-                        </div>
-                        <div className={styles.flexItemRight}>
-                            {
-                                {
-                                    prediction: (
-                                        <>
-                                            <Button
-                                                icon={<IconArrowRight24 />}
-                                                onClick={() =>
-                                                    onClickImport(
-                                                        jobPrediction.id
-                                                    )
-                                                }
-                                                small
-                                            >
-                                                Import prediction
-                                            </Button>
-                                        </>
-                                    ),
-                                    job: (
-                                        <>
-                                            {jobPrediction.status ==
-                                                'Failed' && (
-                                                <JobFailedButton
-                                                    jobPrediction={
-                                                        jobPrediction
-                                                    }
-                                                    onClickJobDetails={
-                                                        onClickJobDetails
-                                                    }
-                                                    onClickRemoveFailed={
-                                                        onClickRemoveFailed
-                                                    }
-                                                />
-                                            )}
-                                        </>
-                                    ),
-                                    dataset: (
-                                        <>
-                                            <Button
-                                                icon={<IconArrowRight24 />}
-                                                onClick={() => 
-                                                    onClickEvaluateDataset(jobPrediction.id)
-                                                }
-                                                small
-                                            >
-                                                Evaluate
-                                            </Button>
-                                        </>
-                                    ),
-                                    evaluation: (
-                                        <>
-                                            <Button
-                                                icon={<IconArrowRight24 />}
-                                                onClick={() => 
-                                                    onClickViewEvaluation(jobPrediction.id)
-                                                }
-                                                small
-                                            >
-                                                View
-                                            </Button>
-                                        </>
-                                    ),
-                                }[jobPrediction.type]
-                            }
-                        </div>
-                    </div>
-                </div>
+                <JobPredictionPanelItem 
+                    i={i}
+                    jobPrediction={jobPrediction}
+                    onClickEvaluateDataset={onClickEvaluateDataset}
+                    onClickViewEvaluation={onClickViewEvaluation}
+                    onClickImport={onClickImport}
+                    onClickRemove={onClickRemove}
+                    onClickViewLogs={onClickViewLogs}
+                />
             ))}
 
+            {/* import modal */}
             {isImportModalOpen && (
                 <ImportPrediction
                     setIsImportModalOpen={setIsImportModalOpen}
@@ -204,6 +103,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                 />
             )}
 
+            {/* new evaluation drawer */}
             <NewEvaluationDrawer
                 isOpen={newEvaluationDrawerOpen}
                 setIsOpen={setNewEvaluationDrawerOpen}
@@ -217,6 +117,18 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
                     }}
                 >
                     <EvaluationResult evaluationId={evaluationResultId} />
+                </Modal>
+            )}
+
+            {/* job logs modal */}
+            {showJobLogs && (
+                <Modal
+                    className={styles.jobLogsModal}
+                    onClose={() => {
+                        setShowJobLogs(false)
+                    }}
+                >
+                    <JobLogs jobId={jobLogsId} />
                 </Modal>
             )}
         </>

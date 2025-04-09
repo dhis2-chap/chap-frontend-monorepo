@@ -1,33 +1,65 @@
 Arguments: 
-  /Users/austin/.nvm/versions/node/v22.11.0/bin/node /opt/homebrew/Cellar/yarn/1.22.19/libexec/bin/yarn.js init
+  C:\Users\karimba\AppData\Local\miniconda3\envs\chap-frontend-monorepo\node.exe C:\Users\karimba\AppData\Local\miniconda3\envs\chap-frontend-monorepo\Library\bin\yarn.js generate-localhost
 
 PATH: 
-  /Users/austin/.bun/bin:/opt/homebrew/opt/openjdk@17/bin:/opt/homebrew/opt/openjdk@11/bin:/Users/austin/.nvm/versions/node/v22.11.0/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/usr/local/MacGPG2/bin:/Users/austin/.bun/bin:/opt/homebrew/opt/openjdk@17/bin:/opt/homebrew/opt/openjdk@11/bin:/Users/austin/.nvm/versions/node/v22.11.0/bin
+  C:\Users\karimba\AppData\Local\miniconda3\envs\chap-frontend-monorepo;C:\Users\karimba\AppData\Local\miniconda3\envs\chap-frontend-monorepo\Library\mingw-w64\bin;C:\Users\karimba\AppData\Local\miniconda3\envs\chap-frontend-monorepo\Library\usr\bin;C:\Users\karimba\AppData\Local\miniconda3\envs\chap-frontend-monorepo\Library\bin;C:\Users\karimba\AppData\Local\miniconda3\envs\chap-frontend-monorepo\Scripts;C:\Users\karimba\AppData\Local\miniconda3\envs\chap-frontend-monorepo\bin;C:\Users\karimba\AppData\Local\miniconda3\condabin;C:\Python313\Scripts;C:\Python313;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\PuTTY;C:\Users\karimba\AppData\Local\miniconda3;C:\Users\karimba\AppData\Local\miniconda3\Library\mingw-w64\bin;C:\Users\karimba\AppData\Local\miniconda3\Library\usr\bin;C:\Users\karimba\AppData\Local\miniconda3\Library\bin;C:\Users\karimba\AppData\Local\miniconda3\Scripts;C:\Users\karimba\AppData\Local\Microsoft\WindowsApps;C:\Users\karimba\AppData\Local\Programs\Git\cmd
 
 Yarn version: 
   1.22.19
 
 Node version: 
-  22.11.0
+  20.18.1
 
 Platform: 
-  darwin arm64
+  win32 x64
 
 Trace: 
-  Error: canceled
-      at Interface.<anonymous> (/opt/homebrew/Cellar/yarn/1.22.19/libexec/lib/cli.js:137150:13)
-      at Interface.emit (node:events:518:28)
-      at [_ttyWrite] [as _ttyWrite] (node:internal/readline/interface:1124:18)
-      at ReadStream.onkeypress (node:internal/readline/interface:263:20)
-      at ReadStream.emit (node:events:518:28)
-      at emitKeys (node:internal/readline/utils:370:14)
-      at emitKeys.next (<anonymous>)
-      at ReadStream.onData (node:internal/readline/emitKeypressEvents:64:36)
-      at ReadStream.emit (node:events:518:28)
-      at addChunk (node:internal/streams/readable:561:12)
+  SyntaxError: C:\Users\karimba\Documents\Github\chap-frontend-monorepo\packages\chap-lib\package.json: Expected double-quoted property name in JSON at position 38
+      at JSON.parse (<anonymous>)
+      at C:\Users\karimba\AppData\Local\miniconda3\envs\chap-frontend-monorepo\Library\lib\cli.js:1629:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\karimba\AppData\Local\miniconda3\envs\chap-frontend-monorepo\Library\lib\cli.js:310:30)
+      at C:\Users\karimba\AppData\Local\miniconda3\envs\chap-frontend-monorepo\Library\lib\cli.js:321:13
 
 npm manifest: 
-  No manifest
+  {
+      "name": "@dhis2-chap/chap-lib",
+  <<<<<<< HEAD
+      "version": "1.1.0",
+      "module": "./build/es/index.js",
+  =======
+      "version": "1.0.3",
+      "module": "./build\\es\\index.js",
+  >>>>>>> dev
+      "types": "./build/es/index.d.ts",
+      "license": "MIT",
+      "devDependencies": {
+          "@dhis2/cli-app-scripts": "^12.2.0",
+          "@types/css-modules": "^1.0.5",
+          "@types/node": "^22.10.1",
+          "typescript": "^5.7.2"
+      },
+      "scripts": {
+          "watch": "tsc --watch",
+          "build": "d2-app-scripts build && tsc",
+          "start": "d2-app-scripts start",
+          "test": "d2-app-scripts test",
+          "deploy": "d2-app-scripts deploy",
+          "generate": "yarn openapi --input ./public/openapi.json --output ./src/httpfunctions",
+          "generate-localhost": "yarn openapi --input http://localhost:8000/v1/openapi.json --output ./src/httpfunctions"
+      },
+      "main": "./build\\cjs\\index.js",
+      "exports": {
+          "import": "./build\\es\\index.js",
+          "require": "./build\\cjs\\index.js"
+      },
+      "dependencies": {
+          "@dhis2-chap/chap-lib": "1.1.0",
+          "@dhis2/maps-gl": "^4.0.1",
+          "@dhis2/ui": "^10.1.10",
+          "openapi-typescript-codegen": "^0.29.0"
+      }
+  }
 
 yarn manifest: 
   No manifest

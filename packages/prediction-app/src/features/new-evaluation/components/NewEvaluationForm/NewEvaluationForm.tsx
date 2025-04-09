@@ -11,7 +11,7 @@ import {
 } from '@dhis2/ui'
 import DatasetDetails from '../../../dataset-details/DatasetDetails'
 import SelectModel from '../../../select-model/SelectModel'
-import { CrudService } from '@dhis2-chap/chap-lib'
+import { AnalyticsService, CrudService } from '@dhis2-chap/chap-lib'
 
 interface NewEvaluationFormProps {
     onDrawerClose: () => void
@@ -25,7 +25,7 @@ const NewEvaluationForm = ({ onDrawerClose, datasetIdToEvaluate }: NewEvaluation
     const onClickEvaluate = () : any => {
         console.log('should evaluate', evaluationName, datasetIdToEvaluate, selectedModel)
         if (evaluationName && datasetIdToEvaluate && selectedModel) {
-            const response = CrudService.createBacktestCrudBacktestsPost({
+            const response = AnalyticsService.createBacktestAnalyticsCreateBacktestPost({
                 name: evaluationName,
                 datasetId: datasetIdToEvaluate,
                 modelId: selectedModel.name,
@@ -40,7 +40,7 @@ const NewEvaluationForm = ({ onDrawerClose, datasetIdToEvaluate }: NewEvaluation
             <div className={styles.formWrapper}>
 
                 <div className={styles.newEvaluationTitle}>
-                    <h2>New evaluation</h2>
+                    <h2>New model evaluation</h2>
                     <Button icon={<IconCross24 />} onClick={onDrawerClose} />
                 </div>
 
