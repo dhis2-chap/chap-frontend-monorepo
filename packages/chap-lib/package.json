@@ -1,7 +1,7 @@
 {
     "name": "@dhis2-chap/chap-lib",
-    "version": "1.0.3",
-    "module": "./build\\es\\index.js",
+    "version": "1.1.0",
+    "module": "./build/es/index.js",
     "types": "./build/es/index.d.ts",
     "license": "MIT",
     "devDependencies": {
@@ -25,7 +25,7 @@
         "require": "./build\\cjs\\index.js"
     },
     "dependencies": {
-        "@dhis2-chap/chap-lib": "1.0.3",
+        "@dhis2-chap/chap-lib": "1.1.0",
         "@dhis2/maps-gl": "^4.0.1",
         "@dhis2/ui": "^10.1.10",
         "openapi-typescript-codegen": "^0.29.0"
