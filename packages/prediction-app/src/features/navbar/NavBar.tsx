@@ -10,8 +10,8 @@ const navBarItems = [
         path: '/evaluate',
     },
     {
-        label: 'Publish',
-        path: '/publish',
+        label: 'Predict',
+        path: '/predict',
     },
 ]
 

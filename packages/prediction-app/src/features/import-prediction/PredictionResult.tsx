@@ -367,7 +367,7 @@ const PredictionResult = ({
                                     icon={<IconArrowRight24 />}
                                     primary
                                 >
-                                    {i18n.t('Publish prediction')}
+                                    {i18n.t('Import prediction')}
                                 </Button>
                             </div>
 
@@ -392,7 +392,7 @@ const PredictionResult = ({
                                 {postStatus === 'finish' && (
                                     <p className={styles.greenText}>
                                         {i18n.t(
-                                            'Prediction has been published.'
+                                            'Prediction has been imported.'
                                         )}
                                     </p>
                                 )}

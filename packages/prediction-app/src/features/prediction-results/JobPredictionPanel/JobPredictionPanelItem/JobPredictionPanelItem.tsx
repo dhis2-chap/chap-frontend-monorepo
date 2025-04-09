@@ -117,7 +117,7 @@ const JobPredictionPanelItem = ({
                                             }
                                             small
                                         >
-                                            Publish
+                                            Import
                                         </Button>
                                     )}
                                 </>
