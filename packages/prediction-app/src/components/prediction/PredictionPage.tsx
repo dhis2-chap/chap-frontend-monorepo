@@ -170,7 +170,8 @@ const PredictionPage = () => {
             })
             .catch((error: any) => {
                 setErrorChapMsg(error?.body?.detail)
-            }).finally(() => {
+            })
+            .finally(() => {
                 setSendingDataToChap(false)
             })
     }
@@ -186,9 +187,9 @@ const PredictionPage = () => {
                 return navigate('/status')
             })
             .catch((error: any) => {
-                
                 setErrorChapMsg(error?.body?.detail)
-            }).finally(() => {
+            })
+            .finally(() => {
                 setSendingDataToChap(false)
             })
     }

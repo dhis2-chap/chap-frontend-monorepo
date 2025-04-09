@@ -1,6 +1,7 @@
 .jobLogs {
     height: 100%;
     width: 100%;
+    overflow: auto;
 }
 
 .logContent {
@@ -8,9 +9,10 @@
     border: 1px solid #ddd;
     padding: 1rem;
     border-radius: 4px;
+
+    overflow-y: auto;
     height: 100%;
     width: 100%;
-    overflow-y: auto;
     white-space: none; /* optional: wraps long lines */
     font-family: monospace;
     font-size: 0.9rem;

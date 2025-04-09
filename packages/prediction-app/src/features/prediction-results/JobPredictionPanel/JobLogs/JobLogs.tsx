@@ -3,7 +3,7 @@ import { JobsService } from '@dhis2-chap/chap-lib'
 import styles from './JobLogs.module.css'
 
 interface JobLogsProps {
-    jobId : string | undefined
+    jobId: string | undefined
 }
 
 const JobLogs = ({ jobId }: JobLogsProps) => {
