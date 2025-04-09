@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-03-18T12:59:58.281Z\n"
-"PO-Revision-Date: 2025-03-18T12:59:58.282Z\n"
+"POT-Creation-Date: 2025-04-09T09:18:36.983Z\n"
+"PO-Revision-Date: 2025-04-09T09:18:36.985Z\n"
 
 msgid "About this app"
 msgstr "About this app"
@@ -136,6 +136,12 @@ msgstr "Drag 'n' drop prediction/evaluation file, or click to select it"
 
 msgid "App settings"
 msgstr "App settings"
+
+msgid "Publish prediction"
+msgstr "Publish prediction"
+
+msgid "Prediction has been published."
+msgstr "Prediction has been published."
 
 msgid "It seems like you missing Data Elements for CHAP prediction."
 msgstr "It seems like you missing Data Elements for CHAP prediction."
