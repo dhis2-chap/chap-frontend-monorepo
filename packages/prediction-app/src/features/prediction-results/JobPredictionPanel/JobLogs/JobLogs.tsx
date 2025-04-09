@@ -22,7 +22,7 @@ const JobLogs = ({ jobId }: JobLogsProps) => {
                 const logText = await JobsService.getLogsJobsJobIdLogsGet(jobId)
                 setLogs(logText)
             } catch (err: any) {
-                setError(err.message)
+                setError(err.body.detail)
             } finally {
                 setLoading(false)
             }
@@ -39,7 +39,7 @@ const JobLogs = ({ jobId }: JobLogsProps) => {
         <div className={styles.jobLogs}>
             <h2>Job Logs</h2>
             <pre className={styles.logContent}>
-                {logs || 'No logs available for this job.'}
+                {logs || '<No logs reported for this job>'}
             </pre>
         </div>
     )
