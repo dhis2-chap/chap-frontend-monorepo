@@ -55,6 +55,18 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
   useEffect(() => {
     getModels()
   }, [])
+
+  // TODO: below is a hacky fix to hardcode longer model descriptions until we add a .longName field to the db
+  // so that .description can be reserved for long text
+  let longDescriptionLookup = {
+    naive_model: "A simple naive model only to be used for testing purposes. Assumes that...",
+    chap_ewars_weekly: "Modified version of the World Health Organization (WHO) EWARS model. EWARS is a Bayesian hierarchical model implemented with the INLA library. Changes include...",
+    chap_ewars_monthly: "",
+    auto_regressive_weekly: "An experimental deep learning model based on an RNN architecture, focusing on predictions based on auto-regressive time series data.",
+    auto_regressive_monthly: "",
+  }
+  longDescriptionLookup.chap_ewars_monthly = longDescriptionLookup.chap_ewars_weekly
+  longDescriptionLookup.auto_regressive_monthly = longDescriptionLookup.auto_regressive_weekly
   
   
   return (
@@ -84,7 +96,7 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                                     {selectedModel.author} - {selectedModel.organization}
                                 </span>
                             </div>
-                            <p className={styles.modelDescription}>Description: {selectedModel.description || "Coming soon..."}</p>
+                            <p className={styles.modelDescription}>Description: {longDescriptionLookup[selectedModel.name] || "Coming soon..."}</p>
 
                             {/* Covariates */}
                             <div className={styles.modelCovariates}>
@@ -102,7 +114,7 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                                   Attribution:
                                 </span>
                                 <pre className={styles.modelCitationText}>
-                                  Example last name, First name. 1994. 15 Minute Stream Flow Data: USGS (FIFE). Data set. Available on-line [http://www.daac.ornl.gov] from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, U.S.A.
+                                  {selectedModel.citationInfo || "Coming soon..."}
                                 </pre>
                             </div>
 
@@ -112,7 +124,7 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                             </p>
 
                             {/* Contact */}
-                            <p className={styles.modelEmail}>Contact email: {selectedModel.contactEmail || "example@email.com"}</p>
+                            <p className={styles.modelEmail}>Contact email: {selectedModel.contactEmail || "Coming soon..."}</p>
 
                             {/* Show change button only if not showing grid */}
                             {!showGrid && (
@@ -147,7 +159,6 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                                         <img src={model.authorLogoUrl || "/public/default-model-logo.png"} alt={model.name + " logo"} className={styles.modelAuthorLogo} />
                                         <span className={styles.modelAuthorName}>{model.author} - {model.organization}</span>
                                     </div>
-                                    <p className={styles.modelUsage}>Description: {model.description || "Coming soon..."}</p>
 
                                     {/* Covariates */}
                                     <ul className={styles.modelCovariatesList}>

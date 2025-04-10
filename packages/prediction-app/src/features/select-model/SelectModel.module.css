@@ -55,8 +55,9 @@
 
 .modelAuthorLogo {
     height: 32px;
-    width: 32px;
-    margin-right: 2px;
+    width: auto;
+    margin-left: 6px;
+    margin-right: 6px;
 }
 
 .modelAuthorName {
