@@ -80,6 +80,11 @@
     color: #666;
 }
 
+.modelDescriptionText {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
 .modelCovariates {
     font-size: 0.9rem;
     color: #666;
@@ -104,6 +109,7 @@
 }
 
 .modelCitationText {
+    margin-top: 10px;
     margin-left: 10px;
     text-wrap: pretty;
 }
