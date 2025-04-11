@@ -97,6 +97,7 @@ export const ComparionPlotWrapper = ({
             <div className={styles.wrapper}>
                 <div className={styles.filter}>
                     <div>
+                        <h2>Model evaluation</h2>
                         <div className={styles.filterTitle}>Split period:</div>
                         <SplitPeriodSelector
                             splitPeriods={splitPeriods}
@@ -109,19 +110,21 @@ export const ComparionPlotWrapper = ({
                         <div className={styles.filterTitle}>
                             Organization units:
                         </div>
-                        {allOrgUnits.map((orgUnit, i) => (
-                            <Checkbox
-                                checked={
-                                    selectedOrgUnits.filter(
-                                        (o) => o == orgUnit.id
-                                    ).length > 0
-                                }
-                                onChange={onChangeOrgUnitSelected}
-                                label={orgUnit.name}
-                                key={orgUnit.id}
-                                value={orgUnit.id}
-                            />
-                        ))}
+                        <div className={styles.filterCheckbox}>
+                            {allOrgUnits.map((orgUnit, i) => (
+                                <Checkbox
+                                    checked={
+                                        selectedOrgUnits.filter(
+                                            (o) => o == orgUnit.id
+                                        ).length > 0
+                                    }
+                                    onChange={onChangeOrgUnitSelected}
+                                    label={orgUnit.name}
+                                    key={orgUnit.id}
+                                    value={orgUnit.id}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
                 <div className={styles.plots}>

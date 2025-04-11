@@ -10,7 +10,6 @@ import { getPeriodNameFromId } from '../../../utils/Time'
 //HighchartsMore(Highcharts); // Enables the 'arearange' series type
 function syncChartZoom(event: any): void {
     Highcharts.charts.forEach((chart: any) => {
-        console.log(chart)
         if (chart) {
             chart.xAxis[0].setExtremes(event.min, event.max)
         }
@@ -51,7 +50,7 @@ const getSeries = (data: any) => {
             },
         },
         {
-            name: 'Quantiles',
+            name: 'Quantiles Outer',
             data: data.ranges,
             type: 'arearange',
             lineWidth: 0,
@@ -63,7 +62,7 @@ const getSeries = (data: any) => {
             },
         },
         {
-            name: 'QuantilesMid',
+            name: 'Quantiles Middle',
             data: data.midranges,
             type: 'arearange',
             lineWidth: 1,
@@ -93,7 +92,9 @@ const getOptions = (data: any, modelName: string, syncZoom: boolean) => {
             categories: data.periods, // Use periods as categories
             labels: {
                 enabled: true,
-                formatter: function (this: Highcharts.AxisLabelsFormatterContextObject): string {
+                formatter: function (
+                    this: Highcharts.AxisLabelsFormatterContextObject
+                ): string {
                     return getPeriodNameFromId(this.value)
                 },
                 style: {
@@ -133,7 +134,6 @@ export const ResultPlot = ({ data, modelName, syncZoom }: ResultPlotProps) => {
     const [isRerendering, setIsRerendering] = useState(false)
 
     useEffect(() => {
-        console.log(data)
         setIsRerendering(true)
     }, [data])
 

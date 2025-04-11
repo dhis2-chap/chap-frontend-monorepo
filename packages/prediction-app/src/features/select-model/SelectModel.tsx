@@ -56,7 +56,6 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
     getModels()
   }, [])
   
-  
   return (
     <div className={styles.modelSelectContainer}>
 
@@ -74,17 +73,17 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                         >
 
                             {/* Model Info */}
-                            <h3 className={styles.modelHumanName}>{selectedModel.description}</h3>
+                            <h3 className={styles.modelHumanName}>{selectedModel.displayName}</h3>
                             <div className={styles.modelAuthor}>
-                                <span>
-                                    Author: 
-                                </span>
-                                <img src={selectedModel.authorLogoUrl || "/public/default-model-logo.png"} alt={selectedModel.name + " logo"} className={styles.modelAuthorLogo} />
+                                <img src={selectedModel.organizationLogoUrl || "/public/default-model-logo.png"} alt={selectedModel.name + " logo"} className={styles.modelAuthorLogo} />
                                 <span className={styles.modelAuthorName}>
                                     {selectedModel.author} - {selectedModel.organization}
                                 </span>
                             </div>
-                            <p className={styles.modelDescription}>Description: {selectedModel.description || "Coming soon..."}</p>
+                            <p className={styles.modelDescription}>
+                                <div>Description:</div>
+                                <div className={styles.modelDescriptionText}>{selectedModel.description || "Coming soon..."}</div>
+                            </p>
 
                             {/* Covariates */}
                             <div className={styles.modelCovariates}>
@@ -102,7 +101,7 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                                   Attribution:
                                 </span>
                                 <pre className={styles.modelCitationText}>
-                                  Example last name, First name. 1994. 15 Minute Stream Flow Data: USGS (FIFE). Data set. Available on-line [http://www.daac.ornl.gov] from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, U.S.A.
+                                  {selectedModel.citationInfo || "Coming soon..."}
                                 </pre>
                             </div>
 
@@ -112,7 +111,7 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                             </p>
 
                             {/* Contact */}
-                            <p className={styles.modelEmail}>Contact email: {selectedModel.contactEmail || "example@email.com"}</p>
+                            <p className={styles.modelEmail}>Contact email: {selectedModel.contactEmail || "Coming soon..."}</p>
 
                             {/* Show change button only if not showing grid */}
                             {!showGrid && (
@@ -142,12 +141,11 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                                     className={`${styles.modelCard} ${selectedModel?.name === model.name ? styles.selectedModelCard : ""}`}
                                 >
                                     {/* Model Info */}
-                                    <h3 className={styles.modelHumanName}>{model.description}</h3>
+                                    <h3 className={styles.modelHumanName}>{model.displayName}</h3>
                                     <div className={styles.modelAuthor}>
-                                        <img src={model.authorLogoUrl || "/public/default-model-logo.png"} alt={model.name + " logo"} className={styles.modelAuthorLogo} />
+                                        <img src={model.organizationLogoUrl || "/public/default-model-logo.png"} alt={model.name + " logo"} className={styles.modelAuthorLogo} />
                                         <span className={styles.modelAuthorName}>{model.author} - {model.organization}</span>
                                     </div>
-                                    <p className={styles.modelUsage}>Description: {model.description || "Coming soon..."}</p>
 
                                     {/* Covariates */}
                                     <ul className={styles.modelCovariatesList}>

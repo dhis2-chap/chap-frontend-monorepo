@@ -17,7 +17,7 @@ const EvaluationOverview = () => {
     return (
         <div>
             <PageHeader
-                pageTitle="Datasets"
+                pageTitle="Evaluation Datasets"
                 setDrawerOpenText="New Dataset"
                 setDrawerOpen={setNewDatasetDrawerOpen}
             />
@@ -28,11 +28,8 @@ const EvaluationOverview = () => {
                 onDrawerSubmit={onDrawerSubmit}
             />
 
-            <PageHeader
-                pageTitle="Evaluations"
-            />
+            <PageHeader pageTitle="Model Evaluations" />
             <PredictionResults type="evaluations" />
-
         </div>
     )
 }
