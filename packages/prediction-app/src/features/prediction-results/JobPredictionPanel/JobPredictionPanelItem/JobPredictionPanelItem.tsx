@@ -157,8 +157,8 @@ const JobPredictionPanelItem = ({
                         }[jobPrediction.type]
                     }
 
-                    {jobPrediction.status == 
-                        'FAILURE' && (
+                    {jobPrediction.status != 'SUCCESS' 
+                        && (
                             <Button
                                 icon={<IconArchive24 />}
                                 onClick={() => 

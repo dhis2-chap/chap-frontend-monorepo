@@ -51,7 +51,7 @@ const NewDatasetForm = ({ onDrawerSubmit }: NewDatasetFormProps) => {
                     value={datasetName}
                     onChange={(e) => setDatasetName(e.value)}
                     helpText="Name your dataset"
-                    placeholder="Malaria incidenc, climate for.. "
+                    placeholder="Example: Monthly malaria cases, ERA5 climate data, all districts"
                 />
                 <SelectDataLine
                     setDataLayers={setDataLayers}

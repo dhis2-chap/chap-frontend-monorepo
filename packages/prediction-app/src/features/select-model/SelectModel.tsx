@@ -55,19 +55,6 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
   useEffect(() => {
     getModels()
   }, [])
-
-  // TODO: below is a hacky fix to hardcode longer model descriptions until we add a .longName field to the db
-  // so that .description can be reserved for long text
-  let longDescriptionLookup = {
-    naive_model: "A simple naive model only to be used for testing purposes. Assumes that...",
-    chap_ewars_weekly: "Modified version of the World Health Organization (WHO) EWARS model. EWARS is a Bayesian hierarchical model implemented with the INLA library. Changes include...",
-    chap_ewars_monthly: "",
-    auto_regressive_weekly: "An experimental deep learning model based on an RNN architecture, focusing on predictions based on auto-regressive time series data.",
-    auto_regressive_monthly: "",
-  }
-  longDescriptionLookup.chap_ewars_monthly = longDescriptionLookup.chap_ewars_weekly
-  longDescriptionLookup.auto_regressive_monthly = longDescriptionLookup.auto_regressive_weekly
-  
   
   return (
     <div className={styles.modelSelectContainer}>
@@ -86,17 +73,17 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                         >
 
                             {/* Model Info */}
-                            <h3 className={styles.modelHumanName}>{selectedModel.description}</h3>
+                            <h3 className={styles.modelHumanName}>{selectedModel.displayName}</h3>
                             <div className={styles.modelAuthor}>
-                                <span>
-                                    Author: 
-                                </span>
-                                <img src={selectedModel.authorLogoUrl || "/public/default-model-logo.png"} alt={selectedModel.name + " logo"} className={styles.modelAuthorLogo} />
+                                <img src={selectedModel.organizationLogoUrl || "/public/default-model-logo.png"} alt={selectedModel.name + " logo"} className={styles.modelAuthorLogo} />
                                 <span className={styles.modelAuthorName}>
                                     {selectedModel.author} - {selectedModel.organization}
                                 </span>
                             </div>
-                            <p className={styles.modelDescription}>Description: {longDescriptionLookup[selectedModel.name] || "Coming soon..."}</p>
+                            <p className={styles.modelDescription}>
+                                <div>Description:</div>
+                                <div className={styles.modelDescriptionText}>{selectedModel.description || "Coming soon..."}</div>
+                            </p>
 
                             {/* Covariates */}
                             <div className={styles.modelCovariates}>
@@ -154,9 +141,9 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                                     className={`${styles.modelCard} ${selectedModel?.name === model.name ? styles.selectedModelCard : ""}`}
                                 >
                                     {/* Model Info */}
-                                    <h3 className={styles.modelHumanName}>{model.description}</h3>
+                                    <h3 className={styles.modelHumanName}>{model.displayName}</h3>
                                     <div className={styles.modelAuthor}>
-                                        <img src={model.authorLogoUrl || "/public/default-model-logo.png"} alt={model.name + " logo"} className={styles.modelAuthorLogo} />
+                                        <img src={model.organizationLogoUrl || "/public/default-model-logo.png"} alt={model.name + " logo"} className={styles.modelAuthorLogo} />
                                         <span className={styles.modelAuthorName}>{model.author} - {model.organization}</span>
                                     </div>
 

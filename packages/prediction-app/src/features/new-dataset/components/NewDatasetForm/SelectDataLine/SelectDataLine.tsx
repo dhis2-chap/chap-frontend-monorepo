@@ -119,7 +119,7 @@ const SelectDataLine = ({
 
     return (
         <div>
-            <h3>Data layers</h3>
+            <h3>Covariates</h3>
             <NoticeBox title="Origin">
                 The modeling app supports direct retrieval of the ERA5-Land data
                 without the need of the DHIS2 Climate App. If you are using an
@@ -145,7 +145,7 @@ const SelectDataLine = ({
                             ) : (
                                 <div className={styles.selectField}>
                                     <SingleSelectField
-                                        label="Feature"
+                                        label="Covariate"
                                         onChange={(e) =>
                                             onChangeClickSelectField(
                                                 e,
@@ -201,7 +201,7 @@ const SelectDataLine = ({
                                     dataLayer.origin === '') && (
                                     <SingleSelectField
                                         disabled={dataLayer.origin === ''}
-                                        label="Data name source"
+                                        label="Data Element"
                                         onChange={(e) =>
                                             onChangeClickSelectField(
                                                 e,

@@ -18,7 +18,7 @@ import { JobPrediction } from './interfaces/JobPrediction'
 import FetchError from './FetchError/FetchError'
 import LoadingJobPrediction from './LoadingJobPrediction/LoadingJobPrediction'
 import { NoJobPrediction } from './NoJobPrediction/NoJobPrediction'
-import usePolling from '../../hooks/UsePolling'
+import usePolling from '../../hooks/usePolling'
 
 interface Job {
     id: string
@@ -181,43 +181,6 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
 
         return results
     }
-
-    /*
-    const puller = async (
-        onPageLoad: boolean,
-        local_jobs: JobDescription[]
-    ) => {
-        const fetched_jobs = await fetchJobs()
-
-        //if on load, fetch predictions and set jobs
-        if (onPageLoad) {
-            await setFetchEveluationPredictionDataset()
-            setJobs(fetched_jobs)
-            setOnPageLoading(false)
-        }
-
-        //if content is the same as stored, not set the results, just proceed to next fetch jobs
-        //if (JSON.stringify(fetched_jobs) === JSON.stringify(local_jobs)) {
-        //    return puller(false, fetched_jobs)
-        //}
-
-        //only keep polling if any jobs noncompleted
-        //const noncomplete_jobs = fetched_jobs.filter((j) => (j.status == 'PENDING') || (j.status == 'STARTED'))
-        //if (noncomplete_jobs.length == 0) {
-        //    return
-        //}
-
-        //await X second, and fetch jobs again, since a prediction/job exisits for a short time in both jobs and get predictions
-        await new Promise((resolve) => setTimeout(resolve, 4_000))
-        //fetched_jobs = await fetchJobs()
-        await setFetchEveluationPredictionDataset()
-
-        setJobs(fetched_jobs)
-
-        //start new pull, not on page load
-        puller(false, fetched_jobs)
-    }
-    */
 
     const puller = async () => {
         await setFetchEveluationPredictionDataset()
