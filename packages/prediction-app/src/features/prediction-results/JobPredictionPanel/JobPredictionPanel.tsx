@@ -19,7 +19,7 @@ import {
 } from '@dhis2/ui'
 import ImportPrediction from '../ImportPrediction/ImportPrediction'
 import { JobPrediction } from '../interfaces/JobPrediction'
-import { PredictionInfo } from '@dhis2-chap/chap-lib'
+import { JobsService, PredictionInfo } from '@dhis2-chap/chap-lib'
 import { CrudService } from '@dhis2-chap/chap-lib'
 import { DataSetRead } from '@dhis2-chap/chap-lib'
 import JobPredictionPanelItem from './JobPredictionPanelItem/JobPredictionPanelItem'
@@ -62,12 +62,23 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
         setJobLogsId(jobId)
     }
 
-    const onClickRemove = (obj: any) => {
-        let msg = 'Are you sure you want to permanently remove this item?'
+    const onClickRemove = (item: JobPrediction) => {
+        let msg = 'Are you sure you want to permanently remove this item? Any data entries that depend on this item will also be deleted.'
         if (confirm(msg) == true) {
-            CrudService.deleteFailedJobCrudFailedJobsFailedJobIdDelete(
-                999
-            )
+            console.log('Should remove item')
+            let dbId = item.result
+            if (dbId) {
+                if (item.type == 'dataset') {
+                    CrudService.deleteDatasetCrudDatasetsDatasetIdDelete(parseInt(dbId))
+                } else if (item.type == 'evaluation') {
+                    CrudService.deleteBacktestCrudBacktestsBacktestIdDelete(parseInt(dbId))
+                } else if (item.type == 'prediction') {
+                    CrudService.deletePredictionCrudPredictionsPredictionIdDelete(parseInt(dbId))
+                }
+            } else {
+                let jobId = item.id
+                JobsService.deleteJobJobsJobIdDelete(jobId)
+            }
         }
     }
 

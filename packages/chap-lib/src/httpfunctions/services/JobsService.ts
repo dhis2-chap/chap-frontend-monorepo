@@ -43,6 +43,26 @@ export class JobsService {
         });
     }
     /**
+     * Delete Job
+     * @param jobId
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static deleteJobJobsJobIdDelete(
+        jobId: string,
+    ): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/jobs/{job_id}',
+            path: {
+                'job_id': jobId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Get Logs
      * @param jobId
      * @returns string Successful Response
