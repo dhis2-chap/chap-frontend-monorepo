@@ -18,7 +18,7 @@ import { JobPrediction } from './interfaces/JobPrediction'
 import FetchError from './FetchError/FetchError'
 import LoadingJobPrediction from './LoadingJobPrediction/LoadingJobPrediction'
 import { NoJobPrediction } from './NoJobPrediction/NoJobPrediction'
-import usePolling from '../../hooks/UsePolling'
+import usePolling from '../../hooks/usePolling'
 
 interface Job {
     id: string
