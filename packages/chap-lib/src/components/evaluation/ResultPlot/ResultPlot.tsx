@@ -51,7 +51,7 @@ const getSeries = (data: any) => {
             },
         },
         {
-            name: 'Quantiles',
+            name: 'Quantiles Outer',
             data: data.ranges,
             type: 'arearange',
             lineWidth: 0,
@@ -63,7 +63,7 @@ const getSeries = (data: any) => {
             },
         },
         {
-            name: 'QuantilesMid',
+            name: 'Quantiles Middle',
             data: data.midranges,
             type: 'arearange',
             lineWidth: 1,
@@ -93,7 +93,9 @@ const getOptions = (data: any, modelName: string, syncZoom: boolean) => {
             categories: data.periods, // Use periods as categories
             labels: {
                 enabled: true,
-                formatter: function (this: Highcharts.AxisLabelsFormatterContextObject): string {
+                formatter: function (
+                    this: Highcharts.AxisLabelsFormatterContextObject
+                ): string {
                     return getPeriodNameFromId(this.value)
                 },
                 style: {
