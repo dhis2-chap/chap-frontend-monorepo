@@ -229,18 +229,31 @@ export const SendChapData = ({
                 }
             })
 
-        climateHasMissingData(
-            observations,
-            emptyFeatures,
-            'rainfall',
-            'Rainfall'
-        )
-        climateHasMissingData(
-            observations,
-            emptyFeatures,
-            'mean_temperature',
-            'Mean Temperature'
-        )
+        if (
+            dataLayers.find(
+                (o) => o.feature === 'rainfall' && o.origin == 'dataItem'
+            )
+        ) {
+            climateHasMissingData(
+                observations,
+                emptyFeatures,
+                'rainfall',
+                'Rainfall'
+            )
+        }
+        if (
+            dataLayers.find(
+                (o) =>
+                    o.feature === 'mean_temperature' && o.origin == 'dataItem'
+            )
+        ) {
+            climateHasMissingData(
+                observations,
+                emptyFeatures,
+                'mean_temperature',
+                'Mean Temperature'
+            )
+        }
 
         if (emptyFeatures.length > 0) {
             setErrorMessages([...errorMessages, ...emptyFeatures])
