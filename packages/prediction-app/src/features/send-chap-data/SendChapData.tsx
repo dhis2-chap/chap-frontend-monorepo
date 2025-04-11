@@ -60,7 +60,9 @@ export const SendChapData = ({
         ObservationBase[] | undefined
     >(undefined)
     const [geoJSON, setGeoJSON] = useState<FeatureCollectionModel | undefined>()
-
+    const [analyticsMetaData, setAnalyticsMetaData] = useState<{
+        [key: string]: { name: string }
+    }>({})
     const analyticsDataLayers: DatasetLayer[] = dataLayers.filter(
         (dataLayer) => dataLayer.origin === 'dataItem'
     )
@@ -103,6 +105,7 @@ export const SendChapData = ({
     //Triggered when anayltics content is fetched
     useEffect(() => {
         if (observations && geoJSON) {
+            setErrorChapMsg('')
             setStartDownload((prev) => ({ ...prev, startDownload: false }))
 
             //if action is "download", do not do any validation
@@ -119,25 +122,131 @@ export const SendChapData = ({
         }
     }, [observations, geoJSON])
 
+    const climateHasMissingData = (
+        allData: ObservationBase[],
+        emptyFeatures: ErrorResponse[],
+        covariate: string,
+        covariateDisplayName: string
+    ) => {
+        const missingData: {
+            orgUnitName: string
+            period: string
+            covariate: string
+        }[] = []
+
+        //get uniqe orgunit out of allData
+        const uniqueOrgUnits = [...new Set(allData.map((d) => d.orgUnit))]
+
+        selectedPeriodItems.forEach((per) => {
+            uniqueOrgUnits.forEach((orgUnit) => {
+                let isMissing = true
+                allData
+                    .filter((d) => d.featureName === covariate)
+                    .forEach((f) => {
+                        if (per.id == f.period) {
+                            isMissing = false
+                            return
+                        }
+                    })
+                if (isMissing) {
+                    missingData.push({
+                        covariate: covariateDisplayName,
+                        orgUnitName: analyticsMetaData[orgUnit]?.name || '',
+                        period: per.id,
+                    })
+                }
+            })
+        })
+
+        if (missingData.length > 0) {
+            emptyFeatures.push({
+                title:
+                    covariateDisplayName +
+                    ' is missing for det following orgUnit and timeperiods: ',
+                description: (
+                    <div>
+                        <div className={styles.scrollMissingData}>
+                            <p>
+                                Total missing: {missingData.length} | Use the{' '}
+                                <a
+                                    target="_blank"
+                                    href={
+                                        config?.systemInfo?.contextPath +
+                                        '/api/apps/climate-data/index.html#/import'
+                                    }
+                                >
+                                    Climate App
+                                </a>{' '}
+                                to import climate data
+                            </p>
+                            <table className={styles.notFoundDataTable}>
+                                <thead>
+                                    <tr>
+                                        <th>OrgUnit</th>
+                                        <th>Timeperiod</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {missingData.map((d) => {
+                                        return (
+                                            <tr>
+                                                <td>{d.orgUnitName}</td>
+                                                <td>{d.period}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                ),
+            })
+        }
+    }
+
     //Check if the analytics content is empty, before sending it to CHAP
-    const isAnalyticsContentIsEmpty = (analyticsResult: ObservationBase[]) => {
+    const isAnalyticsContentIsEmpty = (observations: ObservationBase[]) => {
+        let emptyFeatures: ErrorResponse[] = []
+
+        dataLayers
+            .filter((o) => o.origin == 'dataItem')
+            .forEach((f: DatasetLayer) => {
+                //find the name of the feature
+                if (
+                    observations.filter(
+                        (v: ObservationBase) => v.featureName === f.feature
+                    )?.length === 0
+                ) {
+                    const msg =
+                        'Thes selected data item for covarate "' +
+                        f.feature +
+                        '" returned no data.'
+                    emptyFeatures.push({
+                        description:
+                            'Ensure you have exported the analytics tables in DHIS2.',
+                        title: msg,
+                    })
+                }
+            })
+
+        climateHasMissingData(
+            observations,
+            emptyFeatures,
+            'rainfall',
+            'Rainfall'
+        )
+        climateHasMissingData(
+            observations,
+            emptyFeatures,
+            'mean_temperature',
+            'Mean Temperature'
+        )
+
+        if (emptyFeatures.length > 0) {
+            setErrorMessages([...errorMessages, ...emptyFeatures])
+            return true
+        }
         return false
-
-        /*let emptyFeatures : ErrorResponse[] = []
-
-      analyticsResult.forEach((f : DatasetCreate) => {
-        //find the name of the feature
-        if(f.observations.length == 0) {
-          console.log(analyticsDataLayers)
-          const layer = analyticsDataLayers.find((v : DatasetLayer) => v.dataSource === f.dhis2Id)
-          const msg = 'Selected data source with feature name "' + layer?.feature + '" returned no data.'
-          emptyFeatures.push({description: "Ensure you have exported the analytics tables in DHIS2.", title: msg})
-      }})
-      if(emptyFeatures.length > 0) {
-        setErrorMessages([...errorMessages, ...emptyFeatures])
-        return true
-      }
-      return false*/
     }
 
     const config = useConfig()
@@ -206,9 +315,10 @@ export const SendChapData = ({
     const predict = async () => {
         let request: MakePredictionRequest = getPredictionRequest()
 
-        await AnalyticsService.makePredictionAnalyticsMakePredictionPost(request)
+        await AnalyticsService.makePredictionAnalyticsMakePredictionPost(
+            request
+        )
             .then((response: JobResponse) => {
-                setErrorChapMsg('')
                 onDrawerSubmit()
             })
             .catch((error: any) => {
@@ -258,6 +368,7 @@ export const SendChapData = ({
             {<p className={styles.errorChap}>{errorChapMsg}</p>}
             {startDownload.startDownload && formValid() && (
                 <DownloadAnalyticsData
+                    setAnalyticsMetaData={setAnalyticsMetaData}
                     setFeatureDataItemMapper={setFeatureDataItemMapper}
                     model_id={selectedModel?.name}
                     setObservations={setObservations}
