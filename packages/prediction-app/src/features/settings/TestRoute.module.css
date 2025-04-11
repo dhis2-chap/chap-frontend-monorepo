@@ -18,6 +18,7 @@
 }
 
 .settingsTable {
+    margin-top: 2rem;
     border-collapse: collapse;
     border: none;
     margin-bottom: 2rem;
