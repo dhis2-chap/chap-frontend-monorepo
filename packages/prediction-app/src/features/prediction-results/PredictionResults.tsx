@@ -68,7 +68,6 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
     }
 
     const setFetchEveluationPredictionDataset = () => {
-        console.log('should fetch', type)
         switch (type) {
             case 'predictions':
                 return fetchPredictions(
@@ -159,7 +158,9 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
         }
 
         // jobs results are only meant to add more info on jobs that didnt succeed
-        jobs.filter((o) => (o.status != 'SUCCESS') && (o.type == job_type_dict[type])).forEach((job) => {
+        jobs.filter(
+            (o) => o.status != 'SUCCESS' && o.type == job_type_dict[type]
+        ).forEach((job) => {
             results.push({
                 id: job.id,
                 name: job.name,
@@ -182,7 +183,6 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
     }
 
     const puller = async () => {
-        console.log('pulling...')
         await setFetchEveluationPredictionDataset()
         const fetched_jobs = await fetchJobs()
         setJobs(fetched_jobs)
@@ -200,7 +200,6 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
     // listen for changes to jobs, datasets, evaluations, predictions, and update results in ui
     useEffect(() => {
         setResult(getResults())
-        console.log('results for', type, result)
     }, [jobs, predictions, evaluations, datasets])
 
     return (

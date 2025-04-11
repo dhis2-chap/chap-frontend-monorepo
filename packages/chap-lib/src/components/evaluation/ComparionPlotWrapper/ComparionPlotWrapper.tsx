@@ -92,8 +92,6 @@ export const ComparionPlotWrapper = ({
         setSelectedOrgUnits(selectedOrgUnit)
     }
 
-    console.log(evaluations)
-
     return (
         <>
             <div className={styles.wrapper}>
@@ -112,19 +110,21 @@ export const ComparionPlotWrapper = ({
                         <div className={styles.filterTitle}>
                             Organization units:
                         </div>
-                        {allOrgUnits.map((orgUnit, i) => (
-                            <Checkbox
-                                checked={
-                                    selectedOrgUnits.filter(
-                                        (o) => o == orgUnit.id
-                                    ).length > 0
-                                }
-                                onChange={onChangeOrgUnitSelected}
-                                label={orgUnit.name}
-                                key={orgUnit.id}
-                                value={orgUnit.id}
-                            />
-                        ))}
+                        <div className={styles.filterCheckbox}>
+                            {allOrgUnits.map((orgUnit, i) => (
+                                <Checkbox
+                                    checked={
+                                        selectedOrgUnits.filter(
+                                            (o) => o == orgUnit.id
+                                        ).length > 0
+                                    }
+                                    onChange={onChangeOrgUnitSelected}
+                                    label={orgUnit.name}
+                                    key={orgUnit.id}
+                                    value={orgUnit.id}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
                 <div className={styles.plots}>

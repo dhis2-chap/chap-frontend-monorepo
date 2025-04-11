@@ -10,7 +10,6 @@ interface SideBySidePlotsProps {
 export const ComparisonPlot: React.FC<SideBySidePlotsProps> = ({
     orgUnitsData,
 }) => {
-    console.log('comparison plot data', orgUnitsData)
     return (
         <div className={styles.comparionBox}>
             <div className={styles.title}>{orgUnitsData.orgUnitName}</div>

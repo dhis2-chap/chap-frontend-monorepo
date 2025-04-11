@@ -14,7 +14,7 @@ import styles from './styles/EvaluationResult.module.css'
 import useOrgUnitRoots from '../../hooks/useOrgUnitRoots'
 import useOrgUnits from '../../hooks/useOrgUnits'
 
-const EvaluationResult = ({ evaluationId } : any) => {
+const EvaluationResult = ({ evaluationId }: any) => {
     //const [evaluation, setEvaluation] = useState<Record<string, Record<string, HighChartsData>> | undefined>(undefined)
     const [httpError, setHttpError] = useState<string>('')
     const [splitPeriods, setSplitPeriods] = useState<string[]>([])
@@ -58,26 +58,28 @@ const EvaluationResult = ({ evaluationId } : any) => {
         setIsLoading(true)
         //setHttpError(undefined)
 
-        const quantiles = [0.1, 0.25, 0.50, 0.75, 0.9]
-    
+        const quantiles = [0.1, 0.25, 0.5, 0.75, 0.9]
+
         try {
             const [evaluationEntries, actualCases] = await Promise.all([
-                AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(evaluationId, quantiles),
-                AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(evaluationId),
+                AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
+                    evaluationId,
+                    quantiles
+                ),
+                AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(
+                    evaluationId
+                ),
             ])
-    
+
             // Merge and send to state
-            const mergedResponse : EvaluationResponse = {
+            const mergedResponse: EvaluationResponse = {
                 predictions: evaluationEntries,
                 actualCases: actualCases,
             }
-            console.log('merged response', mergedResponse)
-    
-            setUnProceededData(mergedResponse)
 
+            setUnProceededData(mergedResponse)
         } catch (err: any) {
             setHttpError(err.toString())
-
         } finally {
             setIsLoading(false)
         }
@@ -93,12 +95,10 @@ const EvaluationResult = ({ evaluationId } : any) => {
             {isLoading && <p>Loading..</p>}
 
             {proceededData && (
-                <>
-                    <ComparionPlotWrapper
-                        evaluations={proceededData}
-                        splitPeriods={splitPeriods}
-                    />
-                </>
+                <ComparionPlotWrapper
+                    evaluations={proceededData}
+                    splitPeriods={splitPeriods}
+                />
             )}
         </div>
     )

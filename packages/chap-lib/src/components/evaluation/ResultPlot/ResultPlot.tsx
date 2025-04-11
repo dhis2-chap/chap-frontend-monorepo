@@ -10,7 +10,6 @@ import { getPeriodNameFromId } from '../../../utils/Time'
 //HighchartsMore(Highcharts); // Enables the 'arearange' series type
 function syncChartZoom(event: any): void {
     Highcharts.charts.forEach((chart: any) => {
-        console.log(chart)
         if (chart) {
             chart.xAxis[0].setExtremes(event.min, event.max)
         }
@@ -135,7 +134,6 @@ export const ResultPlot = ({ data, modelName, syncZoom }: ResultPlotProps) => {
     const [isRerendering, setIsRerendering] = useState(false)
 
     useEffect(() => {
-        console.log(data)
         setIsRerendering(true)
     }, [data])
 
