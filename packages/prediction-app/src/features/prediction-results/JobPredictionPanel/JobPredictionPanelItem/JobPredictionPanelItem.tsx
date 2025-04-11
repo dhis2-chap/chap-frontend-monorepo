@@ -17,11 +17,16 @@ import {
     IconLaunch24,
     IconRuler24,
     IconMore16,
+    IconChevronDown16,
+    IconChevronUp16,
+    IconSettings16,
+    IconSettings24,
     Menu,
     MenuItem,
-    Popper,
+    Popper
 } from '@dhis2/ui'
 import { JobPrediction } from '../../interfaces/JobPrediction'
+import { useClickOutside } from '../../../../hooks/useClickOutside'
 
 interface JobPredictionPanelItem {
     i: number
@@ -44,7 +49,16 @@ const JobPredictionPanelItem = ({
   }: JobPredictionPanelItem) => {
 
     const [showMenu, setShowMenu] = useState(false)
-    const buttonRef = useRef(null)
+    const buttonRef = useRef<HTMLDivElement>(null)
+    const menuRef = useRef<HTMLDivElement>(null)
+    
+    // Close menu when clicking outside menu or button
+    useClickOutside(menuRef, (event) => {
+        // Only close if clicked outside the menu and not on the trigger
+        if (!buttonRef.current?.contains(event.target as Node)) {
+            setShowMenu(false)
+        }
+    })
 
     const getStatusColor = (status: string | undefined) => {
         switch (status) {
@@ -170,7 +184,6 @@ const JobPredictionPanelItem = ({
                             </Button>
                     )}
 
-                    {/*
                     <div ref={buttonRef}>
                         <Button
                             small
@@ -180,23 +193,24 @@ const JobPredictionPanelItem = ({
                     </div>
 
                     {showMenu && (
-                        <Popper reference={buttonRef} placement="bottom-end">
-                            <Menu>
-                                {['SUCCESS', 'FAILURE'].includes(jobPrediction.status) && (
-                                    <MenuItem
-                                        label="Delete"
-                                        icon={<IconDelete24 />}
-                                        destructive
-                                        onClick={() => {
-                                            setShowMenu(false)
-                                            onClickRemove(jobPrediction)
-                                        }}
-                                    />
-                                )}
-                            </Menu>
+                        <Popper reference={buttonRef} placement="top-end">
+                            <div ref={menuRef} className={styles.popupMenuDiv}>
+                                <Menu>
+                                    {['SUCCESS', 'FAILURE'].includes(jobPrediction.status) && (
+                                        <MenuItem
+                                            label="Delete"
+                                            icon={<IconDelete24 />}
+                                            destructive
+                                            onClick={() => {
+                                                setShowMenu(false)
+                                                onClickRemove(jobPrediction)
+                                            }}
+                                        />
+                                    )}
+                                </Menu>
+                            </div>
                         </Popper>
                     )}
-                    */}
 
                 </div>
             </div>
