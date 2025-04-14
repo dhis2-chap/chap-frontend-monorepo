@@ -1,35 +1,10 @@
-.modelSelectContainer {
+.modelDetailsContainer {
     padding: 0px;
 }
 
 .loadingText {
     font-size: 1rem;
     color: gray;
-}
-
-.modelGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-    padding-top: 10px;
-}
-
-.modelCard {
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    background-color: #fff;
-}
-
-.modelCard:hover {
-    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.selectedModelCard {
-    background-color: #f0f8ff;
 }
 
 .selectedModelDetails {

@@ -67,6 +67,7 @@ const NewEvaluationForm = ({
                 <h2>Dataset Details</h2>
                 <DatasetDetails datasetId={datasetIdToEvaluate} />
 
+                <h2>Prediction Model</h2>
                 <SelectModel
                     selectedModel={selectedModel}
                     setSelectedModel={setSelectedModel}

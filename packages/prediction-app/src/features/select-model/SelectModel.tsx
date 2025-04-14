@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CrudService, DefaultService, Feature, FeatureTypeRead, ModelSpecRead } from '@dhis2-chap/chap-lib';
 import { Button, SingleSelectField, SingleSelectOption } from '@dhis2/ui';
+import ModelDetails from '../model-details/ModelDetails'
 import styles from './SelectModel.module.css'
 import i18n from "@dhis2/d2-i18n";
 
@@ -66,72 +67,13 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                 {/* Show selected model when grid is collapsed */}
                 {!showGrid && selectedModel && (
                     <div>
-                        <h2 className={styles.modelSelectTitle}>Selected Model</h2>
-                        <div
-                            key={selectedModel.name}
-                            className={styles.selectedModelDetails}
-                        >
-
-                            {/* Model Info */}
-                            <h3 className={styles.modelHumanName}>{selectedModel.displayName}</h3>
-                            <div className={styles.modelAuthor}>
-                                <img src={selectedModel.organizationLogoUrl || "/public/default-model-logo.png"} alt={selectedModel.name + " logo"} className={styles.modelAuthorLogo} />
-                                <span className={styles.modelAuthorName}>
-                                    {selectedModel.author} - {selectedModel.organization}
-                                </span>
-                            </div>
-                            <p className={styles.modelDescription}>
-                                <div>Description:</div>
-                                <div className={styles.modelDescriptionText}>{selectedModel.description || "Coming soon..."}</div>
-                            </p>
-
-                            {/* Covariates */}
-                            <div className={styles.modelCovariates}>
-                              <span>Model inputs:</span>
-                              <ul className={styles.modelCovariatesList}>
-                                  {selectedModel.covariates.map((covariate, index) => (
-                                      <li key={index} className={styles.modelCovariateItem}>✔ {covariate.name}</li>
-                                  ))}
-                              </ul>
-                            </div>
-
-                            {/* How to cite */}
-                            <div className={styles.modelCitation}>
-                                <span>
-                                  Attribution:
-                                </span>
-                                <pre className={styles.modelCitationText}>
-                                  {selectedModel.citationInfo || "Coming soon..."}
-                                </pre>
-                            </div>
-
-                            {/* Source url */}
-                            <p className={styles.modelLink}>
-                                External link: <a href={selectedModel.sourceUrl || ""} target="_blank">{selectedModel.sourceUrl || "http://example.com"}</a>
-                            </p>
-
-                            {/* Contact */}
-                            <p className={styles.modelEmail}>Contact email: {selectedModel.contactEmail || "Coming soon..."}</p>
-
-                            {/* Show change button only if not showing grid */}
-                            {!showGrid && (
-                                <div>
-                                <Button
-                                    onClick={() => setShowGrid(true)}
-                                    primary
-                                >
-                                    Change Model
-                                </Button>
-                                </div>
-                            )}
-                        </div>
+                        <ModelDetails selectedModel={selectedModel} onChangeModel={() => setShowGrid(true)} />
                     </div>
                 )}
 
                 {/* Show model grid when selecting */}
                 {showGrid && (
                     <div>
-                        <h2 className={styles.modelSelectTitle}>Select a Prediction Model</h2>
                         <div className={styles.modelGrid}>
                             {models
                             //.filter((model) => model.name !== selectedModel?.name) // Exclude selected model
