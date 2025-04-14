@@ -1,12 +1,12 @@
 import React from 'react'
-import styles from './LoadingJobPrediction.module.css'
+import styles from './LoadingJobResult.module.css'
 import { CircularLoader } from '@dhis2/ui'
 
-interface LoadingJobPredictionProps {
+interface LoadingJobResultProps {
     type: 'predictions' | 'datasets' | 'evaluations'
 }
 
-const LoadingJobPrediction = ({ type }: LoadingJobPredictionProps) => {
+const LoadingJobResult = ({ type }: LoadingJobResultProps) => {
     return (
         <>
             <div className={styles.loaderWrapper}>
@@ -21,4 +21,4 @@ const LoadingJobPrediction = ({ type }: LoadingJobPredictionProps) => {
     )
 }
 
-export default LoadingJobPrediction
+export default LoadingJobResult

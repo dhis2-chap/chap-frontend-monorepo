@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import styles from './JobPredictionPanelItem.module.css'
+import styles from './JobResultPanelItem.module.css'
 import {
     boolean,
     Button,
@@ -25,12 +25,12 @@ import {
     MenuItem,
     Popper
 } from '@dhis2/ui'
-import { JobPrediction } from '../../interfaces/JobPrediction'
+import { JobResult } from '../../interfaces/JobResult'
 import { useClickOutside } from '../../../../hooks/useClickOutside'
 
-interface JobPredictionPanelItem {
+interface JobResultPanelItem {
     i: number
-    jobPrediction: JobPrediction
+    jobResult: JobResult
     onClickImport: any
     onClickEvaluateDataset: any
     onClickViewEvaluation: any
@@ -38,15 +38,15 @@ interface JobPredictionPanelItem {
     onClickRemove: any
 }
 
-const JobPredictionPanelItem = ({ 
+const JobResultPanelItem = ({ 
     i,
-    jobPrediction,
+    jobResult: jobResult,
     onClickEvaluateDataset,
     onClickViewEvaluation,
     onClickImport,
     onClickViewLogs,
     onClickRemove,
-  }: JobPredictionPanelItem) => {
+  }: JobResultPanelItem) => {
 
     const [showMenu, setShowMenu] = useState(false)
     const buttonRef = useRef<HTMLDivElement>(null)
@@ -97,22 +97,22 @@ const JobPredictionPanelItem = ({
 
     return (
         <div key={i} className={styles.boxPanel}>
-            <div className={styles.jobPredictionPanelContainer}>
+            <div className={styles.jobResultPanelContainer}>
                 <div className={styles.flexMedium}>
-                    {jobPrediction.name}
+                    {jobResult.name}
                 </div>
                 <div className={styles.flexMedium}>
-                    {jobPrediction.created.toDateString() +
+                    {jobResult.created.toDateString() +
                         ', ' +
-                        jobPrediction.created
+                        jobResult.created
                             .toLocaleTimeString()
                             .slice(0, 5)}
                 </div>
                 <div className={styles.flexMedium}>
                     <span
-                        className={getStatusColor(jobPrediction.status)}
+                        className={getStatusColor(jobResult.status)}
                     >
-                        {getStatusText(jobPrediction.status)}
+                        {getStatusText(jobResult.status)}
                     </span>
                 </div>
                 <div className={styles.flexItemRight}>
@@ -120,13 +120,13 @@ const JobPredictionPanelItem = ({
                         {
                             prediction: (
                                 <>
-                                    {jobPrediction.status == 
+                                    {jobResult.status == 
                                     'SUCCESS' && (
                                         <Button
                                             icon={<IconLaunch24 />}
                                             onClick={() =>
                                                 onClickImport(
-                                                    jobPrediction.result
+                                                    jobResult.result
                                                 )
                                             }
                                             small
@@ -138,12 +138,12 @@ const JobPredictionPanelItem = ({
                             ),
                             dataset: (
                                 <>
-                                    {jobPrediction.status == 
+                                    {jobResult.status == 
                                     'SUCCESS' && (
                                         <Button
                                             icon={<IconRuler24 />}
                                             onClick={() => 
-                                                onClickEvaluateDataset(jobPrediction.result)
+                                                onClickEvaluateDataset(jobResult.result)
                                             }
                                             small
                                         >
@@ -154,12 +154,12 @@ const JobPredictionPanelItem = ({
                             ),
                             evaluation: (
                                 <>
-                                    {jobPrediction.status == 
+                                    {jobResult.status == 
                                     'SUCCESS' && (
                                         <Button
                                             icon={<IconVisualizationAreaStacked24 />}
                                             onClick={() => 
-                                                onClickViewEvaluation(jobPrediction.result)
+                                                onClickViewEvaluation(jobResult.result)
                                             }
                                             small
                                         >
@@ -168,15 +168,15 @@ const JobPredictionPanelItem = ({
                                     )}
                                 </>
                             ),
-                        }[jobPrediction.type]
+                        }[jobResult.type]
                     }
 
-                    {jobPrediction.status != 'SUCCESS' 
+                    {jobResult.status != 'SUCCESS' 
                         && (
                             <Button
                                 icon={<IconArchive24 />}
                                 onClick={() => 
-                                    onClickViewLogs(jobPrediction.id)
+                                    onClickViewLogs(jobResult.id)
                                 }
                                 small
                             >
@@ -196,14 +196,14 @@ const JobPredictionPanelItem = ({
                         <Popper reference={buttonRef} placement="top-end">
                             <div ref={menuRef} className={styles.popupMenuDiv}>
                                 <Menu>
-                                    {['SUCCESS', 'FAILURE'].includes(jobPrediction.status) && (
+                                    {['SUCCESS', 'FAILURE'].includes(jobResult.status) && (
                                         <MenuItem
                                             label="Delete"
                                             icon={<IconDelete24 />}
                                             destructive
                                             onClick={() => {
                                                 setShowMenu(false)
-                                                onClickRemove(jobPrediction)
+                                                onClickRemove(jobResult)
                                             }}
                                         />
                                     )}
@@ -218,4 +218,4 @@ const JobPredictionPanelItem = ({
     )
 }
 
-export default JobPredictionPanelItem
+export default JobResultPanelItem

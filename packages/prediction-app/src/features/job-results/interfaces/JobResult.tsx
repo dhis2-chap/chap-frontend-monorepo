@@ -1,4 +1,4 @@
-export interface JobPrediction {
+export interface JobResult {
     id: string
     status: string
     type: 'prediction' | 'dataset' | 'evaluation'

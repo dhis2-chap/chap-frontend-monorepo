@@ -4,7 +4,7 @@ import NewDatasetDrawer from '../new-dataset/components/NewDatasetDrawer/NewData
 import PageHeader from '../common-features/PageHeader/PageHeader'
 import Datasets from '../datasets/Datasets'
 import PredictionResult from '../../components/results/PredictionResult'
-import PredictionResults from '../prediction-results/PredictionResults'
+import JobResults from '../job-results/JobResults'
 
 const EvaluationOverview = () => {
     const [newDatasetDrawerOpen, setNewDatasetDrawerOpen] =
@@ -21,7 +21,7 @@ const EvaluationOverview = () => {
                 setDrawerOpenText="New Dataset"
                 setDrawerOpen={setNewDatasetDrawerOpen}
             />
-            <PredictionResults type="datasets" />
+            <JobResults type="datasets" />
             <NewDatasetDrawer
                 isOpen={newDatasetDrawerOpen}
                 onDrawerClose={() => setNewDatasetDrawerOpen(false)}
@@ -29,7 +29,7 @@ const EvaluationOverview = () => {
             />
 
             <PageHeader pageTitle="Model Evaluations" />
-            <PredictionResults type="evaluations" />
+            <JobResults type="evaluations" />
         </div>
     )
 }

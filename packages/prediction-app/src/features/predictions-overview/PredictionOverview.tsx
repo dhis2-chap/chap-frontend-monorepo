@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NewPredictionDrawer from '../new-prediction/NewPredictionDrawer'
-import PredictionResults from '../prediction-results/PredictionResults'
+import JobResults from '../job-results/JobResults'
 import PageHeader from '../common-features/PageHeader/PageHeader'
 
 const PredictionOverview = () => {
@@ -33,7 +33,7 @@ const PredictionOverview = () => {
                 onDrawerSubmit={onDrawerSubmit}
             />
             {reRenderDatasetEvaluation && (
-                <PredictionResults type="predictions" />
+                <JobResults type="predictions" />
             )}
         </div>
     )

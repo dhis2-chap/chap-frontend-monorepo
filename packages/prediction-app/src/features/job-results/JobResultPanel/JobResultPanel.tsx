@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from './JobPredictionPanel.module.css'
+import styles from './JobResultPanel.module.css'
 import {
     boolean,
     Button,
@@ -18,20 +18,20 @@ import {
     IconRuler24
 } from '@dhis2/ui'
 import ImportPrediction from '../ImportPrediction/ImportPrediction'
-import { JobPrediction } from '../interfaces/JobPrediction'
+import { JobResult } from '../interfaces/JobResult'
 import { JobsService, PredictionInfo } from '@dhis2-chap/chap-lib'
 import { CrudService } from '@dhis2-chap/chap-lib'
 import { DataSetRead } from '@dhis2-chap/chap-lib'
-import JobPredictionPanelItem from './JobPredictionPanelItem/JobPredictionPanelItem'
+import JobResultPanelItem from './JobResultPanelItem/JobResultPanelItem'
 import JobLogs from './JobLogs/JobLogs'
 import NewEvaluationDrawer from '../../new-evaluation/components/NewEvaluationDrawer'
 import EvaluationResult from '../../import-prediction/EvaluationResult'
 
-interface JobPredictionPanel {
-    jobPredictions: JobPrediction[]
+interface JobResultPanel {
+    jobResults: JobResult[]
 }
 
-const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
+const JobResultPanel = ({ jobResults: jobResults }: JobResultPanel) => {
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false)
     const [predictionIdToImport, setPredictionToImport] = useState<
         string | undefined
@@ -62,7 +62,7 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
         setJobLogsId(jobId)
     }
 
-    const onClickRemove = (item: JobPrediction) => {
+    const onClickRemove = (item: JobResult) => {
         let msg = 'Are you sure you want to permanently remove this item? Any data entries that depend on this item will also be deleted.'
         if (confirm(msg) == true) {
             console.log('Should remove item')
@@ -88,15 +88,13 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
         setNewEvaluationDrawerOpen(true)
     }
 
-    //console.log('socalled jobPredictions', jobPredictions)
-
     return (
         <>
             {/* add job panel items */}
-            {jobPredictions.map((jobPrediction: JobPrediction, i) => (
-                <JobPredictionPanelItem 
+            {jobResults.map((jobResult: JobResult, i) => (
+                <JobResultPanelItem 
                     i={i}
-                    jobPrediction={jobPrediction}
+                    jobResult={jobResult}
                     onClickEvaluateDataset={onClickEvaluateDataset}
                     onClickViewEvaluation={onClickViewEvaluation}
                     onClickImport={onClickImport}
@@ -146,4 +144,4 @@ const JobPredictionPanel = ({ jobPredictions }: JobPredictionPanel) => {
     )
 }
 
-export default JobPredictionPanel
+export default JobResultPanel

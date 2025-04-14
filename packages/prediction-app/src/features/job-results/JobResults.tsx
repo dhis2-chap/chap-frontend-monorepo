@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import JobPredictionPanel from './JobPredictionPanel/JobPredictionPanel'
-import PanelHeader from './JobPredictionPanel/JobPredictionPanelHeader'
+import JobResultPanel from './JobResultPanel/JobResultPanel'
+import PanelHeader from './JobResultPanel/JobResultPanelHeader'
 import {
     AnalyticsService,
     ApiError,
@@ -9,15 +9,14 @@ import {
     CrudService,
     DataSetRead,
     DefaultService,
-    FailedJobRead,
     JobDescription,
     JobsService,
     PredictionInfo,
 } from '@dhis2-chap/chap-lib'
-import { JobPrediction } from './interfaces/JobPrediction'
+import { JobResult } from './interfaces/JobResult'
 import FetchError from './FetchError/FetchError'
-import LoadingJobPrediction from './LoadingJobPrediction/LoadingJobPrediction'
-import { NoJobPrediction } from './NoJobPrediction/NoJobPrediction'
+import LoadingJobResult from './LoadingJobResult/LoadingJobResult'
+import { NoJobResult } from './NoJobResult/NoJobResult'
 import usePolling from '../../hooks/usePolling'
 
 interface Job {
@@ -27,17 +26,17 @@ interface Job {
     created: Date
 }
 
-export interface PredictionResultsProps {
+export interface JobResultsProps {
     type: 'predictions' | 'datasets' | 'evaluations'
 }
 
-const PredictionResults = ({ type }: PredictionResultsProps) => {
+const JobResults = ({ type }: JobResultsProps) => {
     const [jobs, setJobs] = useState<JobDescription[]>([])
     const [predictions, setPredictions] = useState<PredictionInfo[]>([])
     const [datasets, setDatasets] = useState<DataSetRead[]>([])
     const [evaluations, setEvaluations] = useState<BackTestRead[]>([])
 
-    const [result, setResult] = useState<JobPrediction[]>([])
+    const [result, setResult] = useState<JobResult[]>([])
 
     const [fetchJobError, setFetchJobError] = useState<string | undefined>()
     const [fetchPredictionError, setFetchPredictionError] = useState<
@@ -104,8 +103,8 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
         return jobs
     }
 
-    const getResults = (): JobPrediction[] => {
-        const results: JobPrediction[] = []
+    const getResults = (): JobResult[] => {
+        const results: JobResult[] = []
 
         datasets.filter(
             (dataset) => dataset.type == 'evaluation'
@@ -208,14 +207,14 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
         <div>
             <FetchError error={fetchJobError} type="job" />
             <FetchError error={fetchPredictionError} type={type} />
-            {onPageLoading && <LoadingJobPrediction type={type} />}
+            {onPageLoading && <LoadingJobResult type={type} />}
             {result.length > 0 && <PanelHeader />}
             {result.length == 0 && !onPageLoading && (
-                <NoJobPrediction type={type} />
+                <NoJobResult type={type} />
             )}
-            <JobPredictionPanel jobPredictions={result} />
+            <JobResultPanel jobResults={result} />
         </div>
     )
 }
 
-export default PredictionResults
+export default JobResults
