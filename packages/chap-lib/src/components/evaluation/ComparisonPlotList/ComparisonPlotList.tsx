@@ -41,7 +41,7 @@ export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
     return (
         <div>
             <Virtuoso
-                style={{ height: '520px' }}
+                style={{ height: '60vh' }}
                 useWindowScroll={useVirtuosoWindowScroll}
                 totalCount={evaluationPerOrgUnits.length}
                 itemContent={getItemContent()}

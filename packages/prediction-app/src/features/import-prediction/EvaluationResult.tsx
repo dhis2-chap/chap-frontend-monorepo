@@ -21,6 +21,8 @@ const EvaluationResult = ({ evaluationId }: any) => {
     const [proceededData, setProceededData] =
         useState<EvaluationForSplitPoint[]>()
     const [unProceededData, setUnProceededData] = useState<EvaluationResponse>()
+    const [evaluationName, setEvaluationName] = useState<string>('')
+    const [modelName, setModelName] = useState<string>('')
     const [isLoading, setIsLoading] = useState(false)
 
     const { orgUnits, error, loading } = useOrgUnits()
@@ -54,6 +56,28 @@ const EvaluationResult = ({ evaluationId }: any) => {
         }
     }, [orgUnits, unProceededData])
 
+    const fetchEvaluationInfo = async (evaluationId : number) => {
+        const evaluations = await CrudService.getBacktestsCrudBacktestsGet()
+        let evaluationInfo = undefined
+        evaluations.forEach((e) => {
+            if (e.id == evaluationId) {
+                evaluationInfo = e
+            }
+        })
+        return evaluationInfo
+    }
+
+    const fetchModelByName = async (modelName : string) => {
+        const models = await CrudService.listModelsCrudModelsGet()
+        let model = undefined
+        models.forEach((m) => {
+            if (m.name == modelName) {
+                model = m
+            }
+        })
+        return model
+    }
+
     const fetchEvaluation = async () => {
         setIsLoading(true)
         //setHttpError(undefined)
@@ -61,7 +85,8 @@ const EvaluationResult = ({ evaluationId }: any) => {
         const quantiles = [0.1, 0.25, 0.5, 0.75, 0.9]
 
         try {
-            const [evaluationEntries, actualCases] = await Promise.all([
+            const [evaluationInfo, evaluationEntries, actualCases] = await Promise.all([
+                fetchEvaluationInfo(evaluationId),
                 AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
                     evaluationId,
                     quantiles
@@ -70,6 +95,13 @@ const EvaluationResult = ({ evaluationId }: any) => {
                     evaluationId
                 ),
             ])
+
+            // Set evaluation name
+            setEvaluationName(evaluationInfo.name)
+
+            // Set model name
+            const modelInfo = await fetchModelByName(evaluationInfo.modelId)
+            setModelName(modelInfo.displayName)
 
             // Merge and send to state
             const mergedResponse: EvaluationResponse = {
@@ -96,6 +128,8 @@ const EvaluationResult = ({ evaluationId }: any) => {
 
             {proceededData && (
                 <ComparionPlotWrapper
+                    evaluationName={evaluationName}
+                    modelName={modelName}
                     evaluations={proceededData}
                     splitPeriods={splitPeriods}
                 />
