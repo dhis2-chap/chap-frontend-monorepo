@@ -4,18 +4,23 @@ import { Button, IconAdd16 } from '@dhis2/ui'
 
 interface PageHeaderProps {
     pageTitle: string
+    pageDescription?: string
     setDrawerOpen?: (isOpen: boolean) => void
     setDrawerOpenText?: string
 }
 
 const PageHeader = ({
     pageTitle,
+    pageDescription,
     setDrawerOpen,
     setDrawerOpenText,
 }: PageHeaderProps) => {
     return (
-        <div className={styles.predictionHeader}>
-            <h2>{pageTitle}</h2>
+        <div className={styles.pageHeader}>
+            <div>
+                <h2>{pageTitle}</h2>
+                <p className={styles.pageDescription}>{pageDescription}</p>
+            </div>
             {setDrawerOpen && setDrawerOpenText && (
                 <Button
                     onClick={() => setDrawerOpen(true)}
