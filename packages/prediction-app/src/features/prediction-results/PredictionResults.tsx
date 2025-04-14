@@ -107,7 +107,9 @@ const PredictionResults = ({ type }: PredictionResultsProps) => {
     const getResults = (): JobPrediction[] => {
         const results: JobPrediction[] = []
 
-        datasets.forEach((dataset) => {
+        datasets.filter(
+            (dataset) => dataset.type == 'evaluation'
+        ).forEach((dataset) => {
             results.push({
                 id: 'Unknown',
                 name: dataset.name,

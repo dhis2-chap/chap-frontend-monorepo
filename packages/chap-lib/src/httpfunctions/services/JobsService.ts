@@ -45,12 +45,12 @@ export class JobsService {
     /**
      * Delete Job
      * @param jobId
-     * @returns string Successful Response
+     * @returns any Successful Response
      * @throws ApiError
      */
     public static deleteJobJobsJobIdDelete(
         jobId: string,
-    ): CancelablePromise<string> {
+    ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/jobs/{job_id}',
