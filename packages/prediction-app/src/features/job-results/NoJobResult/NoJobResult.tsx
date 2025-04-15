@@ -1,10 +1,10 @@
 import React from 'react'
-import styles from './NoJobPrediction.module.css'
+import styles from './NoJobResult.module.css'
 
-interface NoJobPredictionProps {
+interface NoJobResultProps {
     type: 'predictions' | 'datasets' | 'evaluations' | 'job'
 }
 
-export const NoJobPrediction = ({ type }: NoJobPredictionProps) => {
+export const NoJobResult = ({ type }: NoJobResultProps) => {
     return <div className={styles.text}>No {type} found</div>
 }

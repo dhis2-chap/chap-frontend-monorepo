@@ -1,13 +1,13 @@
 import React from 'react'
-import styles from './JobPredictionPanel.module.css'
-import { JobPrediction } from '../interfaces/JobPrediction'
+import styles from './JobResultPanel.module.css'
+import { JobResult } from '../interfaces/JobResult'
 
 const PanelHeader = () => {
     return (
         <div>
             <div
                 className={[
-                    styles.jobPredictionPanelContainer,
+                    styles.jobResultPanelContainer,
                     styles.resultTextHeader,
                 ].join(' ')}
             >

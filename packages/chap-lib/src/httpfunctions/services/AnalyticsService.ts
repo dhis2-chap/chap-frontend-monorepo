@@ -7,8 +7,8 @@ import type { DatasetMakeRequest } from '../models/DatasetMakeRequest';
 import type { DataSource } from '../models/DataSource';
 import type { EvaluationEntry } from '../models/EvaluationEntry';
 import type { JobResponse } from '../models/JobResponse';
+import type { MakeBacktestRequest } from '../models/MakeBacktestRequest';
 import type { MakePredictionRequest } from '../models/MakePredictionRequest';
-import type { MultiBacktestCreate } from '../models/MultiBacktestCreate';
 import type { PredictionEntry } from '../models/PredictionEntry';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -64,12 +64,12 @@ export class AnalyticsService {
      * @returns JobResponse Successful Response
      * @throws ApiError
      */
-    public static createBacktestAnalyticsCreateBacktestsPost(
-        requestBody: MultiBacktestCreate,
-    ): CancelablePromise<Array<JobResponse>> {
+    public static createBacktestAnalyticsCreateBacktestPost(
+        requestBody: MakeBacktestRequest,
+    ): CancelablePromise<JobResponse> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/analytics/create_backtests',
+            url: '/analytics/create-backtest',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -83,12 +83,12 @@ export class AnalyticsService {
      * @returns JobResponse Successful Response
      * @throws ApiError
      */
-    public static makePredictionAnalyticsPredictionPost(
+    public static makePredictionAnalyticsMakePredictionPost(
         requestBody: MakePredictionRequest,
     ): CancelablePromise<JobResponse> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/analytics/prediction',
+            url: '/analytics/make-prediction',
             body: requestBody,
             mediaType: 'application/json',
             errors: {

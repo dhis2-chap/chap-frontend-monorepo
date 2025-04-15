@@ -43,6 +43,46 @@ export class JobsService {
         });
     }
     /**
+     * Delete Job
+     * @param jobId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static deleteJobJobsJobIdDelete(
+        jobId: string,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/jobs/{job_id}',
+            path: {
+                'job_id': jobId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get Logs
+     * @param jobId
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static getLogsJobsJobIdLogsGet(
+        jobId: string,
+    ): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/jobs/{job_id}/logs',
+            path: {
+                'job_id': jobId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Get Prediction Result
      * @param jobId
      * @returns FullPredictionResponse Successful Response

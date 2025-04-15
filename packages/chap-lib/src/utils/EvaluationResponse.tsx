@@ -32,39 +32,67 @@ export function joinRealAndPredictedData(
     realData: DataElement[]
 ): HighChartsData {
     //number of periods in plot
-    const nPeriods = 52 * 3
-    const predictionEnd =
-        predictedData.periods[predictedData.periods.length - 1]
+    //some code below was commented out to always view full extent
+    //previously rolled the window based on the split period
+
+    //const nPeriods = 52 * 3
+    //const predictionEnd = predictedData.periods[predictedData.periods.length - 1]
     const realPeriodsFiltered = realData
         .map((item) => item.pe)
-        .filter((period) => period <= predictionEnd)
+        //.filter((period) => period <= predictionEnd)
         .sort(sortDhis2WeeklyAndMonthlyTime)
-        .slice(-nPeriods)
+        //.slice(-nPeriods)
     const realDataFiltered = realPeriodsFiltered.map(
         (period) => realData.find((item) => item.pe === period)?.value ?? null
     )
-    const padLength = realDataFiltered.length - predictedData.averages.length
-    const lastReal = realDataFiltered[padLength - 1]
-    const paddedAverage = Array(padLength - 1)
-        .fill(null)
-        .concat([[lastReal]])
-        .concat(predictedData.averages)
-    const paddedRanges = Array(padLength - 1)
-        .fill(null)
-        .concat([[lastReal, lastReal]])
-        .concat(predictedData.ranges)
-    const paddedMidRanges = Array(padLength - 1)
-        .fill(null)
-        .concat([[lastReal, lastReal]])
-        .concat(predictedData.midranges)
-    const allPeriods = realPeriodsFiltered.concat(predictedData.periods)
+
+    //turn prediction arrays into period dicts
+    const createLookup = (keys: string[], values: any[]) => {
+        const lookup = new Map<string, any>()
+        for (let i = 0; i < keys.length; i++) {
+            lookup.set(keys[i], values[i])
+        }
+        return lookup
+    }
+    const averageLookup = createLookup(predictedData.periods, predictedData.averages.slice())
+    const rangeLookup = createLookup(predictedData.periods, predictedData.ranges.slice())
+    const midRangeLookup = createLookup(predictedData.periods, predictedData.midranges?.slice())
+
+    //join prediction arrays into longer period arrays
+    /*
+    const mergePeriodValues = (
+        periods: string[],
+        periodValues: Map<string, any>,
+    ): any[] => {
+        const result = new Array(periods.length).fill(null)
+        console.log('periodvalues', periodValues)
+        for (let i = 0; i < periods.length; i++) {
+            const period = periods[i]
+            if (periodValues.has(period)) {
+                console.log('perval get', periodValues.get(period))
+                result[i] = periodValues.get(period)
+            }
+        }
+    
+        return result
+    }
+    */
+    const mergePeriodValues = (
+        periods: string[],
+        periodValues: Map<string, any>,
+    ): any[] => {
+        return periods.map((period) => periodValues.get(period) ?? null)
+    }
+    const joinedAverages = mergePeriodValues(realPeriodsFiltered, averageLookup)
+    const joinedRanges = mergePeriodValues(realPeriodsFiltered, rangeLookup)
+    const joinedMidRanges = mergePeriodValues(realPeriodsFiltered, midRangeLookup)
 
     return {
-        periods: allPeriods,
-        ranges: paddedRanges,
-        averages: paddedAverage,
+        periods: realPeriodsFiltered,
+        ranges: joinedRanges,
+        averages: joinedAverages,
         realValues: realDataFiltered as any,
-        midranges: paddedMidRanges,
+        midranges: joinedMidRanges,
     }
 }
 

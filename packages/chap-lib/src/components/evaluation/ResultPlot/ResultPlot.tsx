@@ -10,7 +10,6 @@ import { getPeriodNameFromId } from '../../../utils/Time'
 //HighchartsMore(Highcharts); // Enables the 'arearange' series type
 function syncChartZoom(event: any): void {
     Highcharts.charts.forEach((chart: any) => {
-        console.log(chart)
         if (chart) {
             chart.xAxis[0].setExtremes(event.min, event.max)
         }
@@ -42,7 +41,7 @@ const getSeries = (data: any) => {
             name: 'Predicted Cases',
             type: 'line',
             color: '#004bbd',
-            data: data.averages,
+            data: data.averages.slice(),
             zIndex: 3,
             opacity: 1,
             lineWidth: 2.5,
@@ -51,8 +50,8 @@ const getSeries = (data: any) => {
             },
         },
         {
-            name: 'Quantiles',
-            data: data.ranges,
+            name: 'Quantiles Outer',
+            data: data.ranges.slice(),
             type: 'arearange',
             lineWidth: 0,
             color: '#c4dcf2',
@@ -63,8 +62,8 @@ const getSeries = (data: any) => {
             },
         },
         {
-            name: 'QuantilesMid',
-            data: data.midranges,
+            name: 'Quantiles Middle',
+            data: data.midranges.slice(),
             type: 'arearange',
             lineWidth: 1,
             color: '#9bbdff',
@@ -93,7 +92,9 @@ const getOptions = (data: any, modelName: string, syncZoom: boolean) => {
             categories: data.periods, // Use periods as categories
             labels: {
                 enabled: true,
-                formatter: function (this: Highcharts.AxisLabelsFormatterContextObject): string {
+                formatter: function (
+                    this: Highcharts.AxisLabelsFormatterContextObject
+                ): string {
                     return getPeriodNameFromId(this.value)
                 },
                 style: {
@@ -133,7 +134,6 @@ export const ResultPlot = ({ data, modelName, syncZoom }: ResultPlotProps) => {
     const [isRerendering, setIsRerendering] = useState(false)
 
     useEffect(() => {
-        console.log(data)
         setIsRerendering(true)
     }, [data])
 

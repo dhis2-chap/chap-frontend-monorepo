@@ -1,4 +1,4 @@
-.jobPredictionPanelContainer {
+.jobResultPanelContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -19,12 +19,15 @@
 }
 
 .flexItemRight {
+    display: flex;
+    justify-content: end;
     text-align: right;
     flex: 1 1 0;
+    gap: 5px;
 }
 
 .inProgress {
-    color: green;
+    color: orange;
     font-weight: 500;
 }
 
@@ -53,4 +56,18 @@
 .evaluationModal {
     width: 95vw !important;
     height: 95vh !important;
+}
+
+.jobLogsModal {
+    width: 80vw !important;
+    max-height: 80vh !important;
+}
+
+.popupMenuDiv {
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    padding: 4px 0;
+    z-index: 9999;
 }

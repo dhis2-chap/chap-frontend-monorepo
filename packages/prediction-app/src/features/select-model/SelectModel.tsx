@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CrudService, DefaultService, Feature, FeatureTypeRead, ModelSpecRead } from '@dhis2-chap/chap-lib';
 import { Button, SingleSelectField, SingleSelectOption } from '@dhis2/ui';
+import ModelDetails from '../model-details/ModelDetails'
 import styles from './SelectModel.module.css'
 import i18n from "@dhis2/d2-i18n";
 
@@ -56,7 +57,6 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
     getModels()
   }, [])
   
-  
   return (
     <div className={styles.modelSelectContainer}>
 
@@ -64,75 +64,18 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
             <p>Loading models...</p>
         ) : (
             <>
+                <h3>Prediction Model</h3>
+
                 {/* Show selected model when grid is collapsed */}
                 {!showGrid && selectedModel && (
                     <div>
-                        <h2 className={styles.modelSelectTitle}>Selected Model</h2>
-                        <div
-                            key={selectedModel.name}
-                            className={styles.selectedModelDetails}
-                        >
-
-                            {/* Model Info */}
-                            <h3 className={styles.modelHumanName}>{selectedModel.description}</h3>
-                            <div className={styles.modelAuthor}>
-                                <span>
-                                    Author: 
-                                </span>
-                                <img src={selectedModel.authorLogoUrl || "/public/default-model-logo.png"} alt={selectedModel.name + " logo"} className={styles.modelAuthorLogo} />
-                                <span className={styles.modelAuthorName}>
-                                    {selectedModel.author} - {selectedModel.organization}
-                                </span>
-                            </div>
-                            <p className={styles.modelDescription}>Description: {selectedModel.description || "Coming soon..."}</p>
-
-                            {/* Covariates */}
-                            <div className={styles.modelCovariates}>
-                              <span>Model inputs:</span>
-                              <ul className={styles.modelCovariatesList}>
-                                  {selectedModel.covariates.map((covariate, index) => (
-                                      <li key={index} className={styles.modelCovariateItem}>✔ {covariate.name}</li>
-                                  ))}
-                              </ul>
-                            </div>
-
-                            {/* How to cite */}
-                            <div className={styles.modelCitation}>
-                                <span>
-                                  Attribution:
-                                </span>
-                                <pre className={styles.modelCitationText}>
-                                  Example last name, First name. 1994. 15 Minute Stream Flow Data: USGS (FIFE). Data set. Available on-line [http://www.daac.ornl.gov] from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, U.S.A.
-                                </pre>
-                            </div>
-
-                            {/* Source url */}
-                            <p className={styles.modelLink}>
-                                External link: <a href={selectedModel.sourceUrl || ""} target="_blank">{selectedModel.sourceUrl || "http://example.com"}</a>
-                            </p>
-
-                            {/* Contact */}
-                            <p className={styles.modelEmail}>Contact email: {selectedModel.contactEmail || "example@email.com"}</p>
-
-                            {/* Show change button only if not showing grid */}
-                            {!showGrid && (
-                                <div>
-                                <Button
-                                    onClick={() => setShowGrid(true)}
-                                    primary
-                                >
-                                    Change Model
-                                </Button>
-                                </div>
-                            )}
-                        </div>
+                        <ModelDetails selectedModel={selectedModel} onChangeModel={() => setShowGrid(true)} />
                     </div>
                 )}
 
                 {/* Show model grid when selecting */}
                 {showGrid && (
                     <div>
-                        <h2 className={styles.modelSelectTitle}>Select a Prediction Model</h2>
                         <div className={styles.modelGrid}>
                             {models
                             //.filter((model) => model.name !== selectedModel?.name) // Exclude selected model
@@ -142,12 +85,11 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
                                     className={`${styles.modelCard} ${selectedModel?.name === model.name ? styles.selectedModelCard : ""}`}
                                 >
                                     {/* Model Info */}
-                                    <h3 className={styles.modelHumanName}>{model.description}</h3>
+                                    <h3 className={styles.modelHumanName}>{model.displayName}</h3>
                                     <div className={styles.modelAuthor}>
-                                        <img src={model.authorLogoUrl || "/public/default-model-logo.png"} alt={model.name + " logo"} className={styles.modelAuthorLogo} />
+                                        <img src={model.organizationLogoUrl || "/public/default-model-logo.png"} alt={model.name + " logo"} className={styles.modelAuthorLogo} />
                                         <span className={styles.modelAuthorName}>{model.author} - {model.organization}</span>
                                     </div>
-                                    <p className={styles.modelUsage}>Description: {model.description || "Coming soon..."}</p>
 
                                     {/* Covariates */}
                                     <ul className={styles.modelCovariatesList}>

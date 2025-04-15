@@ -71,30 +71,33 @@ const DatasetDetails = ({ datasetId } : DatasetDetailsProps ) => {
     if (error) return <p>Error: {error}</p>
 
     return (
-        <Card>
-            <div className={styles.datasetDetailsWrapper}>
-                <div>
-                    <span className={styles.label}>Name: </span>
-                    <span>{datasetSummary.name}</span>
+        <>
+            <h3>Evaluation Dataset</h3>
+            <Card>
+                <div className={styles.datasetDetailsWrapper}>
+                    <div>
+                        <span className={styles.label}>Name: </span>
+                        <span>{datasetSummary.name}</span>
+                    </div>
+                    <div>
+                        <span className={styles.label}>Org Units: </span>
+                        <span>{datasetSummary.orgUnitCount}</span>
+                    </div>
+                    <div>
+                        <span className={styles.label}>Time period: </span>
+                        <span>{getPeriodNameFromId(datasetSummary.startPeriod)} to {getPeriodNameFromId(datasetSummary.endPeriod)}</span>
+                    </div>
+                    <div>
+                        <span className={styles.label}>Covariates: </span>
+                        <span>{datasetSummary?.covariates?.join(', ') || 'None'}</span>
+                    </div>
+                    <div>
+                        <span className={styles.label}>Created: </span>
+                        <span>{datasetSummary.created}</span>
+                    </div>
                 </div>
-                <div>
-                    <span className={styles.label}>Org Units: </span>
-                    <span>{datasetSummary.orgUnitCount}</span>
-                </div>
-                <div>
-                    <span className={styles.label}>Time period: </span>
-                    <span>{getPeriodNameFromId(datasetSummary.startPeriod)} to {getPeriodNameFromId(datasetSummary.endPeriod)}</span>
-                </div>
-                <div>
-                    <span className={styles.label}>Covariates: </span>
-                    <span>{datasetSummary?.covariates?.join(', ') || 'None'}</span>
-                </div>
-                <div>
-                    <span className={styles.label}>Created: </span>
-                    <span>{datasetSummary.created}</span>
-                </div>
-            </div>
-        </Card>
+            </Card>
+        </>
     )
 }
 

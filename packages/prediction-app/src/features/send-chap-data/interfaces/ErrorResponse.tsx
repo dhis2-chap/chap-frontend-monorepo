@@ -1,5 +1,4 @@
-
 export interface ErrorResponse {
-  description: any;
-  title: string;
+    description: string | React.ReactNode
+    title: string
 }
