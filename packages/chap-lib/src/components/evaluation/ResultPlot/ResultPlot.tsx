@@ -41,7 +41,7 @@ const getSeries = (data: any) => {
             name: 'Predicted Cases',
             type: 'line',
             color: '#004bbd',
-            data: data.averages,
+            data: data.averages.slice(),
             zIndex: 3,
             opacity: 1,
             lineWidth: 2.5,
@@ -51,7 +51,7 @@ const getSeries = (data: any) => {
         },
         {
             name: 'Quantiles Outer',
-            data: data.ranges,
+            data: data.ranges.slice(),
             type: 'arearange',
             lineWidth: 0,
             color: '#c4dcf2',
@@ -63,7 +63,7 @@ const getSeries = (data: any) => {
         },
         {
             name: 'Quantiles Middle',
-            data: data.midranges,
+            data: data.midranges.slice(),
             type: 'arearange',
             lineWidth: 1,
             color: '#9bbdff',
