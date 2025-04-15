@@ -25,6 +25,8 @@ const NewEvaluationForm = ({
     const [evaluationName, setEvaluationName] = useState<string | undefined>('')
     const [selectedModel, setSelectedModel] = useState<any>(undefined)
 
+    const readyToSubmitEvaluation = (evaluationName && datasetIdToEvaluate && selectedModel)
+
     const onClickEvaluate = (): any => {
         console.log(
             'should evaluate',
@@ -32,18 +34,23 @@ const NewEvaluationForm = ({
             datasetIdToEvaluate,
             selectedModel
         )
-        if (evaluationName && datasetIdToEvaluate && selectedModel) {
-            const response =
-                AnalyticsService.createBacktestAnalyticsCreateBacktestPost({
-                    nPeriods: 3,
-                    nSplits: 10,
-                    stride: 1,
-                    name: evaluationName,
-                    datasetId: datasetIdToEvaluate,
-                    modelId: selectedModel.name,
-                })
-            console.log('evaluate response', response)
-            onDrawerClose()
+        if (readyToSubmitEvaluation) {
+            try {
+                const response =
+                    AnalyticsService.createBacktestAnalyticsCreateBacktestPost({
+                        nPeriods: 3,
+                        nSplits: 10,
+                        stride: 1,
+                        name: evaluationName,
+                        datasetId: datasetIdToEvaluate,
+                        modelId: selectedModel.name,
+                    })
+                console.log('evaluate response', response)
+            } catch {
+                alert('There was an unknown error creating the evaluation')
+            } finally {
+                onDrawerClose()
+            }
         }
     }
 
@@ -64,10 +71,8 @@ const NewEvaluationForm = ({
                     placeholder="Example: EWARS evaluation, 2020-2024"
                 />
 
-                <h2>Dataset Details</h2>
                 <DatasetDetails datasetId={datasetIdToEvaluate} />
 
-                <h2>Prediction Model</h2>
                 <SelectModel
                     selectedModel={selectedModel}
                     setSelectedModel={setSelectedModel}
@@ -78,6 +83,7 @@ const NewEvaluationForm = ({
                         primary
                         icon={<IconArrowRight24 />}
                         onClick={onClickEvaluate}
+                        disabled={!readyToSubmitEvaluation}
                     >
                         Evaluate
                     </Button>

@@ -64,6 +64,8 @@ const SelectModel = ({selectedModel, setSelectedModel} : SelectModelProps) => {
             <p>Loading models...</p>
         ) : (
             <>
+                <h3>Prediction Model</h3>
+
                 {/* Show selected model when grid is collapsed */}
                 {!showGrid && selectedModel && (
                     <div>
