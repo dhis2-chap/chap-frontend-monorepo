@@ -31,7 +31,11 @@ interface SearchableDropdownProps {
 
 interface SearchSelectFieldProps {
     feature: Feature
-    onChangeSearchSelectField: (feature : Feature, dataItemId : string, dataItemDisplayName : string) => void
+    onChangeSearchSelectField: (
+        feature: Feature,
+        dataItemId: string,
+        dataItemDisplayName: string
+    ) => void
 }
 
 const SearchSelectField = ({
@@ -140,7 +144,7 @@ const SearchSelectField = ({
                     >
                         <div>{option.displayName}</div>
                         <div className={styles.rightDropDownItem}>
-                            {capitalizeWords(option.dimensionItemType)}
+                            {capitalizeWords(option.dimensionItemType) ?? ''}
                         </div>
                     </li>
                 ))}
@@ -159,7 +163,7 @@ const SearchSelectField = ({
     return (
         <div ref={dropdownRef} className={styles.searchSelectField}>
             <label className={styles.label}>
-                <span>{capitalizeWords(feature.name)}</span>
+                <span>{capitalizeWords(feature.name ?? '')}</span>
             </label>
 
             <input

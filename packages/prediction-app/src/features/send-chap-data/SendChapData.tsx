@@ -27,6 +27,7 @@ import { Datalayer, DatasetLayer } from '../new-dataset/interfaces/DataSetLayer'
 import { time } from 'console'
 import { data } from 'react-router-dom'
 import { useConfig } from '@dhis2/app-runtime'
+import { createFixedPeriodFromPeriodId } from '@dhis2/multi-calendar-dates'
 
 interface SendChapDataProps {
     onSendAction: 'predict' | 'new-dataset'
@@ -54,6 +55,8 @@ export const SendChapData = ({
         action: 'download' | 'predict' | 'new-dataset'
         startDownload: boolean
     }>({ action: 'download', startDownload: false })
+
+    const [isSendingDataToChap, setIsSendingDataToChap] = useState(false)
 
     //Keeping the analytics content (including geojson), before sending to CHAP
     const [observations, setObservations] = useState<
@@ -162,28 +165,28 @@ export const SendChapData = ({
             emptyFeatures.push({
                 title:
                     covariateDisplayName +
-                    ' is missing for det following orgUnit and timeperiods: ',
+                    ' is missing for the following orgUnit and time periods: ',
                 description: (
                     <div>
+                        <p>
+                            Total missing: {missingData.length} | Use the{' '}
+                            <a
+                                target="_blank"
+                                href={
+                                    config?.systemInfo?.contextPath +
+                                    '/api/apps/climate-data/index.html#/import'
+                                }
+                            >
+                                Climate App
+                            </a>{' '}
+                            to import climate data.
+                        </p>
                         <div className={styles.scrollMissingData}>
-                            <p>
-                                Total missing: {missingData.length} | Use the{' '}
-                                <a
-                                    target="_blank"
-                                    href={
-                                        config?.systemInfo?.contextPath +
-                                        '/api/apps/climate-data/index.html#/import'
-                                    }
-                                >
-                                    Climate App
-                                </a>{' '}
-                                to import climate data
-                            </p>
                             <table className={styles.notFoundDataTable}>
                                 <thead>
                                     <tr>
-                                        <th>OrgUnit</th>
-                                        <th>Timeperiod</th>
+                                        <th>Organisation unit:</th>
+                                        <th>Time period:</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -191,7 +194,18 @@ export const SendChapData = ({
                                         return (
                                             <tr>
                                                 <td>{d.orgUnitName}</td>
-                                                <td>{d.period}</td>
+                                                <td>
+                                                    {
+                                                        createFixedPeriodFromPeriodId(
+                                                            {
+                                                                periodId:
+                                                                    d.period,
+                                                                calendar:
+                                                                    'gregory',
+                                                            }
+                                                        ).displayName
+                                                    }
+                                                </td>
                                             </tr>
                                         )
                                     })}
@@ -310,6 +324,7 @@ export const SendChapData = ({
     const newDataset = async () => {
         let request: DatasetMakeRequest = getNewDatasetRequest()
 
+        setIsSendingDataToChap(true)
         await AnalyticsService.makeDatasetAnalyticsMakeDatasetPost(request)
             .then((response: JobResponse) => {
                 setErrorChapMsg('')
@@ -323,11 +338,15 @@ export const SendChapData = ({
                         'An error occured while sending the request to CHAP Core.'
                     )
             })
+            .finally(() => {
+                setIsSendingDataToChap(false)
+            })
     }
 
     const predict = async () => {
         let request: MakePredictionRequest = getPredictionRequest()
 
+        setIsSendingDataToChap(true)
         await AnalyticsService.makePredictionAnalyticsMakePredictionPost(
             request
         )
@@ -341,6 +360,9 @@ export const SendChapData = ({
                     setErrorChapMsg(
                         'An error occured while sending the request to CHAP Core.'
                     )
+            })
+            .finally(() => {
+                setIsSendingDataToChap(false)
             })
     }
 
@@ -375,6 +397,7 @@ export const SendChapData = ({
                 onButtonSendAction={onSendAction}
                 onClickDownloadOrPostData={onClickDownloadOrPostData}
                 orgUnits={selectedOrgUnits}
+                isSendingDataToChap={isSendingDataToChap}
                 startDownload={startDownload}
             />
 

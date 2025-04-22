@@ -34,30 +34,3 @@ export const findOrgUnitName = (
         (ou: PredictionResponseExtended) => ou.orgUnit === orgUnitId
     )?.displayName
 }
-
-export const numberDateToString = (date: string | number): string => {
-    const year = date.toString().slice(0, 4)
-    const month = date.toString().slice(4, 6)
-
-    const monthNames = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ]
-    const monthName = monthNames[parseInt(month) - 1]
-
-    if (monthName === undefined) {
-        return String(date)
-    }
-
-    return `${monthName} ${year}`
-}

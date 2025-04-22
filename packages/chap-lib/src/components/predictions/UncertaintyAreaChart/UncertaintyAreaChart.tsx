@@ -8,7 +8,7 @@ import HighchartsReact from 'highcharts-react-official'
 import styles from './UncertaintyAreaChart.module.css'
 import { Menu, MenuItem } from '@dhis2/ui'
 import { FullPredictionResponseExtended } from '../../../interfaces/Prediction'
-import { numberDateToString } from '../../../utils/PredictionResponse'
+import { createFixedPeriodFromPeriodId } from '@dhis2/multi-calendar-dates'
 
 accessibility(Highcharts)
 exporting(Highcharts)
@@ -49,7 +49,10 @@ const getChartOptions = (
             labels: {
                 enabled: true,
                 formatter: function () {
-                    return numberDateToString(this.value)
+                    return createFixedPeriodFromPeriodId({
+                        periodId: this.value.toString(),
+                        calendar: 'gregory',
+                    }).displayName
                 },
                 style: {
                     fontSize: '0.9rem',

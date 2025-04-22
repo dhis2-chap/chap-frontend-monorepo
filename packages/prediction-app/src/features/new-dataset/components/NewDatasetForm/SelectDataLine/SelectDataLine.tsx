@@ -88,7 +88,11 @@ const SelectDataLine = ({
 
     const addLayer = () => {
         let newDataSetLayer = [...datasetLayers]
-        newDataSetLayer.push({ feature: '', origin: '', dataSource: '' })
+        newDataSetLayer.push({
+            feature: '',
+            origin: 'dataItem',
+            dataSource: '',
+        })
         setDataLayers(newDataSetLayer)
     }
 
@@ -120,6 +124,9 @@ const SelectDataLine = ({
     return (
         <div>
             <h3>Covariates</h3>
+            {/*
+            //not needed as Chap is not fetching climate data anymore
+            
             <NoticeBox title="Origin">
                 The modeling app supports direct retrieval of the ERA5-Land data
                 without the need of the DHIS2 Climate App. If you are using an
@@ -128,7 +135,7 @@ const SelectDataLine = ({
                 sources or the CHIRPS dataset, please select DHIS2 as the
                 origin, and then choose the specific data element where the data
                 has been imported.
-            </NoticeBox>
+            </NoticeBox>*/}
 
             <div className={styles.selectDataLineWrapper}>
                 {datasetLayers.map((dataLayer, index) => (
@@ -167,7 +174,7 @@ const SelectDataLine = ({
                                     </SingleSelectField>
                                 </div>
                             )}
-                            <div className={styles.selectField}>
+                            {/*<div className={styles.selectField}>
                                 <SingleSelectField
                                     disabled={dataLayer.feature === ''}
                                     label="Origin"
@@ -195,7 +202,7 @@ const SelectDataLine = ({
                                         value={'dataItem'}
                                     />
                                 </SingleSelectField>
-                            </div>
+                            </div>*/}
                             <div className={styles.selectField}>
                                 {(dataLayer.origin === 'CHAP' ||
                                     dataLayer.origin === '') && (
@@ -234,7 +241,7 @@ const SelectDataLine = ({
                                             name: features.filter(
                                                 (f) =>
                                                     f.id === dataLayer.feature
-                                            )[0].name,
+                                            )[0]?.name,
                                             id: dataLayer.feature,
                                             description: '',
                                         }}

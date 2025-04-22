@@ -31,7 +31,7 @@ interface NewDatasetFormProps {
 
 const NewDatasetForm = ({ onDrawerSubmit }: NewDatasetFormProps) => {
     const [dataLayers, setDataLayers] = useState<DatasetLayer[]>([
-        { feature: '', origin: '', dataSource: '' },
+        { feature: '', origin: 'dataItem', dataSource: '' },
     ])
     const [selectedOrgUnits, setSelectedOrgUnits] = useState<OrgUnit[]>([])
     const [selectedTimePeriodes, setSelectedTimePeriodes] = useState<Period[]>(

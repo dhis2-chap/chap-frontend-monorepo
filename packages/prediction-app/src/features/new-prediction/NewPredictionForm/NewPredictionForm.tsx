@@ -44,7 +44,7 @@ const NewPredictionForm = ({
         const newLayers = selecetedModel.covariates.map((co) => {
             return {
                 feature: co.name,
-                origin: '',
+                origin: 'dataItem', //as we are moving away from Chap fetching climate data, set this just to be dataItem 22.04.2025
                 dataSource: '',
             } as DatasetLayer
         })

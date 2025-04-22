@@ -11,8 +11,8 @@ import {
     findOrgUnitName,
     getUniqePeriods,
     getUniqeQuantiles,
-    numberDateToString,
 } from '../../../utils/PredictionResponse'
+import { createFixedPeriodFromPeriodId } from '@dhis2/multi-calendar-dates'
 
 interface PredictionTableProps {
     data: FullPredictionResponseExtended
@@ -42,9 +42,15 @@ export const PredictionTable = ({ data }: PredictionTableProps) => {
                                         (p: string) => {
                                             return (
                                                 <th key={p}>
-                                                    {i18n.t(
-                                                        numberDateToString(p)
-                                                    )}
+                                                    {
+                                                        createFixedPeriodFromPeriodId(
+                                                            {
+                                                                periodId: p,
+                                                                calendar:
+                                                                    'gregory',
+                                                            }
+                                                        ).displayName
+                                                    }
                                                 </th>
                                             )
                                         }
