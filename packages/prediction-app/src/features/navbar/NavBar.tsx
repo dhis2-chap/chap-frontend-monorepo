@@ -3,6 +3,9 @@ import React from 'react'
 import styles from './NavBar.module.css'
 import NavBarItem from './components/NavBarItem/NavBarItem'
 import { maxWidth } from '../../components/PageWrapper'
+import { useHistory } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const navBarItems = [
     {
@@ -16,8 +19,10 @@ const navBarItems = [
 ]
 
 const NavBar = () => {
+    const navigate = useNavigate()
+
     const handleSettingsClick = () => {
-        window.location.replace('/#settings')
+        navigate('/settings')
     }
 
     return (

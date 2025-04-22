@@ -29,33 +29,6 @@ const router = createHashRouter([
         ],
     },
     {
-        path: 'old',
-        element: <Root />,
-        errorElement: <ErrorPage />,
-        children: [
-            {
-                path: 'predict',
-                element: <PredictionPage />,
-            },
-            {
-                path: 'results',
-                element: <ResultsPage />,
-            },
-            {
-                path: 'settings',
-                element: <SettingsPage />,
-            },
-            {
-                path: 'status',
-                element: <StatusPage />,
-            },
-            {
-                path: 'route-settings',
-                element: <RouteSettingsPage />,
-            },
-        ],
-    },
-    {
         path: '',
         errorElement: <ErrorPage />,
         children: [
