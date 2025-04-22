@@ -3,7 +3,6 @@ import { boolean } from '@dhis2/ui'
 import NewDatasetDrawer from '../new-dataset/components/NewDatasetDrawer/NewDatasetDrawer'
 import PageHeader from '../common-features/PageHeader/PageHeader'
 import Datasets from '../datasets/Datasets'
-import PredictionResult from '../../components/results/PredictionResult'
 import JobResults from '../job-results/JobResults'
 
 const EvaluationOverview = () => {
@@ -29,7 +28,7 @@ const EvaluationOverview = () => {
                 onDrawerSubmit={onDrawerSubmit}
             />
 
-            <PageHeader 
+            <PageHeader
                 pageTitle="Model Evaluations"
                 pageDescription="Evaluates the accuracy of a predictive model using historical data. Compares actual outcomes with predicted values to assess model performance."
             />

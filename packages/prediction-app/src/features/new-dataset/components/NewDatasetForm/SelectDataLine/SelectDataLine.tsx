@@ -15,7 +15,7 @@ import styles from './SelectDataLine.module.css'
 import { Datalayer, DatasetLayer } from '../../../interfaces/DataSetLayer'
 import { AnalyticsService, DataSource, Feature } from '@dhis2-chap/chap-lib'
 import { useDataQuery } from '@dhis2/app-runtime'
-import SearchSelectField from '../../../../../components/prediction/SearchSelectField'
+import SearchSelectField from '../../../../search-dataitem/SearchSelectField'
 
 interface SelectDataLineProps {
     setDataLayers: (datasetLayer: DatasetLayer[]) => void

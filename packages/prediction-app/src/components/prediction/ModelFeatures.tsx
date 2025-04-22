@@ -15,7 +15,7 @@ import {
     ModelFeatureDataElementMap,
 } from '../../interfaces/ModelFeatureDataElement'
 import SwitchClimateSources from '../climateSource/SwitchClimateSources'
-import SearchSelectField from './SearchSelectField'
+import SearchSelectField from '../../features/search-dataitem/SearchSelectField'
 
 interface ModelFeaturesProps {
     features: Feature[] | undefined
@@ -34,7 +34,6 @@ const ModelFeatures = ({
     setRenderOptionalField,
     renderOptionalField,
 }: ModelFeaturesProps) => {
-
     if (!features) {
         return <></>
     }
@@ -53,8 +52,11 @@ const ModelFeatures = ({
         setRenderOptionalField(e)
     }
 
-    const onChangeSearchSelectField = (feature : Feature, dataItemId : string, dataItemDisplayName : string) => {
-
+    const onChangeSearchSelectField = (
+        feature: Feature,
+        dataItemId: string,
+        dataItemDisplayName: string
+    ) => {
         const feature_with_selected_data_elements: ModelFeatureDataElement = {
             selectedDataElementId: dataItemId,
             selectedDataElementName: dataItemDisplayName,

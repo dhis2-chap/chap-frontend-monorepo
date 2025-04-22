@@ -2,7 +2,7 @@ import { Feature } from '@dhis2-chap/chap-lib'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useDataQuery } from '@dhis2/app-runtime'
 import React, { useEffect, useRef, useState } from 'react'
-import styles from './styles/SearchSelectField.module.css'
+import styles from './SearchSelectField.module.css'
 
 const dataItemQuery = (search: string) => {
     return {
