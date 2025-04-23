@@ -56,7 +56,7 @@ export function joinRealAndPredictedData(
     }
     const averageLookup = createLookup(predictedData.periods, predictedData.averages.slice())
     const rangeLookup = createLookup(predictedData.periods, predictedData.ranges.slice())
-    const midRangeLookup = createLookup(predictedData.periods, predictedData.midranges?.slice())
+    const midRangeLookup = createLookup(predictedData.periods, predictedData.midranges?.slice() ?? [])
 
     //join prediction arrays into longer period arrays
     /*
