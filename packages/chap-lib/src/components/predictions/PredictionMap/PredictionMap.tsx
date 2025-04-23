@@ -77,7 +77,9 @@ export const PredictionMap = ({
                 })}
             </div>
             <Legend
-                title={'Median Prediction for ' + predictionTargetName}
+                title={i18n.t('Median Prediction for {{predictionTargetName}}', {
+                    predictionTargetName,
+                })}
                 bins={bins}
                 colors={colors}
             />

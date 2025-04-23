@@ -28,10 +28,13 @@ export const PredictionTable = ({ data }: PredictionTableProps) => {
                     <div key={ou}>
                         <h3>
                             {i18n.t(
-                                `Prediction for ${findOrgUnitName(
-                                    ou,
-                                    dataValues
-                                )}`
+                                'Prediction for {{orgUnitName}}',
+                                {
+                                    orgUnitName: findOrgUnitName(
+                                        ou,
+                                        dataValues
+                                    ),
+                                }
                             )}
                         </h3>
                         <table className={styles.table}>
