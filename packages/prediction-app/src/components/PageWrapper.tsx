@@ -1,31 +1,29 @@
-import React from "react";
-import NavBar from "../features/navbar/NavBar";
-
+import React from 'react'
+import NavBar from '../features/navbar/NavBar'
+import WarnRouteNotExists from '../features/common-features/WarnRouteNotExists/WarnRouteNotExists'
 
 interface ComponentWrapperProps {
-  component: React.JSX.Element;
+    component: React.JSX.Element
 }
 
-export const maxWidth : string = "1400px";
+export const maxWidth: string = '1400px'
 
-const style : React.CSSProperties = {
-  maxWidth: maxWidth,
-  marginLeft: "auto",
-  marginRight: "auto",
-  padding : "20px 10px 20px 10px"
+const style: React.CSSProperties = {
+    maxWidth: maxWidth,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    padding: '20px 10px 20px 10px',
 }
 
+const ComponentWrapper = ({ component }: ComponentWrapperProps) => {
+    return (
+        <>
+            <NavBar />
+            <WarnRouteNotExists />
 
-const ComponentWrapper = ({ component } : ComponentWrapperProps) => {
+            <div style={style}>{component}</div>
+        </>
+    )
+}
 
-  
-  return <>
-    <NavBar />
-    <div style={style}>
-      {component}
-    </div>
-
-  </>;
-};
-
-export default ComponentWrapper;
+export default ComponentWrapper

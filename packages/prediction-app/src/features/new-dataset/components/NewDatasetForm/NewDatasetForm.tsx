@@ -13,7 +13,12 @@ import TimePeriodPicker from '../../../timeperiod-selector/components/TimePeriod
 import TimePeriodeSelector from '../../../timeperiod-selector/components/TimePeriodPicker'
 import OrgUnitSelector from '../../../orgunit-selector/OrgUnitSelector'
 import DownloadAnalyticsData from '../../../send-chap-data/components/DownloadData/DownloadAnalyticsData'
-import { DataList, DatasetCreate, ModelSpec } from '@dhis2-chap/chap-lib'
+import {
+    DataList,
+    DatasetCreate,
+    Feature,
+    ModelSpec,
+} from '@dhis2-chap/chap-lib'
 import { ErrorResponse } from '../../../send-chap-data/interfaces/ErrorResponse'
 import saveAs from 'file-saver'
 import { SendChapData } from '../../../send-chap-data/SendChapData'
@@ -29,10 +34,44 @@ interface NewDatasetFormProps {
     onDrawerSubmit: () => void
 }
 
+export const features: Feature[] = [
+    {
+        id: 'rainfall',
+        name: 'Rainfall',
+        description: 'The amount of rainfall in mm',
+        optional: true,
+    },
+    {
+        id: 'mean_temperature',
+        name: 'Mean Temperature',
+        description: 'The average temperature in degrees Celsius',
+        optional: true,
+    },
+    {
+        id: 'population',
+        name: 'Population',
+        description: 'The population of the area',
+        optional: false,
+    },
+
+    { name: 'Disease cases', id: 'disease_cases', description: 'Feature 5' },
+]
+
+const fromFeatureToDataSetLayer = () => {
+    const dataSetLayer: DatasetLayer[] = features.map((feature) => {
+        return {
+            feature: feature.id,
+            origin: 'dataItem',
+            dataSource: '', // This will be set later
+        }
+    })
+    return dataSetLayer
+}
+
 const NewDatasetForm = ({ onDrawerSubmit }: NewDatasetFormProps) => {
-    const [dataLayers, setDataLayers] = useState<DatasetLayer[]>([
-        { feature: '', origin: 'dataItem', dataSource: '' },
-    ])
+    const [dataLayers, setDataLayers] = useState<DatasetLayer[]>(
+        fromFeatureToDataSetLayer()
+    )
     const [selectedOrgUnits, setSelectedOrgUnits] = useState<OrgUnit[]>([])
     const [selectedTimePeriodes, setSelectedTimePeriodes] = useState<Period[]>(
         []

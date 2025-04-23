@@ -2,7 +2,11 @@ import { Button, IconSettings24, Menu, MenuItem } from '@dhis2/ui'
 import React from 'react'
 import styles from './NavBar.module.css'
 import NavBarItem from './components/NavBarItem/NavBarItem'
-import { maxWidth } from '../../components/PageWrapper'
+import { useHistory } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
+export const maxWidth: string = '1400px'
 
 const navBarItems = [
     {
@@ -16,8 +20,10 @@ const navBarItems = [
 ]
 
 const NavBar = () => {
+    const navigate = useNavigate()
+
     const handleSettingsClick = () => {
-        window.location.replace('/#settings')
+        navigate('/settings')
     }
 
     return (

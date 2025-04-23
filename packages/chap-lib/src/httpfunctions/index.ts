@@ -14,6 +14,7 @@ export type { BackTestMetric } from './models/BackTestMetric';
 export type { BackTestRead } from './models/BackTestRead';
 export type { Body_create_dataset_csv_crud_datasets_csvFile_post } from './models/Body_create_dataset_csv_crud_datasets_csvFile_post';
 export type { CommandConfig } from './models/CommandConfig';
+export type { CompatibilityResponse } from './models/CompatibilityResponse';
 export type { Coordinates } from './models/Coordinates';
 export type { DataBaseResponse } from './models/DataBaseResponse';
 export type { DataElement } from './models/DataElement';
@@ -61,6 +62,7 @@ export type { PredictionRead } from './models/PredictionRead';
 export type { PredictionRequest } from './models/PredictionRequest';
 export type { PredictionResponse } from './models/PredictionResponse';
 export type { State } from './models/State';
+export type { SystemInfoResponse } from './models/SystemInfoResponse';
 export { UserOption } from './models/UserOption';
 export type { ValidationError } from './models/ValidationError';
 

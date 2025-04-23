@@ -16,6 +16,7 @@ import SetChapUrl from './features/route-api/SetChapUrl'
 import CreateRoute from './features/settings/CreateRoute'
 import TestRoute from './features/settings/Settings'
 import Settings from './features/settings/Settings'
+import WarnRouteNotExists from './features/common-features/WarnRouteNotExists/WarnRouteNotExists'
 
 const router = createHashRouter([
     {
@@ -25,33 +26,6 @@ const router = createHashRouter([
             {
                 path: 'create-route',
                 element: <CreateRoutePage />,
-            },
-        ],
-    },
-    {
-        path: 'old',
-        element: <Root />,
-        errorElement: <ErrorPage />,
-        children: [
-            {
-                path: 'predict',
-                element: <PredictionPage />,
-            },
-            {
-                path: 'results',
-                element: <ResultsPage />,
-            },
-            {
-                path: 'settings',
-                element: <SettingsPage />,
-            },
-            {
-                path: 'status',
-                element: <StatusPage />,
-            },
-            {
-                path: 'route-settings',
-                element: <RouteSettingsPage />,
             },
         ],
     },
@@ -85,6 +59,7 @@ const App = () => {
     return (
         <>
             <SetChapUrl setIsLoadingRouteConfig={setIsLoadingRouteConfig} />
+
             {!isLoadingRouteConfig && (
                 <RouterProvider router={router}></RouterProvider>
             )}

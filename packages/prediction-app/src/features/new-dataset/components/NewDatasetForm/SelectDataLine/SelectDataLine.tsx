@@ -15,7 +15,8 @@ import styles from './SelectDataLine.module.css'
 import { Datalayer, DatasetLayer } from '../../../interfaces/DataSetLayer'
 import { AnalyticsService, DataSource, Feature } from '@dhis2-chap/chap-lib'
 import { useDataQuery } from '@dhis2/app-runtime'
-import SearchSelectField from '../../../../../components/prediction/SearchSelectField'
+import SearchSelectField from '../../../../search-dataitem/SearchSelectField'
+import { features } from '../NewDatasetForm'
 
 interface SelectDataLineProps {
     setDataLayers: (datasetLayer: DatasetLayer[]) => void
@@ -24,29 +25,6 @@ interface SelectDataLineProps {
 }
 
 ///temporarily dummy data
-
-const features: Feature[] = [
-    {
-        id: 'rainfall',
-        name: 'Rainfall',
-        description: 'The amount of rainfall in mm',
-        optional: true,
-    },
-    {
-        id: 'mean_temperature',
-        name: 'Mean Temperature',
-        description: 'The average temperature in degrees Celsius',
-        optional: true,
-    },
-    {
-        id: 'population',
-        name: 'Population',
-        description: 'The population of the area',
-        optional: false,
-    },
-
-    { name: 'Disease cases', id: 'disease_cases', description: 'Feature 5' },
-]
 
 const SelectDataLine = ({
     datasetLayers,
@@ -143,14 +121,17 @@ const SelectDataLine = ({
                         <div className={styles.dataLineWrapper}>
                             {predictMode ? (
                                 <div className={styles.predictLabel}>
-                                    {
-                                        features.filter(
-                                            (f) => f.id === dataLayer.feature
-                                        )[0]?.name
-                                    }
+                                    {features.filter(
+                                        (f) => f.id === dataLayer.feature
+                                    )[0]?.name + ':'}
                                 </div>
                             ) : (
-                                <div className={styles.selectField}>
+                                <div className={styles.predictLabel}>
+                                    {features.filter(
+                                        (f) => f.id === dataLayer.feature
+                                    )[0]?.name + ':'}
+
+                                    {/*<div className={styles.selectField}>
                                     <SingleSelectField
                                         label="Covariate"
                                         onChange={(e) =>
@@ -172,6 +153,7 @@ const SelectDataLine = ({
                                             )
                                         )}
                                     </SingleSelectField>
+                                </div>*/}
                                 </div>
                             )}
                             {/*<div className={styles.selectField}>
@@ -257,7 +239,7 @@ const SelectDataLine = ({
                                     />
                                 )}
                             </div>
-                            {!predictMode && (
+                            {/*!predictMode && (
                                 <div>
                                     <Button
                                         onClick={() => removeLayer(index)}
@@ -266,17 +248,17 @@ const SelectDataLine = ({
                                         icon={<IconDelete24 />}
                                     ></Button>
                                 </div>
-                            )}
+                            )*/}
                         </div>
                     </div>
                 ))}
-                {!predictMode && (
+                {/*!predictMode && (
                     <div className={styles.buttonRight}>
                         <Button onClick={addLayer} icon={<IconAdd16 />}>
                             Add layer
                         </Button>
                     </div>
-                )}
+                )*/}
             </div>
         </div>
     )

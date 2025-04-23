@@ -44,7 +44,7 @@ const Settings = () => {
         setErrorMessage('')
         setStatus(undefined)
         setIsLoading(true)
-        await DefaultService.healthHealthGet()
+        await DefaultService.systemInfoSystemInfoGet()
             .catch((error: ApiError) => {
                 setErrorMessage({
                     body: error?.body,
@@ -196,18 +196,12 @@ const Settings = () => {
                 </tbody>
             </table>
 
-            <h3>Healthy status:</h3>
+            <h3>System info:</h3>
 
             {isLoading && <p>Loading...</p>}
 
             {status && (
-                <div
-                    className={
-                        status?.status !== 'success'
-                            ? styles.status_not_ok
-                            : styles.status_ok
-                    }
-                >
+                <div className={styles.status_ok}>
                     {status && <pre>{JSON.stringify(status, null, 2)}</pre>}
                 </div>
             )}
