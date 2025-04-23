@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-04-09T09:18:36.983Z\n"
-"PO-Revision-Date: 2025-04-09T09:18:36.985Z\n"
+"POT-Creation-Date: 2025-04-23T13:28:59.968Z\n"
+"PO-Revision-Date: 2025-04-23T13:28:59.968Z\n"
 
 msgid "About this app"
 msgstr "About this app"
@@ -92,6 +92,9 @@ msgstr "Aggregation levels"
 msgid "Assign all org unit levels"
 msgstr "Assign all org unit levels"
 
+msgid "Prediction for {{predictionTargetName}} for {{orgUnitName}}"
+msgstr "Prediction for {{predictionTargetName}} for {{orgUnitName}}"
+
 msgid "Quantile median"
 msgstr "Quantile median"
 
@@ -137,11 +140,15 @@ msgstr "Drag 'n' drop prediction/evaluation file, or click to select it"
 msgid "App settings"
 msgstr "App settings"
 
-msgid "Import prediction"
-msgstr "Import prediction"
-
-msgid "Prediction has been imported."
-msgstr "Prediction has been imported."
-
 msgid "It seems like you missing Data Elements for CHAP prediction."
 msgstr "It seems like you missing Data Elements for CHAP prediction."
+
+msgid ""
+"Job is still running. Please wait until it is finished before doing any "
+"actions."
+msgstr ""
+"Job is still running. Please wait until it is finished before doing any "
+"actions."
+
+msgid "Prediction for Northern Province"
+msgstr "Prediction for Northern Province"
