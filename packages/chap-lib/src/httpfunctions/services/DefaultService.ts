@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CompatibilityResponse } from '../models/CompatibilityResponse';
 import type { EvaluationResponse } from '../models/EvaluationResponse';
 import type { Feature } from '../models/Feature';
 import type { FullPredictionResponse } from '../models/FullPredictionResponse';
@@ -10,6 +11,7 @@ import type { ModelSpec } from '../models/ModelSpec';
 import type { ModelTemplateConfig } from '../models/ModelTemplateConfig';
 import type { PredictionRequest } from '../models/PredictionRequest';
 import type { State } from '../models/State';
+import type { SystemInfoResponse } from '../models/SystemInfoResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -179,6 +181,51 @@ export class DefaultService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/health',
+        });
+    }
+    /**
+     * Version
+     * Retrieve the current version of the API
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static versionVersionGet(): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/version',
+        });
+    }
+    /**
+     * Is Compatible
+     * Check if the modelling app version is compatible with the current API version
+     * @param modellingAppVersion
+     * @returns CompatibilityResponse Successful Response
+     * @throws ApiError
+     */
+    public static isCompatibleIsCompatibleGet(
+        modellingAppVersion: string,
+    ): CancelablePromise<CompatibilityResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/is-compatible',
+            query: {
+                'modelling_app_version': modellingAppVersion,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * System Info
+     * Retrieve system information
+     * @returns SystemInfoResponse Successful Response
+     * @throws ApiError
+     */
+    public static systemInfoSystemInfoGet(): CancelablePromise<SystemInfoResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/system-info',
         });
     }
 }

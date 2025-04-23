@@ -41,22 +41,34 @@ export function joinRealAndPredictedData(
         .map((item) => item.pe)
         //.filter((period) => period <= predictionEnd)
         .sort(sortDhis2WeeklyAndMonthlyTime)
-        //.slice(-nPeriods)
+    //.slice(-nPeriods)
     const realDataFiltered = realPeriodsFiltered.map(
         (period) => realData.find((item) => item.pe === period)?.value ?? null
     )
 
     //turn prediction arrays into period dicts
-    const createLookup = (keys: string[], values: any[]) => {
+    const createLookup = (keys: string[], values: any[][] | undefined) => {
+        if (!values) {
+            return new Map<string, any>()
+        }
         const lookup = new Map<string, any>()
         for (let i = 0; i < keys.length; i++) {
             lookup.set(keys[i], values[i])
         }
         return lookup
     }
-    const averageLookup = createLookup(predictedData.periods, predictedData.averages.slice())
-    const rangeLookup = createLookup(predictedData.periods, predictedData.ranges.slice())
-    const midRangeLookup = createLookup(predictedData.periods, predictedData.midranges?.slice())
+    const averageLookup = createLookup(
+        predictedData.periods,
+        predictedData.averages.slice()
+    )
+    const rangeLookup = createLookup(
+        predictedData.periods,
+        predictedData.ranges.slice()
+    )
+    const midRangeLookup = createLookup(
+        predictedData.periods,
+        predictedData.midranges?.slice()
+    )
 
     //join prediction arrays into longer period arrays
     /*
@@ -79,13 +91,16 @@ export function joinRealAndPredictedData(
     */
     const mergePeriodValues = (
         periods: string[],
-        periodValues: Map<string, any>,
+        periodValues: Map<string, any>
     ): any[] => {
         return periods.map((period) => periodValues.get(period) ?? null)
     }
     const joinedAverages = mergePeriodValues(realPeriodsFiltered, averageLookup)
     const joinedRanges = mergePeriodValues(realPeriodsFiltered, rangeLookup)
-    const joinedMidRanges = mergePeriodValues(realPeriodsFiltered, midRangeLookup)
+    const joinedMidRanges = mergePeriodValues(
+        realPeriodsFiltered,
+        midRangeLookup
+    )
 
     return {
         periods: realPeriodsFiltered,
