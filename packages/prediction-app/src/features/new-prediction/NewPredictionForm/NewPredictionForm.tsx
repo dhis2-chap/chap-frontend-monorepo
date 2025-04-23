@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import i18n from '@dhis2/d2-i18n'
 import styles from './NewPredictionForm.module.css'
 import { DatasetLayer } from '../../new-dataset/interfaces/DataSetLayer'
 import {
@@ -68,7 +69,8 @@ const NewPredictionForm = ({
                         label="Name of prediction"
                         value={datasetName}
                         onChange={(e) => setDatasetName(e.value)}
-                        placeholder="Prediction for Northern province"
+                        // Is this supposed to be hardcoded?
+                        placeholder={i18n.t('Prediction for Northern Province')}
                     />
                     <SelectModel
                         selectedModel={selecetedModel}

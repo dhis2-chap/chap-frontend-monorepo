@@ -1,33 +1,21 @@
 import React, { useState, useRef } from 'react'
+import { ConditionalTooltip } from '@dhis2-chap/chap-lib'
+import i18n from '@dhis2/d2-i18n'
 import styles from './JobResultPanelItem.module.css'
 import {
-    boolean,
     Button,
-    Modal,
-    IconArrowRight16,
-    IconArrowRight24,
     IconDelete24,
-    IconImportItems24,
-    IconInfo16,
-    IconInfo24,
-    IconView16,
-    IconView24,
     IconArchive24,
     IconVisualizationAreaStacked24,
     IconLaunch24,
     IconRuler24,
     IconMore16,
-    IconChevronDown16,
-    IconChevronUp16,
-    IconSettings16,
-    IconSettings24,
     Menu,
     MenuItem,
     Popper
 } from '@dhis2/ui'
 import { JobResult } from '../../interfaces/JobResult'
 import { useClickOutside } from '../../../../hooks/useClickOutside'
-
 interface JobResultPanelItem {
     i: number
     jobResult: JobResult
@@ -185,11 +173,17 @@ const JobResultPanelItem = ({
                     )}
 
                     <div ref={buttonRef}>
-                        <Button
-                            small
-                            icon={<IconMore16 />}
-                            onClick={() => setShowMenu((prev) => !prev)}
-                        />
+                        <ConditionalTooltip
+                            enabled={jobResult.status === 'STARTED'}
+                            content={i18n.t('Job is still running. Please wait until it is finished before doing any actions.')}
+                        >
+                            <Button
+                                small
+                                icon={<IconMore16 />}
+                                disabled={jobResult.status === 'STARTED'}
+                                onClick={() => setShowMenu((prev) => !prev)}
+                            />
+                        </ConditionalTooltip>
                     </div>
 
                     {showMenu && (

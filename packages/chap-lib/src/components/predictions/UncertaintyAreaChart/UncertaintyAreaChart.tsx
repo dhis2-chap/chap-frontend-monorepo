@@ -38,7 +38,11 @@ const getChartOptions = (
     return {
         title: {
             text: i18n.t(
-                `Prediction for ${predictionTargetName} for ${data[0].displayName}`
+                'Prediction for {{predictionTargetName}} for {{orgUnitName}}',
+                {
+                    predictionTargetName,
+                    orgUnitName: data[0].displayName,
+                }
             ),
         },
         tooltip: {
