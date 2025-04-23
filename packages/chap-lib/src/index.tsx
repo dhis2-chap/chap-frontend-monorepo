@@ -6,6 +6,7 @@ export {
     createHighChartsData,
     joinRealAndPredictedData,
 } from './utils/EvaluationResponse'
+export { ConditionalTooltip } from './utils/ConditionalTooltip'
 export {
     HighChartsData,
     EvaluationEntryExtend,
