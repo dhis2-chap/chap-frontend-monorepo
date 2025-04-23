@@ -5,6 +5,7 @@ import {
     Mutation,
     UpdateMutation,
 } from '@dhis2/app-service-data/build/types/engine/types/Mutation'
+import { CHAP_MODELING_APP_AUTHORITY } from '../utils/global-authorities'
 
 export const content = {
     data: ({ url }: any) => ({
@@ -12,6 +13,7 @@ export const content = {
         code: 'chap',
         disabled: false,
         url: url,
+        authorities: [CHAP_MODELING_APP_AUTHORITY],
         headers: {
             'Content-Type': 'application/json',
         },

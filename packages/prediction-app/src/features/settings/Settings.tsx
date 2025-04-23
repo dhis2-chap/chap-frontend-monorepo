@@ -1,12 +1,13 @@
-import { Button, IconArrowRight24, NoticeBox } from '@dhis2/ui'
+import { Button, NoticeBox } from '@dhis2/ui'
+import i18n from '@dhis2/d2-i18n'
 import React, { useEffect, useState } from 'react'
 import { ApiError, DefaultService, OpenAPI } from '@dhis2-chap/chap-lib'
-import { Link, useNavigate } from 'react-router-dom'
 import styles from './TestRoute.module.css'
 import useGetRoute from '../../hooks/useGetRoute'
 import { useConfig } from '@dhis2/app-runtime'
 import SetOpenApiUrl from './SetOpenApiUrl'
 import useGetDataStore from '../../new-view-hooks/useGetDataStore'
+import { CHAP_MODELING_APP_AUTHORITY } from '../../utils/global-authorities'
 
 const Settings = () => {
     const [status, setStatus] = useState<any>(undefined)
@@ -133,17 +134,26 @@ const Settings = () => {
         <div className={styles.container}>
             <h2>Settings</h2>
 
-            {route && chapServerPublic && (
-                <NoticeBox error title="Chap Core is public">
-                    Your chap server is publicly available. This allows anyone
-                    in the world to access your disease, climate and population
-                    data from <a href={getChapDocsUrl()}>{getChapDocsUrl()}</a>{' '}
-                    without authentication. Ensure you have proper security
-                    measures in place to protect potentially sensitive
+            {route && (
+                <div className={styles.noticeBoxContainer}>
+                    {chapServerPublic && (
+                        <NoticeBox error title="Chap Core is public">
+                            Your chap server is publicly available. This allows anyone
+                            in the world to access your disease, climate and population
+                            data from <a href={getChapDocsUrl()}>{getChapDocsUrl()}</a>{' '}
+                            without authentication. Ensure you have proper security
+                            measures in place to protect potentially sensitive
                     information.
-                </NoticeBox>
-            )}
+                        </NoticeBox>
+                    )}
 
+                    {!route.authorities.includes(CHAP_MODELING_APP_AUTHORITY) && (
+                        <NoticeBox error title={i18n.t('Route is not secure')}>
+                            {i18n.t('The Chap Core route is not secure. Please ensure that the route is only accessible to authorized users. Recreating the route should fix this.')}
+                        </NoticeBox>
+                    )}
+                </div>
+            )}
             <table className={styles.settingsTable}>
                 <tbody>
                     <tr style={{ display: 'none' }}>

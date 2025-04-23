@@ -56,7 +56,7 @@ const EvaluationResult = ({ evaluationId }: any) => {
         }
     }, [orgUnits, unProceededData])
 
-    const fetchEvaluationInfo = async (evaluationId : number) => {
+    const fetchEvaluationInfo = async (evaluationId: number) => {
         const evaluations = await CrudService.getBacktestsCrudBacktestsGet()
         let evaluationInfo = undefined
         evaluations.forEach((e) => {
@@ -67,7 +67,7 @@ const EvaluationResult = ({ evaluationId }: any) => {
         return evaluationInfo
     }
 
-    const fetchModelByName = async (modelName : string) => {
+    const fetchModelByName = async (modelName: string) => {
         const models = await CrudService.listModelsCrudModelsGet()
         let model = undefined
         models.forEach((m) => {

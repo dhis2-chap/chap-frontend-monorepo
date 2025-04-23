@@ -6,6 +6,12 @@
     color: red;
 }
 
+.noticeBoxContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .errorContainer {
     overflow-x: auto;
     width: 100%;
