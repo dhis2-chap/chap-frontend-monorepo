@@ -136,10 +136,11 @@ const Settings = () => {
             {route && chapServerPublic && (
                 <NoticeBox error title="Chap Core is public">
                     Your chap server is publicly available. This allows anyone
-                    in the world to access your data from{' '}
-                    <a href={getChapDocsUrl()}>{getChapDocsUrl()}</a> without
-                    authentication. Ensure you have proper security measures in
-                    place to protect sensitive information.
+                    in the world to access your disease, climate and population
+                    data from <a href={getChapDocsUrl()}>{getChapDocsUrl()}</a>{' '}
+                    without authentication. Ensure you have proper security
+                    measures in place to protect potentially sensitive
+                    information.
                 </NoticeBox>
             )}
 
@@ -196,7 +197,7 @@ const Settings = () => {
                 </tbody>
             </table>
 
-            <h3>System info:</h3>
+            <h3>System info from Chap Core:</h3>
 
             {isLoading && <p>Loading...</p>}
 
