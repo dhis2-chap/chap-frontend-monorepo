@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
+import i18n from '@dhis2/d2-i18n'
+import { useNavigate } from 'react-router-dom'
+import { SharingDialog } from '@dhis2/ui';
 import { InputField, Button, IconSave24, IconArrowRight16 } from '@dhis2/ui'
 import styles from './CreateRoute.module.css'
-import TestRoute from './Settings'
-import { useNavigate, useRoutes } from 'react-router-dom'
 import useGetRoute from '../../hooks/useGetRoute'
 import { useConfig } from '@dhis2/app-runtime'
 import useCreateUpdateRoute from '../../hooks/useCreateUpdateRoute'
 
-const Setup = () => {
+const CreateRoute = () => {
     const routeDocUrl =
         'https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-241/route.html'
     const chapInfoUrl = 'https://github.com/dhis2-chap/chap-core'
+    const navigate = useNavigate()
 
     const [url, setUrl] = useState<string>('')
     const [existingRoute, setExistingRoute] = useState<
@@ -21,8 +23,8 @@ const Setup = () => {
         useCreateUpdateRoute(existingRoute)
 
     const {
-        loading: loadingGetRoute,
-        route,
+        data: route,
+        isLoading,
         error: routeFetchError,
     } = useGetRoute()
 
@@ -82,6 +84,13 @@ const Setup = () => {
                     label="URL"
                 />
                 <div className={styles.sendButton}>
+                    {route && (
+                        <Button
+                            onClick={() => navigate('/settings')}
+                        >
+                            {i18n.t('Cancel')}
+                        </Button>
+                    )}
                     <Button
                         disabled={called || url === ''}
                         onClick={onClickSave}
@@ -119,4 +128,4 @@ const Setup = () => {
     )
 }
 
-export default Setup
+export default CreateRoute;

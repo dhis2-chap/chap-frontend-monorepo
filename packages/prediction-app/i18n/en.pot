@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-04-23T21:09:41.067Z\n"
-"PO-Revision-Date: 2025-04-23T21:09:41.067Z\n"
+"POT-Creation-Date: 2025-04-24T19:01:07.623Z\n"
+"PO-Revision-Date: 2025-04-24T19:01:07.623Z\n"
 
 msgid "About this app"
 msgstr "About this app"
@@ -152,6 +152,9 @@ msgstr ""
 
 msgid "Prediction for Northern Province"
 msgstr "Prediction for Northern Province"
+
+msgid "Cancel"
+msgstr "Cancel"
 
 msgid "Route is not secure"
 msgstr "Route is not secure"

@@ -11,6 +11,7 @@
     margin-block-start: 1rem;
     display: flex;
     justify-content: right;
+    gap: 0.5rem;
 }
 
 .error {

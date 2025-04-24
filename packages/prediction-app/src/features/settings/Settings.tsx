@@ -17,8 +17,7 @@ const Settings = () => {
         useState<boolean>(false)
 
     const {
-        route,
-        loading: getRouteLoading,
+        data: route,
         error: getRouteError,
     } = useGetRoute()
 

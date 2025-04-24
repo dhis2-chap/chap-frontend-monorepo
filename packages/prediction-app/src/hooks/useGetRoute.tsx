@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useDataQuery } from '@dhis2/app-runtime'
+import { useQuery } from '@tanstack/react-query'
+import { useDataEngine } from '@dhis2/app-runtime'
 
 const REQUEST = {
     routes: {
@@ -7,19 +7,31 @@ const REQUEST = {
         params: {
             paging: false,
             filter: `code:eq:chap`,
-            fields: '*',
+            fields: 'id,code,displayName,url,authorities,disabled,headers',
         },
     },
 }
 
-const useGetRoute = () => {
-    const { data: route, loading, error } = useDataQuery(REQUEST)
+type Route = {
+    id: string
+    code: string
+    displayName: string
+    url: string
+    authorities: string[]
+}
 
-    return {
-        route: (route as any)?.routes?.routes[0],
-        error,
-        loading,
+const useGetRoute = () => {
+    const dataEngine = useDataEngine()
+
+    const fetchRoute = async (): Promise<Route> => {
+        const data = await dataEngine.query(REQUEST)
+        return data?.routes?.routes?.[0]
     }
+
+    return useQuery<Route, Error>({
+        queryKey: ['routes', 'chap'],
+        queryFn: fetchRoute,
+    })
 }
 
 export default useGetRoute
