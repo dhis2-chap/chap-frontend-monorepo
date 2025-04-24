@@ -106,18 +106,18 @@ const JobResults = ({ type }: JobResultsProps) => {
     const getResults = (): JobResult[] => {
         const results: JobResult[] = []
 
-        datasets.filter(
-            (dataset) => dataset.type == 'evaluation'
-        ).forEach((dataset) => {
-            results.push({
-                id: 'Unknown',
-                name: dataset.name,
-                created: new Date(dataset.created ?? ''),
-                type: 'dataset',
-                status: 'SUCCESS',
-                result: dataset.id.toString(),
+        datasets
+            .filter((dataset) => dataset.type == 'evaluation')
+            .forEach((dataset) => {
+                results.push({
+                    id: 'Unknown',
+                    name: dataset.name,
+                    created: new Date(dataset.created ?? ''),
+                    type: 'dataset',
+                    status: 'SUCCESS',
+                    result: dataset.id.toString(),
+                })
             })
-        })
 
         evaluations.forEach((evaluation) => {
             results.push({

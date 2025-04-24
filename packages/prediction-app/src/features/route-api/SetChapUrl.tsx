@@ -1,6 +1,6 @@
 import { useConfig } from '@dhis2/app-runtime'
 import React, { useEffect } from 'react'
-import useGetDataStore from '../../new-view-hooks/useGetDataStore'
+import useGetDataStore from '../../hooks/useGetDataStore'
 import { OpenAPI } from '@dhis2-chap/chap-lib'
 
 interface SetChapUrlProps {

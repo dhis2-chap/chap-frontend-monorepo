@@ -6,7 +6,7 @@ import styles from './TestRoute.module.css'
 import useGetRoute from '../../hooks/useGetRoute'
 import { useConfig } from '@dhis2/app-runtime'
 import SetOpenApiUrl from './SetOpenApiUrl'
-import useGetDataStore from '../../new-view-hooks/useGetDataStore'
+import useGetDataStore from '../../hooks/useGetDataStore'
 
 const Settings = () => {
     const [status, setStatus] = useState<any>(undefined)

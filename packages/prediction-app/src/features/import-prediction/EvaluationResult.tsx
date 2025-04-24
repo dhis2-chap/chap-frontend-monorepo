@@ -56,7 +56,7 @@ const EvaluationResult = ({ evaluationId }: any) => {
         }
     }, [orgUnits, unProceededData])
 
-    const fetchEvaluationInfo = async (evaluationId : number) => {
+    const fetchEvaluationInfo = async (evaluationId: number) => {
         const evaluations = await CrudService.getBacktestsCrudBacktestsGet()
         let evaluationInfo = undefined
         evaluations.forEach((e) => {
@@ -67,7 +67,7 @@ const EvaluationResult = ({ evaluationId }: any) => {
         return evaluationInfo
     }
 
-    const fetchModelByName = async (modelName : string) => {
+    const fetchModelByName = async (modelName: string) => {
         const models = await CrudService.listModelsCrudModelsGet()
         let model = undefined
         models.forEach((m) => {
@@ -85,16 +85,17 @@ const EvaluationResult = ({ evaluationId }: any) => {
         const quantiles = [0.1, 0.25, 0.5, 0.75, 0.9]
 
         try {
-            const [evaluationInfo, evaluationEntries, actualCases] = await Promise.all([
-                fetchEvaluationInfo(evaluationId),
-                AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
-                    evaluationId,
-                    quantiles
-                ),
-                AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(
-                    evaluationId
-                ),
-            ])
+            const [evaluationInfo, evaluationEntries, actualCases] =
+                await Promise.all([
+                    fetchEvaluationInfo(evaluationId),
+                    AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
+                        evaluationId,
+                        quantiles
+                    ),
+                    AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(
+                        evaluationId
+                    ),
+                ])
 
             // Set evaluation name
             setEvaluationName(evaluationInfo.name)
