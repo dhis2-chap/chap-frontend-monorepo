@@ -1,22 +1,13 @@
 import { createHashRouter, RouterProvider, Navigate } from 'react-router-dom'
-import Root from './components/Root'
-import PredictionPage from './components/prediction/PredictionPage'
-import ResultsPage from './components/results/ResultsPage'
-import SettingsPage from './components/settings/SettingsPage'
 import CreateRoutePage from './components/CreateRoutePage'
-import RouteSettingsPage from './components/RouteSettingsPage'
 import ErrorPage from './components/ErrorPage'
-import StatusPage from './components/StatusPage'
 import React, { useState } from 'react'
 import './App.css'
 import PageWrapper from './components/PageWrapper'
 import EvaluationPage from './pages/EvaluationPage'
 import PredictionOverview from './features/predictions-overview/PredictionOverview'
 import SetChapUrl from './features/route-api/SetChapUrl'
-import CreateRoute from './features/settings/CreateRoute'
-import TestRoute from './features/settings/Settings'
 import Settings from './features/settings/Settings'
-import WarnRouteNotExists from './features/common-features/WarnRouteNotExists/WarnRouteNotExists'
 
 const router = createHashRouter([
     {

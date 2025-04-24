@@ -34,4 +34,12 @@ const useGetRoute = () => {
     })
 }
 
-export default useGetRoute
+
+  return {
+    route : (route as any)?.routes?.routes[0],
+    error,
+    loading,
+  };
+};
+
+export default useGetRoute;

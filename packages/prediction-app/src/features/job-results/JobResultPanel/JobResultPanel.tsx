@@ -15,7 +15,7 @@ import {
     IconArchive24,
     IconVisualizationAreaStacked24,
     IconLaunch24,
-    IconRuler24
+    IconRuler24,
 } from '@dhis2/ui'
 import ImportPrediction from '../ImportPrediction/ImportPrediction'
 import { JobResult } from '../interfaces/JobResult'
@@ -39,10 +39,15 @@ const JobResultPanel = ({ jobResults: jobResults }: JobResultPanel) => {
 
     const [newEvaluationDrawerOpen, setNewEvaluationDrawerOpen] =
         useState<boolean>(false)
-    const [showEvaluationResultModal, setShowEvaluationResultModal] = useState<boolean>(false)
-    const [evaluationResultId, setEvaluationResultId] = useState<number | undefined>(undefined)
+    const [showEvaluationResultModal, setShowEvaluationResultModal] =
+        useState<boolean>(false)
+    const [evaluationResultId, setEvaluationResultId] = useState<
+        number | undefined
+    >(undefined)
 
-    const [datasetIdToEvaluate, setDatasetIdToEvaluate] = useState<number | undefined>(undefined)
+    const [datasetIdToEvaluate, setDatasetIdToEvaluate] = useState<
+        number | undefined
+    >(undefined)
 
     const [showJobLogs, setShowJobLogs] = useState(false)
     const [jobLogsId, setJobLogsId] = useState<string | undefined>(undefined)
@@ -63,17 +68,24 @@ const JobResultPanel = ({ jobResults: jobResults }: JobResultPanel) => {
     }
 
     const onClickRemove = (item: JobResult) => {
-        let msg = 'Are you sure you want to permanently remove this item? Any data entries that depend on this item will also be deleted.'
+        let msg =
+            'Are you sure you want to permanently remove this item? Any data entries that depend on this item will also be deleted.'
         if (confirm(msg) == true) {
             console.log('Should remove item')
             let dbId = item.result
             if (dbId) {
                 if (item.type == 'dataset') {
-                    CrudService.deleteDatasetCrudDatasetsDatasetIdDelete(parseInt(dbId))
+                    CrudService.deleteDatasetCrudDatasetsDatasetIdDelete(
+                        parseInt(dbId)
+                    )
                 } else if (item.type == 'evaluation') {
-                    CrudService.deleteBacktestCrudBacktestsBacktestIdDelete(parseInt(dbId))
+                    CrudService.deleteBacktestCrudBacktestsBacktestIdDelete(
+                        parseInt(dbId)
+                    )
                 } else if (item.type == 'prediction') {
-                    CrudService.deletePredictionCrudPredictionsPredictionIdDelete(parseInt(dbId))
+                    CrudService.deletePredictionCrudPredictionsPredictionIdDelete(
+                        parseInt(dbId)
+                    )
                 }
             } else {
                 let jobId = item.id
@@ -82,7 +94,7 @@ const JobResultPanel = ({ jobResults: jobResults }: JobResultPanel) => {
         }
     }
 
-    const onClickEvaluateDataset = (datasetId : number | undefined) => {
+    const onClickEvaluateDataset = (datasetId: number | undefined) => {
         console.log('clicked evaluate dataset id', datasetId)
         setDatasetIdToEvaluate(datasetId)
         setNewEvaluationDrawerOpen(true)
@@ -92,8 +104,9 @@ const JobResultPanel = ({ jobResults: jobResults }: JobResultPanel) => {
         <>
             {/* add job panel items */}
             {jobResults.map((jobResult: JobResult, i) => (
-                <JobResultPanelItem 
+                <JobResultPanelItem
                     i={i}
+                    key={i}
                     jobResult={jobResult}
                     onClickEvaluateDataset={onClickEvaluateDataset}
                     onClickViewEvaluation={onClickViewEvaluation}

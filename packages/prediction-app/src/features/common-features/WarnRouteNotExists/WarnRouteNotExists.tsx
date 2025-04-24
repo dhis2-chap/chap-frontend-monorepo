@@ -4,7 +4,7 @@ import React from 'react'
 import { NoticeBox } from '@dhis2/ui'
 import { Link } from 'react-router-dom'
 import style from './WarnRouteNotExists.module.css'
-import useGetRoute from '../../../new-view-hooks/useGetRoute'
+import useGetRoute from '../../../hooks/useGetRoute'
 import { maxWidth } from '../../navbar/NavBar'
 
 const WarnRouteNotExists = () => {

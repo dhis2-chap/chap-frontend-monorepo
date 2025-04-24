@@ -20,41 +20,40 @@ export const content = {
     }),
 }
 
-const routeUpdateMutation: any = {
-    type: 'update',
-    resource: 'routes',
-    id: ({ id }: any): any => id as any,
-    ...content,
+const routeUpdateMutation : any = {
+  type: "update",
+  resource : "routes",
+  id: ({ id } : any) : any => id as any,
+  ...content
 }
 
-const routeCreateMutation: CreateMutation = {
+
+const routeCreateMutation : CreateMutation= {
     type: 'create',
-    resource: 'routes',
-    ...content,
+    resource : "routes",
+    ...content
 }
 
-const useCreateUpdateRoute = (
-    route: { id: string; url: string } | undefined
-) => {
-    const [createMutate, createMutateParams] =
-        useDataMutation(routeCreateMutation)
-    const [updateMutate, updateMutateParams] =
-        useDataMutation(routeUpdateMutation)
+const useCreateUpdateRoute = (route : {id : string, url : string} | undefined) => {
 
-    //create if route does not exisits
-    if (!route) {
-        return {
-            mutate: createMutate,
-            ...createMutateParams,
-        }
-    }
+  const [createMutate, createMutateParams] = useDataMutation(routeCreateMutation);
+  const [updateMutate, updateMutateParams] = useDataMutation(routeUpdateMutation);
 
-    //update if route exisits
+  //create if route does not exisits
+  if(!route){
     return {
-        mutate: updateMutate,
-        ...updateMutateParams,
+      mutate : createMutate,
+      ...createMutateParams
     }
-    //update if route exisits
-}
+  }
+  
+  //update if route exisits
+  return {
+    mutate : updateMutate,
+      ...updateMutateParams
+  }
+  //update if route exisits
 
-export default useCreateUpdateRoute
+};
+
+export default useCreateUpdateRoute;

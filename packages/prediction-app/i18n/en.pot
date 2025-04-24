@@ -125,23 +125,11 @@ msgstr "CHAP Core results"
 msgid "Select data element"
 msgstr "Select data element"
 
-msgid "It seems like you missing Data Elements for prediction."
-msgstr "It seems like you missing Data Elements for prediction."
+msgid "It seems like you missing Data Elements for CHAP prediction."
+msgstr "It seems like you missing Data Elements for CHAP prediction."
 
 msgid "Add data elements"
 msgstr "Add data elements"
-
-msgid "Loading.."
-msgstr "Loading.."
-
-msgid "Drag 'n' drop prediction/evaluation file, or click to select it"
-msgstr "Drag 'n' drop prediction/evaluation file, or click to select it"
-
-msgid "App settings"
-msgstr "App settings"
-
-msgid "It seems like you missing Data Elements for CHAP prediction."
-msgstr "It seems like you missing Data Elements for CHAP prediction."
 
 msgid ""
 "Job is still running. Please wait until it is finished before doing any "
@@ -165,3 +153,20 @@ msgid ""
 msgstr ""
 "The Chap Core route is not secure. Please ensure that the route is only "
 "accessible to authorized users. Recreating the route should fix this."
+msgid "Organisation unit level"
+msgstr "Organisation unit level"
+
+msgid "Organisation unit level to import data to"
+msgstr "Organisation unit level to import data to"
+
+msgid "Organisation units"
+msgstr "Organisation units"
+
+msgid "Period"
+msgstr "Period"
+
+msgid "Start month"
+msgstr "Start month"
+
+msgid "End month"
+msgstr "End month"
