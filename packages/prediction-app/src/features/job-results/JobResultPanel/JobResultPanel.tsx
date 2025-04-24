@@ -106,6 +106,7 @@ const JobResultPanel = ({ jobResults: jobResults }: JobResultPanel) => {
             {jobResults.map((jobResult: JobResult, i) => (
                 <JobResultPanelItem
                     i={i}
+                    key={i}
                     jobResult={jobResult}
                     onClickEvaluateDataset={onClickEvaluateDataset}
                     onClickViewEvaluation={onClickViewEvaluation}
