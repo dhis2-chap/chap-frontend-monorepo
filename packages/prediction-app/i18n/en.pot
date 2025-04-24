@@ -5,44 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-04-23T13:28:59.968Z\n"
-"PO-Revision-Date: 2025-04-23T13:28:59.968Z\n"
-
-msgid "About this app"
-msgstr "About this app"
-
-msgid "No match found"
-msgstr "No match found"
-
-msgid "Period"
-msgstr "Period"
-
-msgid "Start month"
-msgstr "Start month"
-
-msgid "End month"
-msgstr "End month"
-
-msgid "Organisation unit level"
-msgstr "Organisation unit level"
-
-msgid "Organisation unit level to import data to"
-msgstr "Organisation unit level to import data to"
-
-msgid "Organisation units"
-msgstr "Organisation units"
-
-msgid "Start date"
-msgstr "Start date"
-
-msgid "End date"
-msgstr "End date"
-
-msgid "Select training data and create prediction"
-msgstr "Select training data and create prediction"
-
-msgid "Training period"
-msgstr "Training period"
+"POT-Creation-Date: 2025-04-24T13:24:53.124Z\n"
+"PO-Revision-Date: 2025-04-24T13:24:53.125Z\n"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
@@ -125,23 +89,11 @@ msgstr "CHAP Core results"
 msgid "Select data element"
 msgstr "Select data element"
 
-msgid "It seems like you missing Data Elements for prediction."
-msgstr "It seems like you missing Data Elements for prediction."
+msgid "It seems like you missing Data Elements for CHAP prediction."
+msgstr "It seems like you missing Data Elements for CHAP prediction."
 
 msgid "Add data elements"
 msgstr "Add data elements"
-
-msgid "Loading.."
-msgstr "Loading.."
-
-msgid "Drag 'n' drop prediction/evaluation file, or click to select it"
-msgstr "Drag 'n' drop prediction/evaluation file, or click to select it"
-
-msgid "App settings"
-msgstr "App settings"
-
-msgid "It seems like you missing Data Elements for CHAP prediction."
-msgstr "It seems like you missing Data Elements for CHAP prediction."
 
 msgid ""
 "Job is still running. Please wait until it is finished before doing any "
@@ -152,3 +104,21 @@ msgstr ""
 
 msgid "Prediction for Northern Province"
 msgstr "Prediction for Northern Province"
+
+msgid "Organisation unit level"
+msgstr "Organisation unit level"
+
+msgid "Organisation unit level to import data to"
+msgstr "Organisation unit level to import data to"
+
+msgid "Organisation units"
+msgstr "Organisation units"
+
+msgid "Period"
+msgstr "Period"
+
+msgid "Start month"
+msgstr "Start month"
+
+msgid "End month"
+msgstr "End month"
