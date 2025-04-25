@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { useDataMutation, useDataQuery } from '@dhis2/app-runtime'
+import { useConfig, useDataMutation, useDataQuery } from '@dhis2/app-runtime'
 import {
     CreateMutation,
     Mutation,
     UpdateMutation,
 } from '@dhis2/app-service-data/build/types/engine/types/Mutation'
 import { CHAP_MODELING_APP_AUTHORITY } from '../utils/global-authorities'
+import { useCurrentUser } from '../utils/useUser'
 
 export const content = {
     data: ({ url }: any) => ({
@@ -35,6 +36,7 @@ const routeCreateMutation : CreateMutation= {
 }
 
 const useCreateUpdateRoute = (route : {id : string, url : string} | undefined) => {
+  const { data: user, isLoading } = useCurrentUser();
 
   const [createMutate, createMutateParams] = useDataMutation(routeCreateMutation);
   const [updateMutate, updateMutateParams] = useDataMutation(routeUpdateMutation);

@@ -1,14 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
-import { useDataEngine } from '@dhis2/app-runtime'
+import { useApiDataQuery } from '../utils/useApiDataQuery'
 
-const REQUEST = {
-    routes: {
-        resource: 'routes',
-        params: {
-            paging: false,
-            filter: `code:eq:chap`,
-            fields: 'id,code,displayName,url,authorities,disabled,headers',
-        },
+const RouteRequest = {
+    resource: 'routes',
+    params: {
+        filter: `code:eq:chap`,
+        fields: 'id,code,displayName,url,authorities,disabled,headers',
     },
 }
 
@@ -21,25 +17,18 @@ type Route = {
 }
 
 const useGetRoute = () => {
-    const dataEngine = useDataEngine()
-
-    const fetchRoute = async (): Promise<Route> => {
-        const data = await dataEngine.query(REQUEST)
-        return data?.routes?.routes?.[0]
-    }
-
-    return useQuery<Route, Error>({
+    const { data, error, isLoading, isError } = useApiDataQuery<{ routes: Route[] }, Error, Route>({
         queryKey: ['routes', 'chap'],
-        queryFn: fetchRoute,
-    })
-}
+        query: RouteRequest,
+        select: (data) => data.routes[0],
+    });
 
-
-  return {
-    route : (route as any)?.routes?.routes[0],
-    error,
-    loading,
-  };
+    return {
+        route: data,
+        error,
+        isLoading,
+        isError,
+    }
 };
 
 export default useGetRoute;

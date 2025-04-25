@@ -1,57 +1,81 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { useNavigate } from 'react-router-dom'
-import { SharingDialog } from '@dhis2/ui';
-import { InputField, Button, IconSave24, IconArrowRight16 } from '@dhis2/ui'
+import {
+    Button,
+    IconArrowRight16,
+    InputFieldFF,
+    NoticeBox,
+    ReactFinalForm,
+} from '@dhis2/ui'
 import styles from './CreateRoute.module.css'
 import useGetRoute from '../../hooks/useGetRoute'
-import { useConfig } from '@dhis2/app-runtime'
 import useCreateUpdateRoute from '../../hooks/useCreateUpdateRoute'
 
+const routeDocUrl =
+    'https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-241/route.html'
+const chapInfoUrl = 'https://github.com/dhis2-chap/chap-core'
+
 const CreateRoute = () => {
-    const routeDocUrl =
-        'https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-241/route.html'
-    const chapInfoUrl = 'https://github.com/dhis2-chap/chap-core'
     const navigate = useNavigate()
-
-    const [url, setUrl] = useState<string>('')
-    const [existingRoute, setExistingRoute] = useState<
-        { id: string; url: string } | undefined
-    >(undefined)
-
-    const { mutate, error, loading, called, engine } =
-        useCreateUpdateRoute(existingRoute)
-
+    const { baseUrl } = useConfig()
     const {
-        data: route,
+        route,
         isLoading,
         error: routeFetchError,
     } = useGetRoute()
 
-    const { baseUrl } = useConfig()
+    const { mutate, error, loading, called } =
+        useCreateUpdateRoute(route)
 
-    const onClickSave = async () => {
-        await mutate({
-            id: existingRoute?.id,
-            url: url,
-        })
+    const onClickSave = async (data: unknown) => {
+        alert(JSON.stringify(data))
     }
 
-    useEffect(() => {
-        if (route) {
-            setUrl(route.url)
-            setExistingRoute(route)
-        }
-    }, [route])
+    const naviagteToTestRoute = () => navigate('/settings')
 
-    const naviagteToTestRoute = () => {
-        window.location.replace('#/settings')
+    if (!route) {
+        return (
+            <div className={styles.outerContainer}>
+                <div className={styles.container}> 
+                    <h2>{i18n.t('Configure route')}</h2>
+
+                    <NoticeBox warning title={i18n.t('Warning')}>
+                        {i18n.t('This will create a new public route in DHIS2. Every logged in user will be able to access this route unless you set up authorities for the route.')}
+                    </NoticeBox>
+
+                    <ReactFinalForm.Form onSubmit={onClickSave}>
+                        {({ handleSubmit }) => (
+                            <form onSubmit={handleSubmit}>
+                                <ReactFinalForm.Field
+                                    name='url'
+                                    type='text'
+                                    label={i18n.t('URL')}
+                                    required
+                                    component={InputFieldFF}
+                                />
+
+                                <div className={styles.sendButton}>
+                                    <Button
+                                        type="submit"
+                                        primary
+                                    >
+                                        {i18n.t('Save')}
+                                    </Button>
+                                </div>
+                            </form>
+                        )}
+                    </ReactFinalForm.Form>
+                </div>
+            </div>
+        )
     }
 
     return (
         <div className={styles.outerContainer}>
             <div className={styles.container}>
-                <h2>Configure route</h2>
+                <h2>{i18n.t('Configure route')}</h2>
                 <p>
                     CHAP requires that you set up a{' '}
                     <a about="_blank" href={routeDocUrl}>
@@ -77,12 +101,6 @@ const CreateRoute = () => {
                     </a>
                 </p>
 
-                <InputField
-                    value={url}
-                    onChange={(e: any) => setUrl(e.value)}
-                    placeholder="http://chap:8000/**"
-                    label="URL"
-                />
                 <div className={styles.sendButton}>
                     {route && (
                         <Button
@@ -91,14 +109,6 @@ const CreateRoute = () => {
                             {i18n.t('Cancel')}
                         </Button>
                     )}
-                    <Button
-                        disabled={called || url === ''}
-                        onClick={onClickSave}
-                        icon={<IconSave24 />}
-                        primary
-                    >
-                        Save
-                    </Button>
                 </div>
                 {called && !error && !loading && (
                     <>
