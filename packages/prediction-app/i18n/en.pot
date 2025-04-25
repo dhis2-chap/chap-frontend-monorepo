@@ -5,44 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-04-24T19:01:07.623Z\n"
-"PO-Revision-Date: 2025-04-24T19:01:07.623Z\n"
-
-msgid "About this app"
-msgstr "About this app"
-
-msgid "No match found"
-msgstr "No match found"
-
-msgid "Period"
-msgstr "Period"
-
-msgid "Start month"
-msgstr "Start month"
-
-msgid "End month"
-msgstr "End month"
-
-msgid "Organisation unit level"
-msgstr "Organisation unit level"
-
-msgid "Organisation unit level to import data to"
-msgstr "Organisation unit level to import data to"
-
-msgid "Organisation units"
-msgstr "Organisation units"
-
-msgid "Start date"
-msgstr "Start date"
-
-msgid "End date"
-msgstr "End date"
-
-msgid "Select training data and create prediction"
-msgstr "Select training data and create prediction"
-
-msgid "Training period"
-msgstr "Training period"
+"POT-Creation-Date: 2025-04-24T22:19:54.318Z\n"
+"PO-Revision-Date: 2025-04-24T22:19:54.318Z\n"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
@@ -141,6 +105,21 @@ msgstr ""
 msgid "Prediction for Northern Province"
 msgstr "Prediction for Northern Province"
 
+msgid "Organisation unit level"
+msgstr "Organisation unit level"
+
+msgid "Organisation unit level to import data to"
+msgstr "Organisation unit level to import data to"
+
+msgid "Organisation units"
+msgstr "Organisation units"
+
+msgid "Configure route"
+msgstr "Configure route"
+
+msgid "Save"
+msgstr "Save"
+
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -153,14 +132,6 @@ msgid ""
 msgstr ""
 "The Chap Core route is not secure. Please ensure that the route is only "
 "accessible to authorized users. Recreating the route should fix this."
-msgid "Organisation unit level"
-msgstr "Organisation unit level"
-
-msgid "Organisation unit level to import data to"
-msgstr "Organisation unit level to import data to"
-
-msgid "Organisation units"
-msgstr "Organisation units"
 
 msgid "Period"
 msgstr "Period"
