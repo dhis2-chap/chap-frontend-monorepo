@@ -36,7 +36,7 @@ const BacktestRunner: React.FC = () => {
 
     // Create backtest mutation
     const createBacktestMutation = useMutation({
-        mutationFn: api.createBacktestCrudBacktestPost,
+        mutationFn: api.createBacktestCrudBacktestsPost,
         onSuccess: (data) => {
             alert(`Backtest started! Job ID: ${data.id}`)
         },
@@ -115,7 +115,7 @@ interface BacktestSelectorProps {
 
 const BacktestSelector = (props: BacktestSelectorProps) => {
     const fetchBacktests = useCallback(
-        () => CrudService.getBacktestsCrudBacktestGet(),
+        () => CrudService.getBacktestsCrudBacktestsGet(),
         []
     )
     const {

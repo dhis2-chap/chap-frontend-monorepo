@@ -11,7 +11,6 @@ import type { PolygonModel } from './PolygonModel';
 export type FeatureModel = {
     type?: string;
     geometry: (PointModel | MultiPointModel | LineStringModel | MultiLineStringModel | PolygonModel | MultiPolygonModel);
-    id?: (string | null);
-    properties?: (Record<string, any> | null);
+    id: string;
 };
 

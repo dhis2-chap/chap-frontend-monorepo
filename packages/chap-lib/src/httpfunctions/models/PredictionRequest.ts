@@ -9,6 +9,5 @@ export type PredictionRequest = {
     features: Array<DataList>;
     estimator_id?: string;
     n_periods?: number;
-    include_data?: boolean;
 };
 
