@@ -1,0 +1,19 @@
+.infoAboutReportingBugs {
+    background-color: rgb(252, 181, 49);
+    color: white;
+    font-weight: 400;
+}
+
+.infoAboutReportingBugsInner {
+    margin: auto;
+    padding: 0.6rem 1rem;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon {
+    line-height: 1;
+    padding-right: 0.4rem;
+}
