@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-04-24T22:19:54.318Z\n"
-"PO-Revision-Date: 2025-04-24T22:19:54.318Z\n"
+"POT-Creation-Date: 2025-04-25T10:05:30.328Z\n"
+"PO-Revision-Date: 2025-04-25T10:05:30.328Z\n"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
@@ -116,6 +116,9 @@ msgstr "Organisation units"
 
 msgid "Configure route"
 msgstr "Configure route"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Save"
 msgstr "Save"

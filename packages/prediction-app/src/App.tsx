@@ -8,6 +8,7 @@ import EvaluationPage from './pages/EvaluationPage'
 import PredictionOverview from './features/predictions-overview/PredictionOverview'
 import SetChapUrl from './features/route-api/SetChapUrl'
 import Settings from './features/settings/Settings'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const router = createHashRouter([
     {
@@ -54,6 +55,8 @@ const App = () => {
             {!isLoadingRouteConfig && (
                 <RouterProvider router={router}></RouterProvider>
             )}
+
+            <ReactQueryDevtools />
         </>
     )
 }
