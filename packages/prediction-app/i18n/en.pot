@@ -5,44 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-03-18T12:59:58.281Z\n"
-"PO-Revision-Date: 2025-03-18T12:59:58.282Z\n"
-
-msgid "About this app"
-msgstr "About this app"
-
-msgid "No match found"
-msgstr "No match found"
-
-msgid "Period"
-msgstr "Period"
-
-msgid "Start month"
-msgstr "Start month"
-
-msgid "End month"
-msgstr "End month"
-
-msgid "Organisation unit level"
-msgstr "Organisation unit level"
-
-msgid "Organisation unit level to import data to"
-msgstr "Organisation unit level to import data to"
-
-msgid "Organisation units"
-msgstr "Organisation units"
-
-msgid "Start date"
-msgstr "Start date"
-
-msgid "End date"
-msgstr "End date"
-
-msgid "Select training data and create prediction"
-msgstr "Select training data and create prediction"
-
-msgid "Training period"
-msgstr "Training period"
+"POT-Creation-Date: 2025-04-24T13:24:53.124Z\n"
+"PO-Revision-Date: 2025-04-24T13:24:53.125Z\n"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
@@ -92,6 +56,9 @@ msgstr "Aggregation levels"
 msgid "Assign all org unit levels"
 msgstr "Assign all org unit levels"
 
+msgid "Prediction for {{predictionTargetName}} for {{orgUnitName}}"
+msgstr "Prediction for {{predictionTargetName}} for {{orgUnitName}}"
+
 msgid "Quantile median"
 msgstr "Quantile median"
 
@@ -122,20 +89,36 @@ msgstr "CHAP Core results"
 msgid "Select data element"
 msgstr "Select data element"
 
-msgid "It seems like you missing Data Elements for prediction."
-msgstr "It seems like you missing Data Elements for prediction."
+msgid "It seems like you missing Data Elements for CHAP prediction."
+msgstr "It seems like you missing Data Elements for CHAP prediction."
 
 msgid "Add data elements"
 msgstr "Add data elements"
 
-msgid "Loading.."
-msgstr "Loading.."
+msgid ""
+"Job is still running. Please wait until it is finished before doing any "
+"actions."
+msgstr ""
+"Job is still running. Please wait until it is finished before doing any "
+"actions."
 
-msgid "Drag 'n' drop prediction/evaluation file, or click to select it"
-msgstr "Drag 'n' drop prediction/evaluation file, or click to select it"
+msgid "Prediction for Northern Province"
+msgstr "Prediction for Northern Province"
 
-msgid "App settings"
-msgstr "App settings"
+msgid "Organisation unit level"
+msgstr "Organisation unit level"
 
-msgid "It seems like you missing Data Elements for CHAP prediction."
-msgstr "It seems like you missing Data Elements for CHAP prediction."
+msgid "Organisation unit level to import data to"
+msgstr "Organisation unit level to import data to"
+
+msgid "Organisation units"
+msgstr "Organisation units"
+
+msgid "Period"
+msgstr "Period"
+
+msgid "Start month"
+msgstr "Start month"
+
+msgid "End month"
+msgstr "End month"

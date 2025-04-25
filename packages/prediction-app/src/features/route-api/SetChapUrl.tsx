@@ -1,41 +1,42 @@
-import { useConfig } from '@dhis2/app-runtime';
-import React from 'react'
-import useGetDataStore from '../../new-view-hooks/useGetDataStore';
-import { OpenAPI } from '@dhis2-chap/chap-lib';
+import { useConfig } from '@dhis2/app-runtime'
+import React, { useEffect } from 'react'
+import useGetDataStore from '../../hooks/useGetDataStore'
+import { OpenAPI } from '@dhis2-chap/chap-lib'
 
 interface SetChapUrlProps {
-  setIsLoadingRouteConfig : (isLoadingRouteConfig : boolean) => void
+    setIsLoadingRouteConfig: (isLoadingRouteConfig: boolean) => void
 }
 
-const SetChapUrl = ({setIsLoadingRouteConfig} : SetChapUrlProps) => {
-  const {error, loading, url : existingUrl, fetching} = useGetDataStore('backend-url');
-  
-  const config = useConfig();
-  
-  if(loading){
-    return <>Loading...</>
-  }
+const SetChapUrl = ({ setIsLoadingRouteConfig }: SetChapUrlProps) => {
+    const { error, loading, url: existingUrl } = useGetDataStore('backend-url')
 
-  else{
-    //if url is not set OR url is set do DHIS2 instance (using route api) add credentials
-    if (!existingUrl || URL.parse(existingUrl)?.origin === config.baseUrl) {
-      console.log("Adding credentials to OpenAPI")
-      OpenAPI.WITH_CREDENTIALS = true
+    const config = useConfig()
+
+    useEffect(() => {
+        if (loading) return // Skip if still loading
+
+        // Setting the OpenAPI credentials and URL based on the existing URL or the default
+        if (!existingUrl || URL.parse(existingUrl)?.origin === config.baseUrl) {
+            console.log('Adding credentials to OpenAPI')
+            OpenAPI.WITH_CREDENTIALS = true
+        }
+
+        if (existingUrl) {
+            console.log('Setting OpenAPI url to:', existingUrl)
+            OpenAPI.BASE = existingUrl
+        } else {
+            OpenAPI.BASE = config.baseUrl + '/api/routes/chap/run'
+        }
+
+        // Update the loading state now that we've set the URL
+        setIsLoadingRouteConfig(false)
+    }, [loading, existingUrl, config.baseUrl, setIsLoadingRouteConfig])
+
+    if (loading) {
+        return <>Loading...</>
     }
 
-    if(existingUrl){
-      console.log("Setting OpenAPI url to: ", existingUrl)
-      OpenAPI.BASE = existingUrl
-    }
-    else{
-      OpenAPI.BASE = config.baseUrl+'/api/routes/chap/run'
-    }
-
-    setIsLoadingRouteConfig(false)
-  }
-  return (
-    <></>
-  )
+    return <></>
 }
 
 export default SetChapUrl

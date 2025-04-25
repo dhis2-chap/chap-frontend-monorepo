@@ -3,8 +3,7 @@ import { boolean } from '@dhis2/ui'
 import NewDatasetDrawer from '../new-dataset/components/NewDatasetDrawer/NewDatasetDrawer'
 import PageHeader from '../common-features/PageHeader/PageHeader'
 import Datasets from '../datasets/Datasets'
-import PredictionResult from '../../components/results/PredictionResult'
-import PredictionResults from '../prediction-results/PredictionResults'
+import JobResults from '../job-results/JobResults'
 
 const EvaluationOverview = () => {
     const [newDatasetDrawerOpen, setNewDatasetDrawerOpen] =
@@ -17,11 +16,12 @@ const EvaluationOverview = () => {
     return (
         <div>
             <PageHeader
-                pageTitle="Datasets"
+                pageTitle="Evaluation Datasets"
+                pageDescription="Historical data used to evaluate the accuracy of predictive models, combining DHIS2 and climate data sources."
                 setDrawerOpenText="New Dataset"
                 setDrawerOpen={setNewDatasetDrawerOpen}
             />
-            <PredictionResults type="datasets" />
+            <JobResults type="datasets" />
             <NewDatasetDrawer
                 isOpen={newDatasetDrawerOpen}
                 onDrawerClose={() => setNewDatasetDrawerOpen(false)}
@@ -29,10 +29,10 @@ const EvaluationOverview = () => {
             />
 
             <PageHeader
-                pageTitle="Evaluations"
+                pageTitle="Model Evaluations"
+                pageDescription="Evaluates the accuracy of a predictive model using historical data. Compares actual outcomes with predicted values to assess model performance."
             />
-            <PredictionResults type="evaluations" />
-
+            <JobResults type="evaluations" />
         </div>
     )
 }

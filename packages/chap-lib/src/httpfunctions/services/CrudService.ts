@@ -11,7 +11,6 @@ import type { DatasetCreate } from '../models/DatasetCreate';
 import type { DataSetRead } from '../models/DataSetRead';
 import type { DataSetWithObservations } from '../models/DataSetWithObservations';
 import type { DebugEntry } from '../models/DebugEntry';
-import type { FailedJobRead } from '../models/FailedJobRead';
 import type { FeatureSource } from '../models/FeatureSource';
 import type { JobResponse } from '../models/JobResponse';
 import type { ModelSpecRead } from '../models/ModelSpecRead';
@@ -23,26 +22,6 @@ import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class CrudService {
-    /**
-     * Get Backtest
-     * @param backtestId
-     * @returns BackTestFull Successful Response
-     * @throws ApiError
-     */
-    public static getBacktestCrudBacktestsBacktestIdGet(
-        backtestId: number,
-    ): CancelablePromise<BackTestFull> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/crud/backtests/{backtestId}',
-            path: {
-                'backtestId': backtestId,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
     /**
      * Get Backtests
      * @returns BackTestRead Successful Response
@@ -68,6 +47,46 @@ export class CrudService {
             url: '/crud/backtests',
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get Backtest
+     * @param backtestId
+     * @returns BackTestFull Successful Response
+     * @throws ApiError
+     */
+    public static getBacktestCrudBacktestsBacktestIdGet(
+        backtestId: number,
+    ): CancelablePromise<BackTestFull> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/backtests/{backtestId}',
+            path: {
+                'backtestId': backtestId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Delete Backtest
+     * @param backtestId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static deleteBacktestCrudBacktestsBacktestIdDelete(
+        backtestId: number,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/crud/backtests/{backtestId}',
+            path: {
+                'backtestId': backtestId,
+            },
             errors: {
                 422: `Validation Error`,
             },
@@ -124,19 +143,19 @@ export class CrudService {
         });
     }
     /**
-     * Get Dataset
-     * @param datasetId
-     * @returns DataSetWithObservations Successful Response
+     * Delete Prediction
+     * @param predictionId
+     * @returns any Successful Response
      * @throws ApiError
      */
-    public static getDatasetCrudDatasetsDatasetIdGet(
-        datasetId: number,
-    ): CancelablePromise<DataSetWithObservations> {
+    public static deletePredictionCrudPredictionsPredictionIdDelete(
+        predictionId: number,
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/crud/datasets/{datasetId}',
+            method: 'DELETE',
+            url: '/crud/predictions/{predictionId}',
             path: {
-                'datasetId': datasetId,
+                'predictionId': predictionId,
             },
             errors: {
                 422: `Validation Error`,
@@ -174,6 +193,46 @@ export class CrudService {
         });
     }
     /**
+     * Get Dataset
+     * @param datasetId
+     * @returns DataSetWithObservations Successful Response
+     * @throws ApiError
+     */
+    public static getDatasetCrudDatasetsDatasetIdGet(
+        datasetId: number,
+    ): CancelablePromise<DataSetWithObservations> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/datasets/{datasetId}',
+            path: {
+                'datasetId': datasetId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Delete Dataset
+     * @param datasetId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static deleteDatasetCrudDatasetsDatasetIdDelete(
+        datasetId: number,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/crud/datasets/{datasetId}',
+            path: {
+                'datasetId': datasetId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Create Dataset Csv
      * @param formData
      * @returns DataBaseResponse Successful Response
@@ -190,6 +249,40 @@ export class CrudService {
             errors: {
                 422: `Validation Error`,
             },
+        });
+    }
+    /**
+     * List Models
+     * @returns ModelSpecRead Successful Response
+     * @throws ApiError
+     */
+    public static listModelsCrudModelsGet(): CancelablePromise<Array<ModelSpecRead>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/models',
+        });
+    }
+    /**
+     * List Models From Model Templates
+     * @returns ModelSpecRead Successful Response
+     * @throws ApiError
+     */
+    public static listModelsFromModelTemplatesCrudModelsFromModelTemplatesGet(): CancelablePromise<Array<ModelSpecRead>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/models-from-model-templates',
+        });
+    }
+    /**
+     * List Model Templates
+     * Lists all model templates by reading local config files and presenting models.
+     * @returns ModelTemplateConfig Successful Response
+     * @throws ApiError
+     */
+    public static listModelTemplatesCrudModelTemplatesGet(): CancelablePromise<Array<ModelTemplateConfig>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/modelTemplates',
         });
     }
     /**
@@ -232,71 +325,6 @@ export class CrudService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/crud/feature-sources',
-        });
-    }
-    /**
-     * Get Failed Jobs
-     * @returns FailedJobRead Successful Response
-     * @throws ApiError
-     */
-    public static getFailedJobsCrudFailedJobsGet(): CancelablePromise<Array<FailedJobRead>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/crud/failedJobs',
-        });
-    }
-    /**
-     * Delete Failed Job
-     * @param failedJobId
-     * @returns any Successful Response
-     * @throws ApiError
-     */
-    public static deleteFailedJobCrudFailedJobsFailedJobIdDelete(
-        failedJobId: number,
-    ): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'DELETE',
-            url: '/crud/failedJobs/{failedJobId}',
-            path: {
-                'failedJobId': failedJobId,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * List Models
-     * @returns ModelSpecRead Successful Response
-     * @throws ApiError
-     */
-    public static listModelsCrudModelsGet(): CancelablePromise<Array<ModelSpecRead>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/crud/models',
-        });
-    }
-    /**
-     * List Models From Model Templates
-     * @returns ModelSpecRead Successful Response
-     * @throws ApiError
-     */
-    public static listModelsFromModelTemplatesCrudModelsFromModelTemplatesGet(): CancelablePromise<Array<ModelSpecRead>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/crud/models-from-model-templates',
-        });
-    }
-    /**
-     * List Model Templates
-     * Lists all model templates by reading local config files and presenting models.
-     * @returns ModelTemplateConfig Successful Response
-     * @throws ApiError
-     */
-    public static listModelTemplatesCrudModelTemplatesGet(): CancelablePromise<Array<ModelTemplateConfig>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/crud/modelTemplates',
         });
     }
 }

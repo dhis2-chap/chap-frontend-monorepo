@@ -1,6 +1,12 @@
-.predictionHeader {
+.pageHeader {
     display: flex;
     justify-content: space-between;
     align-items: end;
     margin-bottom: 20px;
+}
+
+.pageDescription {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.75rem;
 }

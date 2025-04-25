@@ -1,4 +1,4 @@
-import { Button, IconArrowRight24 } from '@dhis2/ui'
+import { Button, IconArrowRight24, NoticeBox } from '@dhis2/ui'
 import React, { useEffect, useState } from 'react'
 import { ApiError, DefaultService, OpenAPI } from '@dhis2-chap/chap-lib'
 import { Link, useNavigate } from 'react-router-dom'
@@ -6,7 +6,7 @@ import styles from './TestRoute.module.css'
 import useGetRoute from '../../hooks/useGetRoute'
 import { useConfig } from '@dhis2/app-runtime'
 import SetOpenApiUrl from './SetOpenApiUrl'
-import useGetDataStore from '../../new-view-hooks/useGetDataStore'
+import useGetDataStore from '../../hooks/useGetDataStore'
 
 const Settings = () => {
     const [status, setStatus] = useState<any>(undefined)
@@ -15,7 +15,11 @@ const Settings = () => {
     const [isSetOpenApiUrlModalOpen, setIsSetOpenApiUrlModalOpen] =
         useState<boolean>(false)
 
-    const { route } = useGetRoute()
+    const {
+        route,
+        loading: getRouteLoading,
+        error: getRouteError,
+    } = useGetRoute()
 
     const {
         error,
@@ -26,11 +30,21 @@ const Settings = () => {
 
     const [isLoading, setIsLoading] = useState(false)
 
+    const getChapDocsUrl = () => {
+        if (!route?.url) {
+            return ''
+        }
+        const baseUrl = route.url.endsWith('**')
+            ? route.url.slice(0, -2)
+            : route.url
+        return baseUrl + 'docs'
+    }
+
     const fetchStatus = async () => {
         setErrorMessage('')
         setStatus(undefined)
         setIsLoading(true)
-        await DefaultService.healthHealthGet()
+        await DefaultService.systemInfoSystemInfoGet()
             .catch((error: ApiError) => {
                 setErrorMessage({
                     body: error?.body,
@@ -87,6 +101,31 @@ const Settings = () => {
             </>
         )
     }
+    const [chapServerPublic, setchapServerPublic] = useState(false)
+
+    useEffect(() => {
+        if (route) {
+            checkChapServerPublic().then((result) => {
+                setchapServerPublic(result)
+            })
+        }
+    }, [route])
+
+    const checkChapServerPublic = async () => {
+        if (!route?.url) {
+            return false
+        }
+
+        try {
+            const response = await fetch(getChapDocsUrl(), {
+                method: 'HEAD',
+            })
+            return response.ok
+        } catch (error) {
+            console.error('Error pinging Chap URL:', error)
+            return false
+        }
+    }
 
     const config = useConfig()
 
@@ -94,64 +133,76 @@ const Settings = () => {
         <div className={styles.container}>
             <h2>Settings</h2>
 
+            {route && chapServerPublic && (
+                <NoticeBox error title="Chap Core is public">
+                    Your chap server is publicly available. This allows anyone
+                    in the world to access your disease, climate and population
+                    data from <a href={getChapDocsUrl()}>{getChapDocsUrl()}</a>{' '}
+                    without authentication. Ensure you have proper security
+                    measures in place to protect potentially sensitive
+                    information.
+                </NoticeBox>
+            )}
+
             <table className={styles.settingsTable}>
-                <tr>
-                    <td className={styles.cellTable}>
-                        <b>{config?.appName} is connecting to Chap Core via:</b>
-                    </td>
-                    <td className={styles.cellTable}>{OpenAPI?.BASE}</td>
-                    <td className={styles.cellTable}></td>
-                    <td className={styles.cellTableLarge}>
-                        <Button
-                            small
-                            primary
-                            loading={loading}
-                            onClick={() => setIsSetOpenApiUrlModalOpen(true)}
-                        >
-                            Edit Chap core URL ➔
-                        </Button>
-                    </td>
-                </tr>
-                <tr>
-                    <td className={styles.cellTable}>
-                        <b>DHIS2 is connecting to Chap Core through:</b>
-                    </td>
-                    <td className={styles.cellTable}>
-                        {route?.url} <br />
-                    </td>
-                    <td className={styles.cellTableLarge}>
-                        <Button
-                            small
-                            onClick={() =>
-                                setShowRouteDetails(!showRouteDetails)
-                            }
-                        >
-                            {showRouteDetails
-                                ? 'Hide route details'
-                                : 'Show route details'}
-                        </Button>
-                        {showRouteDetails && getRouteDetails()}
-                    </td>
-                    <td className={styles.cellTable}>
-                        <Button small primary onClick={naviagteToTestRoute}>
-                            Create/edit route ➔
-                        </Button>
-                    </td>
-                </tr>
+                <tbody>
+                    <tr style={{ display: 'none' }}>
+                        <td className={styles.cellTable}>
+                            <b>
+                                {config?.appName} is connecting to Chap Core
+                                via:
+                            </b>
+                        </td>
+                        <td className={styles.cellTable}>{OpenAPI?.BASE}</td>
+                        <td className={styles.cellTable}></td>
+                        <td className={styles.cellTableLarge}>
+                            <Button
+                                small
+                                primary
+                                loading={loading}
+                                onClick={() =>
+                                    setIsSetOpenApiUrlModalOpen(true)
+                                }
+                            >
+                                Edit Chap core URL ➔
+                            </Button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className={styles.cellTable}>
+                            <b>DHIS2 is connecting to Chap Core through:</b>
+                        </td>
+                        <td className={styles.cellTable}>
+                            {route?.url} <br />
+                        </td>
+                        <td className={styles.cellTableLarge}>
+                            <Button
+                                small
+                                onClick={() =>
+                                    setShowRouteDetails(!showRouteDetails)
+                                }
+                            >
+                                {showRouteDetails
+                                    ? 'Hide route details'
+                                    : 'Show route details'}
+                            </Button>
+                            {showRouteDetails && getRouteDetails()}
+                        </td>
+                        <td className={styles.cellTable}>
+                            <Button small primary onClick={naviagteToTestRoute}>
+                                Create/edit route ➔
+                            </Button>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
 
-            <h3>Healthy status:</h3>
+            <h3>System info from Chap Core:</h3>
 
             {isLoading && <p>Loading...</p>}
 
             {status && (
-                <div
-                    className={
-                        status?.status !== 'success'
-                            ? styles.status_not_ok
-                            : styles.status_ok
-                    }
-                >
+                <div className={styles.status_ok}>
                     {status && <pre>{JSON.stringify(status, null, 2)}</pre>}
                 </div>
             )}

@@ -1,8 +1,8 @@
 import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import useAnalyticRequest from '../../../../new-view-hooks/useAnalyticRequest'
-import useGeoJson from '../../../../new-view-hooks/useGeoJson'
+import useAnalyticRequest from '../../../../hooks/useAnalyticRequest'
+import useGeoJson from '../../../../hooks/useGeoJson'
 import { ModelFeatureDataElementMap } from '../../../../interfaces/ModelFeatureDataElement'
 import styles from './DownloadAnalyticsData.module.css'
 import { ErrorResponse } from '../../interfaces/ErrorResponse'
@@ -20,6 +20,9 @@ interface DownloadAnalyticsDataProps {
     selectedOrgUnits: OrgUnit[]
     model_id: string | undefined
     analyticsDataLayers: DatasetLayer[]
+    setAnalyticsMetaData: Dispatch<
+        SetStateAction<{ [key: string]: { name: string } }>
+    >
     setStartDownload: Dispatch<
         SetStateAction<{
             action: 'download' | 'predict' | 'new-dataset'
@@ -43,6 +46,7 @@ const DownloadAnalyticsData = ({
     setGeoJSon,
     setObservations,
     setFeatureDataItemMapper,
+    setAnalyticsMetaData,
     setStartDownload,
     orgUnitLevel,
     selectedOrgUnits,
@@ -66,6 +70,7 @@ const DownloadAnalyticsData = ({
         data: analyticData,
         error: analyticError,
         loading: analyticLoading,
+        metaData: analyticsMetaData,
     } = useAnalyticRequest(
         analyticsDataLayers,
         flatternDhis2Periods(selectedPeriodItems),
@@ -76,14 +81,6 @@ const DownloadAnalyticsData = ({
         error: geoJsonError,
         loading: geoJsonLoading,
     } = useGeoJson(orgUnitLevel.level, selectedOrgUnits)
-
-    /*const createRequest = () => {
-    return {
-      //model_id : model_id,
-      features : analyticData,
-      orgUnitsGeoJson : geoJson,
-    }
-  }*/
 
     const getFeatureDataItemMapper = (dataItemIds: string[]) => {
         return dataItemIds.map((dei) => {
@@ -126,6 +123,7 @@ const DownloadAnalyticsData = ({
             setErrorMessages([])
             setGeoJSon(geoJson)
             setObservations(convertDhis2AnlyticsToChap(analyticData))
+            setAnalyticsMetaData(analyticsMetaData)
         }
 
         //if an error occured

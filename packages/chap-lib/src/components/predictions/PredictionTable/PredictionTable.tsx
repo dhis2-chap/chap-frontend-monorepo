@@ -11,8 +11,8 @@ import {
     findOrgUnitName,
     getUniqePeriods,
     getUniqeQuantiles,
-    numberDateToString,
 } from '../../../utils/PredictionResponse'
+import { createFixedPeriodFromPeriodId } from '@dhis2/multi-calendar-dates'
 
 interface PredictionTableProps {
     data: FullPredictionResponseExtended
@@ -28,10 +28,13 @@ export const PredictionTable = ({ data }: PredictionTableProps) => {
                     <div key={ou}>
                         <h3>
                             {i18n.t(
-                                `Prediction for ${findOrgUnitName(
-                                    ou,
-                                    dataValues
-                                )}`
+                                'Prediction for {{orgUnitName}}',
+                                {
+                                    orgUnitName: findOrgUnitName(
+                                        ou,
+                                        dataValues
+                                    ),
+                                }
                             )}
                         </h3>
                         <table className={styles.table}>
@@ -42,9 +45,15 @@ export const PredictionTable = ({ data }: PredictionTableProps) => {
                                         (p: string) => {
                                             return (
                                                 <th key={p}>
-                                                    {i18n.t(
-                                                        numberDateToString(p)
-                                                    )}
+                                                    {
+                                                        createFixedPeriodFromPeriodId(
+                                                            {
+                                                                periodId: p,
+                                                                calendar:
+                                                                    'gregory',
+                                                            }
+                                                        ).displayName
+                                                    }
                                                 </th>
                                             )
                                         }

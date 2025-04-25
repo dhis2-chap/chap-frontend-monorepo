@@ -19,11 +19,15 @@ import SplitPeriodSelector from '../SplitPeriodSelector/SplitPeriodSelector'
 import styles from './ComparionPlotWrapper.module.css'
 
 interface ComparionPlotWrapperProps {
+    evaluationName: string,
+    modelName: string,
     evaluations: EvaluationForSplitPoint[]
     splitPeriods: string[]
 }
 
 export const ComparionPlotWrapper = ({
+    evaluationName,
+    modelName,
     evaluations,
     splitPeriods,
 }: ComparionPlotWrapperProps) => {
@@ -97,6 +101,9 @@ export const ComparionPlotWrapper = ({
             <div className={styles.wrapper}>
                 <div className={styles.filter}>
                     <div>
+                        <h2>Evaluation: {evaluationName}</h2>
+                    </div>
+                    <div>
                         <div className={styles.filterTitle}>Split period:</div>
                         <SplitPeriodSelector
                             splitPeriods={splitPeriods}
@@ -109,22 +116,27 @@ export const ComparionPlotWrapper = ({
                         <div className={styles.filterTitle}>
                             Organization units:
                         </div>
-                        {allOrgUnits.map((orgUnit, i) => (
-                            <Checkbox
-                                checked={
-                                    selectedOrgUnits.filter(
-                                        (o) => o == orgUnit.id
-                                    ).length > 0
-                                }
-                                onChange={onChangeOrgUnitSelected}
-                                label={orgUnit.name}
-                                key={orgUnit.id}
-                                value={orgUnit.id}
-                            />
-                        ))}
+                        <div className={styles.filterCheckbox}>
+                            {allOrgUnits.map((orgUnit, i) => (
+                                <Checkbox
+                                    checked={
+                                        selectedOrgUnits.filter(
+                                            (o) => o == orgUnit.id
+                                        ).length > 0
+                                    }
+                                    onChange={onChangeOrgUnitSelected}
+                                    label={orgUnit.name}
+                                    key={orgUnit.id}
+                                    value={orgUnit.id}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
                 <div className={styles.plots}>
+                    <div>
+                        <h3>Model: {modelName}</h3>
+                    </div>
                     <div className={styles.searchInput}>
                         <InputField
                             label="Search for organization units:"

@@ -2,12 +2,6 @@
     padding: 0px;
 }
 
-.modelSelectTitle {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 16px;
-}
-
 .loadingText {
     font-size: 1rem;
     color: gray;
@@ -17,7 +11,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 16px;
-    padding: 20px;
+    padding-top: 10px;
 }
 
 .modelCard {
@@ -55,8 +49,9 @@
 
 .modelAuthorLogo {
     height: 32px;
-    width: 32px;
-    margin-right: 2px;
+    width: auto;
+    margin-left: 6px;
+    margin-right: 6px;
 }
 
 .modelAuthorName {
@@ -77,6 +72,11 @@
 .modelDescription {
     font-size: 0.9rem;
     color: #666;
+}
+
+.modelDescriptionText {
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 .modelCovariates {
@@ -103,6 +103,7 @@
 }
 
 .modelCitationText {
+    margin-top: 10px;
     margin-left: 10px;
     text-wrap: pretty;
 }

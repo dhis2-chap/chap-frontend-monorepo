@@ -15,7 +15,8 @@ import styles from './SelectDataLine.module.css'
 import { Datalayer, DatasetLayer } from '../../../interfaces/DataSetLayer'
 import { AnalyticsService, DataSource, Feature } from '@dhis2-chap/chap-lib'
 import { useDataQuery } from '@dhis2/app-runtime'
-import SearchSelectField from '../../../../../components/prediction/SearchSelectField'
+import SearchSelectField from '../../../../search-dataitem/SearchSelectField'
+import { features } from '../NewDatasetForm'
 
 interface SelectDataLineProps {
     setDataLayers: (datasetLayer: DatasetLayer[]) => void
@@ -24,29 +25,6 @@ interface SelectDataLineProps {
 }
 
 ///temporarily dummy data
-
-const features: Feature[] = [
-    {
-        id: 'rainfall',
-        name: 'Rainfall',
-        description: 'The amount of rainfall in mm',
-        optional: true,
-    },
-    {
-        id: 'mean_temperature',
-        name: 'Mean Temperature',
-        description: 'The average temperature in degrees Celsius',
-        optional: true,
-    },
-    {
-        id: 'population',
-        name: 'Population',
-        description: 'The population of the area',
-        optional: false,
-    },
-
-    { name: 'Disease cases', id: 'disease_cases', description: 'Feature 5' },
-]
 
 const SelectDataLine = ({
     datasetLayers,
@@ -88,7 +66,11 @@ const SelectDataLine = ({
 
     const addLayer = () => {
         let newDataSetLayer = [...datasetLayers]
-        newDataSetLayer.push({ feature: '', origin: '', dataSource: '' })
+        newDataSetLayer.push({
+            feature: '',
+            origin: 'dataItem',
+            dataSource: '',
+        })
         setDataLayers(newDataSetLayer)
     }
 
@@ -119,7 +101,10 @@ const SelectDataLine = ({
 
     return (
         <div>
-            <h3>Data layers</h3>
+            <h3>Covariates</h3>
+            {/*
+            //not needed as Chap is not fetching climate data anymore
+            
             <NoticeBox title="Origin">
                 The modeling app supports direct retrieval of the ERA5-Land data
                 without the need of the DHIS2 Climate App. If you are using an
@@ -128,7 +113,7 @@ const SelectDataLine = ({
                 sources or the CHIRPS dataset, please select DHIS2 as the
                 origin, and then choose the specific data element where the data
                 has been imported.
-            </NoticeBox>
+            </NoticeBox>*/}
 
             <div className={styles.selectDataLineWrapper}>
                 {datasetLayers.map((dataLayer, index) => (
@@ -136,16 +121,19 @@ const SelectDataLine = ({
                         <div className={styles.dataLineWrapper}>
                             {predictMode ? (
                                 <div className={styles.predictLabel}>
-                                    {
-                                        features.filter(
-                                            (f) => f.id === dataLayer.feature
-                                        )[0]?.name
-                                    }
+                                    {features.filter(
+                                        (f) => f.id === dataLayer.feature
+                                    )[0]?.name + ':'}
                                 </div>
                             ) : (
-                                <div className={styles.selectField}>
+                                <div className={styles.predictLabel}>
+                                    {features.filter(
+                                        (f) => f.id === dataLayer.feature
+                                    )[0]?.name + ':'}
+
+                                    {/*<div className={styles.selectField}>
                                     <SingleSelectField
-                                        label="Feature"
+                                        label="Covariate"
                                         onChange={(e) =>
                                             onChangeClickSelectField(
                                                 e,
@@ -165,9 +153,10 @@ const SelectDataLine = ({
                                             )
                                         )}
                                     </SingleSelectField>
+                                </div>*/}
                                 </div>
                             )}
-                            <div className={styles.selectField}>
+                            {/*<div className={styles.selectField}>
                                 <SingleSelectField
                                     disabled={dataLayer.feature === ''}
                                     label="Origin"
@@ -195,13 +184,13 @@ const SelectDataLine = ({
                                         value={'dataItem'}
                                     />
                                 </SingleSelectField>
-                            </div>
+                            </div>*/}
                             <div className={styles.selectField}>
                                 {(dataLayer.origin === 'CHAP' ||
                                     dataLayer.origin === '') && (
                                     <SingleSelectField
                                         disabled={dataLayer.origin === ''}
-                                        label="Data name source"
+                                        label="Data Element"
                                         onChange={(e) =>
                                             onChangeClickSelectField(
                                                 e,
@@ -234,7 +223,7 @@ const SelectDataLine = ({
                                             name: features.filter(
                                                 (f) =>
                                                     f.id === dataLayer.feature
-                                            )[0].name,
+                                            )[0]?.name,
                                             id: dataLayer.feature,
                                             description: '',
                                         }}
@@ -250,7 +239,7 @@ const SelectDataLine = ({
                                     />
                                 )}
                             </div>
-                            {!predictMode && (
+                            {/*!predictMode && (
                                 <div>
                                     <Button
                                         onClick={() => removeLayer(index)}
@@ -259,17 +248,17 @@ const SelectDataLine = ({
                                         icon={<IconDelete24 />}
                                     ></Button>
                                 </div>
-                            )}
+                            )*/}
                         </div>
                     </div>
                 ))}
-                {!predictMode && (
+                {/*!predictMode && (
                     <div className={styles.buttonRight}>
                         <Button onClick={addLayer} icon={<IconAdd16 />}>
                             Add layer
                         </Button>
                     </div>
-                )}
+                )*/}
             </div>
         </div>
     )
