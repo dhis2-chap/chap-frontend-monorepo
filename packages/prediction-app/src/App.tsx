@@ -9,6 +9,7 @@ import PredictionOverview from './features/predictions-overview/PredictionOvervi
 import SetChapUrl from './features/route-api/SetChapUrl'
 import Settings from './features/settings/Settings'
 
+
 const router = createHashRouter([
     {
         path: 'route',
