@@ -1,11 +1,6 @@
-import { useState } from 'react'
 import { useDataQuery } from '@dhis2/app-runtime'
-import type {
-    Query,
-    QueryOptions,
-} from '@dhis2/app-service-data/build/types/engine'
 
-const REQUEST = (key: string): Query => {
+const REQUEST = (key: string) => {
     return {
         request: {
             resource: `dataStore/modeling/${key}`,
