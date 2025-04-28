@@ -20,6 +20,7 @@ const WarnAboutIncompatibleVersion = () => {
     >(undefined)
 
     const getIsCompatible = async () => {
+        if (!appVersion) return
         await DefaultService.isCompatibleIsCompatibleGet(appVersion?.full)
             .then((a: any) => {
                 setIsCompatible(a)

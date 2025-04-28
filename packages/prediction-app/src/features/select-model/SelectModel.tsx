@@ -14,6 +14,7 @@ const offlineModel : ModelSpecRead = {
   name: "Download data (CHAP is offline)",
   id: 0,
   description: "Download data from the CHAP API",
+  displayName: "",
   covariates: [],
   target: {
     name: "target",

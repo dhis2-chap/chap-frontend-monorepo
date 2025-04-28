@@ -2,20 +2,14 @@ import React, { useEffect, useState } from 'react'
 import DownloadAnalyticsData from './components/DownloadData/DownloadAnalyticsData'
 import {
     AnalyticsService,
-    CrudService,
-    DataList,
-    DatasetCreate,
     DatasetMakeRequest,
     FeatureCollectionModel,
     FetchRequest,
     JobResponse,
     MakePredictionRequest,
-    ModelSpec,
     ModelSpecRead,
     ObservationBase,
-    PredictionCreate,
 } from '@dhis2-chap/chap-lib'
-import { ModelFeatureDataElementMap } from '../../interfaces/ModelFeatureDataElement'
 import { ErrorResponse } from './interfaces/ErrorResponse'
 import saveAs from 'file-saver'
 import { IconError24 } from '@dhis2/ui'
@@ -23,9 +17,7 @@ import styles from './SendChapData.module.css'
 import SendOrDownloadButtons from './components/SendOrDownloadButtons/SendOrDownloadButtons'
 import { IOrgUnitLevel, OrgUnit } from '../orgunit-selector/interfaces/orgUnit'
 import { Period } from '../timeperiod-selector/interfaces/Period'
-import { Datalayer, DatasetLayer } from '../new-dataset/interfaces/DataSetLayer'
-import { time } from 'console'
-import { data } from 'react-router-dom'
+import { DatasetLayer } from '../new-dataset/interfaces/DataSetLayer'
 import { useConfig } from '@dhis2/app-runtime'
 import { createFixedPeriodFromPeriodId } from '@dhis2/multi-calendar-dates'
 
@@ -280,7 +272,6 @@ export const SendChapData = ({
 
     const getMetadate = () => {
         return {
-            userId: config?.systemInfo?.systemId || 'Unknown',
             appVersion: config?.appVersion?.full || 'Unknown',
             dhis2Version: config?.systemInfo?.version || 'Unknown',
             dataItemMapper: featureDataItemMapper,

@@ -4,7 +4,7 @@ import { Button, SingleSelectField, SingleSelectOption } from '@dhis2/ui';
 import styles from './ModelDetails.module.css'
 
 interface ModelDetailsProps {
-    selectedModel : ModelSpecRead | undefined
+    selectedModel : ModelSpecRead
     onChangeModel? : any
 }
 
