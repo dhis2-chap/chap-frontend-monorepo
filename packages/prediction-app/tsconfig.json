@@ -3,7 +3,7 @@
         "plugins": [{ "name": "typescript-plugin-css-modules" }],
         "jsx": "react",
         "target": "es2021",
-        "module": "commonjs",
+        "module": "ESNext",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
