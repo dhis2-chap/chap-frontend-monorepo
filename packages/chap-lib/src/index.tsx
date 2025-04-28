@@ -25,3 +25,7 @@ export {
     FullPredictionResponseExtended,
     PredictionResponseExtended,
 } from './interfaces/Prediction'
+
+// Services
+export { CrudService } from './httpfunctions/services/CrudService'
+export { AnalyticsService } from './httpfunctions/services/AnalyticsService'

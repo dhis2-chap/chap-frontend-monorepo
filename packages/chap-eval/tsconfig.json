@@ -2,6 +2,7 @@
     "compilerOptions": {
         "plugins": [{ "name": "typescript-plugin-css-modules" }],
         "jsx": "react",
+        "composite": true,
         /* Visit https://aka.ms/tsconfig to read more about this file */
 
         /* Projects */

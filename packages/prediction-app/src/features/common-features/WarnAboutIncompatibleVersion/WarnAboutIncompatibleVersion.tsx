@@ -2,10 +2,8 @@ import { boolean, NoticeBox } from '@dhis2/ui'
 import React, { useEffect, useState } from 'react'
 import style from './WarnAboutIncompatibleVersion.module.css'
 import { maxWidth } from '../../navbar/NavBar'
-import { Link } from 'react-router-dom'
 import {
     ApiError,
-    CompatibilityResponse,
     DefaultService,
 } from '@dhis2-chap/chap-lib'
 import { useConfig } from '@dhis2/app-runtime'

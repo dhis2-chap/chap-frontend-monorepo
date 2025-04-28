@@ -3,3 +3,4 @@
 **/build/
 **/src/locales/
 .vscode
+**.tsbuildinfo
