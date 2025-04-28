@@ -8,8 +8,8 @@ export {
 } from './utils/EvaluationResponse'
 export { ConditionalTooltip } from './utils/ConditionalTooltip'
 export {
-    HighChartsData,
     EvaluationEntryExtend,
+    HighChartsData,
     EvaluationForSplitPoint,
     EvaluationPerOrgUnit,
     ModelData,

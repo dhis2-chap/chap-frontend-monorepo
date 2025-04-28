@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import {
-    HighChartsData,
     EvaluationForSplitPoint,
     ComparisonPlotList,
 } from '@dhis2-chap/chap-lib'
@@ -9,9 +8,6 @@ import { SplitPeriodSelector } from './SplitPeriodSelector'
 interface EvaluationResultsChartProps {
     data: EvaluationForSplitPoint[]
     splitPeriods: string[]
-}
-interface ResultPlotListProps {
-    orgUnitsData: Record<string, HighChartsData>
 }
 /*
 const ResultPlotList: React.FC<ResultPlotListProps> = ({ orgUnitsData}) => {
