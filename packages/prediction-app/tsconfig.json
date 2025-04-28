@@ -4,6 +4,7 @@
         "jsx": "react",
         "target": "es2021",
         "module": "ESNext",
+        "moduleResolution": "node",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
