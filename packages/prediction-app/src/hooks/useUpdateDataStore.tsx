@@ -4,7 +4,7 @@ import { CreateMutation } from "@dhis2/app-service-data/build/types/engine/types
 
 export const REQUEST = (data : any, key: string, method : 'update' | 'create') => {
   return {
-    resource: `dataStore/chap/${key}`,
+    resource: `dataStore/modeling/${key}`,
     type: method,
     id : "",
     data: data,
