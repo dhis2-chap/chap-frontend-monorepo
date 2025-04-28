@@ -9,6 +9,5 @@
     },
     "references": [
         { "path": "./packages/chap-lib" },
-        { "path": "./packages/chap-eval" }
     ]
 }
