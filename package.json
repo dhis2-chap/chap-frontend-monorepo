@@ -9,6 +9,7 @@
     "scripts": {
         "lint": "echo \"todo: fix up typescript and implement linting\" # d2-style check",
         "format": "d2-style apply",
+        "tsc:check": "npx tsc --noEmit",
         "build:chap-lib": "yarn workspace @dhis2-chap/chap-lib build",
         "build:chap-eval": "yarn workspace chap-eval build",
         "build:modeling-app": "yarn workspace modeling-app build",
