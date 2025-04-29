@@ -65,16 +65,42 @@ jobs:
             - run: yarn i18n
             - run: yarn test
 
-    # e2e:
-    #     uses: dhis2/workflows-platform/.github/workflows/legacy-e2e.yml@v1
-    #     # Skips forks and dependabot PRs
-    #     if: '!github.event.push.repository.fork'
-    #     secrets: inherit
-    #     with:
-    #         api_version: 42
+    build-chap-lib:
+        runs-on: ubuntu-latest
+        needs: install
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+
+            - uses: actions/cache@v4
+              id: yarn-cache
+              with:
+                  path: '**/node_modules'
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+            - run: yarn build:chap-lib
+
+    build-modeling-app:
+        runs-on: ubuntu-latest
+        needs: install
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+
+            - uses: actions/cache@v4
+              id: yarn-cache
+              with:
+                  path: '**/node_modules'
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+            - run: yarn build:modeling-app
 
     release:
-        needs: [install, lint, test]
+        needs: [install, lint, test, build-chap-lib, build-modeling-app]
         # Skips forks and dependabot PRs
         if: '!github.event.push.repository.fork'
         runs-on: ubuntu-latest

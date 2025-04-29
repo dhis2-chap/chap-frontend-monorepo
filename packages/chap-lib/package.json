@@ -2,7 +2,7 @@
     "name": "@dhis2-chap/chap-lib",
     "version": "1.1.0",
     "module": "./build/es/index.js",
-    "types": "./build/es/index.d.ts",
+    "types": "./build/types/index.d.ts",
     "license": "MIT",
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^12.2.0",

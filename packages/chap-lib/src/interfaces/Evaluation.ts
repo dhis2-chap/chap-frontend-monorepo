@@ -1,21 +1,21 @@
 import { EvaluationEntry } from '../httpfunctions'
 
-export interface EvaluationEntryExtend extends EvaluationEntry {
+export type EvaluationEntryExtend = EvaluationEntry & {
     modelName?: string
 }
 
-export interface EvaluationForSplitPoint {
+export type EvaluationForSplitPoint = {
     evaluation: EvaluationPerOrgUnit[]
     splitPoint: string
 }
 
-export interface EvaluationPerOrgUnit {
+export type EvaluationPerOrgUnit = {
     orgUnitName: string
     orgUnitId: string
     models: ModelData[]
 }
 
-export interface HighChartsData {
+export type HighChartsData = {
     periods: string[]
     ranges: number[][]
     averages: number[][]
@@ -23,7 +23,7 @@ export interface HighChartsData {
     midranges?: number[][]
 }
 
-export interface ModelData {
+export type ModelData = {
     data: HighChartsData
     modelName: string
 }
