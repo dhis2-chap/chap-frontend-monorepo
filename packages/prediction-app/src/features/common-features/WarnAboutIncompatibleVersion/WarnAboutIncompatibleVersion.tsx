@@ -26,7 +26,13 @@ const WarnAboutIncompatibleVersion = () => {
             .then((a: any) => {
                 setIsCompatible(a)
             })
-            .catch((response: ApiError) => {})
+            .catch((response: ApiError) => {
+                setIsCompatible({
+                    compatible: false,
+                    description:
+                        'Not able to check if the app is compatible with the Chap Core you are using, which means you are probably using an old version of Chap Core. See https://github.com/dhis2-chap/chap-core/releases/ for information on how to update.',
+                })
+            })
     }
 
     useEffect(() => {
@@ -43,8 +49,9 @@ const WarnAboutIncompatibleVersion = () => {
                 >
                     <div className={style.warningMarginInner}>
                         <NoticeBox error title="Incompatible versions">
-                            Version of the prediction app is not compatible with
+                            Version of the Modeling App is not compatible with
                             the backend (Chap core)
+                            <br />
                             <br />
                             <i>{isCompatible.description}</i>
                         </NoticeBox>
