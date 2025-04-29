@@ -1,10 +1,7 @@
 import { useDataQuery } from '@dhis2/app-runtime'
-import { ModelFeatureDataElementMap } from '../interfaces/ModelFeatureDataElement'
 import {
-    Datalayer,
     DatasetLayer,
 } from '../features/new-dataset/interfaces/DataSetLayer'
-import { DatasetMakeRequest, ObservationBase } from '@dhis2-chap/chap-lib'
 
 const ANALYTICS_QUERY = ({
     dataElements = [],
@@ -53,7 +50,7 @@ const useAnalyticRequest = (
 
     const { loading, error, data } = useDataQuery(
         ANALYTICS_QUERY({ dataElements, periodes, orgUnit })
-    )
+    ) as any;
 
     if (!loading && data && !error) {
         //divide the respons into the features (for instance population, diseases, etc)

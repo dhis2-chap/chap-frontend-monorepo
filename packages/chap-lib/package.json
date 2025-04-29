@@ -2,7 +2,7 @@
     "name": "@dhis2-chap/chap-lib",
     "version": "1.1.0",
     "module": "./build/es/index.js",
-    "types": "./build/es/index.d.ts",
+    "types": "./build/types/index.d.ts",
     "license": "MIT",
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^12.2.0",
@@ -12,7 +12,7 @@
     },
     "scripts": {
         "watch": "tsc --watch",
-        "build": "d2-app-scripts build && tsc",
+        "build": "d2-app-scripts build && tsc --emitDeclarationOnly --outDir ./build/types",
         "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
         "deploy": "d2-app-scripts deploy",
@@ -22,11 +22,13 @@
     "main": "./build/cjs/index.js",
     "exports": {
         "import": "./build/es/index.js",
-        "require": "./build/cjs/index.js"
+        "require": "./build/cjs/index.js",
+        "types": "./build/types/index.d.ts"
     },
     "dependencies": {
         "@dhis2-chap/chap-lib": "1.1.0",
         "@dhis2/maps-gl": "^4.0.1",
+        "@dhis2/multi-calendar-dates": "^2.1.1",
         "@dhis2/ui": "^10.1.10",
         "openapi-typescript-codegen": "^0.29.0"
     }

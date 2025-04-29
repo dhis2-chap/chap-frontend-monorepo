@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { DefaultService } from '@dhis2-chap/chap-lib'
-import { processDataValues } from '../lib/dataProcessing'
 import { evaluationResultToViewData } from '@dhis2-chap/chap-lib'
 import EvaluationResultsDashboard from './EvaluationResultDashboard'
 import { EvaluationForSplitPoint } from '@dhis2-chap/chap-lib'
-import { HighChartsData } from '@dhis2-chap/chap-lib'
 
 const ApiLoadedEvaluationResultsChart: React.FC = () => {
     const [data, setData] = useState<EvaluationForSplitPoint[]>([])

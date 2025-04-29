@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { CrudService, DataSetRead } from '@dhis2-chap/chap-lib';
-import { Button, SingleSelectField, SingleSelectOption, CircularLoader, NoticeBox } from '@dhis2/ui';
+import { DataSetRead } from '@dhis2-chap/chap-lib';
+import { SingleSelectField, SingleSelectOption, CircularLoader } from '@dhis2/ui';
 import styles from './SelectDataset.module.css'
-import i18n from "@dhis2/d2-i18n";
 
 interface SelectDatasetProps {
   selectedDataset : DataSetRead | undefined
@@ -14,12 +13,14 @@ const getFakeDatasetResponse = () => {
         {id: 0,
         name: 'Testdataset1',
         created: '2025-03-25',
-        covariates: ['precipitation', 'disease']
+        covariates: ['precipitation', 'disease'],
+        type: 'dataset'
         },
         {id: 1,
         name: 'Testdataset2',
         created: '2025-03-31',
-        covariates: ['precipitation', 'temperature', 'population', 'disease']
+        covariates: ['precipitation', 'temperature', 'population', 'disease'],
+        type: 'dataset'
         }
     ]
 }
