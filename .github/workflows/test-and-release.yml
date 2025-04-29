@@ -82,9 +82,15 @@ jobs:
 
             - run: yarn build:chap-lib
 
+            - name: Upload chap-lib build artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: chap-lib-build
+                  path: packages/chap-lib/build
+
     build-modeling-app:
         runs-on: ubuntu-latest
-        needs: install
+        needs: [install, build-chap-lib]
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
@@ -97,7 +103,19 @@ jobs:
                   path: '**/node_modules'
                   key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
+            - name: Download chap-lib build artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: chap-lib-build
+                  path: packages/chap-lib/build
+
             - run: yarn build:modeling-app
+
+            - name: Upload modeling-app build artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: modeling-app-build
+                  path: packages/modeling-app/build
 
     release:
         needs: [install, lint, test, build-chap-lib, build-modeling-app]
@@ -119,11 +137,23 @@ jobs:
                   path: '**/node_modules'
                   key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
+            - name: Download chap-lib build artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: chap-lib-build
+                  path: packages/chap-lib/build
+
+            - name: Download modeling-app build artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: modeling-app-build
+                  path: packages/modeling-app/build
+
             # todo: fix linting errors in chap-eval and build here too
             # `cp-build` moves the modeling app build to where the semantic
             # release action looks for it
             # https://github.com/dhis2/action-semantic-release/blob/master/plugins/publish-github.js#L12
-            - run: yarn build:chap-lib && yarn build:modeling-app && yarn cp-build
+            - run: yarn cp-build # Removed build steps, artifacts are downloaded
             - uses: dhis2/action-semantic-release@master
               with:
                   publish-apphub: true
