@@ -131,7 +131,7 @@ const JobResultPanel = ({ jobResults: jobResults }: JobResultPanel) => {
                 setIsOpen={setNewEvaluationDrawerOpen}
                 datasetIdToEvaluate={datasetIdToEvaluate}
             />
-            {showEvaluationResultModal && (
+            {showEvaluationResultModal && evaluationResultId && (
                 <Modal
                     className={styles.evaluationModal}
                     onClose={() => {
