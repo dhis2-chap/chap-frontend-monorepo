@@ -113,9 +113,6 @@ const EvaluationResult = ({ evaluationId }: { evaluationId: number }) => {
     useEffect(() => {
         fetchEvaluation()
     }, [])
-    if (httpError) {
-        console.log("httpError", httpError);
-    }
 
     return (
         <div>
