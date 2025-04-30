@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v1.2.0...v1.2.1) (2025-04-30)
+
+
+### Bug Fixes
+
+* evaluations not showing when clicking view ([8d31a85](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/8d31a85a7d3a321dc963d8d6b3948743a7865c3e))
+
 # [1.2.0](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v1.1.0...v1.2.0) (2025-04-29)
 
 
