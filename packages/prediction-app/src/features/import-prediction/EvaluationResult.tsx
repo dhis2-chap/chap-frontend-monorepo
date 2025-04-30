@@ -14,7 +14,7 @@ import styles from './styles/EvaluationResult.module.css'
 import useOrgUnitRoots from '../../hooks/useOrgUnitRoots'
 import useOrgUnits from '../../hooks/useOrgUnits'
 
-const EvaluationResult = ({ evaluationId }: any) => {
+const EvaluationResult = ({ evaluationId }: { evaluationId: number }) => {
     //const [evaluation, setEvaluation] = useState<Record<string, Record<string, HighChartsData>> | undefined>(undefined)
     const [httpError, setHttpError] = useState<string>('')
     const [splitPeriods, setSplitPeriods] = useState<string[]>([])
@@ -58,7 +58,7 @@ const EvaluationResult = ({ evaluationId }: any) => {
 
     const fetchEvaluationInfo = async (evaluationId: number) => {
         const evaluations = await CrudService.getBacktestsCrudBacktestsGet()
-        return evaluations.find((e) => e.id === evaluationId)
+        return evaluations.find((e) => e.id === Number(evaluationId))
     }
 
     const fetchModelByName = async (modelName: string) => {
@@ -86,7 +86,7 @@ const EvaluationResult = ({ evaluationId }: any) => {
                 ])
 
             if (!evaluationInfo) {
-                return;
+                throw new Error('Evaluation info not found')
             }
 
             // Set evaluation name
