@@ -2,17 +2,21 @@
     "compilerOptions": {
         "target": "ES2021",
         "module": "ESNext",
+        "moduleResolution": "bundler",
+        "composite": true,
         "declaration": true,
-        "declarationDir": "build/es",
-        "outDir": "build/es",
+        "declarationMap": true,
+        "declarationDir": "build/types",
+        "emitDeclarationOnly": true,
         "strict": true,
         "jsx": "react",
         "esModuleInterop": true,
-        "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "skipLibCheck": true,
-        "allowJs": true, // Allows importing JavaScript files
-        "checkJs": false // Optional: Skip type-checking for JavaScript files
+        "allowJs": false,
+        "checkJs": false,
+        "rootDir": "src",
+        "resolveJsonModule": true
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "build", "dist"]

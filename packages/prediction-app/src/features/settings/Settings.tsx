@@ -117,12 +117,11 @@ const Settings = () => {
         }
 
         try {
-            const response = await fetch(getChapDocsUrl(), {
+            const response = await fetch(getSystemInfoUrl(), {
                 method: 'HEAD',
             })
             return response.ok
         } catch (error) {
-            console.error('Error pinging Chap URL:', error)
             return false
         }
     }
@@ -132,6 +131,18 @@ const Settings = () => {
     return (
         <div className={styles.container}>
             <h2>Settings</h2>
+
+            {route && chapServerPublic && (
+                <NoticeBox error title="Chap Core is public">
+                    Your chap server is publicly available. This allows anyone
+                    in the world to access your disease, climate and population
+                    data from{' '}
+                    <a href={getSystemInfoUrl()}>{getSystemInfoUrl()}</a>{' '}
+                    without authentication. Ensure you have proper security
+                    measures in place to protect potentially sensitive
+                    information.
+                </NoticeBox>
+            )}
 
             {route && (
                 <div className={styles.noticeBoxContainer}>

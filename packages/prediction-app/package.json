@@ -1,6 +1,6 @@
 {
     "name": "modeling-app",
-    "version": "1.1.0",
+    "version": "1.2.1",
     "description": "",
     "license": "BSD-3-Clause",
     "private": true,
@@ -14,14 +14,10 @@
         "@dhis2/cli-app-scripts": "^12.2.0"
     },
     "dependencies": {
-        "@dhis2-chap/chap-lib": "1.1.0",
+        "@dhis2-chap/chap-lib": "1.2.1",
         "@dhis2/analytics": "^26.9.3",
         "@dhis2/app-runtime": "^3.13.0",
         "@dhis2/ui": "^10.1.10",
-        "@types/jest": "^29.5.14",
-        "@types/node": "^22.10.1",
-        "@types/react": "^18.3.12",
-        "@types/react-dom": "^18.3.1",
         "file-saver": "^2.0.5",
         "jszip": "^3.10.1",
         "react-dropzone": "^14.3.5",

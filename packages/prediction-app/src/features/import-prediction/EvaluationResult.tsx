@@ -14,7 +14,7 @@ import styles from './styles/EvaluationResult.module.css'
 import useOrgUnitRoots from '../../hooks/useOrgUnitRoots'
 import useOrgUnits from '../../hooks/useOrgUnits'
 
-const EvaluationResult = ({ evaluationId }: any) => {
+const EvaluationResult = ({ evaluationId }: { evaluationId: number }) => {
     //const [evaluation, setEvaluation] = useState<Record<string, Record<string, HighChartsData>> | undefined>(undefined)
     const [httpError, setHttpError] = useState<string>('')
     const [splitPeriods, setSplitPeriods] = useState<string[]>([])
@@ -58,24 +58,12 @@ const EvaluationResult = ({ evaluationId }: any) => {
 
     const fetchEvaluationInfo = async (evaluationId: number) => {
         const evaluations = await CrudService.getBacktestsCrudBacktestsGet()
-        let evaluationInfo = undefined
-        evaluations.forEach((e) => {
-            if (e.id == evaluationId) {
-                evaluationInfo = e
-            }
-        })
-        return evaluationInfo
+        return evaluations.find((e) => e.id === Number(evaluationId))
     }
 
     const fetchModelByName = async (modelName: string) => {
         const models = await CrudService.listModelsCrudModelsGet()
-        let model = undefined
-        models.forEach((m) => {
-            if (m.name == modelName) {
-                model = m
-            }
-        })
-        return model
+        return models.find((m) => m.name === modelName)
     }
 
     const fetchEvaluation = async () => {
@@ -97,12 +85,16 @@ const EvaluationResult = ({ evaluationId }: any) => {
                     ),
                 ])
 
+            if (!evaluationInfo) {
+                throw new Error('Evaluation info not found')
+            }
+
             // Set evaluation name
-            setEvaluationName(evaluationInfo.name)
+            setEvaluationName(evaluationInfo.name ?? '')
 
             // Set model name
             const modelInfo = await fetchModelByName(evaluationInfo.modelId)
-            setModelName(modelInfo.displayName)
+            setModelName(modelInfo?.displayName ?? '')
 
             // Merge and send to state
             const mergedResponse: EvaluationResponse = {

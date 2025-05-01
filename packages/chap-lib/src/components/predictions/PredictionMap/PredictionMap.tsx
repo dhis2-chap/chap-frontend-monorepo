@@ -1,11 +1,8 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { FullPredictionResponseExtended } from '../../../interfaces/Prediction'
-import { GeoJson } from '../../../interfaces/GeoJson'
 import {
     getUniqeOrgUnits,
-    findOrgUnitName,
     getUniqePeriods,
     getUniqeQuantiles,
 } from '../../../utils/PredictionResponse'

@@ -23,7 +23,9 @@ const ResultsPage = () => {
                 {
                     {
                         undefined: <></>,
+                        // @ts-expect-error - not sure of the type here
                         predict: <PredictionResult />,
+                        // @ts-expect-error - not sure of the type here
                         evaluate: <EvaluationResult />,
                     }[String(importMode)]
                 }

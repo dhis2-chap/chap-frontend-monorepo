@@ -4,11 +4,11 @@ import { Button, SingleSelectField, SingleSelectOption } from '@dhis2/ui';
 import styles from './ModelDetails.module.css'
 
 interface ModelDetailsProps {
-    selectedModel : ModelSpecRead | undefined
-    onChangeModel? : any
+    selectedModel: ModelSpecRead
+    onChangeModel?: any
 }
 
-const ModelDetails = ({selectedModel, onChangeModel} : ModelDetailsProps) => {
+const ModelDetails = ({ selectedModel, onChangeModel }: ModelDetailsProps) => {
 
     return (
         <div className={styles.modelDetailsContainer}>
@@ -20,7 +20,7 @@ const ModelDetails = ({selectedModel, onChangeModel} : ModelDetailsProps) => {
                 {/* Model Info */}
                 <h3 className={styles.modelHumanName}>{selectedModel.displayName}</h3>
                 <div className={styles.modelAuthor}>
-                    <img src={selectedModel.organizationLogoUrl || "/public/default-model-logo.png"} alt={selectedModel.name + " logo"} className={styles.modelAuthorLogo} />
+                    <img src={selectedModel.organizationLogoUrl || "/default-model-logo.png"} alt={selectedModel.name + " logo"} className={styles.modelAuthorLogo} />
                     <span className={styles.modelAuthorName}>
                         {selectedModel.author} - {selectedModel.organization}
                     </span>
@@ -32,21 +32,21 @@ const ModelDetails = ({selectedModel, onChangeModel} : ModelDetailsProps) => {
 
                 {/* Covariates */}
                 <div className={styles.modelCovariates}>
-                <span>Model inputs:</span>
-                <ul className={styles.modelCovariatesList}>
-                    {selectedModel.covariates.map((covariate, index) => (
-                        <li key={index} className={styles.modelCovariateItem}>✔ {covariate.name}</li>
-                    ))}
-                </ul>
+                    <span>Model inputs:</span>
+                    <ul className={styles.modelCovariatesList}>
+                        {selectedModel.covariates.map((covariate, index) => (
+                            <li key={index} className={styles.modelCovariateItem}>✔ {covariate.name}</li>
+                        ))}
+                    </ul>
                 </div>
 
                 {/* How to cite */}
                 <div className={styles.modelCitation}>
                     <span>
-                    Attribution:
+                        Attribution:
                     </span>
                     <pre className={styles.modelCitationText}>
-                    {selectedModel.citationInfo || "Coming soon..."}
+                        {selectedModel.citationInfo || "Coming soon..."}
                     </pre>
                 </div>
 

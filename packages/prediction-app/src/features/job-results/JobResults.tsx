@@ -165,8 +165,8 @@ const JobResults = ({ type }: JobResultsProps) => {
             results.push({
                 id: job.id,
                 name: job.name,
-                created: new Date(job.start_time),
-                type: job_type_make_singular[type],
+                created: new Date(job.start_time!),
+                type: job_type_make_singular[type] as JobResult['type'],
                 status: job.status,
                 //result: job?.result,
                 //job specific

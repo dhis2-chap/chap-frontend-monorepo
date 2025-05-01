@@ -1,5 +1,10 @@
-export const getEqualIntervals = (minValue, maxValue, numClasses = 5) => {
-    const bins = []
+interface Interval {
+    startValue: number;
+    endValue: number;
+}
+
+export const getEqualIntervals = (minValue: number, maxValue: number, numClasses: number = 5): Interval[] => {
+    const bins: Interval[] = []
     const binSize = (maxValue - minValue) / numClasses
 
     for (let i = 0; i < numClasses; i++) {
@@ -15,12 +20,36 @@ export const getEqualIntervals = (minValue, maxValue, numClasses = 5) => {
     return bins
 }
 
-export const parseOrgUnits = (orgUnits) => {
+interface OrgUnit {
+    id: string;
+    na: string;
+    ty: number;
+    co: string;
+}
+
+interface GeoFeature {
+    type: 'Feature';
+    id: string;
+    properties: {
+        name: string;
+    };
+    geometry: {
+        type: 'Point' | 'Polygon' | 'MultiPolygon';
+        coordinates: any;
+    };
+}
+
+interface FeatureCollection {
+    type: 'FeatureCollections';
+    features: GeoFeature[];
+}
+
+export const parseOrgUnits = (orgUnits: OrgUnit[]): FeatureCollection => {
     return {
         type: 'FeatureCollections',
         features: orgUnits.map((ou) => {
             // get geotype
-            let type = 'Point'
+            let type: 'Point' | 'Polygon' | 'MultiPolygon' = 'Point'
             if (ou.ty === 2) {
                 type = 'Polygon'
                 if (ou.co.substring(0, 4) === '[[[[') {

@@ -26,7 +26,7 @@ import { UncertaintyAreaChart } from '@dhis2-chap/chap-lib'
 import useFindDataItem from '../../hooks/useDataItem'
 
 interface PredictionResultProps {
-    prediction_unprocessed: PredictionRead
+    prediction_unprocessed: PredictionRead 
 }
 
 const PredictionResult = ({

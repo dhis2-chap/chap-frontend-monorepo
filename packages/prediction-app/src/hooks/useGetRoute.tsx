@@ -32,3 +32,4 @@ const useGetRoute = () => {
 };
 
 export default useGetRoute;
+export default useGetRoute;

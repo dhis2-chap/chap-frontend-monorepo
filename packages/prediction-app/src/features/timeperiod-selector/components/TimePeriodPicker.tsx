@@ -4,7 +4,7 @@ import { PeriodTypeSelector } from './PeriodTypeSelector'
 import TimePeriodInputField from './TimePeriodInputField'
 import styles from './TimePeriodPicker.module.css'
 import { toDHIS2PeriodeData } from '../utils/timePeriodUtils'
-import generateFixedPeriods from '@dhis2/multi-calendar-dates'
+
 import { Period } from '../interfaces/Period'
 
 interface TimePeriodeSelectorProps {

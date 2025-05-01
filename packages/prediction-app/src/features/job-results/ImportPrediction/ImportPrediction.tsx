@@ -4,7 +4,6 @@ import styles from './ImportPrediction.module.css'
 
 import {
     CrudService,
-    PredictionInfo,
     PredictionRead,
 } from '@dhis2-chap/chap-lib'
 import PredictionResult from '../../import-prediction/PredictionResult'

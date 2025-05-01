@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import RouteSettingsPage from '../components/RouteSettingsPage'
-import SetChapUrl from '../features/route-api/SetChapUrl'
 import SetOpenApiUrl from '../features/settings/SetOpenApiUrl'
 
 const SettingsPage = () => {

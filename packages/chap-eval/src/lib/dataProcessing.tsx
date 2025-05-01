@@ -1,12 +1,9 @@
-import { extend } from 'highcharts'
 import {
     EvaluationForSplitPoint,
-    EvaluationPerOrgUnit,
     HighChartsData,
     EvaluationEntryExtend,
     createHighChartsData,
     joinRealAndPredictedData,
-    ModelData,
 } from '@dhis2-chap/chap-lib'
 import { DataElement, EvaluationEntry } from '@dhis2-chap/chap-lib'
 

@@ -10,6 +10,7 @@ import SetChapUrl from './features/route-api/SetChapUrl'
 import Settings from './features/settings/Settings'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
+
 const router = createHashRouter([
     {
         path: 'route',
