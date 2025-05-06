@@ -1,42 +1,26 @@
 import { useConfig } from '@dhis2/app-runtime'
-import React, { useEffect } from 'react'
-import useGetDataStore from '../../hooks/useGetDataStore'
+import React, { useEffect, useState } from 'react'
 import { OpenAPI } from '@dhis2-chap/chap-lib'
+import { CircularLoader } from '@dhis2/ui'
 
-interface SetChapUrlProps {
-    setIsLoadingRouteConfig: (isLoadingRouteConfig: boolean) => void
-}
-
-const SetChapUrl = ({ setIsLoadingRouteConfig }: SetChapUrlProps) => {
-    const { error, loading, url: existingUrl } = useGetDataStore('backend-url')
-
-    const config = useConfig()
+export const SetChapUrl = ({ children }: { children: React.ReactNode }) => {
+    const { baseUrl } = useConfig()
+    const [isReady, setIsReady] = useState(false)
 
     useEffect(() => {
-        if (loading) return // Skip if still loading
+        OpenAPI.WITH_CREDENTIALS = true
+        OpenAPI.BASE = baseUrl + '/api/routes/chap/run'
+        setIsReady(true)
+    }, [baseUrl])
 
-        // Setting the OpenAPI credentials and URL based on the existing URL or the default
-        if (!existingUrl || URL.parse(existingUrl)?.origin === config.baseUrl) {
-            console.log('Adding credentials to OpenAPI')
-            OpenAPI.WITH_CREDENTIALS = true
-        }
-
-        if (existingUrl) {
-            console.log('Setting OpenAPI url to:', existingUrl)
-            OpenAPI.BASE = existingUrl
-        } else {
-            OpenAPI.BASE = config.baseUrl + '/api/routes/chap/run'
-        }
-
-        // Update the loading state now that we've set the URL
-        setIsLoadingRouteConfig(false)
-    }, [loading, existingUrl, config.baseUrl, setIsLoadingRouteConfig])
-
-    if (loading) {
-        return <>Loading...</>
+    if (!isReady) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <CircularLoader />
+            </div>
+        )
     }
 
-    return <></>
+    return <>{children}</>
 }
 
-export default SetChapUrl

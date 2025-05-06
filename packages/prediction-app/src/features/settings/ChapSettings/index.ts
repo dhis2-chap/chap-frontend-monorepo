@@ -1,0 +1,1 @@
+export { ChapSettings } from './ChapSettings';

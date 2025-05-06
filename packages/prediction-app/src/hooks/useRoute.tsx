@@ -4,23 +4,31 @@ const RouteRequest = {
     resource: 'routes',
     params: {
         filter: `code:eq:chap`,
-        fields: 'id,code,displayName,url,authorities,disabled,headers',
+        fields: 'id,code,name,displayName,url,authorities,disabled,headers,sharing[public]',
     },
 }
 
-type Route = {
+export type Route = {
     id: string
     code: string
+    name: string
     displayName: string
     url: string
     authorities: string[]
+    headers: Record<string, string>
+    sharing: {
+        public: string,
+    }
 }
 
-const useGetRoute = () => {
+export const useRoute = () => {
     const { data, error, isLoading, isError } = useApiDataQuery<{ routes: Route[] }, Error, Route>({
         queryKey: ['routes', 'chap'],
         query: RouteRequest,
         select: (data) => data.routes[0],
+        staleTime: Infinity,
+        cacheTime: Infinity,
+        refetchOnWindowFocus: false,
     });
 
     return {
@@ -30,6 +38,3 @@ const useGetRoute = () => {
         isError,
     }
 };
-
-export default useGetRoute;
-export default useGetRoute;
