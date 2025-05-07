@@ -19,6 +19,7 @@ export { ComparisonPlotList } from './components/evaluation/ComparisonPlotList/C
 export { ComparionPlotWrapper } from './components/evaluation/ComparionPlotWrapper/ComparionPlotWrapper'
 export { PredictionTable } from './components/predictions/PredictionTable/PredictionTable'
 export { PredictionMap } from './components/predictions/PredictionMap/PredictionMap'
+export { Card } from './ui/Card'
 
 //interfaces
 export type {

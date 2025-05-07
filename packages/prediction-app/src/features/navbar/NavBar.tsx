@@ -1,10 +1,9 @@
 import { Button, IconSettings24, Menu, MenuItem } from '@dhis2/ui'
+import i18n from '@dhis2/d2-i18n'
 import React from 'react'
 import styles from './NavBar.module.css'
 import NavBarItem from './components/NavBarItem/NavBarItem'
-import { useHistory } from 'react-router-dom'
-import { Navigate } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export const maxWidth: string = '1400px'
 
@@ -21,6 +20,7 @@ const navBarItems = [
 
 const NavBar = () => {
     const navigate = useNavigate()
+    const { pathname } = useLocation()
 
     const handleSettingsClick = () => {
         navigate('/settings')
@@ -38,13 +38,14 @@ const NavBar = () => {
                             <NavBarItem key={i} path={path} label={label} />
                         ))}
                     </div>
-                    <Button
-                        small
-                        icon={<IconSettings24 />}
-                        onClick={handleSettingsClick}
-                    >
-                        Settings
-                    </Button>
+                    {pathname !== '/settings' && (
+                        <Button
+                            icon={<IconSettings24 />}
+                            onClick={handleSettingsClick}
+                        >
+                            {i18n.t('Settings')}
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>

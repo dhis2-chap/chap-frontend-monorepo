@@ -1,0 +1,94 @@
+.container {
+    padding: 24px;
+}
+
+.header {
+    margin-bottom: 24px;
+}
+
+.header h2 {
+    margin: 0;
+    color: #1a1a1a;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.settingsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 200px;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mutedText {
+    color: #666;
+    font-size: 14px;
+}
+
+.errorMessage {
+    color: #666;
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+
+.routeInfo {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.routeInfoHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.routeInfo h3 {
+    margin: 0;
+    color: #1a1a1a;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 12px;
+    align-items: baseline;
+}
+
+.label {
+    color: #666;
+    font-size: 14px;
+}
+
+.value {
+    color: #1a1a1a;
+    font-size: 14px;
+    word-break: break-all;
+}
+
+.authorities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.authority {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+}

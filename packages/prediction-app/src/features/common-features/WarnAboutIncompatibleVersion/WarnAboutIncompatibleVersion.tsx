@@ -1,5 +1,5 @@
-import { boolean, NoticeBox } from '@dhis2/ui'
-import React, { useEffect, useState } from 'react'
+import { NoticeBox } from '@dhis2/ui'
+import React, { useEffect, useRef, useState } from 'react'
 import style from './WarnAboutIncompatibleVersion.module.css'
 import { maxWidth } from '../../navbar/NavBar'
 import {
@@ -7,9 +7,12 @@ import {
     DefaultService,
 } from '@dhis2-chap/chap-lib'
 import { useConfig } from '@dhis2/app-runtime'
+import { useRoute } from '../../../hooks/useRoute'
 
 const WarnAboutIncompatibleVersion = () => {
     const { appVersion } = useConfig()
+    const { route, isLoading } = useRoute();
+    const prevRouteUrl = useRef<string | undefined>(undefined)
 
     const [isCompatible, setIsCompatible] = useState<
         | {
@@ -35,9 +38,14 @@ const WarnAboutIncompatibleVersion = () => {
     }
 
     useEffect(() => {
-        if (!appVersion) return
-        getIsCompatible()
-    }, [appVersion])
+        if (!appVersion || isLoading) return
+
+        // Trigger the check if the route url has changed
+        if (prevRouteUrl.current !== route?.url) {
+            getIsCompatible()
+            prevRouteUrl.current = route?.url
+        }
+    }, [appVersion, route?.url])
 
     return (
         <>
