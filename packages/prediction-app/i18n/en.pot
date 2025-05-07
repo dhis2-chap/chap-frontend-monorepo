@@ -5,8 +5,37 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-06T16:31:03.512Z\n"
-"PO-Revision-Date: 2025-05-06T16:31:03.513Z\n"
+"POT-Creation-Date: 2025-05-07T10:26:44.496Z\n"
+"PO-Revision-Date: 2025-05-07T10:26:44.496Z\n"
+
+msgid "Oops!"
+msgstr "Oops!"
+
+msgid "Sorry, an unexpected error has occurred."
+msgstr "Sorry, an unexpected error has occurred."
+
+msgid "Get started with the Modeling app"
+msgstr "Get started with the Modeling app"
+
+msgid ""
+"To get started with the Modeling app, please create a route that points to "
+"a running CHAP server."
+msgstr ""
+"To get started with the Modeling app, please create a route that points to "
+"a running CHAP server."
+
+msgid ""
+"Open the settings page to configure the required configuration. Not sure "
+"what this is?"
+msgstr ""
+"Open the settings page to configure the required configuration. Not sure "
+"what this is?"
+
+msgid "Learn more about CHAP"
+msgstr "Learn more about CHAP"
+
+msgid "Open settings"
+msgstr "Open settings"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
@@ -102,6 +131,9 @@ msgstr ""
 "Job is still running. Please wait until it is finished before doing any "
 "actions."
 
+msgid "Settings"
+msgstr "Settings"
+
 msgid "Prediction for Northern Province"
 msgstr "Prediction for Northern Province"
 
@@ -114,27 +146,94 @@ msgstr "Organisation unit level to import data to"
 msgid "Organisation units"
 msgstr "Organisation units"
 
-msgid "Configure route"
-msgstr "Configure route"
+msgid "CHAP settings"
+msgstr "CHAP settings"
 
-msgid "Warning"
-msgstr "Warning"
+msgid "An error occurred while connecting to the CHAP server."
+msgstr "An error occurred while connecting to the CHAP server."
 
 msgid ""
-"This will create a new public route in DHIS2. Every logged in user will be "
-"able to access this route unless you set up authorities for the route."
+"Are you sure you have configured your route correctly? See the console for "
+"more details."
 msgstr ""
-"This will create a new public route in DHIS2. Every logged in user will be "
-"able to access this route unless you set up authorities for the route."
+"Are you sure you have configured your route correctly? See the console for "
+"more details."
 
-msgid "URL"
-msgstr "URL"
+msgid "Server information"
+msgstr "Server information"
+
+msgid "CHAP Version"
+msgstr "CHAP Version"
+
+msgid "Python Version"
+msgstr "Python Version"
+
+msgid "Operating System"
+msgstr "Operating System"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Connected"
+msgstr "Connected"
+
+msgid "Your server might not be secure"
+msgstr "Your server might not be secure"
+
+msgid ""
+"CHAP currently does not have it's own authentication service. Make sure to "
+"secure it by blocking public access on your server firewall."
+msgstr ""
+"CHAP currently does not have it's own authentication service. Make sure to "
+"secure it by blocking public access on your server firewall."
+
+msgid "Your server is not secure"
+msgstr "Your server is not secure"
+
+msgid "No route found."
+msgstr "No route found."
+
+msgid "Add route"
+msgstr "Add route"
+
+msgid "Add"
+msgstr "Add"
+
+msgid "Delete route"
+msgstr "Delete route"
+
+msgid "Are you sure you want to delete this route?"
+msgstr "Are you sure you want to delete this route?"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Edit route"
+msgstr "Edit route"
 
 msgid "Save"
 msgstr "Save"
 
-msgid "Cancel"
-msgstr "Cancel"
+msgid "Public access"
+msgstr "Public access"
+
+msgid ""
+"Your route is public and can be accessed by anyone. This can potentially "
+"expose sensitive data. If you want to restrict access, click the "
+"\"Sharing\" button and remove access for \"All users\"."
+msgstr ""
+"Your route is public and can be accessed by anyone. This can potentially "
+"expose sensitive data. If you want to restrict access, click the "
+"\"Sharing\" button and remove access for \"All users\"."
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Sharing"
+msgstr "Sharing"
 
 msgid "Invalid URL format"
 msgstr "Invalid URL format"
@@ -145,32 +244,8 @@ msgstr "URL is required"
 msgid "URL must end with a double wildcard (/**)"
 msgstr "URL must end with a double wildcard (/**)"
 
-msgid "No route found."
-msgstr "No route found."
-
-msgid "Add route"
-msgstr "Add route"
-
-msgid "URL to your CHAP Core instance"
-msgstr "URL to your CHAP Core instance"
-
-msgid "Add"
-msgstr "Add"
-
-msgid "Edit"
-msgstr "Edit"
-
-msgid "Delete"
-msgstr "Delete"
-
-msgid "Sharing"
-msgstr "Sharing"
-
-msgid "Delete route"
-msgstr "Delete route"
-
-msgid "Are you sure you want to delete this route?"
-msgstr "Are you sure you want to delete this route?"
+msgid "CHAP Core URL"
+msgstr "CHAP Core URL"
 
 msgid "Route settings"
 msgstr "Route settings"
@@ -185,27 +260,35 @@ msgstr ""
 msgid "If the problem persists, please contact your system administrator."
 msgstr "If the problem persists, please contact your system administrator."
 
+msgid "You do not have permission to add or modify routes."
+msgstr "You do not have permission to add or modify routes."
+
+msgid "If you think this is an error, please contact your system administrator."
+msgstr "If you think this is an error, please contact your system administrator."
+
 msgid "Route configuration"
 msgstr "Route configuration"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Authorities"
 msgstr "Authorities"
 
-msgid "Error creating route"
-msgstr "Error creating route"
+msgid "Error deleting route"
+msgstr "Error deleting route"
+
+msgid "Route deleted successfully"
+msgstr "Route deleted successfully"
+
+msgid "Error saving route"
+msgstr "Error saving route"
+
+msgid "Route saved successfully"
+msgstr "Route saved successfully"
 
 msgid "Back to main page"
 msgstr "Back to main page"
-
-msgid "Route is not secure"
-msgstr "Route is not secure"
-
-msgid ""
-"The Chap Core route is not secure. Please ensure that the route is only "
-"accessible to authorized users. Recreating the route should fix this."
-msgstr ""
-"The Chap Core route is not secure. Please ensure that the route is only "
-"accessible to authorized users. Recreating the route should fix this."
 
 msgid "Period"
 msgstr "Period"

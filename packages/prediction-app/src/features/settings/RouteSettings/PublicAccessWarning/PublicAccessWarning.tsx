@@ -22,7 +22,7 @@ export const PublicAccessWarning = ({ route }: Props) => {
 
     return (
         <NoticeBox warning title={i18n.t('Public access')}>
-            {i18n.t('Your route is public and can be accessed by anyone. If you want to restrict access, click the "Sharing" button and remove access for "All users".')}
+            {i18n.t('Your route is public and can be accessed by anyone. This can potentially expose sensitive data. If you want to restrict access, click the "Sharing" button and remove access for "All users".')}
         </NoticeBox>
     );
 }; 

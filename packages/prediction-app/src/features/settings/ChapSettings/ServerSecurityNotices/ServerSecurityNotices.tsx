@@ -25,7 +25,7 @@ export const ServerSecurityNotices = () => {
         return (
             <NoticeBox title={i18n.t('Your server might not be secure')}>
                 <span className={styles.mutedText}>
-                    {i18n.t('CHAP currently does not have it\'s own authentication service. Make sure to secure it by blocking public access to it.')}
+                    {i18n.t('CHAP currently does not have it\'s own authentication service. Make sure to secure it by blocking public access on your server firewall.')}
                 </span>
             </NoticeBox>
         )
@@ -36,7 +36,7 @@ export const ServerSecurityNotices = () => {
 
             <NoticeBox error title={i18n.t('Your server is not secure')}>
                 <span className={styles.mutedText}>
-                    {i18n.t('CHAP currently does not have it\'s own authentication service. Make sure to secure it by blocking public access to it.')}
+                    {i18n.t('CHAP currently does not have it\'s own authentication service. Make sure to secure it by blocking public access on your server firewall.')}
                 </span>
             </NoticeBox>
         </>
