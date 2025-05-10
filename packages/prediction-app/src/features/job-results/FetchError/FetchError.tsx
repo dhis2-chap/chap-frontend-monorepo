@@ -4,7 +4,7 @@ import { Button, NoticeBox } from '@dhis2/ui'
 
 interface FetchErrorProps {
     error: string | undefined
-    type: 'predictions' | 'datasets' | 'evaluations' | 'job'
+    type: 'predictions' | 'datasets' | 'evaluations' | 'jobs'
 }
 
 const FetchError = ({ error, type }: FetchErrorProps) => {
@@ -16,7 +16,7 @@ const FetchError = ({ error, type }: FetchErrorProps) => {
         <div>
             <NoticeBox
                 error
-                title={`Unable to retrieve ${type}s. Please try again later.`}
+                title={`Unable to retrieve ${type}. Please try again later.`}
                 className={styles.noticeBox}
             >
                 <div className={styles.button}>

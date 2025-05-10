@@ -65,6 +65,9 @@ export const useSaveRoute = ({ onSuccess, onError }: UseSaveRouteOptions = {}) =
                         code: "chap",
                         url: url,
                         authorities: [CHAP_MODELING_APP_AUTHORITY],
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
                     },
                 }
                 return engine.mutate(createMutation)

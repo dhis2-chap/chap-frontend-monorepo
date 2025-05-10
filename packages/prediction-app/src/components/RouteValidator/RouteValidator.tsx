@@ -40,7 +40,7 @@ const EmptyStateIcon = () => (
 );
 
 export const RouteValidator = ({ children }: Props) => {
-    const { route, isLoading, canRunChap } = useRoute()
+    const { route, isLoading } = useRoute()
     const navigate = useNavigate()
 
     if (isLoading) {
@@ -51,7 +51,7 @@ export const RouteValidator = ({ children }: Props) => {
         )
     }
 
-    if (!route && !canRunChap) {
+    if (!route) {
         return (
             <div className={styles.noRouteContainer}>
                 <div className={styles.noRouteContent}>

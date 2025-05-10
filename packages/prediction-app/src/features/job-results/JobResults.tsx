@@ -205,7 +205,7 @@ const JobResults = ({ type }: JobResultsProps) => {
 
     return (
         <div>
-            <FetchError error={fetchJobError} type="job" />
+            <FetchError error={fetchJobError} type="jobs" />
             <FetchError error={fetchPredictionError} type={type} />
             {onPageLoading && <LoadingJobResult type={type} />}
             {result.length > 0 && <PanelHeader />}
