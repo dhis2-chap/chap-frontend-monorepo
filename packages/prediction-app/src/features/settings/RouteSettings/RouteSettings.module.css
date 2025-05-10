@@ -3,7 +3,7 @@
 }
 
 .header {
-    margin-bottom: 24px;
+    margin-block-end: 24px;
 }
 
 .header h2 {
@@ -44,14 +44,14 @@
     background-color: #f5f5f5;
     border-radius: 8px;
     padding: 20px;
-    margin-bottom: 16px;
+    margin-block-end: 16px;
 }
 
 .routeInfoHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-block-end: 16px;
 }
 
 .routeInfo h3 {
