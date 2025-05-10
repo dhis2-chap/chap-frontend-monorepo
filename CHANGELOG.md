@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v1.2.1...v1.3.0) (2025-05-10)
+
+
+### Features
+
+* add new main page and settings ([601d741](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/601d7414ff9dfd6aa0f9e8ba9a09ec72184dfd49))
+
 ## [1.2.1](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v1.2.0...v1.2.1) (2025-04-30)
 
 
