@@ -103,8 +103,17 @@ jobs:
                   path: '**/node_modules'
                   key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-            - run: yarn tsc:chap-lib
-            - run: yarn tsc:modeling-app
+            - name: Download chap-lib build artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: chap-lib-build
+                  path: packages/chap-lib/build
+
+            - name: Run typescript checks for chap-lib
+              run: yarn tsc:chap-lib
+              
+            - name: Run typescript checks for modeling-app
+              run: yarn tsc:modeling-app
 
             
     build-modeling-app:
