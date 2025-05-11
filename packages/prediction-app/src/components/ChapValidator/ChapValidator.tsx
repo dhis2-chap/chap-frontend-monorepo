@@ -33,7 +33,9 @@ export const ChapValidator = ({ children }: Props) => {
         return (
             <div className={styles.noChapContainer}>
                 <div className={styles.noChapContent}>
-                    <IconError24 />
+                    <div className={styles.noChapIcon}>
+                        <IconError24 />
+                    </div>
 
                     <h1 className={styles.noChapTitle}>{i18n.t('Could not connect to CHAP')}</h1>
 
@@ -51,7 +53,7 @@ export const ChapValidator = ({ children }: Props) => {
                     </div>
 
                     <Button onClick={() => navigate('/settings')}>
-                        {i18n.t('Check settings')}
+                        {i18n.t('Configure settings')}
                     </Button>
                 </div>
             </div>
