@@ -3,6 +3,7 @@ import NavBar from '../features/navbar/NavBar'
 import WarnAboutIncompatibleVersion from '../features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
 import InfoAboutReportingBugs from '../features/common-features/InfoAboutReportingBugs/InfoAboutReportingBugs'
 import { RouteValidator } from './RouteValidator'
+import { ChapValidator } from './ChapValidator'
 
 interface ComponentWrapperProps {
     component: React.JSX.Element
@@ -20,11 +21,13 @@ const style: React.CSSProperties = {
 const ComponentWrapper = ({ component }: ComponentWrapperProps) => {
     return (
         <RouteValidator>
-            <InfoAboutReportingBugs />
-            <NavBar />
-            <WarnAboutIncompatibleVersion />
+            <ChapValidator>
+                <InfoAboutReportingBugs />
+                <NavBar />
+                <WarnAboutIncompatibleVersion />
 
-            <div style={style}>{component}</div>
+                <div style={style}>{component}</div>
+            </ChapValidator>
         </RouteValidator>
     )
 }

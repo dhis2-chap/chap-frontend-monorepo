@@ -1,0 +1,26 @@
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.errorContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.errorContent {
+    width: 100%;
+}
+
+.errorActions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
