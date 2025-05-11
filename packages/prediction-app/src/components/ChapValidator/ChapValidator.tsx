@@ -12,10 +12,7 @@ type Props = {
 
 export const ChapValidator = ({ children }: Props) => {
     const { route } = useRoute()
-    const chapStatus = route ? useChapStatus({ route }) : null
-    const status = chapStatus?.status
-    const error = chapStatus?.error
-    const isLoading = chapStatus?.isLoading || false
+    const { status, error, isLoading } = useChapStatus({ route })
     const navigate = useNavigate()
 
     useEffect(() => {
