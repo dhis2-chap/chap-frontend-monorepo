@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import i18n from '@dhis2/d2-i18n'
-import { Button, Card, NoticeBox } from '@dhis2/ui'
-import { CircularLoader } from '@dhis2/ui'
+import { Button, CircularLoader, IconError24 } from '@dhis2/ui'
 import { useNavigate } from 'react-router-dom'
 import styles from './ChapValidator.module.css'
 import { useChapStatus } from '../../features/settings/ChapSettings/hooks/useChapStatus'
@@ -32,19 +31,29 @@ export const ChapValidator = ({ children }: Props) => {
 
     if (error || !status) {
         return (
-            <div className={styles.errorContainer}>
-                <Card>
-                    <div className={styles.errorContent}>
-                        <NoticeBox error title={i18n.t('Unable to connect to CHAP')}>
-                            {i18n.t('The app is not able to connect to the CHAP server. Please check your route configuration and make sure the CHAP server is running.')}
-                        </NoticeBox>
-                        <div className={styles.errorActions}>
-                            <Button onClick={() => navigate('/settings')}>
-                                {i18n.t('Check settings')}
-                            </Button>
-                        </div>
+            <div className={styles.noChapContainer}>
+                <div className={styles.noChapContent}>
+                    <IconError24 />
+
+                    <h1 className={styles.noChapTitle}>{i18n.t('Could not connect to CHAP')}</h1>
+
+                    <div className={styles.noChapText}>
+                        <p>{i18n.t('The app is not able to connect to the CHAP server.')}</p>
+                        <p>{i18n.t('Please check your route configuration and make sure the CHAP server is running.')}</p>
+                        <a
+                            href="https://github.com/dhis2-chap/chap-core/wiki"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.noChapLink}
+                        >
+                            {i18n.t('Learn more about Modeling and CHAP')}
+                        </a>
                     </div>
-                </Card>
+
+                    <Button onClick={() => navigate('/settings')}>
+                        {i18n.t('Check settings')}
+                    </Button>
+                </div>
             </div>
         )
     }
