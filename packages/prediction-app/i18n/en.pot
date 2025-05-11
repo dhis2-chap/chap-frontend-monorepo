@@ -5,8 +5,21 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-08T13:16:56.189Z\n"
-"PO-Revision-Date: 2025-05-08T13:16:56.190Z\n"
+"POT-Creation-Date: 2025-05-11T15:38:49.488Z\n"
+"PO-Revision-Date: 2025-05-11T15:38:49.489Z\n"
+
+msgid "Unable to connect to CHAP"
+msgstr "Unable to connect to CHAP"
+
+msgid ""
+"The app is not able to connect to the CHAP server. Please check your route "
+"configuration and make sure the CHAP server is running."
+msgstr ""
+"The app is not able to connect to the CHAP server. Please check your route "
+"configuration and make sure the CHAP server is running."
+
+msgid "Check settings"
+msgstr "Check settings"
 
 msgid "Oops!"
 msgstr "Oops!"
