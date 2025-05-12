@@ -20,6 +20,7 @@ import {
   CircularLoader,
   NoticeBox
 } from '@dhis2/ui';
+import styles from './DatasetsTable.module.css';
 
 const DatasetsTable: React.FC = () => {
   const { data: datasets, isLoading, isError, error } = useDatasets();
@@ -48,7 +49,7 @@ const DatasetsTable: React.FC = () => {
   
   if (isLoading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
+      <div className={styles.loadingContainer}>
         <CircularLoader />
       </div>
     );
@@ -63,7 +64,7 @@ const DatasetsTable: React.FC = () => {
   }
   
   return (
-    <div>
+    <div className={styles.tableContainer}>
       <Table>
         <TableHead>
           {table.getHeaderGroups().map(headerGroup => (
@@ -95,10 +96,10 @@ const DatasetsTable: React.FC = () => {
           {datasets && datasets.length === 0 && (
             <TableRow>
               <TableCell>
-                <div style={{ textAlign: 'center' }}>No datasets found</div>
+                <div className={styles.noDataCell}>No datasets found</div>
               </TableCell>
               <TableCell>
-                <div style={{ textAlign: 'center' }}></div>
+                <div className={styles.noDataCell}></div>
               </TableCell>
             </TableRow>
           )}
