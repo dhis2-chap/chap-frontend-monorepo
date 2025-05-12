@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef } from 'react';
+import React, { useMemo } from 'react';
 import { 
   createColumnHelper, 
   useReactTable, 
@@ -18,44 +18,13 @@ import {
   TableRowHead, 
   TableCellHead,
   CircularLoader,
-  NoticeBox,
-  Button,
-  IconMore16,
-  IconDelete16,
-  FlyoutMenu,
-  MenuItem,
-  Popper
+  NoticeBox
 } from '@dhis2/ui';
+import ActionMenu from './components/ActionMenu/ActionMenu';
 import styles from './DatasetsTable.module.css';
 
 const DatasetsTable: React.FC = () => {
   const { data: datasets, isLoading, isError, error } = useDatasets();
-  const [activeMenu, setActiveMenu] = useState<number | null>(null);
-  const buttonRefs = useRef<Record<number, HTMLDivElement | null>>({});
-  const menuRefs = useRef<Record<number, HTMLDivElement | null>>({});
-  
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (activeMenu !== null) {
-        const buttonRef = buttonRefs.current[activeMenu];
-        const menuRef = menuRefs.current[activeMenu];
-        
-        if (
-          menuRef && 
-          !menuRef.contains(event.target as Node) && 
-          buttonRef && 
-          !buttonRef.contains(event.target as Node)
-        ) {
-          setActiveMenu(null);
-        }
-      }
-    };
-    
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [activeMenu]);
   
   const columnHelper = createColumnHelper<DataSetRead>();
   
@@ -72,43 +41,16 @@ const DatasetsTable: React.FC = () => {
       columnHelper.display({
         id: 'actions',
         header: 'Actions',
-        cell: (info) => {
-          const rowIndex = info.row.index;
+        cell: () => {
           return (
-            <div className={styles.actionsCell}>
-              <div 
-                ref={(el) => (buttonRefs.current[rowIndex] = el)}
-                className={styles.actionButton}
-              >
-                <Button
-                  small
-                  icon={<IconMore16 />}
-                  onClick={() => setActiveMenu(activeMenu === rowIndex ? null : rowIndex)}
-                />
-              </div>
-              
-              {activeMenu === rowIndex && buttonRefs.current[rowIndex] && (
-                <Popper reference={buttonRefs.current[rowIndex] as unknown as Element} placement="bottom-end">
-                  <div ref={(el) => (menuRefs.current[rowIndex] = el)}>
-                    <FlyoutMenu>
-                      <MenuItem
-                        label="Delete"
-                        icon={<IconDelete16 />}
-                        destructive
-                        onClick={() => {
-                          setActiveMenu(null);
-                        }}
-                      />
-                    </FlyoutMenu>
-                  </div>
-                </Popper>
-              )}
-            </div>
+            <ActionMenu onDelete={() => {
+              console.log('Delete clicked');
+            }} />
           );
         },
       }),
     ],
-    [activeMenu]
+    []
   );
   
   const table = useReactTable({
