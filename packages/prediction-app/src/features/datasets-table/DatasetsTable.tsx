@@ -41,9 +41,10 @@ const DatasetsTable: React.FC = () => {
       columnHelper.display({
         id: 'actions',
         header: 'Actions',
-        size: 1,
-        minSize: 1,
-        maxSize: 1,
+        size: 0,
+        minSize: 0,
+        maxSize: 0,
+        enableResizing: false,
         cell: () => {
           return (
             <ActionMenu onDelete={() => {
