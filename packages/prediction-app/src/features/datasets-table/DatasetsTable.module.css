@@ -39,3 +39,13 @@
   justify-content: center;
   padding: 2rem;
 }
+
+.actionsCell {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.actionButton {
+  display: inline-block;
+}
