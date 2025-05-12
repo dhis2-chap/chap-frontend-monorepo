@@ -1,4 +1,6 @@
 .actionMenuContainer {
   display: flex;
   justify-content: center;
+  white-space: nowrap;
+  width: 1%;
 }
