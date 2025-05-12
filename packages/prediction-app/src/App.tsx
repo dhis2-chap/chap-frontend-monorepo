@@ -4,6 +4,7 @@ import React from 'react'
 import './App.css'
 import PageWrapper from './components/PageWrapper'
 import EvaluationPage from './pages/EvaluationPage'
+import DatasetsTestPage from './pages/DatasetsTestPage'
 import PredictionOverview from './features/predictions-overview/PredictionOverview'
 import { SetChapUrl } from './features/route-api/SetChapUrl'
 import { SettingsPage } from './features/settings/Settings'
@@ -23,6 +24,11 @@ const router = createHashRouter([
         path: '/predict',
         errorElement: <ErrorPage />,
         element: <PageWrapper component={<PredictionOverview />} />,
+    },
+    {
+        path: '/datasets-test',
+        errorElement: <ErrorPage />,
+        element: <PageWrapper component={<DatasetsTestPage />} />,
     },
     {
         path: '/settings',
