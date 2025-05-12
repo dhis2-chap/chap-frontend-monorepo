@@ -3,6 +3,7 @@ import NavBar from '../features/navbar/NavBar'
 import WarnAboutIncompatibleVersion from '../features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
 import InfoAboutReportingBugs from '../features/common-features/InfoAboutReportingBugs/InfoAboutReportingBugs'
 import { RouteValidator } from './RouteValidator'
+import { CssReset } from '@dhis2/ui'
 
 interface ComponentWrapperProps {
     component: React.JSX.Element
@@ -20,6 +21,7 @@ const style: React.CSSProperties = {
 const ComponentWrapper = ({ component }: ComponentWrapperProps) => {
     return (
         <RouteValidator>
+            <CssReset />
             <InfoAboutReportingBugs />
             <NavBar />
             <WarnAboutIncompatibleVersion />

@@ -1,33 +1,32 @@
 import React, { useMemo } from 'react';
-import { 
-  createColumnHelper, 
-  useReactTable, 
-  getCoreRowModel, 
+import {
+  createColumnHelper,
+  useReactTable,
+  getCoreRowModel,
   flexRender
 } from '@tanstack/react-table';
-import { 
-  DataSetRead 
+import {
+  DataSetRead
 } from '@dhis2-chap/chap-lib';
 import { useDatasets } from '../../hooks/useDatasets';
-import { 
-  Table, 
-  TableHead, 
-  TableBody, 
-  TableRow, 
-  TableCell, 
-  TableRowHead, 
-  TableCellHead,
+import {
+  DataTable,
+  DataTableHead,
+  DataTableBody,
+  DataTableFoot,
+  DataTableRow,
+  DataTableCell,
+  DataTableColumnHeader,
   CircularLoader,
   NoticeBox
 } from '@dhis2/ui';
 import ActionMenu from './components/ActionMenu/ActionMenu';
-import styles from './DatasetsTable.module.css';
 
 const DatasetsTable: React.FC = () => {
   const { data: datasets, isLoading, isError, error } = useDatasets();
-  
+
   const columnHelper = createColumnHelper<DataSetRead>();
-  
+
   const columns = useMemo(
     () => [
       columnHelper.accessor('name', {
@@ -56,21 +55,21 @@ const DatasetsTable: React.FC = () => {
     ],
     []
   );
-  
+
   const table = useReactTable({
     data: datasets || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-  
+
   if (isLoading) {
     return (
-      <div className={styles.loadingContainer}>
+      <div>
         <CircularLoader />
       </div>
     );
   }
-  
+
   if (isError) {
     return (
       <NoticeBox error title="Error loading datasets">
@@ -78,49 +77,53 @@ const DatasetsTable: React.FC = () => {
       </NoticeBox>
     );
   }
-  
+
   return (
-    <div className={styles.tableContainer}>
-      <Table>
-        <TableHead>
+    <div>
+      <DataTable>
+        <DataTableHead>
           {table.getHeaderGroups().map(headerGroup => (
-            <TableRowHead key={headerGroup.id}>
+            <DataTableRow key={headerGroup.id}>
               {headerGroup.headers.map(header => (
-                <TableCellHead key={header.id}>
+                <DataTableColumnHeader key={header.id}>
                   {flexRender(
                     header.column.columnDef.header,
                     header.getContext()
                   )}
-                </TableCellHead>
+                </DataTableColumnHeader>
               ))}
-            </TableRowHead>
+            </DataTableRow>
           ))}
-        </TableHead>
-        <TableBody>
+        </DataTableHead>
+        <DataTableBody>
           {table.getRowModel().rows.map(row => (
-            <TableRow key={row.id}>
+            <DataTableRow key={row.id}>
               {row.getVisibleCells().map(cell => (
-                <TableCell key={cell.id}>
+                <DataTableCell key={cell.id}>
                   {flexRender(
                     cell.column.columnDef.cell,
                     cell.getContext()
                   )}
-                </TableCell>
+                </DataTableCell>
               ))}
-            </TableRow>
+            </DataTableRow>
           ))}
           {datasets && datasets.length === 0 && (
-            <TableRow>
-              <TableCell>
-                <div className={styles.noDataCell}>No datasets found</div>
-              </TableCell>
-              <TableCell>
-                <div className={styles.noDataCell}></div>
-              </TableCell>
-            </TableRow>
+            <DataTableRow>
+              <DataTableCell colSpan={table.getAllColumns().length.toString()}>
+                <div>No datasets found</div>
+              </DataTableCell>
+            </DataTableRow>
           )}
-        </TableBody>
-      </Table>
+        </DataTableBody>
+        <DataTableFoot>
+          <DataTableRow>
+            <DataTableCell colSpan={table.getAllColumns().length.toString()}>
+              Table Footer
+            </DataTableCell>
+          </DataTableRow>
+        </DataTableFoot>
+      </DataTable>
     </div>
   );
 };
