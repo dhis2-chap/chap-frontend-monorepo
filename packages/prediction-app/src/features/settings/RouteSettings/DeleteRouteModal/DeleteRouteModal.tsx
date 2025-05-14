@@ -24,7 +24,10 @@ export const DeleteRouteModal = ({ routeId, onClose }: Props) => {
     })
 
     return (
-        <Modal onClose={onClose}>
+        <Modal
+            onClose={onClose}
+            small
+        >
             <ModalTitle>{i18n.t("Delete route")}</ModalTitle>
 
             <ModalContent>
