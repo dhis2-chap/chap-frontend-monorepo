@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PredictionInfo = {
+export type NewClass = {
     datasetId: number;
     modelId: string;
     nPeriods: number;
