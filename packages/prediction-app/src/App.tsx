@@ -1,4 +1,9 @@
-import { createHashRouter, RouterProvider, Navigate } from 'react-router-dom'
+import {
+    createHashRouter,
+    RouterProvider,
+    Navigate,
+    Outlet,
+} from 'react-router-dom'
 import ErrorPage from './components/ErrorPage'
 import React from 'react'
 import './App.css'
@@ -8,36 +13,80 @@ import PredictionOverview from './features/predictions-overview/PredictionOvervi
 import { SetChapUrl } from './features/route-api/SetChapUrl'
 import { SettingsPage } from './features/settings/Settings'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import EvaluationResult from './features/import-prediction/EvaluationResult'
+import { CssReset, CssVariables } from '@dhis2/ui'
+import { Layout } from './components/layout/Layout'
+import { RouteValidator } from './components/RouteValidator'
+import InfoAboutReportingBugs from './features/common-features/InfoAboutReportingBugs/InfoAboutReportingBugs'
+import WarnAboutIncompatibleVersion from './features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
+
+export type RouteHandle = {
+    fullWidth?: boolean
+}
 
 const router = createHashRouter([
     {
-        path: '/',
-        element: <Navigate to="/evaluate" replace />,
-    },
-    {
-        path: '/evaluate',
+        element: <Layout />,
         errorElement: <ErrorPage />,
-        element: <PageWrapper component={<EvaluationPage />} />,
-    },
-    {
-        path: '/predict',
-        errorElement: <ErrorPage />,
-        element: <PageWrapper component={<PredictionOverview />} />,
-    },
-    {
-        path: '/settings',
-        errorElement: <ErrorPage />,
-        element: <SettingsPage />,
+        children: [
+            {
+                path: '/',
+                element: <Navigate to="/evaluate" replace />,
+            },
+            {
+                element: (
+                    <RouteValidator>
+                        <InfoAboutReportingBugs />
+                        <WarnAboutIncompatibleVersion />
+                        <PageWrapper>
+                            <Outlet />
+                        </PageWrapper>
+                    </RouteValidator>
+                ),
+                children: [
+                    {
+                        path: '/evaluate',
+                        children: [
+                            {
+                                index: true,
+                                element: <EvaluationPage />,
+                            },
+                            {
+                                path: 'compare',
+                                handle: {
+                                    fullWidth: true,
+                                } satisfies RouteHandle,
+                                element: <EvaluationResult evaluationId={1} />,
+                            },
+                        ],
+                    },
+                    {
+                        path: '/predict',
+                        element: <PredictionOverview />,
+                    },
+                ],
+            },
+            {
+                path: '/settings',
+                element: (
+                    <PageWrapper>
+                        <SettingsPage />
+                    </PageWrapper>
+                ),
+            },
+        ],
     },
 ])
 
 const App = () => {
     return (
         <>
+            <CssReset />
+            <CssVariables theme spacers colors elevations />
             <SetChapUrl>
                 <RouterProvider router={router} />
             </SetChapUrl>
-            <ReactQueryDevtools />
+            <ReactQueryDevtools position="bottom-right" />
         </>
     )
 }

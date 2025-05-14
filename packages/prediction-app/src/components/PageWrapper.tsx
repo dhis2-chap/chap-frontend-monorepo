@@ -3,29 +3,42 @@ import NavBar from '../features/navbar/NavBar'
 import WarnAboutIncompatibleVersion from '../features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
 import InfoAboutReportingBugs from '../features/common-features/InfoAboutReportingBugs/InfoAboutReportingBugs'
 import { RouteValidator } from './RouteValidator'
+import { useMatches } from 'react-router-dom'
+import { RouteHandle } from '../App'
 
 interface ComponentWrapperProps {
-    component: React.JSX.Element
+    children: React.ReactNode
+    maxWidth?: string
 }
 
-export const maxWidth: string = '1400px'
+export const defaultMaxWidth: string = '1400px'
 
 const style: React.CSSProperties = {
-    maxWidth: maxWidth,
+    maxWidth: defaultMaxWidth,
     marginLeft: 'auto',
     marginRight: 'auto',
-    padding: '20px 10px 20px 10px',
+    padding: '20px 10px',
+    width: '100%',
 }
 
-const ComponentWrapper = ({ component }: ComponentWrapperProps) => {
-    return (
-        <RouteValidator>
-            <InfoAboutReportingBugs />
-            <NavBar />
-            <WarnAboutIncompatibleVersion />
+const ComponentWrapper = ({
+    children,
+    maxWidth,
+}: ComponentWrapperProps) => {
+    const fullWidthRoute = useMatches().some(
+        (match) => !!(match.handle as RouteHandle)?.fullWidth
+    )
 
-            <div style={style}>{component}</div>
-        </RouteValidator>
+    return (
+        <div
+            style={{
+                ...style,
+                maxWidth: fullWidthRoute ? 'none' : maxWidth || defaultMaxWidth,
+                width: '100%',
+            }}
+        >
+            {children}
+        </div>
     )
 }
 

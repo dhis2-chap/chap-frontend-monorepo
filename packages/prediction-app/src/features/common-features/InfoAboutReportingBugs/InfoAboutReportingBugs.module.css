@@ -6,7 +6,7 @@
 
 .infoAboutReportingBugsInner {
     margin: auto;
-    padding: 0.6rem 1rem;
+    padding: 0.6rem 10px;
     font-size: 15px;
     display: flex;
     justify-content: space-between;

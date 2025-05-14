@@ -1,25 +1,28 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
+    Button,
+    DropdownButton,
     FlyoutMenu,
     IconDelete16,
     IconEdit16,
+    IconMore16,
     IconShare16,
     MenuItem,
     SharingDialog,
-    SplitButton
-} from "@dhis2/ui"
-import i18n from "@dhis2/d2-i18n"
-import { EditRoute } from "../EditRoute"
-import type { Route } from "../../../../hooks/useRoute"
-import { DeleteRouteModal } from "../DeleteRouteModal"
-import { useQueryClient } from "@tanstack/react-query";
+    SplitButton,
+} from '@dhis2/ui'
+import i18n from '@dhis2/d2-i18n'
+import { EditRoute } from '../EditRoute'
+import type { Route } from '../../../../hooks/useRoute'
+import { DeleteRouteModal } from '../DeleteRouteModal'
+import { useQueryClient } from '@tanstack/react-query'
 
 type Props = {
     route: Route
 }
 
 export const RouteActions = ({ route }: Props) => {
-    const queryClient = useQueryClient();
+    const queryClient = useQueryClient()
     const [isSharingDialogOpen, setIsSharingDialogOpen] = useState(false)
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
@@ -56,7 +59,7 @@ export const RouteActions = ({ route }: Props) => {
                     id={route.id}
                     type="route"
                     onClose={() => {
-                        queryClient.invalidateQueries({ queryKey: ['routes'] });
+                        queryClient.invalidateQueries({ queryKey: ['routes'] })
                         setIsSharingDialogOpen(false)
                     }}
                 />
@@ -77,4 +80,4 @@ export const RouteActions = ({ route }: Props) => {
             )}
         </>
     )
-} 
+}
