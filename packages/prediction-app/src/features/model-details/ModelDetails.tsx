@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CrudService, DefaultService, Feature, FeatureTypeRead, ModelSpecRead } from '@dhis2-chap/chap-lib';
+import { CrudService, DefaultService, Feature, ModelSpecRead } from '@dhis2-chap/chap-lib';
 import { Button, SingleSelectField, SingleSelectOption } from '@dhis2/ui';
 import styles from './ModelDetails.module.css'
 
