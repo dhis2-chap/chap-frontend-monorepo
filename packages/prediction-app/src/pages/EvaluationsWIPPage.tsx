@@ -2,10 +2,10 @@ import React from 'react';
 import {
     CircularLoader,
     NoticeBox,
-    Card,
     Button,
     IconAdd24,
 } from '@dhis2/ui';
+import { Card } from '@dhis2-chap/chap-lib';
 import i18n from '@dhis2/d2-i18n';
 import styles from './EvaluationsWIPPage.module.css';
 import { useBacktests } from '../hooks/useBacktests';
