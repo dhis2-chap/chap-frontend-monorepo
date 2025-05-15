@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { CrudService, DefaultService, Feature, FeatureTypeRead, ModelSpecRead } from '@dhis2-chap/chap-lib';
-import { Button, SingleSelectField, SingleSelectOption } from '@dhis2/ui';
+import React from 'react'
+import { ModelSpecRead } from '@dhis2-chap/chap-lib';
+import { Button } from '@dhis2/ui';
 import styles from './ModelDetails.module.css'
 
 interface ModelDetailsProps {
@@ -52,7 +52,7 @@ const ModelDetails = ({ selectedModel, onChangeModel }: ModelDetailsProps) => {
 
                 {/* Source url */}
                 <p className={styles.modelLink}>
-                    External link: <a href={selectedModel.sourceUrl || ""} target="_blank">{selectedModel.sourceUrl || "http://example.com"}</a>
+                    External link: <a href={selectedModel.sourceUrl || ""} target="_blank" rel="noreferrer">{selectedModel.sourceUrl || "http://example.com"}</a>
                 </p>
 
                 {/* Contact */}

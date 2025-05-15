@@ -1,7 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
-/* eslint-disable */
+ 
 import type { FeatureTypeRead } from './FeatureTypeRead';
 import type { PeriodType } from './PeriodType';
 export type ModelSpecRead = {

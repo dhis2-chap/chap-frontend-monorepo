@@ -1,19 +1,8 @@
 import {
-    ApiError,
     CrudService,
     DataSetRead,
-    DefaultService,
 } from '@dhis2-chap/chap-lib'
 import React, { useEffect, useState } from 'react'
-import {
-    QueryClient,
-    QueryClientProvider,
-    useQuery,
-} from '@tanstack/react-query'
-
-interface DatasetsProps {
-    datsets: any
-}
 
 const Datasets = () => {
     const [data, setData] = useState<undefined | DataSetRead[]>(undefined)

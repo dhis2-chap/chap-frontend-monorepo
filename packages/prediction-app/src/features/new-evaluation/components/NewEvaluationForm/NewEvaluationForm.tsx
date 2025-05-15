@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './NewEvaluationForm.module.css'
 import {
     Button,
-    IconArrowLeft16,
-    IconArrowLeft24,
-    IconArrowRight16,
     IconArrowRight24,
     IconCross24,
     InputField,
 } from '@dhis2/ui'
 import DatasetDetails from '../../../dataset-details/DatasetDetails'
 import SelectModel from '../../../select-model/SelectModel'
-import { AnalyticsService, CrudService } from '@dhis2-chap/chap-lib'
+import { AnalyticsService } from '@dhis2-chap/chap-lib'
 
 interface NewEvaluationFormProps {
     onDrawerClose: () => void

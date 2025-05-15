@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import JobResultPanel from './JobResultPanel/JobResultPanel'
 import PanelHeader from './JobResultPanel/JobResultPanelHeader'
 import {
-    AnalyticsService,
     ApiError,
     BackTestRead,
     CancelablePromise,
     CrudService,
     DataSetRead,
-    DefaultService,
     JobDescription,
     JobsService,
     PredictionInfo,
@@ -18,13 +16,6 @@ import FetchError from './FetchError/FetchError'
 import LoadingJobResult from './LoadingJobResult/LoadingJobResult'
 import { NoJobResult } from './NoJobResult/NoJobResult'
 import usePolling from '../../hooks/usePolling'
-
-interface Job {
-    id: string
-    name: string
-    status: string
-    created: Date
-}
 
 export interface JobResultsProps {
     type: 'predictions' | 'datasets' | 'evaluations'

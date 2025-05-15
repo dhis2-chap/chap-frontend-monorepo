@@ -9,41 +9,12 @@ interface EvaluationResultsChartProps {
     data: EvaluationForSplitPoint[]
     splitPeriods: string[]
 }
-/*
-const ResultPlotList: React.FC<ResultPlotListProps> = ({ orgUnitsData}) => {
-    function getItemContent() {
-        return (index: number) => {
-            const orgUnit = Object.keys(orgUnitsData)[index];
-            return (
-                <div key={orgUnit} style={{marginBottom: '40px'}}>
-                    <ResultPlot data={orgUnitsData[orgUnit]} modelName={'ModelName'}/>
-                </div>
-            );
-        };
-    }
-
-    return (
-    <Virtuoso
-      style={{ height: '100vh' }}
-      totalCount={Object.keys(orgUnitsData).length}
-      itemContent={getItemContent()}
-    />
-  );
-};
-*/
 
 const EvaluationResultsDashboard: React.FC<EvaluationResultsChartProps> = ({
-    data,
     splitPeriods,
 }) => {
-    const [orgUnitsData, setOrgUnitsData] =
-        React.useState<EvaluationForSplitPoint>(data[0])
-    const [selectedSplitPeriod, setSelectedSplitPeriod] =
-        React.useState<string>(splitPeriods[0])
-
     const handlePeriodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedSplitPeriod(e.target.value)
-        setOrgUnitsData(data.filter((o) => o.splitPoint === e.target.value)[0])
+        console.log('OnPeriodChange: ', e.target.value)
     }
 
     return (
@@ -52,10 +23,6 @@ const EvaluationResultsDashboard: React.FC<EvaluationResultsChartProps> = ({
                 splitPeriods={splitPeriods}
                 onChange={handlePeriodChange}
             />
-            <div>
-                REMOVED FOR NOW
-                {/*<ResultPlotList orgUnitsData={orgUnitsData} />*/}
-            </div>
         </div>
     )
 }
@@ -83,8 +50,9 @@ export const ComparisonDashboard: React.FC<ComparisonResultsChartProps> = ({
     }, [data])
 
     const handlePeriodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        //setSelectedSplitPeriod(e.target.value);
-        setOrgUnitsData(data.filter((o) => o.splitPoint === e.target.value)[0])
+        setOrgUnitsData(
+            data.filter((o) => o.splitPoint === e.target.value)[0]
+        )
         console.log('OnPeriodChange: ', orgUnitsData)
     }
 

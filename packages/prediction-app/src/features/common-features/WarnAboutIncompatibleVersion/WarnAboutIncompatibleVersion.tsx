@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import style from './WarnAboutIncompatibleVersion.module.css'
 import { maxWidth } from '../../navbar/NavBar'
 import {
-    ApiError,
     DefaultService,
 } from '@dhis2-chap/chap-lib'
 import { useConfig } from '@dhis2/app-runtime'
@@ -28,7 +27,7 @@ const WarnAboutIncompatibleVersion = () => {
             .then((a: any) => {
                 setIsCompatible(a)
             })
-            .catch((response: ApiError) => {
+            .catch(() => {
                 setIsCompatible({
                     compatible: false,
                     description:

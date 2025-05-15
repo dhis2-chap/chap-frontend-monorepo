@@ -1,4 +1,3 @@
-import { Time } from 'highcharts'
 import React, { useEffect, useState } from 'react'
 import { PeriodTypeSelector } from './PeriodTypeSelector'
 import TimePeriodInputField from './TimePeriodInputField'

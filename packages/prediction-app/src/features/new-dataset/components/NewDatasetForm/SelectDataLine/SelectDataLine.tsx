@@ -1,20 +1,12 @@
 import {
-    Button,
-    IconAdd16,
-    IconDelete16,
-    IconDelete24,
-    InputField,
-    NoticeBox,
-    SingleSelect,
     SingleSelectField,
     SingleSelectOption,
     SingleSelectProps,
 } from '@dhis2/ui'
 import React, { useEffect, useState } from 'react'
 import styles from './SelectDataLine.module.css'
-import { Datalayer, DatasetLayer } from '../../../interfaces/DataSetLayer'
-import { AnalyticsService, DataSource, Feature } from '@dhis2-chap/chap-lib'
-import { useDataQuery } from '@dhis2/app-runtime'
+import { DatasetLayer } from '../../../interfaces/DataSetLayer'
+import { AnalyticsService, DataSource } from '@dhis2-chap/chap-lib'
 import SearchSelectField from '../../../../search-dataitem/SearchSelectField'
 import { features } from '../NewDatasetForm'
 
@@ -50,7 +42,7 @@ const SelectDataLine = ({
         type: 'feature' | 'origin' | 'dataSource',
         index: number
     ) => {
-        let newDataSetLayer = [...datasetLayers]
+        const newDataSetLayer = [...datasetLayers]
         if (e.selected == undefined) return
         //when type is origin, simitainously wipe Data source
         if (type === 'origin') {
@@ -62,34 +54,6 @@ const SelectDataLine = ({
 
         ;(newDataSetLayer[index] as any)[type] = e.selected
         setDataLayers(newDataSetLayer)
-    }
-
-    const addLayer = () => {
-        let newDataSetLayer = [...datasetLayers]
-        newDataSetLayer.push({
-            feature: '',
-            origin: 'dataItem',
-            dataSource: '',
-        })
-        setDataLayers(newDataSetLayer)
-    }
-
-    const removeLayer = (index: number) => {
-        let newDataSetLayer = [...datasetLayers]
-        newDataSetLayer.splice(index, 1)
-        setDataLayers(newDataSetLayer)
-    }
-
-    const getNonSelectedFeatures = (index: number) => {
-        let nonSelectedFeatures: Feature[] = []
-        features.forEach((f) => {
-            let isSelected = false
-            datasetLayers.forEach((dl, i) => {
-                if (dl.feature == f.id && i !== index) isSelected = true
-            })
-            if (!isSelected) nonSelectedFeatures.push(f)
-        })
-        return nonSelectedFeatures
     }
 
     //temp create e method, converting search field output to match format used in this file
