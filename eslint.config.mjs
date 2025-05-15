@@ -38,15 +38,4 @@ export default defineConfig([
       }
     }
   },
-  /* // Temporarily removing CSS parsing configuration
-  {
-    // Spread the recommended configuration from the @eslint/css plugin.
-    // This typically includes the correct parser and recommended rules for CSS files.
-    // ...css.configs.recommended, // Previous attempt
-    ...css.configs.all, // Trying 'all' to ensure parser is included
-    // Ensure this configuration applies specifically to your CSS files.
-    // This overrides any 'files' glob that might be present in 'css.configs.recommended'.
-    files: ["packages/**\*.css"],
-  }
-  */
 ]);
