@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type FeatureTypeRead = {
+export type FeatureType = {
     displayName: string;
     description: string;
-    name: string;
+    name?: string;
 };
 

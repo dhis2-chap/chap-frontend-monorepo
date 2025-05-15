@@ -2,9 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ModelInfo = {
-    author: string;
-    description: string;
-    organization: (string | null);
+export type BacktestDomain = {
+    orgUnits: Array<string>;
+    splitPeriods: Array<string>;
 };
 

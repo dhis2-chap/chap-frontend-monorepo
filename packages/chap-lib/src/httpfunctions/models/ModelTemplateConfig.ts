@@ -5,16 +5,19 @@
 import type { DockerEnvConfig } from './DockerEnvConfig';
 import type { EntryPointConfig } from './EntryPointConfig';
 import type { ModelInfo } from './ModelInfo';
-import type { UserOption } from './UserOption';
+/**
+ * TODO: Try to find a better name that is not confusing
+ * This is all the information that is listed in mlproject file for a model template
+ */
 export type ModelTemplateConfig = {
-    name: string;
     entry_points: EntryPointConfig;
     docker_env?: (DockerEnvConfig | null);
     python_env?: (string | null);
-    required_fields?: Array<string>;
+    name: string;
+    required_covariates?: Array<string>;
     allow_free_additional_continuous_covariates?: boolean;
-    adapters?: (Record<string, string> | null);
-    user_options?: Array<UserOption>;
+    user_options?: Record<string, any>;
     model_info?: (ModelInfo | null);
+    adapters?: (Record<string, string> | null);
 };
 
