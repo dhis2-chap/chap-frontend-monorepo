@@ -97,7 +97,7 @@ export const EvaluationsWIPPage: React.FC = () => {
 
     return (
         <Card className={styles.container}>
-            <h1>{i18n.t('Evaluations (WIP)')}</h1>
+            <h2>{i18n.t('Evaluations (WIP)')}</h2>
             <DataTable>
                 <DataTableHead>
                     {table.getHeaderGroups().map((headerGroup) => (
