@@ -1,4 +1,11 @@
-
+.dataTable table,
+.dataTable th,
+.dataTable td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: start;
+    padding: 0.2rem;
+}
 
 .dataValueTables {
     display: flex;
