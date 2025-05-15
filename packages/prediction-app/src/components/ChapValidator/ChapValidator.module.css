@@ -1,0 +1,53 @@
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.noChapContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.noChapIcon {
+    width: 64px;
+    height: 64px;
+    color: #404b5a;
+}
+
+.noChapIcon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.noChapContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.noChapTitle {
+    font-size: 20px;
+    line-height: 24px;
+    color: #212934;
+    margin: 0;
+    margin-block-start: 24px;
+    font-weight: 500;
+}
+
+.noChapText {
+    color: #404b5a;
+    font-size: 14px;
+    text-align: center;
+    margin-block-end: 20px;
+}
+
+.noChapLink {
+    color: #404b5a;
+    font-size: 14px;
+    text-decoration: underline;
+}

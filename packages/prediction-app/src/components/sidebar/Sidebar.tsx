@@ -2,15 +2,18 @@ import i18n from '@dhis2/d2-i18n'
 import { IconChevronLeft24 } from '@dhis2/ui'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import styles from './Sidebar.module.css'
-import { LinkItem } from './SidebarLinks'
 import {
     Sidenav, SidenavItems,
     SidenavLink,
     SidenavParent
 } from './sidenav'
 
+type LinkItem = {
+    to: string,
+    label: string
+}
 interface SidebarNavLinkProps {
     label: string
     to: string
@@ -88,11 +91,11 @@ export const Sidebar = ({
                         label={i18n.t('Evaluate')}
                         links={[
                             {
-                                label: 'Overview',
+                                label: i18n.t('Overview'),
                                 to: '/evaluate',
                             },
                             {
-                                label: 'Compare',
+                                label: i18n.t('Compare'),
                                 to: '/evaluate/compare',
                             },
                         ]}

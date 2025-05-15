@@ -11,6 +11,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: var(--spacers-dp8);
 }
 
 .icon {

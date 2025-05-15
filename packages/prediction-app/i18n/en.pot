@@ -5,8 +5,27 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-08T13:16:56.189Z\n"
-"PO-Revision-Date: 2025-05-08T13:16:56.190Z\n"
+"POT-Creation-Date: 2025-05-13T17:25:54.706Z\n"
+"PO-Revision-Date: 2025-05-13T17:25:54.706Z\n"
+
+msgid "Could not connect to CHAP"
+msgstr "Could not connect to CHAP"
+
+msgid "The app is not able to connect to the CHAP server."
+msgstr "The app is not able to connect to the CHAP server."
+
+msgid ""
+"Please check your route configuration and make sure the CHAP server is "
+"running."
+msgstr ""
+"Please check your route configuration and make sure the CHAP server is "
+"running."
+
+msgid "Learn more about Modeling and CHAP"
+msgstr "Learn more about Modeling and CHAP"
+
+msgid "Configure settings"
+msgstr "Configure settings"
 
 msgid "Oops!"
 msgstr "Oops!"
@@ -22,12 +41,6 @@ msgstr "To get started, create a route that points to a running CHAP server."
 
 msgid "Route and servers are configured on the settings page."
 msgstr "Route and servers are configured on the settings page."
-
-msgid "Learn more about Modeling and CHAP"
-msgstr "Learn more about Modeling and CHAP"
-
-msgid "Configure settings"
-msgstr "Configure settings"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"

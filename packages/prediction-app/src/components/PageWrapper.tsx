@@ -17,7 +17,7 @@ const style: React.CSSProperties = {
     maxWidth: defaultMaxWidth,
     marginLeft: 'auto',
     marginRight: 'auto',
-    padding: '20px 10px',
+    padding: '20px 16px',
     width: '100%',
 }
 

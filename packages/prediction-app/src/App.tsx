@@ -19,6 +19,7 @@ import { Layout } from './components/layout/Layout'
 import { RouteValidator } from './components/RouteValidator'
 import InfoAboutReportingBugs from './features/common-features/InfoAboutReportingBugs/InfoAboutReportingBugs'
 import WarnAboutIncompatibleVersion from './features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
+import { ChapValidator } from './components/ChapValidator'
 
 export type RouteHandle = {
     fullWidth?: boolean
@@ -36,11 +37,13 @@ const router = createHashRouter([
             {
                 element: (
                     <RouteValidator>
-                        <InfoAboutReportingBugs />
-                        <WarnAboutIncompatibleVersion />
-                        <PageWrapper>
-                            <Outlet />
-                        </PageWrapper>
+                        <ChapValidator>
+                            <InfoAboutReportingBugs />
+                            <WarnAboutIncompatibleVersion />
+                            <PageWrapper>
+                                <Outlet />
+                            </PageWrapper>
+                        </ChapValidator>
                     </RouteValidator>
                 ),
                 children: [
