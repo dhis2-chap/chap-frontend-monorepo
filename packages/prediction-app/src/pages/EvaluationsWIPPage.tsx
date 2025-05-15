@@ -34,27 +34,24 @@ const columnHelper = createColumnHelper<BackTestRead>();
 const columns = [
     columnHelper.accessor('id', {
         header: i18n.t('ID'),
-        cell: (info) => info.getValue(),
     }),
     columnHelper.accessor('name', {
         header: i18n.t('Name'),
-        cell: (info) => info.getValue() || i18n.t('Unnamed'),
     }),
     columnHelper.accessor('created', {
         header: i18n.t('Created'),
-        cell: (info) => info.getValue() ? new Date(info.getValue()!).toLocaleString() : i18n.t('Unknown'),
+        cell: (info) => info.getValue() ? new Date(info.getValue()!).toLocaleString() : undefined,
     }),
     columnHelper.accessor('modelId', {
         header: i18n.t('Model ID'),
-        cell: (info) => info.getValue(),
     }),
     columnHelper.accessor('startDate', {
         header: i18n.t('Start Date'),
-        cell: (info) => info.getValue() || i18n.t('Unknown'),
+        cell: (info) => info.getValue() ? new Date(info.getValue()!).toLocaleString() : undefined,
     }),
     columnHelper.accessor('endDate', {
         header: i18n.t('End Date'),
-        cell: (info) => info.getValue() || i18n.t('Unknown'),
+        cell: (info) => info.getValue() ? new Date(info.getValue()!).toLocaleString() : undefined,
     }),
 ];
 
@@ -65,7 +62,9 @@ const getSortDirection = (column: any) => {
 
 export const EvaluationsWIPPage: React.FC = () => {
     const { backtests, error, isLoading } = useBacktests();
-    const [sorting, setSorting] = React.useState<SortingState>([]);
+    const [sorting, setSorting] = React.useState<SortingState>([
+        { id: 'created', desc: true }
+    ]);
 
     const table = useReactTable({
         data: backtests || [],
@@ -104,21 +103,20 @@ export const EvaluationsWIPPage: React.FC = () => {
                     {table.getHeaderGroups().map((headerGroup) => (
                         <DataTableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => (
-                                <DataTableColumnHeader 
-                                    key={header.id} 
-                                    sortDirection={getSortDirection(header.column)}
-                                    sortIconTitle={i18n.t('Sort by {{column}}', { column: header.column.id })}
-                                    onSortIconClick={header.column.getCanSort() ? 
-                                        () => header.column.toggleSorting() : 
-                                        undefined
-                                    }
+                                <DataTableColumnHeader
+                                    key={header.id}
+                                    {...(header.column.getCanSort() ? {
+                                        sortDirection: getSortDirection(header.column),
+                                        sortIconTitle: i18n.t('Sort by {{column}}', { column: header.column.id }),
+                                        onSortIconClick: () => header.column.toggleSorting()
+                                    } : {})}
                                 >
                                     {header.isPlaceholder
                                         ? null
                                         : flexRender(
-                                              header.column.columnDef.header,
-                                              header.getContext()
-                                          )}
+                                            header.column.columnDef.header,
+                                            header.getContext()
+                                        )}
                                 </DataTableColumnHeader>
                             ))}
                         </DataTableRow>
