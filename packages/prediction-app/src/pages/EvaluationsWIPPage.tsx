@@ -8,6 +8,7 @@ import i18n from '@dhis2/d2-i18n';
 import styles from './EvaluationsWIPPage.module.css';
 import { useBacktests } from '../hooks/useBacktests';
 import { BacktestsTable } from '../components/BacktestsTable';
+import PageHeader from '../features/common-features/PageHeader/PageHeader';
 
 export const EvaluationsWIPPage: React.FC = () => {
     const { backtests, error, isLoading } = useBacktests();
@@ -31,9 +32,14 @@ export const EvaluationsWIPPage: React.FC = () => {
     }
 
     return (
-        <Card className={styles.container}>
-            <h2>{i18n.t('Evaluations (WIP)')}</h2>
-            <BacktestsTable backtests={backtests || []} />
-        </Card>
+        <>
+            <PageHeader
+                pageTitle={i18n.t('Evaluations')}
+                pageDescription={i18n.t('Evaluates the accuracy of a predictive model using historical data. Compares actual outcomes with predicted values to assess model performance.')}
+            />
+            <Card className={styles.container}>
+                <BacktestsTable backtests={backtests || []} />
+            </Card>
+        </>
     );
 };
