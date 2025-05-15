@@ -7,7 +7,7 @@
         "packages/*"
     ],
     "scripts": {
-        "lint": "echo \"todo: fix up typescript and implement linting\" # d2-style check",
+        "linter:check": "eslint . --config eslint.config.mjs",
         "format": "d2-style apply",
         "tsc:check": "yarn tsc:chap-lib && yarn tsc:chap-eval && yarn tsc:modeling-app",
         "tsc:chap-lib": "yarn build:chap-lib && yarn workspace @dhis2-chap/chap-lib tsc --noEmit",
