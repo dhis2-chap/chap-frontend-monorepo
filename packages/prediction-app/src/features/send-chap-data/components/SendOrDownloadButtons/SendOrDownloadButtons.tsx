@@ -1,7 +1,6 @@
 import { Button, IconAdd24, IconArrowRight24, IconDownload24 } from '@dhis2/ui'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styles from './SendOrDownloadButtons.module.css'
-import { start } from 'repl'
 
 interface SendOrDownloadButtonsProps {
     startDownload: {

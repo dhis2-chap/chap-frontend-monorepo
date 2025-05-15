@@ -1,9 +1,4 @@
-import {
-    Checkbox,
-    SingleSelect,
-    SingleSelectField,
-    SingleSelectOption,
-} from '@dhis2/ui'
+import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import React from 'react'
 import { getPeriodNameFromId } from '../../../utils/Time'
 

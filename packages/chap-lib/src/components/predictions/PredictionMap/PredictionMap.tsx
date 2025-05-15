@@ -4,7 +4,6 @@ import { FullPredictionResponseExtended } from '../../../interfaces/Prediction'
 import {
     getUniqeOrgUnits,
     getUniqePeriods,
-    getUniqeQuantiles,
 } from '../../../utils/PredictionResponse'
 import MapItem from '../../maps/MapItem'
 import Choropleth from '../../maps/Choropleth'

@@ -5,32 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-15T18:02:13.021Z\n"
-"PO-Revision-Date: 2025-05-15T18:02:13.021Z\n"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Name"
-msgstr "Name"
-
-msgid "Created"
-msgstr "Created"
-
-msgid "Model ID"
-msgstr "Model ID"
-
-msgid "Start Date"
-msgstr "Start Date"
-
-msgid "End Date"
-msgstr "End Date"
-
-msgid "Sort by {{column}}"
-msgstr "Sort by {{column}}"
-
-msgid "No evaluations available"
-msgstr "No evaluations available"
+"POT-Creation-Date: 2025-05-15T10:56:34.966Z\n"
+"PO-Revision-Date: 2025-05-15T10:56:34.966Z\n"
 
 msgid "Could not connect to CHAP"
 msgstr "Could not connect to CHAP"

@@ -10,6 +10,7 @@ import type { DataSource } from '../models/DataSource';
 import type { EvaluationEntry } from '../models/EvaluationEntry';
 import type { JobResponse } from '../models/JobResponse';
 import type { MakeBacktestRequest } from '../models/MakeBacktestRequest';
+import type { MakeBacktestWithDataRequest } from '../models/MakeBacktestWithDataRequest';
 import type { MakePredictionRequest } from '../models/MakePredictionRequest';
 import type { PredictionEntry } from '../models/PredictionEntry';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -124,6 +125,25 @@ export class AnalyticsService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/analytics/create-backtest',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Create Backtest With Data
+     * @param requestBody
+     * @returns JobResponse Successful Response
+     * @throws ApiError
+     */
+    public static createBacktestWithDataAnalyticsCreateBacktestWithDataPost(
+        requestBody: MakeBacktestWithDataRequest,
+    ): CancelablePromise<JobResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/analytics/create-backtest-with-data',
             body: requestBody,
             mediaType: 'application/json',
             errors: {

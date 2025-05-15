@@ -6,15 +6,9 @@ import {
 } from '../../../interfaces/Evaluation'
 import {
     Checkbox,
-    CheckboxChangeHandler,
     EventPayload,
-    Field,
     InputField,
-    MultiSelect,
-    MultiSelectField,
-    MultiSelectOption,
 } from '@dhis2/ui'
-import { MultiSelectEventPayload, SelectChangeHandler } from '@dhis2-ui/select'
 import SplitPeriodSelector from '../SplitPeriodSelector/SplitPeriodSelector'
 import styles from './ComparionPlotWrapper.module.css'
 
@@ -117,7 +111,7 @@ export const ComparionPlotWrapper = ({
                             Organization units:
                         </div>
                         <div className={styles.filterCheckbox}>
-                            {allOrgUnits.map((orgUnit, i) => (
+                            {allOrgUnits.map((orgUnit) => (
                                 <Checkbox
                                     checked={
                                         selectedOrgUnits.filter(

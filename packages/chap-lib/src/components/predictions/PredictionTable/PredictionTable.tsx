@@ -3,7 +3,6 @@ import styles from './PredictionTable.module.css'
 import React from 'react'
 import {
     FullPredictionResponseExtended,
-    PredictionResponseExtended,
 } from '../../../interfaces/Prediction'
 import { PredictionResponse } from '../../../httpfunctions'
 import {

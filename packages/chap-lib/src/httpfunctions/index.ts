@@ -44,6 +44,7 @@ export type { JobDescription } from './models/JobDescription';
 export type { JobResponse } from './models/JobResponse';
 export type { LineStringModel } from './models/LineStringModel';
 export type { MakeBacktestRequest } from './models/MakeBacktestRequest';
+export type { MakeBacktestWithDataRequest } from './models/MakeBacktestWithDataRequest';
 export type { MakePredictionRequest } from './models/MakePredictionRequest';
 export type { ModelInfo } from './models/ModelInfo';
 export type { ModelSpec } from './models/ModelSpec';

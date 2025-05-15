@@ -3,7 +3,6 @@ import styles from './NewEvaluationDrawer.module.css'
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
 import NewEvaluationForm from './NewEvaluationForm/NewEvaluationForm'
-import { DataSetRead } from '@dhis2-chap/chap-lib'
 
 interface NewEvaluationDrawerProps{
   isOpen: boolean

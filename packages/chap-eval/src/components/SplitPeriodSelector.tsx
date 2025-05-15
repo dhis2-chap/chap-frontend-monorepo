@@ -21,10 +21,10 @@ export const SplitPeriodSelector: React.FC<SplitPeriodSelectorProps> = ({
                 The further the predicted period is away from the split period,
                 the less accurate the prediction. CHAP uses many split periods
                 in order to get many predictions to evaluate the model. This
-                gives the model more opportunities to make 'mistakes' which we
-                can pick up on. It's therefore important to look at many split
-                periods when evaluating a model. (Note: loading a new split
-                period might take some time)
+                gives the model more opportunities to make &apos;mistakes&apos;
+                which we can pick up on. It&apos;s therefore important to look
+                at many split periods when evaluating a model. (Note: loading a
+                new split period might take some time)
             </p>
             <label>Select the split period: </label>
             <select value={splitPeriods[-1]} onChange={handlePeriodChange}>

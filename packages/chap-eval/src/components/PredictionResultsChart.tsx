@@ -38,8 +38,8 @@ const processDataValues = (data: PredictionResponse[]): Record<string, any> => {
     const orgUnitsProcessedData: Record<string, any> = {}
 
     Object.keys(groupedData).forEach((orgUnit) => {
-        let groupedDatum = groupedData[orgUnit]
-        let dataElement = createHighChartsData(
+        const groupedDatum = groupedData[orgUnit]
+        const dataElement = createHighChartsData(
             // todo: type me
             groupedDatum as any,
             (item) => item.dataElement

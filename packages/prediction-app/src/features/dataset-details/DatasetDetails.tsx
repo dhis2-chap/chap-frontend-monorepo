@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { CrudService, DataSetRead } from '@dhis2-chap/chap-lib';
+import { CrudService } from '@dhis2-chap/chap-lib';
 import { getPeriodNameFromId } from '../utils/Time';
-import { Button, SingleSelectField, SingleSelectOption, CircularLoader, NoticeBox, Card } from '@dhis2/ui';
+import { CircularLoader, Card } from '@dhis2/ui';
 import styles from './DatasetDetails.module.css'
 
 interface DatasetDetailsProps {
@@ -12,7 +12,6 @@ const DatasetDetails = ({ datasetId } : DatasetDetailsProps ) => {
     const [datasetSummary, setDatasetSummary] = useState<any>(null)
     const [error, setError] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(true)
-    const [covariates, setCovariates] = useState<[]>([])
 
     const getDatasetSummary = (dataset : any) => {
         const periods = dataset.observations.map((obs : any) => obs.period)

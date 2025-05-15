@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from './JobResultPanel.module.css'
-import { JobResult } from '../interfaces/JobResult'
 
 const PanelHeader = () => {
     return (

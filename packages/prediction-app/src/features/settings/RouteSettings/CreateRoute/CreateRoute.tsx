@@ -1,14 +1,7 @@
 import React, { useState } from "react"
 import {
     Button,
-    ButtonStrip,
     IconAdd16,
-    Input,
-    Label,
-    Modal,
-    ModalActions,
-    ModalContent,
-    ModalTitle
 } from "@dhis2/ui"
 import i18n from "@dhis2/d2-i18n"
 import styles from '../RouteSettings.module.css'

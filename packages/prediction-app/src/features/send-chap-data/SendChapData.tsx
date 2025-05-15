@@ -5,7 +5,6 @@ import {
     DatasetMakeRequest,
     FeatureCollectionModel,
     FetchRequest,
-    JobResponse,
     MakePredictionRequest,
     ModelSpecRead,
     ObservationBase,
@@ -167,7 +166,7 @@ export const SendChapData = ({
                                 href={
                                     config?.systemInfo?.contextPath +
                                     '/api/apps/climate-data/index.html#/import'
-                                }
+                                } rel="noreferrer"
                             >
                                 Climate App
                             </a>{' '}
@@ -184,7 +183,7 @@ export const SendChapData = ({
                                 <tbody>
                                     {missingData.map((d) => {
                                         return (
-                                            <tr>
+                                            <tr key={`${d.orgUnitName}-${d.period}`}>
                                                 <td>{d.orgUnitName}</td>
                                                 <td>
                                                     {
@@ -212,7 +211,7 @@ export const SendChapData = ({
 
     //Check if the analytics content is empty, before sending it to CHAP
     const isAnalyticsContentIsEmpty = (observations: ObservationBase[]) => {
-        let emptyFeatures: ErrorResponse[] = []
+        const emptyFeatures: ErrorResponse[] = []
 
         dataLayers
             .filter((o) => o.origin == 'dataItem')
@@ -313,11 +312,11 @@ export const SendChapData = ({
     }
 
     const newDataset = async () => {
-        let request: DatasetMakeRequest = getNewDatasetRequest()
+        const request: DatasetMakeRequest = getNewDatasetRequest()
 
         setIsSendingDataToChap(true)
         await AnalyticsService.makeDatasetAnalyticsMakeDatasetPost(request)
-            .then((response: JobResponse) => {
+            .then(() => {
                 setErrorChapMsg('')
                 onDrawerSubmit()
             })
@@ -335,13 +334,13 @@ export const SendChapData = ({
     }
 
     const predict = async () => {
-        let request: MakePredictionRequest = getPredictionRequest()
+        const request: MakePredictionRequest = getPredictionRequest()
 
         setIsSendingDataToChap(true)
         await AnalyticsService.makePredictionAnalyticsMakePredictionPost(
             request
         )
-            .then((response: JobResponse) => {
+            .then(() => {
                 onDrawerSubmit()
             })
             .catch((error: any) => {
@@ -367,7 +366,7 @@ export const SendChapData = ({
             content = getNewDatasetRequest()
         }
 
-        var fileToSave = new Blob([JSON.stringify(content, null, 2)], {
+        const fileToSave = new Blob([JSON.stringify(content, null, 2)], {
             type: 'application/json',
         })
 

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDataQuery } from "@dhis2/app-runtime";
 
 export const ORG_UNITS_QUERY = {

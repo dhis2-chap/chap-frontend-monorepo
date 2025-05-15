@@ -17,7 +17,6 @@ import {
     SortingState,
 } from '@tanstack/react-table';
 import { BackTestRead } from '@dhis2-chap/chap-lib';
-import styles from './BacktestsTable.module.css';
 
 const columnHelper = createColumnHelper<BackTestRead>();
 
