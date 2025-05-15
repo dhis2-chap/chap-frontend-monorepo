@@ -15,8 +15,8 @@ import type { FeatureSource } from '../models/FeatureSource';
 import type { JobResponse } from '../models/JobResponse';
 import type { ModelSpecRead } from '../models/ModelSpecRead';
 import type { ModelTemplateConfig } from '../models/ModelTemplateConfig';
+import type { NewClass } from '../models/NewClass';
 import type { PredictionCreate } from '../models/PredictionCreate';
-import type { PredictionInfo } from '../models/PredictionInfo';
 import type { PredictionRead } from '../models/PredictionRead';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -24,6 +24,7 @@ import { request as __request } from '../core/request';
 export class CrudService {
     /**
      * Get Backtests
+     * Returns a list of backtests/evaluations with only the id and name
      * @returns BackTestRead Successful Response
      * @throws ApiError
      */
@@ -94,10 +95,10 @@ export class CrudService {
     }
     /**
      * Get Predictions
-     * @returns PredictionInfo Successful Response
+     * @returns NewClass Successful Response
      * @throws ApiError
      */
-    public static getPredictionsCrudPredictionsGet(): CancelablePromise<Array<PredictionInfo>> {
+    public static getPredictionsCrudPredictionsGet(): CancelablePromise<Array<NewClass>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/crud/predictions',

@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type FetchRequest = {
-    featureName: string;
-    dataSourceName: string;
+export type BacktestDomain = {
+    orgUnits: Array<string>;
+    splitPeriods: Array<string>;
 };
 

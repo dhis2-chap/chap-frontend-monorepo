@@ -1,22 +1,22 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
- 
-import type { FeatureTypeRead } from './FeatureTypeRead';
+/* eslint-disable */
+import type { FeatureType } from './FeatureType';
 import type { PeriodType } from './PeriodType';
 export type ModelSpecRead = {
-    name: string;
-    displayName: string;
-    supportedPeriodTypes?: PeriodType;
+    displayName?: string;
     description?: string;
     author?: string;
     organization?: (string | null);
     organizationLogoUrl?: (string | null);
-    sourceUrl?: (string | null);
     contactEmail?: (string | null);
     citationInfo?: (string | null);
+    name: string;
+    sourceUrl?: (string | null);
+    supportedPeriodType?: PeriodType;
     id: number;
-    covariates: Array<FeatureTypeRead>;
-    target: FeatureTypeRead;
+    covariates: Array<FeatureType>;
+    target: FeatureType;
 };
 

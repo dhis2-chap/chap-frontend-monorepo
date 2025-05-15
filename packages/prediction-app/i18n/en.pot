@@ -42,6 +42,21 @@ msgstr "To get started, create a route that points to a running CHAP server."
 msgid "Route and servers are configured on the settings page."
 msgstr "Route and servers are configured on the settings page."
 
+msgid "Evaluate"
+msgstr "Evaluate"
+
+msgid "Overview"
+msgstr "Overview"
+
+msgid "Compare"
+msgstr "Compare"
+
+msgid "Predict"
+msgstr "Predict"
+
+msgid "Settings"
+msgstr "Settings"
+
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
 
@@ -68,9 +83,6 @@ msgid ""
 msgstr ""
 "Properties in the new Data Element form not specified in the tables below "
 "should have the default value."
-
-msgid "Name"
-msgstr "Name"
 
 msgid "Short name"
 msgstr "Short name"
@@ -135,9 +147,6 @@ msgid ""
 msgstr ""
 "Job is still running. Please wait until it is finished before doing any "
 "actions."
-
-msgid "Settings"
-msgstr "Settings"
 
 msgid "Prediction for Northern Province"
 msgstr "Prediction for Northern Province"
@@ -292,9 +301,6 @@ msgstr "Error saving route"
 msgid "Route saved successfully"
 msgstr "Route saved successfully"
 
-msgid "Back to main page"
-msgstr "Back to main page"
-
 msgid "Period"
 msgstr "Period"
 
@@ -303,3 +309,22 @@ msgstr "Start month"
 
 msgid "End month"
 msgstr "End month"
+
+msgid "Error loading evaluations"
+msgstr "Error loading evaluations"
+
+msgid "An unknown error occurred"
+msgstr "An unknown error occurred"
+
+msgid "Evaluations"
+msgstr "Evaluations"
+
+msgid ""
+"Evaluates the accuracy of a predictive model using historical data. "
+"Compares actual outcomes with predicted values to assess model performance."
+msgstr ""
+"Evaluates the accuracy of a predictive model using historical data. "
+"Compares actual outcomes with predicted values to assess model performance."
+
+msgid "New evaluation"
+msgstr "New evaluation"

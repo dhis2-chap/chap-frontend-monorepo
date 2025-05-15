@@ -1,0 +1,29 @@
+.container {
+    padding: var(--spacers-dp16);
+}
+
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.errorContainer,
+.emptyContainer {
+    padding: var(--spacers-dp16);
+}
+
+.buttonContainer {
+    display: flex;
+    margin-block-end: var(--spacers-dp16);
+}
+
+.leftSection {
+    flex: 1;
+}
+
+.rightSection {
+    display: flex;
+    justify-content: end;
+}

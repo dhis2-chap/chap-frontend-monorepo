@@ -1,0 +1,1 @@
+export { BacktestsTable } from './BacktestsTable';
