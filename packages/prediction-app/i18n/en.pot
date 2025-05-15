@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-13T17:25:54.706Z\n"
-"PO-Revision-Date: 2025-05-13T17:25:54.706Z\n"
+"POT-Creation-Date: 2025-05-15T10:56:34.966Z\n"
+"PO-Revision-Date: 2025-05-15T10:56:34.966Z\n"
 
 msgid "Could not connect to CHAP"
 msgstr "Could not connect to CHAP"
@@ -234,11 +234,11 @@ msgstr ""
 "expose sensitive data. If you want to restrict access, click the "
 "\"Sharing\" button and remove access for \"All users\"."
 
-msgid "Edit"
-msgstr "Edit"
-
 msgid "Sharing"
 msgstr "Sharing"
+
+msgid "Edit"
+msgstr "Edit"
 
 msgid "Invalid URL format"
 msgstr "Invalid URL format"

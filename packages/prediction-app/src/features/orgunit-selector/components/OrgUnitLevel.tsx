@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { useEffect } from 'react'
-import { SingleSelect, SingleSelectField, SingleSelectOption } from '@dhis2/ui'
+import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import useOrgUnitLevels from '../../../hooks/useOrgUnitLevels'
 import React from 'react'
 import styles from './OrgUnitLevel.module.css'
@@ -43,7 +43,7 @@ const OrgUnitLevel = ({ orgUnitLevels, onChange }: OrgUnitLevelProps) => {
                 error={!!error}
                 onChange={onChangeLevel}
             >
-                {levels.map((l: any, i: any) => (
+                {levels.map((l: any) => (
                     <SingleSelectOption
                         key={l.id}
                         value={l.id}

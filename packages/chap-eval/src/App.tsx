@@ -1,5 +1,3 @@
-// src/App.js
-// @ts-nocheck
 import React from 'react'
 import { OpenAPI } from '@dhis2-chap/chap-lib'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'

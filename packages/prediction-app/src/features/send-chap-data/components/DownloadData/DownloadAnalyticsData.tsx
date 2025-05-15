@@ -1,9 +1,6 @@
-import { saveAs } from 'file-saver'
-import JSZip from 'jszip'
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import useAnalyticRequest from '../../../../hooks/useAnalyticRequest'
 import useGeoJson from '../../../../hooks/useGeoJson'
-import { ModelFeatureDataElementMap } from '../../../../interfaces/ModelFeatureDataElement'
 import styles from './DownloadAnalyticsData.module.css'
 import { ErrorResponse } from '../../interfaces/ErrorResponse'
 import {
@@ -12,7 +9,7 @@ import {
 } from '../../../orgunit-selector/interfaces/orgUnit'
 import { Period } from '../../../timeperiod-selector/interfaces/Period'
 import { DatasetLayer } from '../../../new-dataset/interfaces/DataSetLayer'
-import { DatasetCreate, ObservationBase } from '@dhis2-chap/chap-lib'
+import { ObservationBase } from '@dhis2-chap/chap-lib'
 
 interface DownloadAnalyticsDataProps {
     selectedPeriodItems: Period[]
@@ -103,7 +100,6 @@ const DownloadAnalyticsData = ({
         setFeatureDataItemMapper(featureDataItemMapper)
 
         return data.map((row) => {
-            // @ts-ignore
             return {
                 featureName: featureDataItemMapper.filter(
                     (l) => l.dataItemId === row[0]
@@ -130,16 +126,19 @@ const DownloadAnalyticsData = ({
         if (analyticError || geoJsonError) {
             const errorMessages: ErrorResponse[] = []
 
-            analyticError &&
+            if (analyticError) {
                 errorMessages.push({
                     description: JSON.stringify(analyticError),
                     title: 'Analytics request failed',
                 })
-            geoJsonError &&
+            }
+            if (geoJsonError) {
                 errorMessages.push({
                     description: JSON.stringify(geoJsonError),
                     title: 'OrgUnits request failed',
                 })
+            }
+            
             setErrorMessages(errorMessages)
             setStartDownload((prev) => ({ ...prev, startDownload: false }))
         }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './InfoAboutReportingBugs.module.css'
 import { maxWidth } from '../../navbar/NavBar'
-import { Button, IconCross16, IconWarning16, IconWarning24 } from '@dhis2/ui'
+import { Button, IconCross16, IconWarning16 } from '@dhis2/ui'
 
 const InfoAboutReportingBugs = () => {
     const [closeWarning, setCloseWarning] = useState(true)

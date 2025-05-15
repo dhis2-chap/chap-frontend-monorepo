@@ -5,7 +5,6 @@ import {
     DatasetMakeRequest,
     FeatureCollectionModel,
     FetchRequest,
-    JobResponse,
     MakePredictionRequest,
     ModelSpecRead,
     ObservationBase,
@@ -184,7 +183,7 @@ export const SendChapData = ({
                                 <tbody>
                                     {missingData.map((d) => {
                                         return (
-                                            <tr>
+                                            <tr key={`${d.orgUnitName}-${d.period}`}>
                                                 <td>{d.orgUnitName}</td>
                                                 <td>
                                                     {
@@ -317,7 +316,7 @@ export const SendChapData = ({
 
         setIsSendingDataToChap(true)
         await AnalyticsService.makeDatasetAnalyticsMakeDatasetPost(request)
-            .then((response: JobResponse) => {
+            .then(() => {
                 setErrorChapMsg('')
                 onDrawerSubmit()
             })
@@ -341,7 +340,7 @@ export const SendChapData = ({
         await AnalyticsService.makePredictionAnalyticsMakePredictionPost(
             request
         )
-            .then((response: JobResponse) => {
+            .then(() => {
                 onDrawerSubmit()
             })
             .catch((error: any) => {

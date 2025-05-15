@@ -1,17 +1,15 @@
 // HighchartsMap.js
-// @ts-nocheck
 import React, { useEffect, useState } from 'react'
 import Highcharts from 'highcharts/highmaps'
 import HighchartsReact from 'highcharts-react-official'
-//import mapData from "/uganda_orgunits.geojson";
 
-const HighchartsMap = ({ title }) => {
+const HighchartsMap = ({ title }: { title: string }) => {
     const [options, setOptions] = useState(null)
 
     useEffect(() => {
         // Function to set up the map options based on the GeoJSON data
 
-        const setupMapOptions = (geojsonData) => {
+        const setupMapOptions = (geojsonData: any) => {
             const mapData = Highcharts.geojson(geojsonData, 'map')
 
             // Add value data to each feature
@@ -22,6 +20,7 @@ const HighchartsMap = ({ title }) => {
 
             // Set the Highcharts map options
             setOptions({
+                // @ts-expect-error - This is a valid Highcharts option
                 chart: {
                     map: geojsonData,
                 },

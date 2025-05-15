@@ -3,15 +3,11 @@ import {
     AnalyticsService,
     ComparionPlotWrapper,
     CrudService,
-    DefaultService,
     EvaluationForSplitPoint,
     EvaluationResponse,
     evaluationResultToViewData,
     getSplitPeriod,
 } from '@dhis2-chap/chap-lib'
-import styles from './styles/EvaluationResult.module.css'
-//import StyledDropzone from './StyledDropzone'
-import useOrgUnitRoots from '../../hooks/useOrgUnitRoots'
 import useOrgUnits from '../../hooks/useOrgUnits'
 
 const EvaluationResult = ({ evaluationId }: { evaluationId: number }) => {
@@ -25,7 +21,7 @@ const EvaluationResult = ({ evaluationId }: { evaluationId: number }) => {
     const [modelName, setModelName] = useState<string>('')
     const [isLoading, setIsLoading] = useState(false)
 
-    const { orgUnits, error, loading } = useOrgUnits()
+    const { orgUnits } = useOrgUnits()
 
     useEffect(() => {
         if (orgUnits && unProceededData) {

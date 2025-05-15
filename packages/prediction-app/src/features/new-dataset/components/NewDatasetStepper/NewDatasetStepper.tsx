@@ -1,16 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import NewDatasetForm from '../NewDatasetForm/NewDatasetForm'
 import styles from './NewDatasetStepper.module.css'
-import { DatasetLayer } from '../../interfaces/DataSetLayer'
-import {
-    Button,
-    IconArrowLeft16,
-    IconArrowLeft24,
-    IconArrowRight16,
-    IconArrowRight24,
-    IconCross24,
-} from '@dhis2/ui'
-import { PeriodTypeSelector } from '../../../timeperiod-selector/components/PeriodTypeSelector'
+import { Button, IconCross24 } from '@dhis2/ui'
 
 interface NewDatasetStepperProps {
     onDrawerSubmit: () => void

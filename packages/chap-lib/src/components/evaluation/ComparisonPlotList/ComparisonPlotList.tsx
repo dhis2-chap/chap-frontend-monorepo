@@ -15,24 +15,38 @@ export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
     useVirtuosoWindowScroll = false,
 }) => {
     function getItemContent() {
-        return (index: number) => {
+        const ItemContent = (index: number) => {
             const orgUnitsData: EvaluationPerOrgUnit =
                 evaluationPerOrgUnits[index]
+
+            if (!orgUnitsData) {
+                return null
+            }
+
             return (
-                orgUnitsData && (
-                    <div key={orgUnitsData.orgUnitId}>
-                        <ComparisonPlot orgUnitsData={orgUnitsData} />
-                    </div>
-                )
+                <div key={orgUnitsData.orgUnitId}>
+                    <ComparisonPlot orgUnitsData={orgUnitsData} />
+                </div>
             )
         }
+        ItemContent.displayName = 'ItemContent'
+        return ItemContent
     }
 
     if (!useVirtuoso) {
         return (
             <>
-                {evaluationPerOrgUnits.map((orgUnitsData, index) => {
-                    return <ComparisonPlot orgUnitsData={orgUnitsData} />
+                {evaluationPerOrgUnits.map((orgUnitsData) => {
+                    if (!orgUnitsData) {
+                        return null
+                    }
+
+                    return (
+                        <ComparisonPlot
+                            key={orgUnitsData.orgUnitId}
+                            orgUnitsData={orgUnitsData}
+                        />
+                    )
                 })}
             </>
         )

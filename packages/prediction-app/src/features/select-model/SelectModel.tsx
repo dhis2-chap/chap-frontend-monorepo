@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { CrudService, DefaultService, Feature, FeatureTypeRead, ModelSpecRead } from '@dhis2-chap/chap-lib';
-import { Button, SingleSelectField, SingleSelectOption } from '@dhis2/ui';
+import { CrudService, ModelSpecRead } from '@dhis2-chap/chap-lib';
+import { Button } from '@dhis2/ui';
 import ModelDetails from '../model-details/ModelDetails'
 import styles from './SelectModel.module.css'
-import i18n from "@dhis2/d2-i18n";
 
 interface SelectModelProps {
     selectedModel: ModelSpecRead | undefined
@@ -41,7 +40,7 @@ const SelectModel = ({ selectedModel, setSelectedModel }: SelectModelProps) => {
                 setIsLoading(false)
                 setModels(models)
 
-            }).catch((error: any) => {
+            }).catch(() => {
                 //route probarly not set up, warning should be shown
                 setModels([offlineModel])
                 setSelectedModel(offlineModel)

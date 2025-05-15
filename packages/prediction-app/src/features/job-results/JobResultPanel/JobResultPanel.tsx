@@ -1,27 +1,9 @@
 import React, { useState } from 'react'
 import styles from './JobResultPanel.module.css'
-import {
-    boolean,
-    Button,
-    Modal,
-    IconArrowRight16,
-    IconArrowRight24,
-    IconDelete24,
-    IconImportItems24,
-    IconInfo16,
-    IconInfo24,
-    IconView16,
-    IconView24,
-    IconArchive24,
-    IconVisualizationAreaStacked24,
-    IconLaunch24,
-    IconRuler24,
-} from '@dhis2/ui'
+import { Modal } from '@dhis2/ui'
 import ImportPrediction from '../ImportPrediction/ImportPrediction'
 import { JobResult } from '../interfaces/JobResult'
-import { JobsService, PredictionInfo } from '@dhis2-chap/chap-lib'
-import { CrudService } from '@dhis2-chap/chap-lib'
-import { DataSetRead } from '@dhis2-chap/chap-lib'
+import { JobsService, CrudService } from '@dhis2-chap/chap-lib'
 import JobResultPanelItem from './JobResultPanelItem/JobResultPanelItem'
 import JobLogs from './JobLogs/JobLogs'
 import NewEvaluationDrawer from '../../new-evaluation/components/NewEvaluationDrawer'

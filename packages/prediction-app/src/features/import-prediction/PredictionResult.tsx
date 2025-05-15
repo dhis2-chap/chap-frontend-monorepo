@@ -5,7 +5,6 @@ import {
     PredictionRead,
 } from '@dhis2-chap/chap-lib'
 import styles from './styles/PredictionResult.module.css'
-import PredictionChart from './PredictionChart'
 import useOrgUnits from '../../hooks/useOrgUnits'
 import { Button, TabBar, IconArrowRight24, Tab } from '@dhis2/ui'
 import PostResult from './PostResult'
@@ -14,13 +13,10 @@ import SetupInstruction from './SetupInstruction'
 import useDataElements from '../../hooks/useDataElements'
 import { useLocation } from 'react-router-dom'
 import {
-    DefaultService,
     FullPredictionResponse,
     PredictionResponse,
     PredictionTable,
-    PredictionMap,
 } from '@dhis2-chap/chap-lib'
-import { SelectImportMode } from './SelectImportMode'
 
 import { UncertaintyAreaChart } from '@dhis2-chap/chap-lib'
 import useFindDataItem from '../../hooks/useDataItem'
@@ -152,7 +148,7 @@ const PredictionResult = ({
         return false
     }
 
-    const fetchOrHandleFileDropData = async (data?: FullPredictionResponse) => {
+    const fetchOrHandleFileDropData = async () => {
         setPostStatus('initial')
     }
 

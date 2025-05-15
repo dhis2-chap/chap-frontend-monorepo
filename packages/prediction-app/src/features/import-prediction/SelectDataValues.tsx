@@ -1,5 +1,5 @@
 import React from 'react'
-import { SingleSelect, SingleSelectField, SingleSelectOption } from '@dhis2/ui'
+import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import styles from './styles/SelectDataValues.module.css'
 import i18n from '@dhis2/d2-i18n'
 

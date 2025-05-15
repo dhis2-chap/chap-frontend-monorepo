@@ -11,24 +11,6 @@ export function translateToDHIS2(data: any): DataElement {
     return { ou: data.region_id, pe: data.period_id, value: data.value }
 }
 
-function groupBy<T>(
-    array: T[],
-    keyFunction: (item: T) => string
-): Record<string, T[]> {
-    const groupByStep = (
-        result: Record<string, T[]>,
-        currentItem: T
-    ): Record<string, T[]> => {
-        const key: string = keyFunction(currentItem)
-        if (!result[key]) {
-            result[key] = []
-        }
-        result[key].push(currentItem)
-        return result
-    }
-    return array.reduce(groupByStep, {} as Record<string, T[]>)
-}
-
 function groupByTwoKeys<T>(
     array: T[],
     keyFunc1: (item: T) => string,
@@ -53,10 +35,6 @@ function groupByTwoKeys<T>(
 
         return result
     }, {} as { [key1: string]: { [key2: string]: T[] } })
-}
-interface ModelEvaluation {
-    modelName: string
-    evaluationEntries: EvaluationEntry[]
 }
 
 export const addModelName = (

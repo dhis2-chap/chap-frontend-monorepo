@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useDataQuery } from '@dhis2/app-runtime'
 import { parseOrgUnits } from '../components/maps/utils'
-import { GeoJson } from '../interfaces/GeoJson'
 
 interface OrganisationUnit {
     id: string // Unique identifier of the organisation unit

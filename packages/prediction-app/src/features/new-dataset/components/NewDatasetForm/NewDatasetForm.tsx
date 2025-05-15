@@ -1,34 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './NewDatasetForm.module.css'
-
 import { DatasetLayer } from '../../interfaces/DataSetLayer'
-import {
-    Button,
-    IconArrowRight24,
-    IconDownload24,
-    IconError24,
-    InputField,
-} from '@dhis2/ui'
-import TimePeriodPicker from '../../../timeperiod-selector/components/TimePeriodInputField'
+import { InputField } from '@dhis2/ui'
 import TimePeriodeSelector from '../../../timeperiod-selector/components/TimePeriodPicker'
 import OrgUnitSelector from '../../../orgunit-selector/OrgUnitSelector'
-import DownloadAnalyticsData from '../../../send-chap-data/components/DownloadData/DownloadAnalyticsData'
-import {
-    DataList,
-    DatasetCreate,
-    Feature,
-    ModelSpec,
-} from '@dhis2-chap/chap-lib'
-import { ErrorResponse } from '../../../send-chap-data/interfaces/ErrorResponse'
-import saveAs from 'file-saver'
+import { Feature } from '@dhis2-chap/chap-lib'
 import { SendChapData } from '../../../send-chap-data/SendChapData'
-import {
-    IOrgUnitLevel,
-    OrgUnit,
-} from '../../../orgunit-selector/interfaces/orgUnit'
+import { IOrgUnitLevel, OrgUnit } from '../../../orgunit-selector/interfaces/orgUnit'
 import SelectDataLine from './SelectDataLine/SelectDataLine'
 import { Period } from '../../../timeperiod-selector/interfaces/Period'
-import { ModelFeatureDataElementMap } from '../../../../interfaces/ModelFeatureDataElement'
 
 interface NewDatasetFormProps {
     onDrawerSubmit: () => void
