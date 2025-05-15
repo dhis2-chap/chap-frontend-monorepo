@@ -42,7 +42,6 @@ msgstr "To get started, create a route that points to a running CHAP server."
 msgid "Route and servers are configured on the settings page."
 msgstr "Route and servers are configured on the settings page."
 
-<<<<<<< HEAD
 msgid "Learn more about Modeling and CHAP"
 msgstr "Learn more about Modeling and CHAP"
 
