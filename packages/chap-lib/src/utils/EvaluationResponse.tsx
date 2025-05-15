@@ -236,7 +236,7 @@ export function createHighChartsData(
         midranges.push([quantileMidLow, quantileMidHigh])
     })
 
-    let dataElement = {
+    const dataElement = {
         periods,
         ranges,
         averages,

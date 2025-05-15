@@ -109,8 +109,8 @@ export const processDataValues = (
     Object.keys(doubleGroupedData).forEach((splitPeriod) => {
         const splitProcessedData: Record<string, HighChartsData> = {}
         Object.keys(doubleGroupedData[splitPeriod]).forEach((orgUnit) => {
-            let groupedDatum = doubleGroupedData[splitPeriod][orgUnit]
-            let dataElement = createHighChartsData(groupedDatum, quantileFunc)
+            const groupedDatum = doubleGroupedData[splitPeriod][orgUnit]
+            const dataElement = createHighChartsData(groupedDatum, quantileFunc)
             splitProcessedData[orgUnit] = joinRealAndPredictedData(
                 dataElement,
                 realValues.filter((item) => item.ou === orgUnit)

@@ -68,11 +68,11 @@ const JobResultPanel = ({ jobResults: jobResults }: JobResultPanel) => {
     }
 
     const onClickRemove = (item: JobResult) => {
-        let msg =
+        const msg =
             'Are you sure you want to permanently remove this item? Any data entries that depend on this item will also be deleted.'
         if (confirm(msg) == true) {
             console.log('Should remove item')
-            let dbId = item.result
+            const dbId = item.result
             if (dbId) {
                 if (item.type == 'dataset') {
                     CrudService.deleteDatasetCrudDatasetsDatasetIdDelete(
@@ -88,7 +88,7 @@ const JobResultPanel = ({ jobResults: jobResults }: JobResultPanel) => {
                     )
                 }
             } else {
-                let jobId = item.id
+                const jobId = item.id
                 JobsService.deleteJobJobsJobIdDelete(jobId)
             }
         }

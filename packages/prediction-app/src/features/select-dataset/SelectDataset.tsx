@@ -30,7 +30,7 @@ const SelectDataset = ({ selectedDataset, setSelectedDataset } : SelectDatasetPr
     const [isLoading, setIsLoading] = useState(true)
   
     const getDatasets = async () => {
-        let datasets = getFakeDatasetResponse() // TODO: replace with actual url fetch
+        const datasets = getFakeDatasetResponse() // TODO: replace with actual url fetch
         datasets.sort((a, b) => {
             //return b.created.getTime() - a.created.getTime()
             if (a.created > b.created) {

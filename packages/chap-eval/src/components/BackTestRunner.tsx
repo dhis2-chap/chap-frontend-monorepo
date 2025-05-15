@@ -232,7 +232,7 @@ const getViewData = async (
             )
 
         let namedData = addModelName(data, estimator_name)
-        let namedData2 = addModelName(data2, estimator_name2)
+        const namedData2 = addModelName(data2, estimator_name2)
         namedData = namedData.concat(namedData2)
 
         // Fetch actual cases

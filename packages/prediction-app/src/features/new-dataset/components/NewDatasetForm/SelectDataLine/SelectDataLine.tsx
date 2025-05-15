@@ -50,7 +50,7 @@ const SelectDataLine = ({
         type: 'feature' | 'origin' | 'dataSource',
         index: number
     ) => {
-        let newDataSetLayer = [...datasetLayers]
+        const newDataSetLayer = [...datasetLayers]
         if (e.selected == undefined) return
         //when type is origin, simitainously wipe Data source
         if (type === 'origin') {
@@ -65,7 +65,7 @@ const SelectDataLine = ({
     }
 
     const addLayer = () => {
-        let newDataSetLayer = [...datasetLayers]
+        const newDataSetLayer = [...datasetLayers]
         newDataSetLayer.push({
             feature: '',
             origin: 'dataItem',
@@ -75,13 +75,13 @@ const SelectDataLine = ({
     }
 
     const removeLayer = (index: number) => {
-        let newDataSetLayer = [...datasetLayers]
+        const newDataSetLayer = [...datasetLayers]
         newDataSetLayer.splice(index, 1)
         setDataLayers(newDataSetLayer)
     }
 
     const getNonSelectedFeatures = (index: number) => {
-        let nonSelectedFeatures: Feature[] = []
+        const nonSelectedFeatures: Feature[] = []
         features.forEach((f) => {
             let isSelected = false
             datasetLayers.forEach((dl, i) => {

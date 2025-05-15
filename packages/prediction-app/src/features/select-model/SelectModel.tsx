@@ -34,7 +34,7 @@ const SelectModel = ({ selectedModel, setSelectedModel }: SelectModelProps) => {
 
             .then((response: ModelSpecRead[]) => {
                 //turn target_name into a feature
-                let models: ModelSpecRead[] = response.map((d: ModelSpecRead) => {
+                const models: ModelSpecRead[] = response.map((d: ModelSpecRead) => {
                     d.covariates = d.covariates.concat(d.target)
                     return d
                 })

@@ -52,7 +52,7 @@ const ModelDetails = ({ selectedModel, onChangeModel }: ModelDetailsProps) => {
 
                 {/* Source url */}
                 <p className={styles.modelLink}>
-                    External link: <a href={selectedModel.sourceUrl || ""} target="_blank">{selectedModel.sourceUrl || "http://example.com"}</a>
+                    External link: <a href={selectedModel.sourceUrl || ""} target="_blank" rel="noreferrer">{selectedModel.sourceUrl || "http://example.com"}</a>
                 </p>
 
                 {/* Contact */}

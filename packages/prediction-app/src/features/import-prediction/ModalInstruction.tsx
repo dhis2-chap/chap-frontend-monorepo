@@ -28,7 +28,7 @@ const ModalInstruction = ({
                         )}
                         <a
                             target="_blank"
-                            href={`${config.baseUrl}/dhis-web-maintenance/index.html#/list/dataElementSection/dataElement`}
+                            href={`${config.baseUrl}/dhis-web-maintenance/index.html#/list/dataElementSection/dataElement`} rel="noreferrer"
                         >
                             Maintenance
                         </a>
