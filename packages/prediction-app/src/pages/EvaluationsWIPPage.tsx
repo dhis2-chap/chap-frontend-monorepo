@@ -3,6 +3,8 @@ import {
     CircularLoader,
     NoticeBox,
     Card,
+    Button,
+    IconAdd24,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import styles from './EvaluationsWIPPage.module.css';
@@ -38,6 +40,17 @@ export const EvaluationsWIPPage: React.FC = () => {
                 pageDescription={i18n.t('Evaluates the accuracy of a predictive model using historical data. Compares actual outcomes with predicted values to assess model performance.')}
             />
             <Card className={styles.container}>
+                <div className={styles.buttonContainer}>
+                    <div className={styles.leftSection}></div>
+                    <div className={styles.rightSection}>
+                        <Button
+                            primary
+                            icon={<IconAdd24 />}
+                        >
+                            {i18n.t('New evaluation')}
+                        </Button>
+                    </div>
+                </div>
                 <BacktestsTable backtests={backtests || []} />
             </Card>
         </>
