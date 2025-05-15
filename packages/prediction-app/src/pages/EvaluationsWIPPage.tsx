@@ -24,6 +24,8 @@ import {
     flexRender,
     getCoreRowModel,
     useReactTable,
+    getSortedRowModel,
+    SortingState,
 } from '@tanstack/react-table';
 import { BackTestRead } from '@dhis2-chap/chap-lib';
 
@@ -56,12 +58,23 @@ const columns = [
     }),
 ];
 
+const getSortDirection = (column: any) => {
+    if (!column.getIsSorted()) return 'default';
+    return column.getIsSorted() as 'asc' | 'desc';
+};
+
 export const EvaluationsWIPPage: React.FC = () => {
     const { backtests, error, isLoading } = useBacktests();
+    const [sorting, setSorting] = React.useState<SortingState>([]);
 
     const table = useReactTable({
         data: backtests || [],
         columns,
+        state: {
+            sorting,
+        },
+        onSortingChange: setSorting,
+        getSortedRowModel: getSortedRowModel(),
         getCoreRowModel: getCoreRowModel(),
     });
 
@@ -91,7 +104,15 @@ export const EvaluationsWIPPage: React.FC = () => {
                     {table.getHeaderGroups().map((headerGroup) => (
                         <DataTableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => (
-                                <DataTableColumnHeader key={header.id}>
+                                <DataTableColumnHeader 
+                                    key={header.id} 
+                                    sortDirection={getSortDirection(header.column)}
+                                    sortIconTitle={i18n.t('Sort by {{column}}', { column: header.column.id })}
+                                    onSortIconClick={header.column.getCanSort() ? 
+                                        () => header.column.toggleSorting() : 
+                                        undefined
+                                    }
+                                >
                                     {header.isPlaceholder
                                         ? null
                                         : flexRender(
@@ -107,12 +128,12 @@ export const EvaluationsWIPPage: React.FC = () => {
                     {table.getRowModel().rows.map((row) => (
                         <DataTableRow key={row.id}>
                             {row.getVisibleCells().map((cell) => (
-                                <TableCell>
+                                <DataTableCell key={cell.id}>
                                     {flexRender(
                                         cell.column.columnDef.cell,
                                         cell.getContext()
                                     )}
-                                </TableCell>
+                                </DataTableCell>
                             ))}
                         </DataTableRow>
                     ))}
