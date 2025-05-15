@@ -19,6 +19,7 @@ import { Layout } from './components/layout/Layout'
 import { RouteValidator } from './components/RouteValidator'
 import InfoAboutReportingBugs from './features/common-features/InfoAboutReportingBugs/InfoAboutReportingBugs'
 import WarnAboutIncompatibleVersion from './features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
+import EvaluationsWIPPage from './pages/EvaluationsWIPPage'
 
 export type RouteHandle = {
     fullWidth?: boolean
@@ -59,6 +60,10 @@ const router = createHashRouter([
                                 element: <EvaluationResult evaluationId={1} />,
                             },
                         ],
+                    },
+                    {
+                        path: '/evaluationsWIP',
+                        element: <EvaluationsWIPPage />,
                     },
                     {
                         path: '/predict',
