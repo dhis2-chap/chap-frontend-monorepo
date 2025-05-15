@@ -8,6 +8,13 @@ import {
     TableRow,
     TableCell,
     TableCellHead,
+    DataTable,
+    DataTableHead,
+    DataTableRow,
+    DataTableBody,
+    DataTableCell,
+    DataTableColumnHeader,
+    Card,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import styles from './EvaluationsWIPPage.module.css';
@@ -77,28 +84,28 @@ export const EvaluationsWIPPage: React.FC = () => {
     }
 
     return (
-        <div className={styles.container}>
+        <Card className={styles.container}>
             <h1>{i18n.t('Evaluations (WIP)')}</h1>
-            <Table>
-                <TableHead>
+            <DataTable>
+                <DataTableHead>
                     {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
+                        <DataTableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => (
-                                <TableCellHead key={header.id}>
+                                <DataTableColumnHeader key={header.id}>
                                     {header.isPlaceholder
                                         ? null
                                         : flexRender(
                                               header.column.columnDef.header,
                                               header.getContext()
                                           )}
-                                </TableCellHead>
+                                </DataTableColumnHeader>
                             ))}
-                        </TableRow>
+                        </DataTableRow>
                     ))}
-                </TableHead>
-                <TableBody>
+                </DataTableHead>
+                <DataTableBody>
                     {table.getRowModel().rows.map((row) => (
-                        <TableRow key={row.id}>
+                        <DataTableRow key={row.id}>
                             {row.getVisibleCells().map((cell) => (
                                 <TableCell>
                                     {flexRender(
@@ -107,20 +114,17 @@ export const EvaluationsWIPPage: React.FC = () => {
                                     )}
                                 </TableCell>
                             ))}
-                        </TableRow>
+                        </DataTableRow>
                     ))}
                     {(!backtests || backtests.length === 0) && (
-                        <TableRow>
-                            <TableCell>
-                                {i18n.t('No evaluations found')}
-                            </TableCell>
-                            {columns.slice(1).map((_, index) => (
-                                <TableCell />
-                            ))}
-                        </TableRow>
+                        <DataTableRow>
+                            <DataTableCell colSpan={String(table.getAllColumns().length)} align='center'>
+                                {i18n.t('No evaluations available')}
+                            </DataTableCell>
+                        </DataTableRow>
                     )}
-                </TableBody>
-            </Table>
-        </div>
+                </DataTableBody>
+            </DataTable>
+        </Card>
     );
 };
