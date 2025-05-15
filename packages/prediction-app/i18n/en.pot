@@ -5,8 +5,32 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-15T11:18:45.735Z\n"
-"PO-Revision-Date: 2025-05-15T11:18:45.736Z\n"
+"POT-Creation-Date: 2025-05-15T18:02:13.021Z\n"
+"PO-Revision-Date: 2025-05-15T18:02:13.021Z\n"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Created"
+msgstr "Created"
+
+msgid "Model ID"
+msgstr "Model ID"
+
+msgid "Start Date"
+msgstr "Start Date"
+
+msgid "End Date"
+msgstr "End Date"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
+
+msgid "No evaluations available"
+msgstr "No evaluations available"
 
 msgid "Could not connect to CHAP"
 msgstr "Could not connect to CHAP"
@@ -42,23 +66,20 @@ msgstr "To get started, create a route that points to a running CHAP server."
 msgid "Route and servers are configured on the settings page."
 msgstr "Route and servers are configured on the settings page."
 
-msgid "Learn more about Modeling and CHAP"
-msgstr "Learn more about Modeling and CHAP"
-
-msgid "Configure settings"
-msgstr "Configure settings"
-
 msgid "Evaluate"
 msgstr "Evaluate"
+
+msgid "Overview"
+msgstr "Overview"
+
+msgid "Compare"
+msgstr "Compare"
 
 msgid "Predict"
 msgstr "Predict"
 
 msgid "Settings"
 msgstr "Settings"
-
-msgid "Search menu items"
-msgstr "Search menu items"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
@@ -86,9 +107,6 @@ msgid ""
 msgstr ""
 "Properties in the new Data Element form not specified in the tables below "
 "should have the default value."
-
-msgid "Name"
-msgstr "Name"
 
 msgid "Short name"
 msgstr "Short name"
@@ -249,11 +267,11 @@ msgstr ""
 "expose sensitive data. If you want to restrict access, click the "
 "\"Sharing\" button and remove access for \"All users\"."
 
-msgid "Edit"
-msgstr "Edit"
-
 msgid "Sharing"
 msgstr "Sharing"
+
+msgid "Edit"
+msgstr "Edit"
 
 msgid "Invalid URL format"
 msgstr "Invalid URL format"
@@ -316,35 +334,21 @@ msgstr "Start month"
 msgid "End month"
 msgstr "End month"
 
-msgid "ID"
-msgstr "ID"
-
-msgid "Unnamed"
-msgstr "Unnamed"
-
-msgid "Created"
-msgstr "Created"
-
-msgid "Unknown"
-msgstr "Unknown"
-
-msgid "Model ID"
-msgstr "Model ID"
-
-msgid "Start Date"
-msgstr "Start Date"
-
-msgid "End Date"
-msgstr "End Date"
-
 msgid "Error loading evaluations"
 msgstr "Error loading evaluations"
 
 msgid "An unknown error occurred"
 msgstr "An unknown error occurred"
 
-msgid "Evaluations (WIP)"
-msgstr "Evaluations (WIP)"
+msgid "Evaluations"
+msgstr "Evaluations"
 
-msgid "No evaluations found"
-msgstr "No evaluations found"
+msgid ""
+"Evaluates the accuracy of a predictive model using historical data. "
+"Compares actual outcomes with predicted values to assess model performance."
+msgstr ""
+"Evaluates the accuracy of a predictive model using historical data. "
+"Compares actual outcomes with predicted values to assess model performance."
+
+msgid "New evaluation"
+msgstr "New evaluation"
