@@ -19,7 +19,7 @@ import { Layout } from './components/layout/Layout'
 import { RouteValidator } from './components/RouteValidator'
 import InfoAboutReportingBugs from './features/common-features/InfoAboutReportingBugs/InfoAboutReportingBugs'
 import WarnAboutIncompatibleVersion from './features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
-import EvaluationsWIPPage from './pages/EvaluationsWIPPage'
+import { EvaluationsWIPPage } from './pages/EvaluationsWIPPage'
 
 export type RouteHandle = {
     fullWidth?: boolean
