@@ -1,8 +1,8 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
- 
-import type { FeatureTypeRead } from './FeatureTypeRead';
+/* eslint-disable */
+import type { FeatureType } from './FeatureType';
 import type { PeriodType } from './PeriodType';
 export type ModelSpecRead = {
     displayName?: string;
