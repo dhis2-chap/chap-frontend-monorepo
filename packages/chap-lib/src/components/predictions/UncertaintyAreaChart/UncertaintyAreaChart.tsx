@@ -18,8 +18,6 @@ const getChartOptions = (
     data: any,
     predictionTargetName: string
 ): Highcharts.Options => {
-    const colors: string[] = Highcharts.getOptions().colors as string[]
-
     const median = data
         .filter((d: any) => d.dataElement === 'median')
         .map((d: any) => [d.period, d.value])

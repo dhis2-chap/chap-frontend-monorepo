@@ -73,15 +73,6 @@ const JobResultPanelItem = ({
         }
     }
 
-    const formatDateTime = (date: Date) => {
-        const pad = (num: number) => num.toString().padStart(2, '0')
-        return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
-            date.getDate()
-        )} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(
-            date.getSeconds()
-        )}`
-    }
-
     return (
         <div key={i} className={styles.boxPanel}>
             <div className={styles.jobResultPanelContainer}>

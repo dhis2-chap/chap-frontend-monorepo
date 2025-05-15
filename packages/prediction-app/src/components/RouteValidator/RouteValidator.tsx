@@ -2,7 +2,6 @@ import React from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { useRoute } from '../../hooks/useRoute'
 import { Button, CircularLoader } from '@dhis2/ui'
-import { Card } from '@dhis2-chap/chap-lib'
 import { useNavigate } from 'react-router-dom'
 import styles from './RouteValidator.module.css'
 

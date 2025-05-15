@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './NewDatasetDrawer.module.css'
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
-import NewDatasetForm from '../NewDatasetForm/NewDatasetForm'
 import NewDatasetStepper from '../NewDatasetStepper/NewDatasetStepper'
 
 interface NewDatasetDrawerProps {

@@ -1,9 +1,7 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
-/* eslint-disable */
-import type { BacktestDomain } from '../models/BacktestDomain';
-import type { BackTestRead } from '../models/BackTestRead';
+ 
 import type { DataList } from '../models/DataList';
 import type { DatasetMakeRequest } from '../models/DatasetMakeRequest';
 import type { DataSource } from '../models/DataSource';
