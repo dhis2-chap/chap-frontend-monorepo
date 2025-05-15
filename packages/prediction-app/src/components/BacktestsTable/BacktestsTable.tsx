@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     DataTable,
     DataTableHead,
@@ -6,6 +6,7 @@ import {
     DataTableBody,
     DataTableCell,
     DataTableColumnHeader,
+    InputField,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import {
@@ -17,6 +18,8 @@ import {
     SortingState,
 } from '@tanstack/react-table';
 import { BackTestRead } from '@dhis2-chap/chap-lib';
+import { useFilteredData } from '../../hooks/useFilteredData';
+import styles from './BacktestsTable.module.css';
 
 const columnHelper = createColumnHelper<BackTestRead>();
 
@@ -57,9 +60,12 @@ export const BacktestsTable: React.FC<BacktestsTableProps> = ({ backtests }) => 
     const [sorting, setSorting] = React.useState<SortingState>([
         { id: 'created', desc: true }
     ]);
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    
+    const filteredBacktests = useFilteredData(backtests, searchTerm, ['id', 'name', 'modelId']);
 
     const table = useReactTable({
-        data: backtests || [],
+        data: filteredBacktests || [],
         columns,
         state: {
             sorting,
@@ -70,7 +76,16 @@ export const BacktestsTable: React.FC<BacktestsTableProps> = ({ backtests }) => 
     });
 
     return (
-        <DataTable>
+        <>
+            <div className={styles.searchContainer}>
+                <InputField
+                    placeholder={i18n.t('Search evaluations')}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.value || '')}
+                    className={styles.searchInput}
+                />
+            </div>
+            <DataTable>
             <DataTableHead>
                 {table.getHeaderGroups().map((headerGroup) => (
                     <DataTableRow key={headerGroup.id}>
@@ -116,5 +131,6 @@ export const BacktestsTable: React.FC<BacktestsTableProps> = ({ backtests }) => 
                 )}
             </DataTableBody>
         </DataTable>
+        </>
     );
 };

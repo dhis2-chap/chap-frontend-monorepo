@@ -1,3 +1,12 @@
 .tableContainer {
     width: 100%;
 }
+
+.searchContainer {
+    display: flex;
+    margin-block-end: var(--spacers-dp16);
+}
+
+.searchInput {
+    max-width: 300px;
+}

@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     CircularLoader,
     NoticeBox,
     Button,
     IconAdd24,
-    InputField,
 } from '@dhis2/ui';
 import { Card } from '@dhis2-chap/chap-lib';
 import i18n from '@dhis2/d2-i18n';
 import styles from './EvaluationsWIPPage.module.css';
 import { useBacktests } from '../hooks/useBacktests';
-import { useFilteredData } from '../hooks/useFilteredData';
 import { BacktestsTable } from '../components/BacktestsTable';
 import PageHeader from '../features/common-features/PageHeader/PageHeader';
 
 export const EvaluationsWIPPage: React.FC = () => {
     const { backtests, error, isLoading } = useBacktests();
-    const [searchTerm, setSearchTerm] = useState<string>('');
-    const filteredBacktests = useFilteredData(backtests, searchTerm, ['id', 'name', 'modelId']);
 
     if (isLoading) {
         return (
@@ -45,14 +41,7 @@ export const EvaluationsWIPPage: React.FC = () => {
             />
             <Card className={styles.container}>
                 <div className={styles.buttonContainer}>
-                    <div className={styles.leftSection}>
-                        <InputField
-                            placeholder={i18n.t('Search evaluations')}
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.value || '')}
-                            className={styles.searchInput}
-                        />
-                    </div>
+                    <div className={styles.leftSection}></div>
                     <div className={styles.rightSection}>
                         <Button
                             primary
@@ -62,7 +51,7 @@ export const EvaluationsWIPPage: React.FC = () => {
                         </Button>
                     </div>
                 </div>
-                <BacktestsTable backtests={filteredBacktests} />
+                <BacktestsTable backtests={backtests || []} />
             </Card>
         </>
     );
