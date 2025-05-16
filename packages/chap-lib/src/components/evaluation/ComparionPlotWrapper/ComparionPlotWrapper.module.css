@@ -9,17 +9,21 @@
     justify-content: space-between;
     gap: 2rem;
     margin-block-end: 10px;
+    /*Struggling to find a good way of doing this. calc(-128px + 100vh) is what the DHIS2 modal uses for height, and 24px is the modal's padding.*/
+    max-height: calc(-128px + 100vh - (24px * 2));
 }
 
-.filterCheckbox {
-    overflow-x: auto;
-    max-height: 500px;
+.filterContent {
+    overflow: auto;
 }
 
 .filter {
-    min-inline-size: 300px;
     background-color: #f9f9f9;
     padding: 1rem;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
 }
 
 .plots {

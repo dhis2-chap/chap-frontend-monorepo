@@ -19,8 +19,8 @@ import SplitPeriodSelector from '../SplitPeriodSelector/SplitPeriodSelector'
 import styles from './ComparionPlotWrapper.module.css'
 
 interface ComparionPlotWrapperProps {
-    evaluationName: string,
-    modelName: string,
+    evaluationName: string
+    modelName: string
     evaluations: EvaluationForSplitPoint[]
     splitPeriods: string[]
 }
@@ -111,12 +111,12 @@ export const ComparionPlotWrapper = ({
                             selectedSplitPeriod={selectedSplitPeriod}
                         />
                     </div>
+                    <div className={styles.filterTitle}>
+                        Organization units:
+                    </div>
 
-                    <div>
-                        <div className={styles.filterTitle}>
-                            Organization units:
-                        </div>
-                        <div className={styles.filterCheckbox}>
+                    <div className={styles.filterContent}>
+                        <div>
                             {allOrgUnits.map((orgUnit, i) => (
                                 <Checkbox
                                     checked={
