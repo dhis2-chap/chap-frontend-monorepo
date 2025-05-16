@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-13T17:25:54.706Z\n"
-"PO-Revision-Date: 2025-05-13T17:25:54.706Z\n"
+"POT-Creation-Date: 2025-05-16T08:56:37.180Z\n"
+"PO-Revision-Date: 2025-05-16T08:56:37.181Z\n"
 
 msgid "Could not connect to CHAP"
 msgstr "Could not connect to CHAP"
@@ -222,6 +222,18 @@ msgstr "Edit route"
 msgid "Save"
 msgstr "Save"
 
+msgid "Error deleting route"
+msgstr "Error deleting route"
+
+msgid "Route deleted successfully"
+msgstr "Route deleted successfully"
+
+msgid "Error saving route"
+msgstr "Error saving route"
+
+msgid "Route saved successfully"
+msgstr "Route saved successfully"
+
 msgid "Public access"
 msgstr "Public access"
 
@@ -234,11 +246,11 @@ msgstr ""
 "expose sensitive data. If you want to restrict access, click the "
 "\"Sharing\" button and remove access for \"All users\"."
 
-msgid "Edit"
-msgstr "Edit"
-
 msgid "Sharing"
 msgstr "Sharing"
+
+msgid "Edit"
+msgstr "Edit"
 
 msgid "Invalid URL format"
 msgstr "Invalid URL format"
@@ -279,18 +291,6 @@ msgstr "URL"
 
 msgid "Authorities"
 msgstr "Authorities"
-
-msgid "Error deleting route"
-msgstr "Error deleting route"
-
-msgid "Route deleted successfully"
-msgstr "Route deleted successfully"
-
-msgid "Error saving route"
-msgstr "Error saving route"
-
-msgid "Route saved successfully"
-msgstr "Route saved successfully"
 
 msgid "Back to main page"
 msgstr "Back to main page"
