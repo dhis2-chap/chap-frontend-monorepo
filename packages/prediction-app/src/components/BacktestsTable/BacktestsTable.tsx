@@ -6,6 +6,9 @@ import {
     DataTableBody,
     DataTableCell,
     DataTableColumnHeader,
+    IconMore16,
+    FlyoutMenu,
+    MenuItem,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import {
@@ -16,7 +19,7 @@ import {
     getSortedRowModel,
     SortingState,
 } from '@tanstack/react-table';
-import { BackTestRead } from '@dhis2-chap/chap-lib';
+import { BackTestRead, OverflowButton } from '@dhis2-chap/chap-lib';
 
 const columnHelper = createColumnHelper<BackTestRead>();
 
@@ -41,6 +44,25 @@ const columns = [
     columnHelper.accessor('endDate', {
         header: i18n.t('End Date'),
         cell: (info) => info.getValue() ? new Date(info.getValue()!).toLocaleString() : undefined,
+    }),
+    columnHelper.display({
+        id: 'actions',
+        header: i18n.t('Actions'),
+        cell: () => (
+            <OverflowButton
+                icon={<IconMore16 />}
+                component={
+                    <FlyoutMenu dense>
+                        <MenuItem
+                            label={i18n.t('Test')}
+                            dataTest={'backtest-overflow-test'}
+                            onClick={() => {
+                            }}
+                        />
+                    </FlyoutMenu>
+                }
+            />
+        ),
     }),
 ];
 
