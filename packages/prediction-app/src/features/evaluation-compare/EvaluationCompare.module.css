@@ -1,0 +1,71 @@
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
+}
+
+.wrapper .compareSelectors {
+    display: flex;
+    gap: var(--spacers-dp8);
+    
+}
+
+.emptySelection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: var(--spacers-dp16);
+}
+
+.emptySelection h2 {
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--colors-grey800);
+    margin: 0;
+    font-weight: 500;
+}
+
+.iconGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacers-dp8);
+    border: 1px dashed var(--colors-grey600);
+    padding: var(--spacers-dp8);
+    color: var(--colors-grey800);
+}
+
+.arrowIcons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrowIcons svg:first-child {
+    margin-block-end: -8px;
+    margin-inline-start: 2px;
+}
+
+.iconGroup > svg {
+    width: 32px;
+    height: 32px;
+}
+
+.textGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacers-dp4);
+}
+
+.textGroup p {
+    color: var(--colors-grey800);
+    font-size: 14px;
+    margin: 0;
+    margin-block-start: var(--spacers-dp4);
+}

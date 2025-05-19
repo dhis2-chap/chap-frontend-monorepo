@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo } from 'react'
-import { SingleSelect, SingleSelectOption, SingleSelectProps } from '@dhis2/ui'
+import {
+    Help,
+    SingleSelect,
+    SingleSelectOption,
+    SingleSelectProps,
+} from '@dhis2/ui'
 import { useQuery } from '@tanstack/react-query'
 import {
     AnalyticsService,
@@ -20,17 +25,26 @@ export const EvaluationSelector = ({
         isLoading,
         isError,
         error,
+        isSuccess,
     } = useQuery({
         queryKey: ['evaluations'],
         queryFn: CrudService.getBacktestsCrudBacktestsGet,
         staleTime: 60 * 5 * 1000, // Data is considered fresh for 60 seconds
     })
 
-    if (isError) {
-        console.error('Error fetching evaluations:', error)
-        return <p>Error loading evaluations.</p>
+    const getListMessage = () => {
+        if (isSuccess && evaluations?.length === 0) {
+            return <Help>{i18n.t('No evaluations found.')}</Help>
+        }
+        if (error) {
+            return (
+                <Help error>
+                    {(error as Error).message ?? error.toString()}
+                </Help>
+            )
+        }
+        return null
     }
-
     return (
         <div className={css.selectorWrapper}>
             <BaseEvaluationSelector
@@ -39,6 +53,8 @@ export const EvaluationSelector = ({
                 onSelect={onSelect}
                 error={isError}
                 loading={isLoading}
+                listMessage={getListMessage()}
+                placeholder={i18n.t('Select base evaluation')}
             />
         </div>
     )
@@ -74,7 +90,7 @@ export const EvaluationCompatibleSelector = ({
             )
         },
         enabled: compatibleEvaluationId != undefined,
-        staleTime: 60 * 5 * 1000, // Data is considered fresh for 60 seconds
+        staleTime: 60 * 5 * 1000,
     })
     // allow inline onSelect function
     const onSelectRef = React.useRef(onSelect)
@@ -93,9 +109,18 @@ export const EvaluationCompatibleSelector = ({
         }
     }, [compatibleEvaluations, compatibleEvaluationId, isSuccess])
 
-    if (isError) {
-        console.error('Error fetching evaluations:', error)
-        return <p>Error loading evaluations.</p>
+    const getListMessage = () => {
+        if (isSuccess && compatibleEvaluations?.length === 0) {
+            return <Help>{i18n.t('No compatible evaluations found')}</Help>
+        }
+        if (error) {
+            return (
+                <Help error>
+                    {(error as Error).message ?? error.toString()}
+                </Help>
+            )
+        }
+        return null
     }
 
     return (
@@ -107,7 +132,9 @@ export const EvaluationCompatibleSelector = ({
                 disabled={compatibleEvaluationId == undefined}
                 error={isError}
                 loading={isLoading}
+                listMessage={getListMessage()}
                 {...singleSelectProps}
+                placeholder={i18n.t('Select evaluation to compare with')}
             />
         </div>
     )
@@ -118,12 +145,14 @@ interface BaseEvaluationSelectorProps
     onSelect: (evaluation: BackTestRead | undefined) => void
     selected?: BackTestRead | undefined
     available: BackTestRead[]
+    listMessage?: React.ReactNode
 }
 
 const BaseEvaluationSelector = ({
     onSelect,
     selected,
     available,
+    listMessage,
     ...singleSelectProps
 }: BaseEvaluationSelectorProps) => {
     const { availableMap, availableList } = useMemo(() => {
@@ -147,8 +176,7 @@ const BaseEvaluationSelector = ({
         <div className={css.selectorWrapper}>
             <SingleSelect
                 className={css.selector}
-                prefix={i18n.t('Evaluation')}
-                placeholder={i18n.t('Select Evaluation')}
+                // placeholder={i18n.t('Select Evaluation')}
                 onChange={({ selected: newSelected }) =>
                     onSelect(availableMap.get(newSelected))
                 }
@@ -156,7 +184,17 @@ const BaseEvaluationSelector = ({
                 clearable
                 filterable
                 {...singleSelectProps}
+                prefix={
+                    /* prefix takes presedence over placeholder, however we want
+                    to switch between the two based on selection */
+                    selected != undefined
+                        ? singleSelectProps.prefix || i18n.t('Evaluation')
+                        : undefined
+                }
             >
+                {listMessage && (
+                    <div className={css.messageWrapper}>{listMessage}</div>
+                )}
                 {availableList.map((evaluation) => (
                     <SingleSelectOption
                         key={evaluation.id}

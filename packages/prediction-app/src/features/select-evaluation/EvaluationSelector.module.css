@@ -6,3 +6,8 @@
 .selectorWrapper {
     width: 100%;
 }
+
+.messageWrapper {
+    padding: var(--spacers-dp8);
+    font-size: 14px;
+}

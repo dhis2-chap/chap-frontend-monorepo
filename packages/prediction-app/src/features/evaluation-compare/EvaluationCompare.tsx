@@ -15,6 +15,14 @@ import {
 import React, { useMemo } from 'react'
 import { useQueries, useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router-dom'
+import css from './EvaluationCompare.module.css'
+import {
+    IconArrowLeft16,
+    IconArrowRight16,
+    IconVisualizationLine24,
+    IconVisualizationLineMulti24,
+} from '@dhis2/ui'
+import i18n from '@dhis2/d2-i18n'
 
 const quantiles = [0.1, 0.25, 0.5, 0.75, 0.9]
 
@@ -22,7 +30,6 @@ const select = (data: {
     data: [EvaluationEntry[], DataList]
     evaluation: BackTestRead
 }) => {
-    console.log({ data })
     const [evaluationEntries, actualCases] = data.data
     const splitPeriods = getSplitPeriod(evaluationEntries)
     const viewData = evaluationResultToViewData(
@@ -96,7 +103,7 @@ export const EvaluationCompare = () => {
     )
 
     const [searchParams, setSearchParams] = useSearchParams()
-    console.log({ searchParams, params: searchParams.get('comparisonEvaluation') })
+    
     const isComparisonSelected =
         evaluations.length > 1 &&
         evaluations[0] != undefined &&
@@ -104,7 +111,6 @@ export const EvaluationCompare = () => {
     const splitPeriods = useQuery({
         queryKey: ['split-periods', evaluations.map((e) => e?.id)],
         queryFn: () => {
-            console.log({ isComparisonSelected, evaluations })
             return AnalyticsService.getBacktestOverlapAnalyticsBacktestOverlapBacktestId1BacktestId2Get(
                 evaluations[0]?.id,
                 evaluations[1]?.id
@@ -120,18 +126,21 @@ export const EvaluationCompare = () => {
     const noMatchingSplitPeriods =
         splitPeriods.isSuccess && splitPeriods.data.splitPeriods.length === 0
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <div style={{ display: 'flex', gap: '20px' }}>
+        <div className={css.wrapper}>
+            <div className={css.compareSelectors}>
                 <EvaluationSelector
                     onSelect={(evaluation1) => {
                         setEvaluations((prev) => [
                             evaluation1,
                             ...prev.slice(1),
                         ])
-                        setSearchParams((prev) => ({
-                            ...prev,
-                            baseEvaluation: evaluation1?.id.toString(),
-                        }), { replace: true })
+                        setSearchParams(
+                            (prev) => ({
+                                ...prev,
+                                baseEvaluation: evaluation1?.id.toString(),
+                            }),
+                            { replace: true }
+                        )
                     }}
                     selected={evaluations[0]}
                 />
@@ -141,11 +150,17 @@ export const EvaluationCompare = () => {
                             ...prev.slice(0, 1),
                             evaluation2,
                         ])
-                        setSearchParams((prev) => ({
-                            ...prev,
-                            baseEvaluation: evaluations[0]?.id.toString(),
-                            comparisonEvaluation: [evaluation2?.id.toString(),evaluation2?.id.toString()],
-                        }), { replace: true })
+                        setSearchParams(
+                            (prev) => ({
+                                ...prev,
+                                baseEvaluation: evaluations[0]?.id.toString(),
+                                comparisonEvaluation: [
+                                    evaluation2?.id.toString(),
+                                    evaluation2?.id.toString(),
+                                ],
+                            }),
+                            { replace: true }
+                        )
                     }}
                     selected={evaluations[1]}
                     compatibleEvaluationId={evaluations[0]?.id}
@@ -184,8 +199,36 @@ export const EvaluationCompare = () => {
                         />
                     )}
             </div>
+            {evaluations.length === 0 && <EmptySelection />}
         </div>
     )
 }
 
 export default EvaluationCompare
+
+const EmptySelection = () => {
+    return (
+        <div className={css.emptySelection}>
+            <h2>{i18n.t('Compare evaluations')}</h2>
+            <div className={css.iconGroup}>
+                <IconVisualizationLine24 />
+                <div className={css.arrowIcons}>
+                    <IconArrowRight16 />
+                    <IconArrowLeft16 />
+                </div>
+                <IconVisualizationLineMulti24 />
+            </div>
+            <div className={css.textGroup}>
+                <p>
+                    {i18n.t(`Select two evaluations to compare their results. The
+                    selected evaluations must be compatible.`)}
+                </p>
+                <p>
+                    {i18n.t(
+                        `Compatible evaluations have overlapping organisation units and split periods.`
+                    )}
+                </p>
+            </div>
+        </div>
+    )
+}
