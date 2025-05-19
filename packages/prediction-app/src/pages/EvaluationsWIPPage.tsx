@@ -3,7 +3,7 @@ import {
     CircularLoader,
     NoticeBox,
     Button,
-    IconAdd24,
+    IconAdd16,
 } from '@dhis2/ui';
 import { Card } from '@dhis2-chap/chap-lib';
 import i18n from '@dhis2/d2-i18n';
@@ -11,9 +11,11 @@ import styles from './EvaluationsWIPPage.module.css';
 import { useBacktests } from '../hooks/useBacktests';
 import { BacktestsTable } from '../components/BacktestsTable';
 import PageHeader from '../features/common-features/PageHeader/PageHeader';
+import { useNavigate } from 'react-router-dom';
 
 export const EvaluationsWIPPage: React.FC = () => {
     const { backtests, error, isLoading } = useBacktests();
+    const navigate = useNavigate();
 
     if (isLoading) {
         return (
@@ -45,7 +47,11 @@ export const EvaluationsWIPPage: React.FC = () => {
                     <div className={styles.rightSection}>
                         <Button
                             primary
-                            icon={<IconAdd24 />}
+                            icon={<IconAdd16 />}
+                            small
+                            onClick={() => {
+                                navigate('/evaluations/new');
+                            }}
                         >
                             {i18n.t('New evaluation')}
                         </Button>
