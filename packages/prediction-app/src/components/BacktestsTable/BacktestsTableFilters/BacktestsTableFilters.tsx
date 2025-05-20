@@ -57,6 +57,7 @@ export const BacktestsTableFilters = ({ table, models, statuses }: Props) => {
                 <SingleSelect
                     dense
                     clearable
+                    disabled
                     clearText={i18n.t('Clear')}
                     selected={table.getColumn('status')?.getFilterValue() as string | undefined}
                     placeholder={i18n.t('Status')}

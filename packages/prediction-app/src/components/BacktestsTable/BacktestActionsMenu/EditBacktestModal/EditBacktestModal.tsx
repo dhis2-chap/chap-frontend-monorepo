@@ -76,7 +76,7 @@ export const EditBacktestModal = ({
                             />
                         )}
                     />
-                    {errors.name && <p className={styles.mutedText}>{errors.name.message}</p>}
+                    {errors.name  && <p className={styles.mutedText}>{errors.name.message}</p>}
                 </ModalContent>
                 <ModalActions>
                     <ButtonStrip>

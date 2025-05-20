@@ -30,7 +30,7 @@
     min-width: 200px;
 }
 
-/* This feels... wrong, but it works */
+/* This feels wrong, but it works */
 .singleSelectContainer [data-test="dhis2-uicore-singleselect-clear"] {
     margin-inline-start: var(--spacers-dp4);
 }

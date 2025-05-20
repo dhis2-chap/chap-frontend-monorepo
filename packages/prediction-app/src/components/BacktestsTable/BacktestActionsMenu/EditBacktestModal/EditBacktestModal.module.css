@@ -1,5 +1,5 @@
 .mutedText {
-    color: red; /* Standard error color */
-    font-size: 0.875rem; /* Common small text size */
-    margin-top: 4px; /* Spacing from input */
+    color: red;
+    font-size: 0.875rem;
+    margin-block-start: 4px;
 } 

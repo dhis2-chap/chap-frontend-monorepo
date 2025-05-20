@@ -1,1 +1,1 @@
-export * from './BacktestActionsMenu'; 
+export { BacktestActionsMenu } from './BacktestActionsMenu'; 
