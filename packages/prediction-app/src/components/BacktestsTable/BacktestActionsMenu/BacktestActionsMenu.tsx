@@ -5,17 +5,11 @@ import {
     IconDelete16,
     IconEdit16,
     IconMore16,
-    Modal,
-    ModalTitle,
-    ModalContent,
-    ModalActions,
-    ButtonStrip,
-    Button,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import { OverflowButton } from '@dhis2-chap/chap-lib';
-import { useDeleteBacktest } from '../hooks/useDeleteBacktest';
 import { EditBacktestModal } from './EditBacktestModal';
+import { DeleteBacktestModal } from './DeleteBacktestModal/DeleteBacktestModal';
 
 type Props = {
     id: number;
@@ -31,15 +25,6 @@ export const BacktestActionsMenu = ({
     const [flyoutMenuIsOpen, setFlyoutMenuIsOpen] = useState(false);
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
-
-    const {
-        deleteBacktest,
-        isLoading: deleteIsLoading,
-    } = useDeleteBacktest({
-        onSuccess: () => {
-            setDeleteModalIsOpen(false);
-        },
-    });
 
     return (
         <>
@@ -84,37 +69,10 @@ export const BacktestActionsMenu = ({
             )}
 
             {deleteModalIsOpen && (
-                <Modal
+                <DeleteBacktestModal
+                    id={id}
                     onClose={() => setDeleteModalIsOpen(false)}
-                >
-                    <ModalTitle>
-                        {i18n.t('Delete evaluation')}
-                    </ModalTitle>
-                    <ModalContent>
-                        <p>
-                            {i18n.t('Are you sure you want to delete this evaluation? This action cannot be undone.')}
-                        </p>
-                    </ModalContent>
-                    <ModalActions>
-                        <ButtonStrip>
-                            <Button
-                                onClick={() => {
-                                    setDeleteModalIsOpen(false);
-                                }}
-                            >
-                                {i18n.t('Cancel')}
-                            </Button>
-                            <Button
-                                primary
-                                onClick={() => deleteBacktest(id)}
-                                destructive
-                                loading={deleteIsLoading}
-                            >
-                                {i18n.t('Delete')}
-                            </Button>
-                        </ButtonStrip>
-                    </ModalActions>
-                </Modal>
+                />
             )}
         </>
     );
