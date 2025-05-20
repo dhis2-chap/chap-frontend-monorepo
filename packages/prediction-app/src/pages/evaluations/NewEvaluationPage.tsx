@@ -7,5 +7,3 @@ export const NewEvaluationPage = () => {
     </div>
   )
 }
-
-export default NewEvaluationPage
