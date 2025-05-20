@@ -221,6 +221,8 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
                                 page={table.getState().pagination.pageIndex + 1}
                                 pageSize={table.getState().pagination.pageSize}
                                 onPageSizeChange={(pageSize: number) => table.setPageSize(pageSize)}
+                                pageCount={table.getPageCount()}
+                                total={table.getRowCount()}
                                 isLastPage={!table.getCanNextPage()}
                                 onPageChange={(page: number) => table.setPageIndex(page - 1)}
                             />
