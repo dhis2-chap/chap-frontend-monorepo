@@ -5,8 +5,99 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-15T10:56:34.966Z\n"
-"PO-Revision-Date: 2025-05-15T10:56:34.966Z\n"
+"POT-Creation-Date: 2025-05-20T09:22:40.577Z\n"
+"PO-Revision-Date: 2025-05-20T09:22:40.578Z\n"
+
+msgid "Rename"
+msgstr "Rename"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Delete evaluation"
+msgstr "Delete evaluation"
+
+msgid ""
+"Are you sure you want to delete this evaluation? This action cannot be "
+"undone."
+msgstr ""
+"Are you sure you want to delete this evaluation? This action cannot be "
+"undone."
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Name is required"
+msgstr "Name is required"
+
+msgid "Rename evaluation"
+msgstr "Rename evaluation"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Completed"
+msgstr "Completed"
+
+msgid "Running"
+msgstr "Running"
+
+msgid "Failed"
+msgstr "Failed"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Created"
+msgstr "Created"
+
+msgid "Model"
+msgstr "Model"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Start Date"
+msgstr "Start Date"
+
+msgid "End Date"
+msgstr "End Date"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "New evaluation"
+msgstr "New evaluation"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
+
+msgid "No evaluations available"
+msgstr "No evaluations available"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "No models found"
+msgstr "No models found"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Failed to delete evaluations"
+msgstr "Failed to delete evaluations"
+
+msgid "Evaluation deleted"
+msgstr "Evaluation deleted"
+
+msgid "Failed to delete evaluation"
+msgstr "Failed to delete evaluation"
+
+msgid "Error renaming evaluation"
+msgstr "Error renaming evaluation"
 
 msgid "Could not connect to CHAP"
 msgstr "Could not connect to CHAP"
@@ -53,6 +144,9 @@ msgstr "Compare"
 
 msgid "Predict"
 msgstr "Predict"
+
+msgid "Evaluations (WIP)"
+msgstr "Evaluations (WIP)"
 
 msgid "Settings"
 msgstr "Settings"
@@ -185,9 +279,6 @@ msgstr "Python Version"
 msgid "Operating System"
 msgstr "Operating System"
 
-msgid "Status"
-msgstr "Status"
-
 msgid "Connected"
 msgstr "Connected"
 
@@ -219,17 +310,8 @@ msgstr "Delete route"
 msgid "Are you sure you want to delete this route?"
 msgstr "Are you sure you want to delete this route?"
 
-msgid "Cancel"
-msgstr "Cancel"
-
-msgid "Delete"
-msgstr "Delete"
-
 msgid "Edit route"
 msgstr "Edit route"
-
-msgid "Save"
-msgstr "Save"
 
 msgid "Public access"
 msgstr "Public access"
@@ -325,6 +407,3 @@ msgid ""
 msgstr ""
 "Evaluates the accuracy of a predictive model using historical data. "
 "Compares actual outcomes with predicted values to assess model performance."
-
-msgid "New evaluation"
-msgstr "New evaluation"

@@ -58,7 +58,7 @@ export const OverflowButton = ({
 
             {open && (
                 <Layer onBackdropClick={toggle}>
-                    <Popper reference={anchorRef as React.RefObject<HTMLDivElement>} placement="bottom-end">
+                    <Popper reference={anchorRef as React.RefObject<HTMLDivElement>} placement="bottom-start">
                         {component}
                     </Popper>
                 </Layer>

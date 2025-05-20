@@ -5,9 +5,9 @@ export const useBacktests = () => {
     const { data, error, isLoading } = useQuery<BackTestRead[], ApiError>({
         queryKey: ['backtests'],
         queryFn: () => CrudService.getBacktestsCrudBacktestsGet(),
-        staleTime: 5 * 60 * 1000, // 5 minutes
-        cacheTime: 5 * 60 * 1000, // 5 minutes
-        retry: 0, // Don't retry on error
+        staleTime: 5 * 60 * 1000,
+        cacheTime: 5 * 60 * 1000,
+        retry: 0,
     });
 
     return {
