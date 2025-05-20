@@ -20,6 +20,7 @@ import { RouteValidator } from './components/RouteValidator'
 import InfoAboutReportingBugs from './features/common-features/InfoAboutReportingBugs/InfoAboutReportingBugs'
 import WarnAboutIncompatibleVersion from './features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
 import { ChapValidator } from './components/ChapValidator'
+import NewEvaluationPage from './pages/evaluations/NewEvaluationPage'
 
 export type RouteHandle = {
     fullWidth?: boolean
@@ -66,6 +67,10 @@ const router = createHashRouter([
                     {
                         path: '/predict',
                         element: <PredictionOverview />,
+                    },
+                    {
+                        path: '/evaluations/new',
+                        element: <NewEvaluationPage />,
                     },
                 ],
             },
