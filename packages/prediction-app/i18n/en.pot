@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-15T10:56:34.966Z\n"
-"PO-Revision-Date: 2025-05-15T10:56:34.966Z\n"
+"POT-Creation-Date: 2025-05-20T13:51:01.734Z\n"
+"PO-Revision-Date: 2025-05-20T13:51:01.734Z\n"
 
 msgid "Could not connect to CHAP"
 msgstr "Could not connect to CHAP"
@@ -41,6 +41,21 @@ msgstr "To get started, create a route that points to a running CHAP server."
 
 msgid "Route and servers are configured on the settings page."
 msgstr "Route and servers are configured on the settings page."
+
+msgid "Evaluate"
+msgstr "Evaluate"
+
+msgid "Overview"
+msgstr "Overview"
+
+msgid "Compare"
+msgstr "Compare"
+
+msgid "Predict"
+msgstr "Predict"
+
+msgid "Settings"
+msgstr "Settings"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
@@ -135,9 +150,6 @@ msgid ""
 msgstr ""
 "Job is still running. Please wait until it is finished before doing any "
 "actions."
-
-msgid "Settings"
-msgstr "Settings"
 
 msgid "Prediction for Northern Province"
 msgstr "Prediction for Northern Province"
@@ -291,9 +303,6 @@ msgstr "Error saving route"
 
 msgid "Route saved successfully"
 msgstr "Route saved successfully"
-
-msgid "Back to main page"
-msgstr "Back to main page"
 
 msgid "Period"
 msgstr "Period"
