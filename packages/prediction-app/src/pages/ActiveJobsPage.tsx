@@ -7,8 +7,30 @@ import { Card } from '@dhis2-chap/chap-lib';
 import i18n from '@dhis2/d2-i18n';
 import styles from './ActiveJobsPage.module.css';
 import { PageHeader } from '../features/common-features/PageHeader/PageHeader';
+import { useJobs } from '../hooks/useJobs';
+import { JobsTable } from '../components/JobsTable';
 
 export const ActiveJobsPage: React.FC = () => {
+  const { jobs, error, isLoading } = useJobs();
+
+  if (isLoading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <CircularLoader />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.errorContainer}>
+        <NoticeBox error title={i18n.t('Error loading jobs')}>
+          {error.message || i18n.t('An unknown error occurred')}
+        </NoticeBox>
+      </div>
+    );
+  }
+
   return (
     <>
       <PageHeader
@@ -16,10 +38,7 @@ export const ActiveJobsPage: React.FC = () => {
         pageDescription={i18n.t('View and manage currently running jobs and their status.')}
       />
       <Card className={styles.container}>
-        <div className={styles.emptyContainer}>
-          {/* Empty page content will be added in future tasks */}
-          <p>{i18n.t('No active jobs content yet.')}</p>
-        </div>
+        <JobsTable jobs={jobs || []} />
       </Card>
     </>
   );

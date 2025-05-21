@@ -1,0 +1,175 @@
+import React from 'react';
+import {
+    DataTable,
+    DataTableHead,
+    DataTableRow,
+    DataTableBody,
+    DataTableCell,
+    DataTableColumnHeader,
+    DataTableFoot,
+    Pagination,
+    Chip,
+} from '@dhis2/ui';
+import i18n from '@dhis2/d2-i18n';
+import {
+    createColumnHelper,
+    flexRender,
+    getCoreRowModel,
+    useReactTable,
+    getSortedRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+} from '@tanstack/react-table';
+import { JobDescription } from '@dhis2-chap/chap-lib';
+import styles from './JobsTable.module.css';
+import { JobsTableFilters } from './JobsTableFilters/JobsTableFilters';
+
+const statuses = {
+    COMPLETED: 'COMPLETED',
+    RUNNING: 'RUNNING',
+    FAILED: 'FAILED',
+}
+
+const labelByStatus = {
+    [statuses.COMPLETED]: i18n.t('Completed'),
+    [statuses.RUNNING]: i18n.t('Running'),
+    [statuses.FAILED]: i18n.t('Failed'),
+}
+
+const columnHelper = createColumnHelper<JobDescription>();
+
+const columns = [
+    columnHelper.accessor('id', {
+        header: i18n.t('ID'),
+        filterFn: 'equals',
+    }),
+    columnHelper.accessor('name', {
+        header: i18n.t('Name'),
+        filterFn: 'includesString',
+    }),
+    columnHelper.accessor('type', {
+        header: i18n.t('Type'),
+    }),
+    columnHelper.accessor('status', {
+        header: i18n.t('Status'),
+        filterFn: 'equals',
+        enableSorting: false,
+        cell: (info) => info.getValue() ? (
+            <Chip dense>
+                {labelByStatus[info.getValue() as keyof typeof labelByStatus] || info.getValue()}
+            </Chip>
+        ) : null,
+    }),
+    columnHelper.accessor('start_time', {
+        header: i18n.t('Start Time'),
+        cell: (info) => info.getValue() ? new Date(info.getValue() as string).toLocaleString() : undefined,
+    }),
+    columnHelper.accessor('end_time', {
+        header: i18n.t('End Time'),
+        cell: (info) => info.getValue() ? new Date(info.getValue() as string).toLocaleString() : undefined,
+    }),
+];
+
+const getSortDirection = (column: any) => {
+    if (!column.getIsSorted()) return 'default';
+    return column.getIsSorted() as 'asc' | 'desc';
+};
+
+type Props = {
+    jobs: JobDescription[];
+}
+
+export const JobsTable = ({ jobs }: Props) => {
+    const table = useReactTable({
+        data: jobs || [],
+        columns,
+        initialState: {
+            sorting: [{ id: 'start_time', desc: true }],
+        },
+        getRowId: (row) => row.id.toString(),
+        enableRowSelection: false,
+        getSortedRowModel: getSortedRowModel(),
+        getCoreRowModel: getCoreRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+    });
+
+    const hasVisibleRows = table.getRowModel().rows.length > 0;
+
+    return (
+        <div>
+            <div className={styles.buttonContainer}>
+                <div className={styles.leftSection}>
+                    <JobsTableFilters
+                        table={table}
+                        statuses={statuses}
+                    />
+                </div>
+            </div>
+            <DataTable>
+                <DataTableHead>
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <DataTableRow key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => (
+                                <DataTableColumnHeader
+                                    key={header.id}
+                                    fixed
+                                    top
+                                    {...(header.column.getCanSort() ? {
+                                        sortDirection: getSortDirection(header.column),
+                                        sortIconTitle: i18n.t('Sort by {{column}}', { column: header.column.id }),
+                                        onSortIconClick: () => header.column.toggleSorting()
+                                    } : {})}
+                                >
+                                    {header.isPlaceholder
+                                        ? null
+                                        : flexRender(
+                                            header.column.columnDef.header,
+                                            header.getContext()
+                                        )}
+                                </DataTableColumnHeader>
+                            ))}
+                        </DataTableRow>
+                    ))}
+                </DataTableHead>
+                <DataTableBody>
+                    {hasVisibleRows ? table.getRowModel().rows
+                        .map((row) => (
+                            <DataTableRow key={row.id}>
+                                {row.getVisibleCells().map((cell) => (
+                                    <DataTableCell key={cell.id}>
+                                        {flexRender(
+                                            cell.column.columnDef.cell,
+                                            cell.getContext()
+                                        )}
+                                    </DataTableCell>
+                                ))}
+                            </DataTableRow>
+                        )) : (
+                        <DataTableRow>
+                            <DataTableCell colSpan={String(table.getAllColumns().length)} align='center'>
+                                {i18n.t('No jobs available')}
+                            </DataTableCell>
+                        </DataTableRow>
+                    )}
+                </DataTableBody>
+
+                <DataTableFoot>
+                    <DataTableRow>
+                        <DataTableCell colSpan={String(table.getAllColumns().length)}>
+                            <Pagination
+                                page={table.getState().pagination.pageIndex + 1}
+                                pageSize={table.getState().pagination.pageSize}
+                                onPageSizeChange={(pageSize: number) => table.setPageSize(pageSize)}
+                                pageCount={table.getPageCount()}
+                                total={table.getRowCount()}
+                                isLastPage={!table.getCanNextPage()}
+                                onPageChange={(page: number) => table.setPageIndex(page - 1)}
+                            />
+                        </DataTableCell>
+                    </DataTableRow>
+                </DataTableFoot>
+            </DataTable>
+        </div>
+    );
+};

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import NewDatasetDrawer from '../new-dataset/components/NewDatasetDrawer/NewDatasetDrawer'
-import PageHeader from '../common-features/PageHeader/PageHeader'
+import { PageHeader } from '../common-features/PageHeader/PageHeader'
 import JobResults from '../job-results/JobResults'
 
 const EvaluationOverview = () => {

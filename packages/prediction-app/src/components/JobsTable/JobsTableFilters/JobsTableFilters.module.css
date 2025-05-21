@@ -1,0 +1,16 @@
+.inputContainer {
+    margin-right: var(--spacers-dp8);
+    width: 250px;
+}
+
+.singleSelectContainer {
+    margin-right: var(--spacers-dp8);
+    width: 200px;
+}
+
+.singleSelectMenuItem {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
