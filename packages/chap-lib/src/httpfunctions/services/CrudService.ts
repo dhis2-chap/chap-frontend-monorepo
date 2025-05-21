@@ -4,7 +4,6 @@
 /* eslint-disable */
 import type { BackTestCreate } from '../models/BackTestCreate';
 import type { BackTestFull } from '../models/BackTestFull';
-import type { BackTestIds } from '../models/BackTestIds';
 import type { BackTestRead } from '../models/BackTestRead';
 import type { BackTestUpdate } from '../models/BackTestUpdate';
 import type { Body_create_dataset_csv_crud_datasets_csvFile_post } from '../models/Body_create_dataset_csv_crud_datasets_csvFile_post';
@@ -51,6 +50,26 @@ export class CrudService {
             url: '/crud/backtests',
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Delete Backtest Batch
+     * @param ids
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static deleteBacktestBatchCrudBacktestsDelete(
+        ids: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/crud/backtests',
+            query: {
+                'ids': ids,
+            },
             errors: {
                 422: `Validation Error`,
             },
@@ -113,25 +132,6 @@ export class CrudService {
             path: {
                 'backtestId': backtestId,
             },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Batch Delete Backtests
-     * @param requestBody
-     * @returns any Successful Response
-     * @throws ApiError
-     */
-    public static batchDeleteBacktestsCrudBacktestsBatchDeletePost(
-        requestBody: BackTestIds,
-    ): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/crud/backtests/batch-delete',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
