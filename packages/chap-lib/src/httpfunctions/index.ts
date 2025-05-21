@@ -11,7 +11,6 @@ export type { BackTestCreate } from './models/BackTestCreate';
 export type { BacktestDomain } from './models/BacktestDomain';
 export type { BackTestForecast } from './models/BackTestForecast';
 export type { BackTestFull } from './models/BackTestFull';
-export type { BackTestIds } from './models/BackTestIds';
 export type { BackTestMetric } from './models/BackTestMetric';
 export type { BackTestRead } from './models/BackTestRead';
 export type { BackTestUpdate } from './models/BackTestUpdate';

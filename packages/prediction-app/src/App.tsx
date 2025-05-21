@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import ErrorPage from './components/ErrorPage'
 import React from 'react'
+import './locales'
 import './App.css'
 import PageWrapper from './components/PageWrapper'
 import EvaluationPage from './pages/EvaluationPage'

@@ -25,7 +25,7 @@ export const useBatchDeleteBacktests = ({
     )
 
     const { mutate: deleteBacktests, isLoading: isSubmitting } = useMutation({
-        mutationFn: (backtestIds: number[]) => CrudService.batchDeleteBacktestsCrudBacktestsBatchDeletePost({ ids: backtestIds }),
+        mutationFn: (backtestIds: number[]) => CrudService.deleteBacktestBatchCrudBacktestsDelete(backtestIds.join(',')),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['backtests'] })
             showSuccess()
