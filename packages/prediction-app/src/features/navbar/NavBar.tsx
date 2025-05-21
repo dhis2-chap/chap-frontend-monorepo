@@ -13,7 +13,7 @@ const navBarItems = [
         path: '/evaluate',
     },
     {
-        label: i18n.t('Active jobs'),
+        label: i18n.t('Jobs'),
         path: '/active-jobs',
     },
     {
