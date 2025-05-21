@@ -21,6 +21,7 @@ import InfoAboutReportingBugs from './features/common-features/InfoAboutReportin
 import WarnAboutIncompatibleVersion from './features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
 import { EvaluationsWIPPage } from './pages/EvaluationsWIPPage'
 import { ChapValidator } from './components/ChapValidator'
+import { ActiveJobsPage } from './pages/ActiveJobsPage'
 
 export type RouteHandle = {
     fullWidth?: boolean
@@ -67,6 +68,10 @@ const router = createHashRouter([
                     {
                         path: '/evaluationsWIP',
                         element: <EvaluationsWIPPage />,
+                    },
+                    {
+                        path: '/active-jobs',
+                        element: <ActiveJobsPage />,
                     },
                     {
                         path: '/predict',

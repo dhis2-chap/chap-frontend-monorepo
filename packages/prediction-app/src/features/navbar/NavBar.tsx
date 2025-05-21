@@ -13,6 +13,10 @@ const navBarItems = [
         path: '/evaluate',
     },
     {
+        label: i18n.t('Active jobs'),
+        path: '/active-jobs',
+    },
+    {
         label: 'Predict',
         path: '/predict',
     },
