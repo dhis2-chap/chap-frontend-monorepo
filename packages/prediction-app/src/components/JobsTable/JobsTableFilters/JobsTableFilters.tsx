@@ -12,8 +12,8 @@ import styles from './JobsTableFilters.module.css';
 type Props = {
     table: Table<JobDescription>;
     statuses: {
-        COMPLETED: string;
-        RUNNING: string;
+        SUCCESS: string;
+        PENDING: string;
         FAILED: string;
     };
 }
@@ -39,8 +39,8 @@ export const JobsTableFilters = ({ table, statuses }: Props) => {
                     placeholder={i18n.t('Status')}
                     onChange={(e) => table.getColumn('status')?.setFilterValue(e.selected)}
                 >
-                    <MenuItem label={i18n.t('Running')} value={statuses.RUNNING} />
-                    <MenuItem label={i18n.t('Completed')} value={statuses.COMPLETED} />
+                    <MenuItem label={i18n.t('Pending')} value={statuses.PENDING} />
+                    <MenuItem label={i18n.t('Success')} value={statuses.SUCCESS} />
                     <MenuItem label={i18n.t('Failed')} value={statuses.FAILED} />
                 </SingleSelect>
             </div>

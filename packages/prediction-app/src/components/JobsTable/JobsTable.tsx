@@ -25,14 +25,14 @@ import styles from './JobsTable.module.css';
 import { JobsTableFilters } from './JobsTableFilters/JobsTableFilters';
 
 const statuses = {
-    COMPLETED: 'COMPLETED',
-    RUNNING: 'RUNNING',
+    SUCCESS: 'SUCCESS',
+    PENDING: 'PENDING',
     FAILED: 'FAILED',
 }
 
 const labelByStatus = {
-    [statuses.COMPLETED]: i18n.t('Completed'),
-    [statuses.RUNNING]: i18n.t('Running'),
+    [statuses.SUCCESS]: i18n.t('Success'),
+    [statuses.PENDING]: i18n.t('Pending'),
     [statuses.FAILED]: i18n.t('Failed'),
 }
 
