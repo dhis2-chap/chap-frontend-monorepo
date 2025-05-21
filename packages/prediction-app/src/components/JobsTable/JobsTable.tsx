@@ -27,12 +27,14 @@ import { JobsTableFilters } from './JobsTableFilters/JobsTableFilters';
 const statuses = {
     SUCCESS: 'SUCCESS',
     PENDING: 'PENDING',
+    STARTED: 'STARTED',
     FAILED: 'FAILED',
 }
 
 const labelByStatus = {
     [statuses.SUCCESS]: i18n.t('Success'),
     [statuses.PENDING]: i18n.t('Pending'),
+    [statuses.STARTED]: i18n.t('Running'),
     [statuses.FAILED]: i18n.t('Failed'),
 }
 
@@ -41,7 +43,7 @@ const columnHelper = createColumnHelper<JobDescription>();
 const columns = [
     columnHelper.accessor('id', {
         header: i18n.t('ID'),
-        filterFn: 'equals',
+        enableSorting: false,
     }),
     columnHelper.accessor('name', {
         header: i18n.t('Name'),
@@ -49,6 +51,7 @@ const columns = [
     }),
     columnHelper.accessor('type', {
         header: i18n.t('Type'),
+        enableSorting: false,
     }),
     columnHelper.accessor('status', {
         header: i18n.t('Status'),

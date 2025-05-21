@@ -15,6 +15,7 @@ type Props = {
         SUCCESS: string;
         PENDING: string;
         FAILED: string;
+        STARTED: string;
     };
 }
 
@@ -40,6 +41,7 @@ export const JobsTableFilters = ({ table, statuses }: Props) => {
                     onChange={(e) => table.getColumn('status')?.setFilterValue(e.selected)}
                 >
                     <MenuItem label={i18n.t('Pending')} value={statuses.PENDING} />
+                    <MenuItem label={i18n.t('Running')} value={statuses.STARTED} />
                     <MenuItem label={i18n.t('Success')} value={statuses.SUCCESS} />
                     <MenuItem label={i18n.t('Failed')} value={statuses.FAILED} />
                 </SingleSelect>
