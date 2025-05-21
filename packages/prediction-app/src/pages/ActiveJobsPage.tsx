@@ -6,7 +6,7 @@ import {
 import { Card } from '@dhis2-chap/chap-lib';
 import i18n from '@dhis2/d2-i18n';
 import styles from './ActiveJobsPage.module.css';
-import PageHeader from '../features/common-features/PageHeader/PageHeader';
+import { PageHeader } from '../features/common-features/PageHeader/PageHeader';
 
 export const ActiveJobsPage: React.FC = () => {
   return (
