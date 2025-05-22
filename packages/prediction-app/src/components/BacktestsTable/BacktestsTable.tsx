@@ -33,6 +33,22 @@ import { BatchActions } from './BatchActions';
 const columnHelper = createColumnHelper<BackTestRead>();
 
 const columns = [
+    columnHelper.display({
+        id: 'select',
+        header: ({ table }) => (
+            <Checkbox
+                checked={table.getIsAllRowsSelected()}
+                onChange={table.getToggleAllRowsSelectedHandler()}
+                disabled={table.getRowModel().rows.length === 0}
+            />
+        ),
+        cell: ({ row }) => (
+            <Checkbox
+                checked={row.getIsSelected()}
+                onChange={row.getToggleSelectedHandler()}
+            />
+        ),
+    }),
     columnHelper.accessor('id', {
         header: i18n.t('ID'),
         filterFn: 'equals',
@@ -120,13 +136,6 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
                 <DataTableHead>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <DataTableRow key={headerGroup.id}>
-                            <DataTableColumnHeader>
-                                <Checkbox
-                                    checked={table.getIsAllRowsSelected()}
-                                    onChange={() => table.toggleAllRowsSelected()}
-                                    disabled={!hasVisibleRows}
-                                />
-                            </DataTableColumnHeader>
                             {headerGroup.headers.map((header) => (
                                 <DataTableColumnHeader
                                     key={header.id}
@@ -153,12 +162,6 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
                     {hasVisibleRows ? table.getRowModel().rows
                         .map((row) => (
                             <DataTableRow selected={row.getIsSelected()} key={row.id}>
-                                <DataTableCell>
-                                    <Checkbox
-                                        checked={row.getIsSelected()}
-                                        onChange={() => row.toggleSelected()}
-                                    />
-                                </DataTableCell>
                                 {row.getVisibleCells().map((cell) => (
                                     <DataTableCell key={cell.id}>
                                         {flexRender(
@@ -179,7 +182,7 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
 
                 <DataTableFoot>
                     <DataTableRow>
-                        <DataTableCell colSpan={String(table.getAllColumns().length + 1)}>
+                        <DataTableCell colSpan={String(table.getAllColumns().length)}>
                             <Pagination
                                 page={table.getState().pagination.pageIndex + 1}
                                 pageSize={table.getState().pagination.pageSize}
