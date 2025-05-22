@@ -18,7 +18,7 @@ export const useCopyToClipboard = ({ onSuccess, onError }: Props = {}) => {
         onSuccess: () => {
             setTimeout(() => {
                 mutation.reset();
-            }, 3000);
+            }, 1500);
             onSuccess?.();
         },
         onError: () => {
