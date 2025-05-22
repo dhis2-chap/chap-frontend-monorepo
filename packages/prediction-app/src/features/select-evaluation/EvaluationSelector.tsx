@@ -154,8 +154,17 @@ export const EvaluationSelectorBase = ({
                     <SingleSelectOption
                         key={evaluation.id}
                         value={evaluation.id.toString()}
-                        label={evaluation.name ?? ''}
-                    />
+                        label={
+                            (
+                                <span className={css.evaluationOption}>
+                                    {evaluation.name}
+                                    <span className={css.modelName}>
+                                        {` - ${evaluation.modelId}`}
+                                    </span>
+                                </span>
+                            ) as unknown as string // hack to override wrong type in ui
+                        }
+                    ></SingleSelectOption>
                 ))}
             </SingleSelect>
         </div>

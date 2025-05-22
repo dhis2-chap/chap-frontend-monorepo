@@ -11,3 +11,13 @@
     padding: var(--spacers-dp8);
     font-size: 14px;
 }
+
+.evaluationOption span {
+    font-size: 14px;
+    color: var(--colors-grey600); 
+
+}
+
+:global(.active) .evaluationOption span {
+    color: var(--colors-grey400)
+}
