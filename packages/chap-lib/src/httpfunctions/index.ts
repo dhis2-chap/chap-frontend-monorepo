@@ -25,6 +25,7 @@ export type { DataElement } from './models/DataElement';
 export type { DataList } from './models/DataList';
 export type { DatasetCreate } from './models/DatasetCreate';
 export type { DatasetMakeRequest } from './models/DatasetMakeRequest';
+export type { DataSetMeta } from './models/DataSetMeta';
 export type { DataSetRead } from './models/DataSetRead';
 export type { DataSetWithObservations } from './models/DataSetWithObservations';
 export type { DataSource } from './models/DataSource';

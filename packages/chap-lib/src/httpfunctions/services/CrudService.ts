@@ -56,26 +56,6 @@ export class CrudService {
         });
     }
     /**
-     * Delete Backtest Batch
-     * @param ids
-     * @returns any Successful Response
-     * @throws ApiError
-     */
-    public static deleteBacktestBatchCrudBacktestsDelete(
-        ids: string,
-    ): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'DELETE',
-            url: '/crud/backtests',
-            query: {
-                'ids': ids,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
      * Get Backtest
      * @param backtestId
      * @returns BackTestFull Successful Response
