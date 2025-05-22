@@ -45,7 +45,7 @@ export const EvaluationForm = ({
             <h2 className={styles.formTitle}>{i18n.t('New evaluation')}</h2>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
                 <div>
-                    <Label htmlFor="evaluation-name">{i18n.t('Name')}</Label>
+                    <Label htmlFor="evaluation-name">{i18n.t('Evaluation name')}</Label>
                     <Controller
                         name="name"
                         control={control}
