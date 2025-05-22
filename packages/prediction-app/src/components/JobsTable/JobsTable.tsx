@@ -27,6 +27,8 @@ import styles from './JobsTable.module.css';
 import { JobsTableFilters } from './JobsTableFilters';
 import { StatusCell } from './TableCells/StatusCell';
 import { JobTypeCell } from './TableCells/JobTypeCell';
+import { JobActionsMenu } from './JobActionsMenu/JobActionsMenu';
+import { JOB_STATUSES } from '../../hooks/useJobs';
 
 const columnHelper = createColumnHelper<JobDescription>();
 
@@ -70,6 +72,19 @@ const columns = [
         cell: (info) => {
             const value = info.getValue();
             return value ? new Date(value).toLocaleString() : undefined;
+        },
+    }),
+    columnHelper.display({
+        id: 'actions',
+        header: i18n.t('Actions'),
+        cell: (info) => {
+            const status = info.row.original.status as keyof typeof JOB_STATUSES;
+            return (
+                <JobActionsMenu
+                    jobId={info.row.original.id}
+                    status={status}
+                />
+            );
         },
     }),
 ];
