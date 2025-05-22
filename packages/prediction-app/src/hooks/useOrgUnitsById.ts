@@ -25,14 +25,6 @@ export const useOrgUnitsById = (orgUnitIds: string[]) => {
     const initialData = useMemo(() => {
         const idsSet = new Set(orgUnitIds)
 
-        const allOrgUnitsQuery = queryClient
-            .getQueryCache()
-            .findAll([{ orgUnits: { resource: 'organisationUnits' } }], {
-                exact: false,
-                type: 'all',
-            })
-        console.log({ allOrgUnitsQuery })
-
         const cachedOrgUnits = queryClient
             .getQueryCache()
             .findAll(['organisationUnits'], { exact: false })
@@ -45,10 +37,11 @@ export const useOrgUnitsById = (orgUnitIds: string[]) => {
 
         // remove duplicates
         const cachedMap = new Map(cachedOrgUnits.map((ou) => [ou.id, ou]))
+
         const hasAllOrgUnits = orgUnitIds.every((id) => cachedMap.has(id))
 
         return hasAllOrgUnits
-            ? { organisationUnits: cachedOrgUnits }
+            ? { organisationUnits: Array.from(cachedMap.values()) }
             : undefined
     }, [orgUnitIds, queryClient])
 

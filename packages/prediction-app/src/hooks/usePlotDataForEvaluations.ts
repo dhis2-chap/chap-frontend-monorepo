@@ -69,7 +69,7 @@ export const usePlotDataForEvaluations = (
             },
             select: select,
             enabled: !!evaluation,
-            staleTime: 60 * 1000, // Data is considered fresh for 60 seconds
+            staleTime: 60 * 1000,
         })),
     })
 
