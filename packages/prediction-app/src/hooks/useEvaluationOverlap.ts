@@ -1,0 +1,41 @@
+import { AnalyticsService, BacktestDomain } from '@dhis2-chap/chap-lib'
+import { useQuery } from '@tanstack/react-query'
+import { useCallback } from 'react'
+import useOrgUnits from './useOrgUnits'
+
+type UseBackTestOverlapOptions = {
+    baseEvaluation?: number
+    comparisonEvaluation?: number
+}
+
+/**
+ * Gets the overlap (eg. common) of split periods and organisation units between two evaluations
+ *
+ */
+export const useEvaluationOverlap = (options: UseBackTestOverlapOptions) => {
+    const { baseEvaluation, comparisonEvaluation } = options
+    return useQuery({
+        queryKey: ['backtest-overlap', [baseEvaluation, comparisonEvaluation]],
+        queryFn: () => {
+            return AnalyticsService.getBacktestOverlapAnalyticsBacktestOverlapBacktestId1BacktestId2Get(
+                baseEvaluation!,
+                comparisonEvaluation!
+            )
+        },
+        staleTime: 60 * 1000 * 5,
+        enabled: !!baseEvaluation && !!comparisonEvaluation,
+        select: useCallback(
+            (data: BacktestDomain) => ({
+                // orgUnits: data.orgUnits.map(
+                //     (orgunitId) =>
+                //         orgUnits.orgUnits?.organisationUnits.find(
+                //             (o) => o.id === orgunitId
+                //         ) ?? { id: orgunitId, displayName: orgunitId }
+                // ),
+                ...data,
+                splitPeriods: data.splitPeriods.sort(),
+            }),
+            []
+        ),
+    })
+}

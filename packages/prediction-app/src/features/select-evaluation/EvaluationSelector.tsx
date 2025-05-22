@@ -14,54 +14,8 @@ import {
 import css from './EvaluationSelector.module.css'
 import i18n from '@dhis2/d2-i18n'
 
-type EvaluationSelectorProps = Omit<BaseEvaluationSelectorProps, 'available'>
-
-export const EvaluationSelector = ({
-    onSelect,
-    selected,
-}: EvaluationSelectorProps) => {
-    const {
-        data: evaluations,
-        isLoading,
-        isError,
-        error,
-        isSuccess,
-    } = useQuery({
-        queryKey: ['evaluations'],
-        queryFn: CrudService.getBacktestsCrudBacktestsGet,
-        staleTime: 60 * 5 * 1000, // Data is considered fresh for 60 seconds
-    })
-
-    const getListMessage = () => {
-        if (isSuccess && evaluations?.length === 0) {
-            return <Help>{i18n.t('No evaluations found.')}</Help>
-        }
-        if (error) {
-            return (
-                <Help error>
-                    {(error as Error).message ?? error.toString()}
-                </Help>
-            )
-        }
-        return null
-    }
-    return (
-        <div className={css.selectorWrapper}>
-            <BaseEvaluationSelector
-                available={evaluations ?? []}
-                selected={selected}
-                onSelect={onSelect}
-                error={isError}
-                loading={isLoading}
-                listMessage={getListMessage()}
-                placeholder={i18n.t('Select base evaluation')}
-            />
-        </div>
-    )
-}
-
 type EvaluationCompatibleSelector = Omit<
-    BaseEvaluationSelectorProps,
+    EvaluationSelectorBaseProps,
     'available'
 > & {
     compatibleEvaluationId?: number
@@ -91,6 +45,7 @@ export const EvaluationCompatibleSelector = ({
         },
         enabled: compatibleEvaluationId != undefined,
         staleTime: 60 * 5 * 1000,
+        cacheTime: 60 * 5 * 1000,
     })
     // allow inline onSelect function
     const onSelectRef = React.useRef(onSelect)
@@ -101,9 +56,10 @@ export const EvaluationCompatibleSelector = ({
     // the selected evaluation is not in the compatibleEvaluations
     useEffect(() => {
         if (
+            selected &&
             compatibleEvaluationId != undefined &&
             isSuccess &&
-            !compatibleEvaluations.some((e) => e.id == compatibleEvaluationId)
+            !compatibleEvaluations.some((e) => e.id == selected?.id)
         ) {
             onSelectRef.current(undefined)
         }
@@ -125,7 +81,7 @@ export const EvaluationCompatibleSelector = ({
 
     return (
         <div className={css.selectorWrapper}>
-            <BaseEvaluationSelector
+            <EvaluationSelectorBase
                 available={compatibleEvaluations ?? []}
                 selected={selected}
                 onSelect={onSelect}
@@ -140,7 +96,7 @@ export const EvaluationCompatibleSelector = ({
     )
 }
 
-interface BaseEvaluationSelectorProps
+interface EvaluationSelectorBaseProps
     extends Omit<SingleSelectProps, 'selected' | 'onChange'> {
     onSelect: (evaluation: BackTestRead | undefined) => void
     selected?: BackTestRead | undefined
@@ -148,13 +104,13 @@ interface BaseEvaluationSelectorProps
     listMessage?: React.ReactNode
 }
 
-const BaseEvaluationSelector = ({
+export const EvaluationSelectorBase = ({
     onSelect,
     selected,
     available,
     listMessage,
     ...singleSelectProps
-}: BaseEvaluationSelectorProps) => {
+}: EvaluationSelectorBaseProps) => {
     const { availableMap, availableList } = useMemo(() => {
         const availableMap = new Map(
             available.map(
@@ -176,7 +132,6 @@ const BaseEvaluationSelector = ({
         <div className={css.selectorWrapper}>
             <SingleSelect
                 className={css.selector}
-                // placeholder={i18n.t('Select Evaluation')}
                 onChange={({ selected: newSelected }) =>
                     onSelect(availableMap.get(newSelected))
                 }
