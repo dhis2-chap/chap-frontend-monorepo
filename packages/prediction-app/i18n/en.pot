@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-21T11:07:33.307Z\n"
-"PO-Revision-Date: 2025-05-21T11:07:33.308Z\n"
+"POT-Creation-Date: 2025-05-22T09:41:28.484Z\n"
+"PO-Revision-Date: 2025-05-22T09:41:28.484Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -132,6 +132,24 @@ msgstr "Oops!"
 msgid "Sorry, an unexpected error has occurred."
 msgstr "Sorry, an unexpected error has occurred."
 
+msgid "Success"
+msgstr "Success"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Start Time"
+msgstr "Start Time"
+
+msgid "End Time"
+msgstr "End Time"
+
+msgid "No jobs available"
+msgstr "No jobs available"
+
 msgid "Get started with the Modeling app"
 msgstr "Get started with the Modeling app"
 
@@ -152,6 +170,9 @@ msgstr "Compare"
 
 msgid "Predict"
 msgstr "Predict"
+
+msgid "Jobs"
+msgstr "Jobs"
 
 msgid "Evaluations (WIP)"
 msgstr "Evaluations (WIP)"
@@ -400,11 +421,20 @@ msgstr "Start month"
 msgid "End month"
 msgstr "End month"
 
-msgid "Error loading evaluations"
-msgstr "Error loading evaluations"
+msgid "Error loading jobs"
+msgstr "Error loading jobs"
 
 msgid "An unknown error occurred"
 msgstr "An unknown error occurred"
+
+msgid "Active jobs"
+msgstr "Active jobs"
+
+msgid "View and manage currently running jobs and their status."
+msgstr "View and manage currently running jobs and their status."
+
+msgid "Error loading evaluations"
+msgstr "Error loading evaluations"
 
 msgid "Evaluations"
 msgstr "Evaluations"

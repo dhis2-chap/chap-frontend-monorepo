@@ -1,0 +1,31 @@
+.pillWrapper {
+    display: inline-block;
+}
+
+.pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.default .pill {
+    background-color: #E5E7EB;
+    color: #1F2937;
+}
+
+.destructive .pill {
+    background-color: #FEE2E2;
+    color: #991B1B;
+}
+
+.info .pill {
+    background-color: #DBEAFE;
+    color: #1C3A94;
+}
+
+.warning .pill {
+    background-color: #FEF9C3;
+    color: #92400E;
+} 

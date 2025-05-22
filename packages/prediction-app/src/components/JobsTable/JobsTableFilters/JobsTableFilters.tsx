@@ -8,18 +8,13 @@ import i18n from '@dhis2/d2-i18n';
 import { Table } from '@tanstack/react-table';
 import { JobDescription } from '@dhis2-chap/chap-lib';
 import styles from './JobsTableFilters.module.css';
+import { JOB_STATUSES } from '../../../hooks/useJobs';
 
 type Props = {
     table: Table<JobDescription>;
-    statuses: {
-        SUCCESS: string;
-        PENDING: string;
-        FAILED: string;
-        STARTED: string;
-    };
 }
 
-export const JobsTableFilters = ({ table, statuses }: Props) => {
+export const JobsTableFilters = ({ table }: Props) => {
     return (
         <>
             <div className={styles.inputContainer}>
@@ -40,10 +35,22 @@ export const JobsTableFilters = ({ table, statuses }: Props) => {
                     placeholder={i18n.t('Status')}
                     onChange={(e) => table.getColumn('status')?.setFilterValue(e.selected)}
                 >
-                    <MenuItem label={i18n.t('Pending')} value={statuses.PENDING} />
-                    <MenuItem label={i18n.t('Running')} value={statuses.STARTED} />
-                    <MenuItem label={i18n.t('Success')} value={statuses.SUCCESS} />
-                    <MenuItem label={i18n.t('Failed')} value={statuses.FAILED} />
+                    <MenuItem
+                        label={i18n.t('Pending')}
+                        value={JOB_STATUSES.PENDING}
+                    />
+                    <MenuItem
+                        label={i18n.t('Running')}
+                        value={JOB_STATUSES.STARTED}
+                    />
+                    <MenuItem
+                        label={i18n.t('Success')}
+                        value={JOB_STATUSES.SUCCESS}
+                    />
+                    <MenuItem
+                        label={i18n.t('Failed')}
+                        value={JOB_STATUSES.FAILED}
+                    />
                 </SingleSelect>
             </div>
         </>

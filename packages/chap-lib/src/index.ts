@@ -19,8 +19,17 @@ export { ComparisonPlotList } from './components/evaluation/ComparisonPlotList/C
 export { ComparionPlotWrapper } from './components/evaluation/ComparionPlotWrapper/ComparionPlotWrapper'
 export { PredictionTable } from './components/predictions/PredictionTable/PredictionTable'
 export { PredictionMap } from './components/predictions/PredictionMap/PredictionMap'
-export { Card } from './ui/Card'
-export { OverflowButton } from './ui/OverflowButton'
+export {
+    OverflowButton,
+    Ping,
+    Pill,
+    Card,
+    StatusIndicator,
+} from './ui'
+
+export type {
+    PillVariant,
+} from './ui/Pill'
 
 //interfaces
 export type {
