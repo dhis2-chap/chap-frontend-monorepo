@@ -1,0 +1,23 @@
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.formTitle {
+  margin-block-start: 0;
+  margin-block-end: 1rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-block-start: 1rem;
+}
+
+.errorText {
+  color: red;
+  font-size: 0.875rem;
+  margin-block-start: 4px;
+}
