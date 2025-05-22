@@ -47,7 +47,7 @@ const SidebarParent = ({
     const [isOpen, setIsOpen] = useState(initiallyOpen)
 
     const handleOpen = () => {
-            setIsOpen(!isOpen)
+        setIsOpen(!isOpen)
     }
 
     if (links.length === 1) {
@@ -101,6 +101,7 @@ export const Sidebar = ({
                         ]}
                     />
                     <SidebarNavLink to="/predict" label={i18n.t('Predict')} />
+                    <SidebarNavLink to="/evaluationsWIP" label={i18n.t('Evaluations (WIP)')} />
                     <SidebarNavLink to="/settings" label={i18n.t('Settings')} />
                 </SidenavItems>
             </Sidenav>

@@ -20,6 +20,7 @@ export { ComparionPlotWrapper } from './components/evaluation/ComparionPlotWrapp
 export { PredictionTable } from './components/predictions/PredictionTable/PredictionTable'
 export { PredictionMap } from './components/predictions/PredictionMap/PredictionMap'
 export { Card } from './ui/Card'
+export { OverflowButton } from './ui/OverflowButton'
 
 //interfaces
 export type {
