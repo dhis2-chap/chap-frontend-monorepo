@@ -6,10 +6,10 @@ import {
 import { Card } from '@dhis2-chap/chap-lib';
 import i18n from '@dhis2/d2-i18n';
 import styles from './EvaluationsWIPPage.module.css';
-import { useBacktests } from '../hooks/useBacktests';
-import { BacktestsTable } from '../components/BacktestsTable';
-import { PageHeader } from '../features/common-features/PageHeader/PageHeader';
-import { useModels } from '../hooks/useModels';
+import { useBacktests } from '../../hooks/useBacktests';
+import { BacktestsTable } from '../../components/BacktestsTable';
+import { PageHeader } from '../../features/common-features/PageHeader/PageHeader';
+import { useModels } from '../../hooks/useModels';
 
 export const EvaluationsWIPPage: React.FC = () => {
   const { backtests, error: backtestsError, isLoading: backtestsLoading } = useBacktests();

@@ -5,12 +5,12 @@ import {
 } from '@dhis2/ui';
 import { Card } from '@dhis2-chap/chap-lib';
 import i18n from '@dhis2/d2-i18n';
-import styles from './ActiveJobsPage.module.css';
-import { PageHeader } from '../features/common-features/PageHeader/PageHeader';
-import { useJobs } from '../hooks/useJobs';
-import { JobsTable } from '../components/JobsTable';
+import styles from './JobsPage.module.css';
+import { PageHeader } from '../../features/common-features/PageHeader/PageHeader';
+import { useJobs } from '../../hooks/useJobs';
+import { JobsTable } from '../../components/JobsTable';
 
-export const ActiveJobsPage: React.FC = () => {
+export const JobsPage: React.FC = () => {
   const { jobs, error, isLoading } = useJobs();
 
   if (isLoading) {
