@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     FlyoutMenu,
     MenuItem,
@@ -7,24 +7,31 @@ import {
     IconMore16,
     IconCopy16,
     IconCheckmark16,
+    IconArrowRight16,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import { OverflowButton } from '@dhis2-chap/chap-lib';
 import { ViewJobLogsModal } from './ViewJobLogsModal/ViewJobLogsModal';
 import { DeleteJobModal } from './DeleteJobModal/DeleteJobModal';
-import { JOB_STATUSES } from '../../../hooks/useJobs';
+import { JOB_STATUSES, JOB_TYPES } from '../../../hooks/useJobs';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import { useAlert } from '@dhis2/app-runtime';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     jobId: string;
     status: keyof typeof JOB_STATUSES;
+    result: string | undefined | null;
+    type: string;
 }
 
 export const JobActionsMenu = ({
     jobId,
     status,
+    result,
+    type,
 }: Props) => {
+    const navigate = useNavigate();
     const [flyoutMenuIsOpen, setFlyoutMenuIsOpen] = useState(false);
     const [viewLogsModalIsOpen, setViewLogsModalIsOpen] = useState(false);
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
@@ -43,6 +50,16 @@ export const JobActionsMenu = ({
         setViewLogsModalIsOpen(true);
     };
 
+    const handleNavigateToResult = () => {
+        console.log('type', type);
+        if (type === JOB_TYPES.CREATE_BACKTEST_WITH_DATA || type === JOB_TYPES.BACKTEST) {
+            navigate(`/evaluationsWIP?id=${result}`);
+        } else if (type === JOB_TYPES.MAKE_PREDICTION) {
+            navigate(`/predict`);
+        }
+        setFlyoutMenuIsOpen(false);
+    };
+
     return (
         <>
             <OverflowButton
@@ -54,6 +71,14 @@ export const JobActionsMenu = ({
                 }}
                 component={
                     <FlyoutMenu dense>
+                        <MenuItem
+                            label={i18n.t('Go to result')}
+                            dataTest={'job-overflow-go-to-result'}
+                            disabled={!result}
+                            icon={<IconArrowRight16 />}
+                            onClick={handleNavigateToResult}
+                        />
+
                         <MenuItem
                             label={i18n.t('View Logs')}
                             dataTest={'job-overflow-view-logs'}

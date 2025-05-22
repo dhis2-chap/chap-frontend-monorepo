@@ -82,7 +82,9 @@ const columns = [
             return (
                 <JobActionsMenu
                     jobId={info.row.original.id}
+                    result={info.row.original.result}
                     status={status}
+                    type={info.row.original.type}
                 />
             );
         },
