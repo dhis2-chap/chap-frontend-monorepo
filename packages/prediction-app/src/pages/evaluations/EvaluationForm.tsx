@@ -46,6 +46,19 @@ export const EvaluationForm = ({
 
     const periodType = useWatch({ control, name: 'periodType' });
 
+    const getInputType = (periodType: string): string => {
+        switch (periodType) {
+            case 'daily':
+                return 'date';
+            case 'weekly':
+                return 'week';
+            case 'monthly':
+                return 'month';
+            default:
+                return 'text';
+        }
+    };
+
     const handleFormSubmit = (data: EvaluationFormValues) => {
         onSubmit(data)
     }
@@ -101,7 +114,7 @@ export const EvaluationForm = ({
                                 <div style={{ opacity: periodType ? 1 : 0.6 }}>
                                     <input
                                         className={styles.input}
-                                        type={periodType || 'text'}
+                                        type={periodType ? getInputType(periodType) : 'text'}
                                         disabled={!periodType}
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
@@ -123,7 +136,7 @@ export const EvaluationForm = ({
                                 <div style={{ opacity: periodType ? 1 : 0.6 }}>
                                     <input
                                         className={styles.input}
-                                        type={periodType || 'text'}
+                                        type={periodType ? getInputType(periodType) : 'text'}
                                         disabled={!periodType}
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
