@@ -3,6 +3,8 @@ import {
     Button,
     Input,
     Label,
+    SingleSelectField,
+    SingleSelectOption,
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import { useForm, Controller } from 'react-hook-form'
@@ -12,6 +14,7 @@ import styles from './EvaluationForm.module.css'
 
 const evaluationSchema = z.object({
     name: z.string().min(1, { message: i18n.t('Name is required') }),
+    periodType: z.string().min(1, { message: i18n.t('Period type is required') }),
 })
 
 export type EvaluationFormValues = z.infer<typeof evaluationSchema>
@@ -33,6 +36,7 @@ export const EvaluationForm = ({
         resolver: zodResolver(evaluationSchema),
         defaultValues: {
             name: '',
+            periodType: '',
         },
     })
 
@@ -44,7 +48,7 @@ export const EvaluationForm = ({
         <div className={styles.formWrapper}>
             <h2 className={styles.formTitle}>{i18n.t('New evaluation')}</h2>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-                <div>
+                <div className={styles.formField}>
                     <Label htmlFor="evaluation-name">{i18n.t('Evaluation name')}</Label>
                     <Controller
                         name="name"
@@ -60,6 +64,26 @@ export const EvaluationForm = ({
                         )}
                     />
                     {errors.name && <p className={styles.errorText}>{errors.name.message}</p>}
+                </div>
+                <div className={styles.formField}>
+                    <Label>{i18n.t('Period type')}</Label>
+                    <Controller
+                        name="periodType"
+                        control={control}
+                        render={({ field }) => (
+                            <SingleSelectField
+                                selected={field.value}
+                                error={!!errors.periodType}
+                                onChange={({ selected }) => field.onChange(selected)}
+                                dataTest="evaluation-period-type-select"
+                            >
+                                <SingleSelectOption value="daily" label={i18n.t('Daily')} />
+                                <SingleSelectOption value="weekly" label={i18n.t('Weekly')} />
+                                <SingleSelectOption value="monthly" label={i18n.t('Monthly')} />
+                            </SingleSelectField>
+                        )}
+                    />
+                    {errors.periodType && <p className={styles.errorText}>{errors.periodType.message}</p>}
                 </div>
                 <div className={styles.buttons}>
                     <Button
