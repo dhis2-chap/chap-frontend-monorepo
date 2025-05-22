@@ -1,6 +1,11 @@
 .inputContainer {
     margin-right: var(--spacers-dp8);
-    width: 250px;
+    width: 200px;
+    transition: width 0.3s ease;
+}
+
+.inputContainer:focus-within {
+    width: 300px;
 }
 
 .singleSelectContainer {
