@@ -10,16 +10,11 @@ import { BackTestRead, ModelSpecRead } from '@dhis2-chap/chap-lib';
 import styles from './BacktestsTableFilters.module.css';
 
 type Props = {
-    table: Table<BackTestRead & { status?: string }>;
-    statuses: {
-        COMPLETED: string;
-        RUNNING: string;
-        FAILED: string;
-    };
+    table: Table<BackTestRead>;
     models: ModelSpecRead[];
 }
 
-export const BacktestsTableFilters = ({ table, models, statuses }: Props) => {
+export const BacktestsTableFilters = ({ table, models }: Props) => {
     return (
         <>
             <div className={styles.inputContainer}>
@@ -50,22 +45,6 @@ export const BacktestsTableFilters = ({ table, models, statuses }: Props) => {
                             value={model.name.toString()}
                         />
                     ))}
-                </SingleSelect>
-            </div>
-
-            <div className={styles.singleSelectContainer}>
-                <SingleSelect
-                    dense
-                    clearable
-                    disabled
-                    clearText={i18n.t('Clear')}
-                    selected={table.getColumn('status')?.getFilterValue() as string | undefined}
-                    placeholder={i18n.t('Status')}
-                    onChange={(e) => table.getColumn('status')?.setFilterValue(e.selected)}
-                >
-                    <MenuItem label={i18n.t('Running')} value={statuses.RUNNING} />
-                    <MenuItem label={i18n.t('Completed')} value={statuses.COMPLETED} />
-                    <MenuItem label={i18n.t('Failed')} value={statuses.FAILED} />
                 </SingleSelect>
             </div>
         </>

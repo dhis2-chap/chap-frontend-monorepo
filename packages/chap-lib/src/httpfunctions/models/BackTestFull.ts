@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { BackTestForecast } from './BackTestForecast';
 import type { BackTestMetric } from './BackTestMetric';
+import type { DataSetMeta } from './DataSetMeta';
 export type BackTestFull = {
     datasetId: number;
     modelId: string;
@@ -12,6 +13,7 @@ export type BackTestFull = {
     id: number;
     orgUnits?: Array<string>;
     splitPeriods?: Array<string>;
+    dataset: DataSetMeta;
     metrics: Array<BackTestMetric>;
     forecasts: Array<BackTestForecast>;
 };
