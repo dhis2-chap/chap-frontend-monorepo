@@ -18,6 +18,7 @@ import {
     getSortedRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
+    Column,
 } from '@tanstack/react-table';
 import {
     JobDescription,
@@ -25,6 +26,7 @@ import {
 import styles from './JobsTable.module.css';
 import { JobsTableFilters } from './JobsTableFilters';
 import { StatusCell } from './TableCells/StatusCell';
+import { JobTypeCell } from './TableCells/JobTypeCell';
 
 const columnHelper = createColumnHelper<JobDescription>();
 
@@ -39,7 +41,7 @@ const columns = [
         enableSorting: false,
         cell: (info) => (
             <StatusCell
-                status={info.getValue() as string}
+                status={info.getValue()}
             />
         ),
     }),
@@ -50,20 +52,30 @@ const columns = [
     columnHelper.accessor('type', {
         header: i18n.t('Type'),
         enableSorting: false,
+        cell: (info) => (
+            <JobTypeCell
+                jobType={info.getValue()}
+            />
+        ),
     }),
     columnHelper.accessor('start_time', {
         header: i18n.t('Start Time'),
-        cell: (info) => info.getValue() ? new Date(info.getValue() as string).toLocaleString() : undefined,
+        cell: (info) => {
+            const value = info.getValue();
+            return value ? new Date(value).toLocaleString() : undefined;
+        },
     }),
     columnHelper.accessor('end_time', {
         header: i18n.t('End Time'),
-        cell: (info) => info.getValue() ? new Date(info.getValue() as string).toLocaleString() : undefined,
+        cell: (info) => {
+            const value = info.getValue();
+            return value ? new Date(value).toLocaleString() : undefined;
+        },
     }),
 ];
 
-const getSortDirection = (column: any) => {
-    if (!column.getIsSorted()) return 'default';
-    return column.getIsSorted() as 'asc' | 'desc';
+const getSortDirection = (column: Column<JobDescription>) => {
+    return column.getIsSorted() || 'default';
 };
 
 type Props = {

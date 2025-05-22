@@ -7,14 +7,14 @@ export const JOB_STATUSES = {
     PENDING: 'PENDING',
     STARTED: 'STARTED',
     FAILED: 'FAILURE',
-}
+} as const;
 
 export const JOB_TYPES = {
     BACKTEST: 'create_backtest',
     CREATE_BACKTEST_WITH_DATA: 'create_backtest_with_data',
-    MAKE_PREDICTION: 'make_prediction',
+    MAKE_PREDICTION: 'create_prediction',
     CREATE_DATASET: 'create_dataset',
-}
+} as const;
 
 // This hook should fetch all jobs and start polling if jobs contains any PENDING or STARTED jobs.
 // It should stop polling when all jobs are in a terminal state (SUCCESS, FAILED, CANCELLED).

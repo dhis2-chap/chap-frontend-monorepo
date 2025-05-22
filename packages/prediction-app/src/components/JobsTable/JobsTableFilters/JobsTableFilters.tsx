@@ -8,7 +8,7 @@ import i18n from '@dhis2/d2-i18n';
 import { Table } from '@tanstack/react-table';
 import { JobDescription } from '@dhis2-chap/chap-lib';
 import styles from './JobsTableFilters.module.css';
-import { JOB_STATUSES } from '../../../hooks/useJobs';
+import { JOB_STATUSES, JOB_TYPES } from '../../../hooks/useJobs';
 
 type Props = {
     table: Table<JobDescription>;
@@ -50,6 +50,33 @@ export const JobsTableFilters = ({ table }: Props) => {
                     <MenuItem
                         label={i18n.t('Failed')}
                         value={JOB_STATUSES.FAILED}
+                    />
+                </SingleSelect>
+            </div>
+            <div className={styles.singleSelectContainer}>
+                <SingleSelect
+                    dense
+                    clearable
+                    clearText={i18n.t('Clear')}
+                    selected={table.getColumn('type')?.getFilterValue() as string | undefined}
+                    placeholder={i18n.t('Type')}
+                    onChange={(e) => table.getColumn('type')?.setFilterValue(e.selected)}
+                >
+                    <MenuItem
+                        label={i18n.t('Create evaluation')}
+                        value={JOB_TYPES.BACKTEST}
+                    />
+                    <MenuItem
+                        label={i18n.t('Evaluation with data')}
+                        value={JOB_TYPES.CREATE_BACKTEST_WITH_DATA}
+                    />
+                    <MenuItem
+                        label={i18n.t('Make prediction')}
+                        value={JOB_TYPES.MAKE_PREDICTION}
+                    />
+                    <MenuItem
+                        label={i18n.t('Create dataset')}
+                        value={JOB_TYPES.CREATE_DATASET}
                     />
                 </SingleSelect>
             </div>
