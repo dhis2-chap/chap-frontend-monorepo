@@ -1,5 +1,6 @@
 .container {
     padding: 24px;
+    min-height: 400px;
 }
 
 .header {

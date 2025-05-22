@@ -1,0 +1,20 @@
+.batchActionsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--colors-green600);
+    padding: var(--spacers-dp8);
+    background-color: var(--colors-green100);
+}
+
+.leftSection {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

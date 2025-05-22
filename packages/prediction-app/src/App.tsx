@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import ErrorPage from './components/ErrorPage'
 import React from 'react'
+import './locales'
 import './App.css'
 import PageWrapper from './components/PageWrapper'
 import EvaluationPage from './pages/EvaluationPage'
@@ -19,6 +20,7 @@ import { Layout } from './components/layout/Layout'
 import { RouteValidator } from './components/RouteValidator'
 import InfoAboutReportingBugs from './features/common-features/InfoAboutReportingBugs/InfoAboutReportingBugs'
 import WarnAboutIncompatibleVersion from './features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
+import { EvaluationsWIPPage } from './pages/EvaluationsWIPPage'
 import { ChapValidator } from './components/ChapValidator'
 import { NewEvaluationPage } from './pages/evaluations/NewEvaluationPage'
 
@@ -63,6 +65,10 @@ const router = createHashRouter([
                                 element: <EvaluationResult evaluationId={1} />,
                             },
                         ],
+                    },
+                    {
+                        path: '/evaluationsWIP',
+                        element: <EvaluationsWIPPage />,
                     },
                     {
                         path: '/predict',

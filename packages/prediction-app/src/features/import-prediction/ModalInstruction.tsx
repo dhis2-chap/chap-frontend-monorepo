@@ -69,7 +69,7 @@ interface DataValueTableProps {
 
 const DataValueTable = ({ q, disease }: DataValueTableProps) => {
     return (
-        <table>
+        <table className={styles.dataTable}>
             <tbody>
                 <tr>
                     <th>{i18n.t('Name')}</th>

@@ -1,0 +1,22 @@
+.inputContainer {
+    width: 200px;
+    transition: width 0.3s ease;
+}
+
+.inputContainer:focus-within {
+    width: 300px;
+}
+
+.singleSelectContainer {
+    min-width: 250px;
+}
+
+/* This feels wrong, but it works */
+.singleSelectContainer [data-test="dhis2-uicore-singleselect-clear"] {
+    margin-inline-start: var(--spacers-dp4);
+}
+
+.singleSelectMenuItem {
+    width: 100%;
+    text-overflow: ellipsis;
+} 
