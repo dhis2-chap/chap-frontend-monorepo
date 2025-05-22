@@ -11,7 +11,7 @@
     min-width: 250px;
 }
 
-/* This feels... wrong, but it works */
+/* This feels wrong, but it works */
 .singleSelectContainer [data-test="dhis2-uicore-singleselect-clear"] {
     margin-inline-start: var(--spacers-dp4);
 }
@@ -19,5 +19,4 @@
 .singleSelectMenuItem {
     width: 100%;
     text-overflow: ellipsis;
-    margin-inline-end: var(--spacers-dp8);
 } 

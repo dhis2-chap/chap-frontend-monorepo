@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-21T11:07:33.307Z\n"
-"PO-Revision-Date: 2025-05-21T11:07:33.308Z\n"
+"POT-Creation-Date: 2025-05-22T13:27:12.201Z\n"
+"PO-Revision-Date: 2025-05-22T13:27:12.201Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -57,15 +57,6 @@ msgstr "Created"
 msgid "Model"
 msgstr "Model"
 
-msgid "Status"
-msgstr "Status"
-
-msgid "Start Date"
-msgstr "Start Date"
-
-msgid "End Date"
-msgstr "End Date"
-
 msgid "Actions"
 msgstr "Actions"
 
@@ -86,6 +77,9 @@ msgstr "No models found"
 
 msgid "Clear"
 msgstr "Clear"
+
+msgid "Status"
+msgstr "Status"
 
 msgid "{{count}} evaluations selected"
 msgid_plural "{{count}} evaluations selected"

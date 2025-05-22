@@ -11,7 +11,6 @@ import {
     IconAdd16,
     DataTableFoot,
     Pagination,
-    Chip,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import {
@@ -22,6 +21,7 @@ import {
     getSortedRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
+    Column,
 } from '@tanstack/react-table';
 import { BackTestRead, ModelSpecRead } from '@dhis2-chap/chap-lib';
 import { useNavigate } from 'react-router-dom';
@@ -30,19 +30,7 @@ import { BacktestActionsMenu } from './BacktestActionsMenu';
 import { BacktestsTableFilters } from './BacktestsTableFilters';
 import { BatchActions } from './BatchActions';
 
-const statuses = {
-    COMPLETED: 'completed',
-    RUNNING: 'running',
-    FAILED: 'failed',
-}
-
-const labelByStatus = {
-    [statuses.COMPLETED]: i18n.t('Completed'),
-    [statuses.RUNNING]: i18n.t('Running'),
-    [statuses.FAILED]: i18n.t('Failed'),
-}
-
-const columnHelper = createColumnHelper<BackTestRead & { status?: string }>();
+const columnHelper = createColumnHelper<BackTestRead>();
 
 const columns = [
     columnHelper.accessor('id', {
@@ -61,24 +49,6 @@ const columns = [
         header: i18n.t('Model'),
         filterFn: 'equals',
     }),
-    columnHelper.accessor('status', {
-        header: i18n.t('Status'),
-        filterFn: 'equals',
-        enableSorting: false,
-        cell: (info) => info.getValue() ? (
-            <Chip dense>
-                {labelByStatus[info.getValue() as keyof typeof labelByStatus]}
-            </Chip>
-        ) : null,
-    }),
-    columnHelper.accessor('startDate', {
-        header: i18n.t('Start Date'),
-        cell: (info) => info.getValue() ? new Date(info.getValue()!).toLocaleString() : undefined,
-    }),
-    columnHelper.accessor('endDate', {
-        header: i18n.t('End Date'),
-        cell: (info) => info.getValue() ? new Date(info.getValue()!).toLocaleString() : undefined,
-    }),
     columnHelper.display({
         id: 'actions',
         header: i18n.t('Actions'),
@@ -91,10 +61,9 @@ const columns = [
     }),
 ];
 
-const getSortDirection = (column: any) => {
-    if (!column.getIsSorted()) return 'default';
-    return column.getIsSorted() as 'asc' | 'desc';
-};
+const getSortDirection = (column: Column<BackTestRead>) => {
+    return column.getIsSorted() || 'default'
+}
 
 type Props = {
     backtests: BackTestRead[];
@@ -108,11 +77,6 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
         columns,
         initialState: {
             sorting: [{ id: 'created', desc: true }],
-            columnVisibility: {
-                startDate: false,
-                endDate: false,
-                status: false,
-            },
         },
         getRowId: (row) => row.id.toString(),
         enableRowSelection: true,
@@ -133,7 +97,6 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
                     <div className={styles.leftSection}>
                         <BacktestsTableFilters
                             table={table}
-                            statuses={statuses}
                             models={models}
                         />
                     </div>
@@ -216,7 +179,7 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
 
                 <DataTableFoot>
                     <DataTableRow>
-                        <DataTableCell colSpan={String(table.getAllColumns().length)}>
+                        <DataTableCell colSpan={String(table.getAllColumns().length + 1)}>
                             <Pagination
                                 page={table.getState().pagination.pageIndex + 1}
                                 pageSize={table.getState().pagination.pageSize}
