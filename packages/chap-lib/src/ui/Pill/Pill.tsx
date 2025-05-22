@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import cx from 'classnames';
 import styles from './Pill.module.css';
 
-export type PillVariant = 'default' | 'destructive' | 'info' | 'warning';
+export type PillVariant = 'default' | 'destructive' | 'info' | 'warning' | 'success';
 
 interface PillProps {
     children: ReactNode;
@@ -17,6 +17,7 @@ export const Pill = ({ children, variant = 'default' }: PillProps) => {
                 [styles.destructive]: variant === 'destructive',
                 [styles.info]: variant === 'info',
                 [styles.warning]: variant === 'warning',
+                [styles.success]: variant === 'success',
             })}
         >
             <div className={styles.pill}>

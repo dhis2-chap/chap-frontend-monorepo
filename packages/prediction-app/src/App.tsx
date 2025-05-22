@@ -71,7 +71,7 @@ const router = createHashRouter([
                         element: <EvaluationsWIPPage />,
                     },
                     {
-                        path: '/active-jobs',
+                        path: '/jobs',
                         element: <ActiveJobsPage />,
                     },
                     {

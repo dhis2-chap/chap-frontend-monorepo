@@ -1,11 +1,13 @@
 import React from 'react';
-import { Pill, PillVariant } from '../Pill';
+import { Pill } from '../Pill';
 import { Ping } from '../Ping';
 import styles from './StatusIndicator.module.css';
 
-export interface StatusIndicatorProps {
+export type StatusIndicatorVariant = 'default' | 'destructive' | 'info' | 'warning' | 'success';
+
+export type Props = {
     label: string;
-    variant?: PillVariant;
+    variant?: StatusIndicatorVariant;
     active?: boolean;
 }
 
@@ -13,7 +15,7 @@ export const StatusIndicator = ({
     label,
     variant = 'default',
     active = false,
-}: StatusIndicatorProps) => {
+}: Props) => {
     return (
         <Pill variant={variant}>
             <div className={styles.contentWrapper}>

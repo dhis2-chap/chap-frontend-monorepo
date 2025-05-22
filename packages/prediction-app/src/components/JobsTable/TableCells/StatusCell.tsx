@@ -11,8 +11,8 @@ const labelByStatus = {
 };
 
 const statusToVariant: Record<string, PillVariant> = {
-    [JOB_STATUSES.SUCCESS]: 'info',
-    [JOB_STATUSES.PENDING]: 'warning',
+    [JOB_STATUSES.SUCCESS]: 'success',
+    [JOB_STATUSES.PENDING]: 'default',
     [JOB_STATUSES.STARTED]: 'info',
     [JOB_STATUSES.FAILED]: 'destructive',
 };

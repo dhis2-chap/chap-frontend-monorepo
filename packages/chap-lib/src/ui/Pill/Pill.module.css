@@ -11,21 +11,26 @@
 }
 
 .default .pill {
-    background-color: #E5E7EB;
     color: #1F2937;
+    border: 1px solid #c9cbcf;
 }
 
 .destructive .pill {
-    background-color: #FEE2E2;
     color: #991B1B;
+    border: 1px solid #f43f5e;
 }
 
 .info .pill {
-    background-color: #DBEAFE;
-    color: #1C3A94;
+    color: #2d468f;
+    border: 1px solid #7bb7fb;
 }
 
 .warning .pill {
-    background-color: #FEF9C3;
     color: #92400E;
+    border: 1px solid #f59e0b;
+}
+
+.success .pill {
+    color: #065F46;
+    border: 1px solid #0cb182;
 } 
