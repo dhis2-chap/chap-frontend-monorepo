@@ -34,6 +34,7 @@
         "@dhis2/multi-calendar-dates": "^2.1.1",
         "@tanstack/react-query": "4",
         "@tanstack/react-query-devtools": "4",
+        "classnames": "^2.5.1",
         "highcharts": "11.4.8",
         "highcharts-react-official": "^3.2.1",
         "react-virtuoso": "^4.6.2",

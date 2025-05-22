@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-22T13:27:12.201Z\n"
-"PO-Revision-Date: 2025-05-22T13:27:12.201Z\n"
+"POT-Creation-Date: 2025-05-22T14:27:47.139Z\n"
+"PO-Revision-Date: 2025-05-22T14:27:47.139Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -39,15 +39,6 @@ msgstr "Name"
 msgid "Save"
 msgstr "Save"
 
-msgid "Completed"
-msgstr "Completed"
-
-msgid "Running"
-msgstr "Running"
-
-msgid "Failed"
-msgstr "Failed"
-
 msgid "ID"
 msgstr "ID"
 
@@ -77,9 +68,6 @@ msgstr "No models found"
 
 msgid "Clear"
 msgstr "Clear"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "{{count}} evaluations selected"
 msgid_plural "{{count}} evaluations selected"
@@ -126,6 +114,48 @@ msgstr "Oops!"
 msgid "Sorry, an unexpected error has occurred."
 msgstr "Sorry, an unexpected error has occurred."
 
+msgid "Status"
+msgstr "Status"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Start Time"
+msgstr "Start Time"
+
+msgid "End Time"
+msgstr "End Time"
+
+msgid "No jobs available"
+msgstr "No jobs available"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Running"
+msgstr "Running"
+
+msgid "Success"
+msgstr "Success"
+
+msgid "Failed"
+msgstr "Failed"
+
+msgid "Create evaluation"
+msgstr "Create evaluation"
+
+msgid "Evaluation with data"
+msgstr "Evaluation with data"
+
+msgid "Make prediction"
+msgstr "Make prediction"
+
+msgid "Create dataset"
+msgstr "Create dataset"
+
+msgid "Create evaluation with data"
+msgstr "Create evaluation with data"
+
 msgid "Get started with the Modeling app"
 msgstr "Get started with the Modeling app"
 
@@ -146,6 +176,9 @@ msgstr "Compare"
 
 msgid "Predict"
 msgstr "Predict"
+
+msgid "Jobs"
+msgstr "Jobs"
 
 msgid "Evaluations (WIP)"
 msgstr "Evaluations (WIP)"
@@ -394,11 +427,20 @@ msgstr "Start month"
 msgid "End month"
 msgstr "End month"
 
-msgid "Error loading evaluations"
-msgstr "Error loading evaluations"
+msgid "Error loading jobs"
+msgstr "Error loading jobs"
 
 msgid "An unknown error occurred"
 msgstr "An unknown error occurred"
+
+msgid "Active jobs"
+msgstr "Active jobs"
+
+msgid "View and manage currently running jobs and their status."
+msgstr "View and manage currently running jobs and their status."
+
+msgid "Error loading evaluations"
+msgstr "Error loading evaluations"
 
 msgid "Evaluations"
 msgstr "Evaluations"

@@ -1,0 +1,15 @@
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacers-dp16);
+}
+
+.leftSection {
+    display: flex;
+    align-items: center;
+}
+
+.rightSection {
+    display: flex;
+    align-items: center;
+}
