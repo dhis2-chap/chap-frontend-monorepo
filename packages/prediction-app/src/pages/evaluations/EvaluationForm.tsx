@@ -7,7 +7,7 @@ import {
     SingleSelectOption,
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import styles from './EvaluationForm.module.css'
@@ -15,6 +15,8 @@ import styles from './EvaluationForm.module.css'
 const evaluationSchema = z.object({
     name: z.string().min(1, { message: i18n.t('Name is required') }),
     periodType: z.string().min(1, { message: i18n.t('Period type is required') }),
+    fromDate: z.string().min(1, { message: i18n.t('Start date is required') }),
+    toDate: z.string().min(1, { message: i18n.t('End date is required') }),
 })
 
 export type EvaluationFormValues = z.infer<typeof evaluationSchema>
@@ -37,8 +39,12 @@ export const EvaluationForm = ({
         defaultValues: {
             name: '',
             periodType: '',
+            fromDate: '',
+            toDate: '',
         },
     })
+
+    const periodType = useWatch({ control, name: 'periodType' });
 
     const handleFormSubmit = (data: EvaluationFormValues) => {
         onSubmit(data)
@@ -84,6 +90,52 @@ export const EvaluationForm = ({
                         )}
                     />
                     {errors.periodType && <p className={styles.errorText}>{errors.periodType.message}</p>}
+                </div>
+                <div className={styles.datePickersContainer}>
+                    <div className={styles.datePickerField}>
+                        <Label>{i18n.t('From date')}</Label>
+                        <Controller
+                            name="fromDate"
+                            control={control}
+                            render={({ field }) => (
+                                <div style={{ opacity: periodType ? 1 : 0.6 }}>
+                                    <input
+                                        className={styles.input}
+                                        type={periodType || 'text'}
+                                        disabled={!periodType}
+                                        value={field.value}
+                                        onChange={(e) => field.onChange(e.target.value)}
+                                        data-test="evaluation-from-date-input"
+                                    />
+                                    {errors.fromDate && (
+                                        <p className={styles.errorText}>{errors.fromDate.message}</p>
+                                    )}
+                                </div>
+                            )}
+                        />
+                    </div>
+                    <div className={styles.datePickerField}>
+                        <Label>{i18n.t('To date')}</Label>
+                        <Controller
+                            name="toDate"
+                            control={control}
+                            render={({ field }) => (
+                                <div style={{ opacity: periodType ? 1 : 0.6 }}>
+                                    <input
+                                        className={styles.input}
+                                        type={periodType || 'text'}
+                                        disabled={!periodType}
+                                        value={field.value}
+                                        onChange={(e) => field.onChange(e.target.value)}
+                                        data-test="evaluation-to-date-input"
+                                    />
+                                    {errors.toDate && (
+                                        <p className={styles.errorText}>{errors.toDate.message}</p>
+                                    )}
+                                </div>
+                            )}
+                        />
+                    </div>
                 </div>
                 <div className={styles.buttons}>
                     <Button
