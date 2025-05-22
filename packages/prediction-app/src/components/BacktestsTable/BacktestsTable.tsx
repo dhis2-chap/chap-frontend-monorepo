@@ -37,15 +37,15 @@ const columns = [
         id: 'select',
         header: ({ table }) => (
             <Checkbox
-                checked={table.getIsAllRowsSelected()}
-                onChange={table.getToggleAllRowsSelectedHandler()}
+                checked={table.getIsAllPageRowsSelected()}
+                onChange={() => table.toggleAllPageRowsSelected()}
                 disabled={table.getRowModel().rows.length === 0}
             />
         ),
         cell: ({ row }) => (
             <Checkbox
                 checked={row.getIsSelected()}
-                onChange={row.getToggleSelectedHandler()}
+                onChange={() => row.toggleSelected()}
             />
         ),
     }),
