@@ -1,6 +1,8 @@
 import React from 'react'
 import {
     Button,
+    ButtonStrip,
+    IconArrowRightMulti16,
     Input,
     Label,
     SingleSelectField,
@@ -11,6 +13,7 @@ import { useForm, Controller, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import styles from './EvaluationForm.module.css'
+import { useNavigate } from 'react-router-dom'
 
 const evaluationSchema = z.object({
     name: z.string().min(1, { message: i18n.t('Name is required') }),
@@ -21,7 +24,7 @@ const evaluationSchema = z.object({
 
 export type EvaluationFormValues = z.infer<typeof evaluationSchema>
 
-interface EvaluationFormProps {
+type Props = {
     onSubmit: (data: EvaluationFormValues) => void
     isSubmitting?: boolean
 }
@@ -29,7 +32,8 @@ interface EvaluationFormProps {
 export const EvaluationForm = ({
     onSubmit,
     isSubmitting = false,
-}: EvaluationFormProps) => {
+}: Props) => {
+    const navigate = useNavigate()
     const {
         control,
         handleSubmit,
@@ -43,6 +47,10 @@ export const EvaluationForm = ({
             toDate: '',
         },
     })
+
+    const onCancel = () => {
+        navigate('/evaluationsWIP')
+    }
 
     const periodType = useWatch({ control, name: 'periodType' });
 
@@ -65,7 +73,6 @@ export const EvaluationForm = ({
 
     return (
         <div className={styles.formWrapper}>
-            <h2 className={styles.formTitle}>{i18n.t('New evaluation')}</h2>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
                 <div className={styles.formField}>
                     <Label htmlFor="evaluation-name">{i18n.t('Evaluation name')}</Label>
@@ -111,7 +118,7 @@ export const EvaluationForm = ({
                             name="fromDate"
                             control={control}
                             render={({ field }) => (
-                                <div style={{ opacity: periodType ? 1 : 0.6 }}>
+                                <div>
                                     <input
                                         className={styles.input}
                                         type={periodType ? getInputType(periodType) : 'text'}
@@ -119,6 +126,7 @@ export const EvaluationForm = ({
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
                                         data-test="evaluation-from-date-input"
+                                        style={{ opacity: periodType ? 1 : 0.6 }}
                                     />
                                     {errors.fromDate && (
                                         <p className={styles.errorText}>{errors.fromDate.message}</p>
@@ -133,7 +141,7 @@ export const EvaluationForm = ({
                             name="toDate"
                             control={control}
                             render={({ field }) => (
-                                <div style={{ opacity: periodType ? 1 : 0.6 }}>
+                                <div>
                                     <input
                                         className={styles.input}
                                         type={periodType ? getInputType(periodType) : 'text'}
@@ -141,6 +149,7 @@ export const EvaluationForm = ({
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
                                         data-test="evaluation-to-date-input"
+                                        style={{ opacity: periodType ? 1 : 0.6 }}
                                     />
                                     {errors.toDate && (
                                         <p className={styles.errorText}>{errors.toDate.message}</p>
@@ -151,14 +160,23 @@ export const EvaluationForm = ({
                     </div>
                 </div>
                 <div className={styles.buttons}>
-                    <Button
-                        type="submit"
-                        primary
-                        loading={isSubmitting}
-                        disabled={isSubmitting}
-                    >
-                        {i18n.t('Start job')}
-                    </Button>
+                    <ButtonStrip>
+                        <Button
+                            type="button"
+                            onClick={() => onCancel()}
+                        >
+                            {i18n.t('Cancel')}
+                        </Button>
+                        <Button
+                            type="submit"
+                            primary
+                            icon={<IconArrowRightMulti16 />}
+                            loading={isSubmitting}
+                            disabled={isSubmitting}
+                        >
+                            {i18n.t('Start job')}
+                        </Button>
+                    </ButtonStrip>
                 </div>
             </form>
         </div>

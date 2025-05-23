@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-22T13:27:12.201Z\n"
-"PO-Revision-Date: 2025-05-22T13:27:12.201Z\n"
+"POT-Creation-Date: 2025-05-22T19:38:00.233Z\n"
+"PO-Revision-Date: 2025-05-22T19:38:00.234Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -39,15 +39,6 @@ msgstr "Name"
 msgid "Save"
 msgstr "Save"
 
-msgid "Completed"
-msgstr "Completed"
-
-msgid "Running"
-msgstr "Running"
-
-msgid "Failed"
-msgstr "Failed"
-
 msgid "ID"
 msgstr "ID"
 
@@ -77,9 +68,6 @@ msgstr "No models found"
 
 msgid "Clear"
 msgstr "Clear"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "{{count}} evaluations selected"
 msgid_plural "{{count}} evaluations selected"
@@ -281,6 +269,9 @@ msgstr "Python Version"
 msgid "Operating System"
 msgstr "Operating System"
 
+msgid "Status"
+msgstr "Status"
+
 msgid "Connected"
 msgstr "Connected"
 
@@ -409,3 +400,6 @@ msgid ""
 msgstr ""
 "Evaluates the accuracy of a predictive model using historical data. "
 "Compares actual outcomes with predicted values to assess model performance."
+
+msgid "Start job"
+msgstr "Start job"

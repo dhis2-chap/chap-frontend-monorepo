@@ -106,7 +106,6 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
                             primary
                             icon={<IconAdd16 />}
                             small
-                            disabled
                             onClick={() => {
                                 navigate('/evaluations/new');
                             }}
