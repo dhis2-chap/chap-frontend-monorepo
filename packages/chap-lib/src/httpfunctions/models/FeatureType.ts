@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ModelInfo = {
-    author: string;
+export type FeatureType = {
+    displayName: string;
     description: string;
-    organization: (string | null);
+    name?: string;
 };
 

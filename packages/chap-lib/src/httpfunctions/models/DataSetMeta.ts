@@ -2,13 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PredictionInfo = {
-    datasetId: number;
-    modelId: string;
-    nPeriods: number;
-    name: string;
-    created: string;
-    metaData?: Record<string, any>;
+export type DataSetMeta = {
     id: number;
+    name: string;
+    type: (string | null);
+    created: string;
+    covariates: Array<string>;
 };
 

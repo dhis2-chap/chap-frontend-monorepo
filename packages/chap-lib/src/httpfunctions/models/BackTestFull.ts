@@ -4,15 +4,16 @@
 /* eslint-disable */
 import type { BackTestForecast } from './BackTestForecast';
 import type { BackTestMetric } from './BackTestMetric';
+import type { DataSetMeta } from './DataSetMeta';
 export type BackTestFull = {
     datasetId: number;
     modelId: string;
     name?: (string | null);
     created?: (string | null);
     id: number;
-    startDate?: (string | null);
-    endDate?: (string | null);
-    orgUnitIds?: Array<string>;
+    orgUnits?: Array<string>;
+    splitPeriods?: Array<string>;
+    dataset: DataSetMeta;
     metrics: Array<BackTestMetric>;
     forecasts: Array<BackTestForecast>;
 };
