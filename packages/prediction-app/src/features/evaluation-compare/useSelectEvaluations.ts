@@ -18,7 +18,7 @@ evaluationParamsSchema.shape.comparisonEvaluation._type
 const PARAMS_KEYS = {
     baseEvaluation: 'baseEvaluation',
     comparisonEvaluation: 'comparisonEvaluation',
-    splitPeriod: 'splitPeriod',
+    splitPoint: 'splitPoint',
     orgUnit: 'orgUnit',
 }
 
@@ -177,25 +177,25 @@ export const useSelectedEvaluationsController =
         }
     }
 
-export const useSelectedSplitPeriod = () => {
+export const useSelectedSplitPoint = () => {
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const splitPeriod = searchParams.get(PARAMS_KEYS.splitPeriod)
-    const setSplitPeriod = useCallback(
-        (splitPeriod: string | undefined) => {
+    const splitPoint = searchParams.get(PARAMS_KEYS.splitPoint)
+    const setSplitPoint = useCallback(
+        (splitPoint: string | undefined) => {
             setSearchParams((prev) => {
                 const updatedParams = new URLSearchParams(prev)
-                if (splitPeriod) {
-                    updatedParams.set(PARAMS_KEYS.splitPeriod, splitPeriod)
+                if (splitPoint) {
+                    updatedParams.set(PARAMS_KEYS.splitPoint, splitPoint)
                 } else {
-                    updatedParams.delete(PARAMS_KEYS.splitPeriod)
+                    updatedParams.delete(PARAMS_KEYS.splitPoint)
                 }
                 return updatedParams
             })
         },
         [setSearchParams]
     )
-    return [splitPeriod, setSplitPeriod] as const
+    return [splitPoint, setSplitPoint] as const
 }
 
 export const useSelectedOrgUnits = () => {
