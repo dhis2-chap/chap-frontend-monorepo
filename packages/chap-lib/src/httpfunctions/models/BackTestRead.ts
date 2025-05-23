@@ -13,4 +13,3 @@ export type BackTestRead = {
     splitPeriods?: Array<string>;
     dataset: DataSetMeta;
 };
-

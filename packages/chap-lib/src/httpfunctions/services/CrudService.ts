@@ -280,6 +280,7 @@ export class CrudService {
     }
     /**
      * List Models
+     * List all configured models from the db (new db tables)
      * @returns ModelSpecRead Successful Response
      * @throws ApiError
      */
