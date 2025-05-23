@@ -18,16 +18,14 @@ const SplitPeriodSelector = ({
     selectedSplitPeriod,
     ...singleSelectFieldProps
 }: SplitPeriodSelectorProps) => {
-    if (!splitPeriods.includes(selectedSplitPeriod)) {
-        return <></>
-    }
+    const selectedInAvailable = splitPeriods.includes(selectedSplitPeriod)
 
     return (
         <div>
             <div>
                 <SingleSelectField
                     {...singleSelectFieldProps}
-                    selected={selectedSplitPeriod}
+                    selected={selectedInAvailable ? selectedSplitPeriod : undefined}
                     onChange={(e) => setSelectedSplitPeriod(e.selected)}
                 >
                     {splitPeriods.map((splitPeriod, i) => (

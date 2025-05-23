@@ -131,7 +131,7 @@ export const EvaluationCompare = () => {
                         setSelectedSplitPeriod={setSelectedSplitPeriod}
                         filterable
                         noMatchText={i18n.t('No split periods found')}
-                        disabled={noMatchingSplitPeriods}
+                        disabled={noMatchingSplitPeriods || resolvedSplitPeriods.length < 1}
                     />
                     <MultiSelect
                         prefix={i18n.t('Organisation Units')}
