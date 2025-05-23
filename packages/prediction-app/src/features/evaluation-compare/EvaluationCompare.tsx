@@ -7,7 +7,7 @@ import {
     EvaluationCompatibleSelector,
     EvaluationSelectorBase,
 } from '../select-evaluation/EvaluationSelector'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import css from './EvaluationCompare.module.css'
 import {
     Help,
@@ -28,6 +28,7 @@ import { usePlotDataForEvaluations } from '../../hooks/usePlotDataForEvaluations
 import { useEvaluationOverlap } from '../../hooks/useEvaluationOverlap'
 import { useOrgUnitsById } from '../../hooks/useOrgUnitsById'
 import PageHeader from '../common-features/PageHeader/PageHeader'
+import OrganisationUnitMultiSelect from '../../components/OrganisationUnitsSelect/OrganisationUnitMultiSelect'
 
 const MAX_SELECTED_ORG_UNITS = 10
 
@@ -51,9 +52,12 @@ export const EvaluationCompare = () => {
         comparisonEvaluation: comparisonEvaluation?.id,
     })
 
-    const { combined } = usePlotDataForEvaluations(selectedEvaluations, {
-        orgUnits: evaluationOverlap.data?.orgUnits.map((ou) => ou),
-    })
+    const resolvedSplitPoints = evaluationOverlap.isSuccess
+        ? evaluationOverlap.data.splitPeriods
+        : baseEvaluation?.splitPeriods ?? []
+
+    const resolvedSelectedSplitPoint =
+        selectedSplitPoint ?? resolvedSplitPoints[0]
 
     const availableOrgUnitIds = evaluationOverlap.isSuccess
         ? evaluationOverlap.data.orgUnits
@@ -61,7 +65,10 @@ export const EvaluationCompare = () => {
 
     const orgUnits = useOrgUnitsById(availableOrgUnitIds)
 
-    const compatibleSelectedOrgUnits = selectedOrgUnits
+    console.log({ resolvedSplitPoints })
+    const resolvedSelectedOrgUnits =
+        selectedOrgUnits?.length > 0 ? selectedOrgUnits : availableOrgUnitIds
+    const compatibleSelectedOrgUnits = resolvedSelectedOrgUnits
         .flatMap((ou) => {
             const unit = orgUnits.data?.organisationUnits.find(
                 (o) => o.id === ou
@@ -70,25 +77,44 @@ export const EvaluationCompare = () => {
         })
         .slice(0, MAX_SELECTED_ORG_UNITS)
 
-    const resolvedSplitPeriods = evaluationOverlap.isSuccess
-        ? evaluationOverlap.data.splitPeriods
-        : combined.splitPeriods
-
     const noMatchingSplitPeriods =
         evaluationOverlap.isSuccess &&
         evaluationOverlap.data.splitPeriods.length === 0
 
+    const { combined } = usePlotDataForEvaluations(selectedEvaluations, {
+        orgUnits: compatibleSelectedOrgUnits.map((ou) => ou.id),
+        splitPeriod: resolvedSelectedSplitPoint ?? undefined,
+    })
+
     // reset split period if not compatible
     useEffect(() => {
         if (
-            selectedSplitPoint &&
-            resolvedSplitPeriods.length > 0 &&
-            !resolvedSplitPeriods.some((sp) => sp === selectedSplitPoint)
+            resolvedSelectedSplitPoint &&
+            resolvedSplitPoints.length > 0 &&
+            !resolvedSplitPoints.some((sp) => sp === selectedSplitPoint)
         ) {
             setSelectedSplitPoint(undefined)
         }
-    }, [resolvedSplitPeriods, selectedSplitPoint])
-    console.log({ combined })
+    }, [resolvedSplitPoints, selectedSplitPoint])
+
+    const evaluationsPerOrgUnit = useMemo(() => {
+        return combined.viewData
+            .filter((v) => v.splitPoint === resolvedSelectedSplitPoint)
+            .flatMap((v) =>
+                v.evaluation.map((e) => ({
+                    ...e,
+                    orgUnitName:
+                        orgUnits.data?.organisationUnits.find(
+                            (ou) => ou.id === e.orgUnitId
+                        )?.displayName ?? e.orgUnitId,
+                }))
+            )
+    }, [
+        combined.viewData,
+        resolvedSelectedSplitPoint,
+        orgUnits.data?.organisationUnits,
+    ])
+    console.log({ data: evaluationsPerOrgUnit, resolvedSelectedSplitPoint })
     return (
         <div className={css.wrapper}>
             <PageHeader
@@ -126,60 +152,36 @@ export const EvaluationCompare = () => {
                                   )
                                 : i18n.t('Split Period')
                         }
-                        splitPeriods={resolvedSplitPeriods}
-                        selectedSplitPeriod={
-                            selectedSplitPoint || resolvedSplitPeriods[0] || ''
-                        }
+                        splitPeriods={resolvedSplitPoints}
+                        selectedSplitPeriod={resolvedSelectedSplitPoint}
                         setSelectedSplitPeriod={setSelectedSplitPoint}
                         filterable
                         noMatchText={i18n.t('No split periods found')}
                         disabled={
                             noMatchingSplitPeriods ||
-                            resolvedSplitPeriods.length < 1
+                            resolvedSplitPoints.length < 1
                         }
                     />
-                    <MultiSelect
+                    <OrganisationUnitMultiSelect
                         prefix={i18n.t('Organisation Units')}
                         selected={compatibleSelectedOrgUnits.map((ou) => ou.id)}
                         disabled={availableOrgUnitIds.length < 1}
-                        onChange={({ selected }) => {
-                            console.log({ selected })
+                        onSelect={({ selected }) =>
                             setSelectedOrgUnits(selected)
-                        }}
+                        }
+                        available={orgUnits.data?.organisationUnits ?? []}
                         inputMaxHeight="26px"
-                    >
-                        {compatibleSelectedOrgUnits.length >=
-                            MAX_SELECTED_ORG_UNITS && (
-                            <Help>
-                                {i18n.t(
-                                    'You cannot select more than {{max}} organisation units at a time',
-                                    {
-                                        max: MAX_SELECTED_ORG_UNITS,
-                                    }
-                                )}
-                            </Help>
-                        )}
-                        {orgUnits.data?.organisationUnits.map((ou) => (
-                            <MultiSelectOption
-                                key={ou.id}
-                                label={ou.displayName}
-                                value={ou.id}
-                            />
-                        ))}
-                    </MultiSelect>
+                        maxSelections={MAX_SELECTED_ORG_UNITS}
+                    />
                 </div>
             </div>
 
             <div>
                 {combined.viewData.length > 0 && (
-                    <>
-                        <ComparionPlotWrapper
-                            evaluationName="test"
-                            modelName="test"
-                            evaluations={combined.viewData}
-                            splitPeriods={resolvedSplitPeriods}
-                        />
-                    </>
+                    <ComparisonPlotList
+                        useVirtuoso={false}
+                        evaluationPerOrgUnits={evaluationsPerOrgUnit}
+                    />
                 )}
             </div>
             {selectedEvaluations.length === 0 && <EmptySelection />}
