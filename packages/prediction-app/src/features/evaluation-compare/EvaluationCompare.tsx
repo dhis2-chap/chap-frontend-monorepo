@@ -6,6 +6,7 @@ import {
 import React, { useEffect } from 'react'
 import css from './EvaluationCompare.module.css'
 import {
+    Help,
     IconArrowLeft16,
     IconArrowRight16,
     IconVisualizationLine24,
@@ -24,6 +25,8 @@ import { useEvaluationOverlap } from '../../hooks/useEvaluationOverlap'
 import { useOrgUnitsById } from '../../hooks/useOrgUnitsById'
 import PageHeader from '../common-features/PageHeader/PageHeader'
 
+const MAX_SELECTED_ORG_UNITS = 10
+
 export const EvaluationCompare = () => {
     const {
         query: evaluationsQuery,
@@ -33,30 +36,37 @@ export const EvaluationCompare = () => {
         setComparisonEvaluation,
     } = useSelectedEvaluationsController()
 
-    const [selectedOrgUnits, setSelectedOrgUnits] = useSelectedOrgUnits()
-
-    const [selectedSplitPeriod, setSelectedSplitPeriod] =
-        useSelectedSplitPeriod()
-
     const selectedEvaluations = [baseEvaluation, comparisonEvaluation].filter(
         (e) => !!e
     )
+    const [selectedOrgUnits, setSelectedOrgUnits] = useSelectedOrgUnits()
+    const [selectedSplitPeriod, setSelectedSplitPeriod] =
+        useSelectedSplitPeriod()
 
     const evaluationOverlap = useEvaluationOverlap({
         baseEvaluation: baseEvaluation?.id,
         comparisonEvaluation: comparisonEvaluation?.id,
     })
 
-    const { queries, combined } = usePlotDataForEvaluations(
-        selectedEvaluations,
-        {
-            orgUnits: evaluationOverlap.data?.orgUnits.map((ou) => ou),
-            // splitPeriod: selectedSplitPeriod,
-        }
-    )
-    const orgUnits = useOrgUnitsById(
-        evaluationOverlap.data?.orgUnits.map((ou) => ou) ?? []
-    )
+    const { combined } = usePlotDataForEvaluations(selectedEvaluations, {
+        orgUnits: evaluationOverlap.data?.orgUnits.map((ou) => ou),
+        // splitPeriod: selectedSplitPeriod,
+    })
+
+    const availableOrgUnitIds = evaluationOverlap.isSuccess
+        ? evaluationOverlap.data.orgUnits
+        : baseEvaluation?.orgUnits ?? []
+
+    const orgUnits = useOrgUnitsById(availableOrgUnitIds)
+
+    const compatibleSelectedOrgUnits = selectedOrgUnits
+        .flatMap((ou) => {
+            const unit = orgUnits.data?.organisationUnits.find(
+                (o) => o.id === ou
+            )
+            return unit ? [unit] : []
+        })
+        .slice(0, MAX_SELECTED_ORG_UNITS)
 
     const resolvedSplitPeriods = evaluationOverlap.isSuccess
         ? evaluationOverlap.data.splitPeriods
@@ -66,6 +76,7 @@ export const EvaluationCompare = () => {
         evaluationOverlap.isSuccess &&
         evaluationOverlap.data.splitPeriods.length === 0
 
+    // reset split period if not compatible
     useEffect(() => {
         if (
             selectedSplitPeriod &&
@@ -124,17 +135,25 @@ export const EvaluationCompare = () => {
                     />
                     <MultiSelect
                         prefix={i18n.t('Organisation Units')}
-                        selected={selectedOrgUnits.filter((ou) =>
-                            orgUnits.data?.organisationUnits.some(
-                                (o) => o.id === ou
-                            )
-                        )}
-                        disabled={orgUnits.data?.organisationUnits.length === 0}
+                        selected={compatibleSelectedOrgUnits.map((ou) => ou.id)}
+                        disabled={availableOrgUnitIds.length < 1}
                         onChange={({ selected }) => {
                             console.log({ selected })
                             setSelectedOrgUnits(selected)
                         }}
+                        inputMaxHeight="26px"
                     >
+                        {compatibleSelectedOrgUnits.length >=
+                            MAX_SELECTED_ORG_UNITS && (
+                            <Help>
+                                {i18n.t(
+                                    'You cannot select more than {{max}} organisation units at a time',
+                                    {
+                                        max: MAX_SELECTED_ORG_UNITS,
+                                    }
+                                )}
+                            </Help>
+                        )}
                         {orgUnits.data?.organisationUnits.map((ou) => (
                             <MultiSelectOption
                                 key={ou.id}
@@ -148,7 +167,6 @@ export const EvaluationCompare = () => {
 
             <div>
                 {combined.viewData.length > 0 && (
-                    // <ComparisonPlotList evaluationPerOrgUnits={combined.viewData.map(vd => vd.evaluation.map(e => e.))} />
                     <ComparionPlotWrapper
                         evaluationName="test"
                         modelName="test"
