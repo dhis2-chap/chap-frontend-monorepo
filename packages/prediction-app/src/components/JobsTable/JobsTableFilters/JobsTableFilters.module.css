@@ -1,5 +1,5 @@
 .inputContainer {
-    margin-right: var(--spacers-dp8);
+    margin-inline-end: var(--spacers-dp8);
     width: 200px;
     transition: width 0.3s ease;
 }
@@ -9,7 +9,7 @@
 }
 
 .singleSelectContainer {
-    margin-right: var(--spacers-dp8);
+    margin-inline-end: var(--spacers-dp8);
     width: 200px;
 }
 

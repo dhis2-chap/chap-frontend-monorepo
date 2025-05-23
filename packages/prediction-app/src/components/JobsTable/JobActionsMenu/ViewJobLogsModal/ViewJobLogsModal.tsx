@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Modal, ModalTitle, ModalContent, ModalActions, Button, CircularLoader } from '@dhis2/ui';
 import { useQuery } from '@tanstack/react-query';
 import { ApiError, JobsService } from '@dhis2-chap/chap-lib';
@@ -17,6 +17,16 @@ const PAGE_STATUS = {
     ERROR: 'error',
     SUCCESS: 'success',
 }
+
+const getPageStatus = ({ isLoading, error }: { isLoading: boolean, error: ApiError | Error | null }) => {
+    if (isLoading) {
+        return PAGE_STATUS.LOADING;
+    }
+    if (error) {
+        return PAGE_STATUS.ERROR;
+    }
+    return PAGE_STATUS.SUCCESS;
+};
 
 export const ViewJobLogsModal = ({ jobId, status, onClose }: ViewJobLogsModalProps) => {
     const logRef = useRef<HTMLPreElement>(null);
@@ -43,16 +53,9 @@ export const ViewJobLogsModal = ({ jobId, status, onClose }: ViewJobLogsModalPro
         }
     }, [logs]);
 
-    const pageStatus = useMemo(() => {
-        if (isLoading) {
-            return PAGE_STATUS.LOADING;
-        }
-        if (error) {
-            return PAGE_STATUS.ERROR;
-        }
-        return PAGE_STATUS.SUCCESS;
-    }, [isLoading, error]);
-    
+
+    const pageStatus = getPageStatus({ isLoading, error });
+
     return (
         <Modal onClose={onClose} fluid={pageStatus === PAGE_STATUS.SUCCESS}>
             <ModalTitle>{i18n.t('Job Logs')} - {jobId}</ModalTitle>
