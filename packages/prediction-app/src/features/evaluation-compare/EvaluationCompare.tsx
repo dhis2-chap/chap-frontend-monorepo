@@ -1,4 +1,8 @@
-import { ComparionPlotWrapper, SplitPeriodSelector } from '@dhis2-chap/chap-lib'
+import {
+    ComparionPlotWrapper,
+    ComparisonPlotList,
+    SplitPeriodSelector,
+} from '@dhis2-chap/chap-lib'
 import {
     EvaluationCompatibleSelector,
     EvaluationSelectorBase,
@@ -18,7 +22,7 @@ import i18n from '@dhis2/d2-i18n'
 import {
     useSelectedEvaluationsController,
     useSelectedOrgUnits,
-    useSelectedSplitPeriod,
+    useSelectedSplitPoint,
 } from './useSelectEvaluations'
 import { usePlotDataForEvaluations } from '../../hooks/usePlotDataForEvaluations'
 import { useEvaluationOverlap } from '../../hooks/useEvaluationOverlap'
@@ -40,8 +44,7 @@ export const EvaluationCompare = () => {
         (e) => !!e
     )
     const [selectedOrgUnits, setSelectedOrgUnits] = useSelectedOrgUnits()
-    const [selectedSplitPeriod, setSelectedSplitPeriod] =
-        useSelectedSplitPeriod()
+    const [selectedSplitPoint, setSelectedSplitPoint] = useSelectedSplitPoint()
 
     const evaluationOverlap = useEvaluationOverlap({
         baseEvaluation: baseEvaluation?.id,
@@ -50,7 +53,6 @@ export const EvaluationCompare = () => {
 
     const { combined } = usePlotDataForEvaluations(selectedEvaluations, {
         orgUnits: evaluationOverlap.data?.orgUnits.map((ou) => ou),
-        // splitPeriod: selectedSplitPeriod,
     })
 
     const availableOrgUnitIds = evaluationOverlap.isSuccess
@@ -79,14 +81,14 @@ export const EvaluationCompare = () => {
     // reset split period if not compatible
     useEffect(() => {
         if (
-            selectedSplitPeriod &&
+            selectedSplitPoint &&
             resolvedSplitPeriods.length > 0 &&
-            !resolvedSplitPeriods.some((sp) => sp === selectedSplitPeriod)
+            !resolvedSplitPeriods.some((sp) => sp === selectedSplitPoint)
         ) {
-            setSelectedSplitPeriod(undefined)
+            setSelectedSplitPoint(undefined)
         }
-    }, [resolvedSplitPeriods, selectedSplitPeriod])
-
+    }, [resolvedSplitPeriods, selectedSplitPoint])
+    console.log({ combined })
     return (
         <div className={css.wrapper}>
             <PageHeader
@@ -126,12 +128,15 @@ export const EvaluationCompare = () => {
                         }
                         splitPeriods={resolvedSplitPeriods}
                         selectedSplitPeriod={
-                            selectedSplitPeriod || resolvedSplitPeriods[0] || ''
+                            selectedSplitPoint || resolvedSplitPeriods[0] || ''
                         }
-                        setSelectedSplitPeriod={setSelectedSplitPeriod}
+                        setSelectedSplitPeriod={setSelectedSplitPoint}
                         filterable
                         noMatchText={i18n.t('No split periods found')}
-                        disabled={noMatchingSplitPeriods || resolvedSplitPeriods.length < 1}
+                        disabled={
+                            noMatchingSplitPeriods ||
+                            resolvedSplitPeriods.length < 1
+                        }
                     />
                     <MultiSelect
                         prefix={i18n.t('Organisation Units')}
@@ -167,12 +172,14 @@ export const EvaluationCompare = () => {
 
             <div>
                 {combined.viewData.length > 0 && (
-                    <ComparionPlotWrapper
-                        evaluationName="test"
-                        modelName="test"
-                        evaluations={combined.viewData}
-                        splitPeriods={resolvedSplitPeriods}
-                    />
+                    <>
+                        <ComparionPlotWrapper
+                            evaluationName="test"
+                            modelName="test"
+                            evaluations={combined.viewData}
+                            splitPeriods={resolvedSplitPeriods}
+                        />
+                    </>
                 )}
             </div>
             {selectedEvaluations.length === 0 && <EmptySelection />}
