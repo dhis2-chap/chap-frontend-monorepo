@@ -19,6 +19,7 @@ import { Period } from '../timeperiod-selector/interfaces/Period'
 import { DatasetLayer } from '../new-dataset/interfaces/DataSetLayer'
 import { useConfig } from '@dhis2/app-runtime'
 import { createFixedPeriodFromPeriodId } from '@dhis2/multi-calendar-dates'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface SendChapDataProps {
     onSendAction: 'predict' | 'new-dataset'
@@ -41,6 +42,8 @@ export const SendChapData = ({
     orgUnitLevel,
     dataLayers,
 }: SendChapDataProps) => {
+    const queryClient = useQueryClient();
+
     //States applies for both "predict" and "new-dataset"
     const [startDownload, setStartDownload] = useState<{
         action: 'download' | 'predict' | 'new-dataset'
@@ -319,6 +322,7 @@ export const SendChapData = ({
             .then(() => {
                 setErrorChapMsg('')
                 onDrawerSubmit()
+                queryClient.invalidateQueries({ queryKey: ['jobs'] });
             })
             .catch((error: any) => {
                 if (error?.body?.detail)
@@ -342,6 +346,7 @@ export const SendChapData = ({
         )
             .then(() => {
                 onDrawerSubmit()
+                queryClient.invalidateQueries({ queryKey: ['jobs'] });
             })
             .catch((error: any) => {
                 if (error?.body?.detail)

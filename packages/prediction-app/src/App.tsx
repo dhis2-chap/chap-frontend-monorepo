@@ -20,8 +20,9 @@ import { Layout } from './components/layout/Layout'
 import { RouteValidator } from './components/RouteValidator'
 import InfoAboutReportingBugs from './features/common-features/InfoAboutReportingBugs/InfoAboutReportingBugs'
 import WarnAboutIncompatibleVersion from './features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
-import { EvaluationsWIPPage } from './pages/EvaluationsWIPPage'
+import { EvaluationsWIPPage } from './pages/EvaluationWIPPAge'
 import { ChapValidator } from './components/ChapValidator'
+import { JobsPage } from './pages/JobsPage'
 
 export type RouteHandle = {
     fullWidth?: boolean
@@ -68,6 +69,10 @@ const router = createHashRouter([
                     {
                         path: '/evaluationsWIP',
                         element: <EvaluationsWIPPage />,
+                    },
+                    {
+                        path: '/jobs',
+                        element: <JobsPage />,
                     },
                     {
                         path: '/predict',

@@ -21,7 +21,7 @@ export const BacktestsTableFilters = ({ table, models }: Props) => {
                 <Input
                     dense
                     placeholder={i18n.t('Search')}
-                    value={table.getColumn('name')?.getFilterValue() as string | undefined}
+                    value={(table.getColumn('name')?.getFilterValue() as string | undefined) ?? ''}
                     onChange={(e) => table.getColumn('name')?.setFilterValue(e.value)}
                 />
             </div>

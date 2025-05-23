@@ -1,7 +1,6 @@
 import { NoticeBox } from '@dhis2/ui'
 import React, { useEffect, useRef, useState } from 'react'
 import style from './WarnAboutIncompatibleVersion.module.css'
-import { maxWidth } from '../../navbar/NavBar'
 import {
     DefaultService,
 } from '@dhis2-chap/chap-lib'
@@ -51,7 +50,7 @@ const WarnAboutIncompatibleVersion = () => {
             {isCompatible && !isCompatible?.compatible && (
                 <div
                     className={style.warningMargin}
-                    style={{ maxWidth: maxWidth }}
+                    style={{ maxWidth: '1400px' }}
                 >
                     <div className={style.warningMarginInner}>
                         <NoticeBox error title="Incompatible versions">
