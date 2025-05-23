@@ -1,0 +1,56 @@
+.formContainer {
+    padding: 16px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+}
+
+.formTitle {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.formField {
+    margin-bottom: 16px;
+}
+
+.errorText {
+    color: #d63031;
+    font-size: 0.875rem;
+    margin-top: 4px;
+}
+
+.covariate {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.covariateInput {
+    flex: 1;
+    margin-right: 8px;
+}
+
+.covariatesList {
+    margin-top: 8px;
+}
+
+.covariateItem {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.covariateItemText {
+    flex: 1;
+}
+
+.actionButtons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}

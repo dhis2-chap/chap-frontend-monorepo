@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { PageHeader } from '../common-features/PageHeader/PageHeader'
 import { useModelTemplates } from '../../hooks/useModelTemplates'
 import { useRoute } from '../../hooks/useRoute'
 import { CircularLoader } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import styles from './ModelTemplatesOverview.module.css'
+import ModelTemplateConfigForm, { ModelTemplateConfigFormValues } from './components/ModelTemplateConfigForm/ModelTemplateConfigForm'
 
 export const ModelTemplatesOverview = () => {
     const { route } = useRoute()
     const { modelTemplates, error, isLoading } = useModelTemplates({ route })
+    const [configuredModel, setConfiguredModel] = useState<ModelTemplateConfigFormValues | null>(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const handleSubmit = (data: ModelTemplateConfigFormValues) => {
+        setIsSubmitting(true)
+        console.log('Configured model:', data)
+        setConfiguredModel(data)
+        setIsSubmitting(false)
+    }
 
     const renderContent = () => {
         if (isLoading) {
@@ -37,8 +47,23 @@ export const ModelTemplatesOverview = () => {
         }
 
         return (
-            <div className={styles.dataContainer}>
-                <pre>{JSON.stringify(modelTemplates, null, 2)}</pre>
+            <div>
+                <ModelTemplateConfigForm 
+                    onSubmit={handleSubmit} 
+                    isLoading={isSubmitting} 
+                />
+                
+                <div className={styles.dataContainer}>
+                    <h3>{i18n.t('Available Templates')}</h3>
+                    <pre>{JSON.stringify(modelTemplates, null, 2)}</pre>
+                    
+                    {configuredModel && (
+                        <div className={styles.configuredModelContainer}>
+                            <h3>{i18n.t('Configured Model')}</h3>
+                            <pre>{JSON.stringify(configuredModel, null, 2)}</pre>
+                        </div>
+                    )}
+                </div>
             </div>
         )
     }
