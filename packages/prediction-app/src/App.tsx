@@ -10,6 +10,7 @@ import './locales'
 import './App.css'
 import PageWrapper from './components/PageWrapper'
 import EvaluationPage from './pages/EvaluationPage'
+import ModelTemplatesPage from './pages/ModelTemplatesPage'
 import PredictionOverview from './features/predictions-overview/PredictionOverview'
 import { SetChapUrl } from './features/route-api/SetChapUrl'
 import { SettingsPage } from './features/settings/Settings'
@@ -77,6 +78,10 @@ const router = createHashRouter([
                     {
                         path: '/predict',
                         element: <PredictionOverview />,
+                    },
+                    {
+                        path: '/model-templates',
+                        element: <ModelTemplatesPage />,
                     },
                 ],
             },
