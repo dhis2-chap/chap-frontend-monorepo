@@ -127,26 +127,13 @@ const getOptions = (data: any, modelName: string, syncZoom: boolean) => {
 }
 
 export const ResultPlot = ({ data, modelName, syncZoom }: ResultPlotProps) => {
-    const [isRerendering, setIsRerendering] = useState(false)
-
-    useEffect(() => {
-        setIsRerendering(true)
-    }, [data])
-
-    useEffect(() => {
-        if (isRerendering) {
-            setIsRerendering(false)
-        }
-    }, [isRerendering])
 
     return (
         <>
-            {!isRerendering && (
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={getOptions(data, modelName, syncZoom)}
                 />
-            )}
         </>
     )
 }
