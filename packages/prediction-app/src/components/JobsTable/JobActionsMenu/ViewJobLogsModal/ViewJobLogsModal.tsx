@@ -5,10 +5,11 @@ import { ApiError, JobsService } from '@dhis2-chap/chap-lib';
 import i18n from '@dhis2/d2-i18n';
 import styles from './ViewJobLogsModal.module.css';
 import { JOB_STATUSES } from '../../../../hooks/useJobs';
+import { StatusCell } from '../../TableCells/StatusCell';
 
 interface ViewJobLogsModalProps {
     jobId: string;
-    status: keyof typeof JOB_STATUSES;
+    status: string;
     onClose: () => void;
 }
 
@@ -40,7 +41,7 @@ export const ViewJobLogsModal = ({ jobId, status, onClose }: ViewJobLogsModalPro
         queryFn: () => JobsService.getLogsJobsJobIdLogsGet(jobId),
         refetchInterval: () => {
             if (status === JOB_STATUSES.PENDING || status === JOB_STATUSES.STARTED) {
-                return 5 * 60 * 1000;
+                return 10 * 1000;
             }
             return false;
         },
@@ -81,12 +82,19 @@ export const ViewJobLogsModal = ({ jobId, status, onClose }: ViewJobLogsModalPro
                 )}
 
                 {pageStatus === PAGE_STATUS.SUCCESS && (
-                    <pre className={styles.logContent} ref={logRef}>
-                        {logs || i18n.t('No logs reported for this job')}
-                    </pre>
+                    <div>
+                        <pre className={styles.logContent} ref={logRef}>
+                            {logs || i18n.t('No logs reported for this job')}
+                        </pre>
+
+                        <div style={{ marginTop: '1rem' }}>
+                            <StatusCell status={status} />
+                        </div>
+                    </div>
                 )}
             </ModalContent>
             <ModalActions>
+
                 <Button
                     onClick={onClose}
                     secondary
