@@ -7,6 +7,7 @@ export const JOB_STATUSES = {
     PENDING: 'PENDING',
     STARTED: 'STARTED',
     FAILED: 'FAILURE',
+    REVOKED: 'REVOKED',
 } as const;
 
 export const JOB_TYPES = {

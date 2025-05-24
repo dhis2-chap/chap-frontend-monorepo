@@ -8,6 +8,7 @@ const labelByStatus = {
     [JOB_STATUSES.PENDING]: i18n.t('Pending'),
     [JOB_STATUSES.STARTED]: i18n.t('Running'),
     [JOB_STATUSES.FAILED]: i18n.t('Failed'),
+    [JOB_STATUSES.REVOKED]: i18n.t('Cancelled'),
 };
 
 const statusToVariant: Record<string, PillVariant> = {
@@ -15,6 +16,7 @@ const statusToVariant: Record<string, PillVariant> = {
     [JOB_STATUSES.PENDING]: 'default',
     [JOB_STATUSES.STARTED]: 'info',
     [JOB_STATUSES.FAILED]: 'destructive',
+    [JOB_STATUSES.REVOKED]: 'default',
 };
 
 const activeByStatus: Record<string, boolean> = {
@@ -22,6 +24,7 @@ const activeByStatus: Record<string, boolean> = {
     [JOB_STATUSES.PENDING]: false,
     [JOB_STATUSES.STARTED]: true,
     [JOB_STATUSES.FAILED]: false,
+    [JOB_STATUSES.REVOKED]: false,
 };
 
 type StatusCellProps = {
