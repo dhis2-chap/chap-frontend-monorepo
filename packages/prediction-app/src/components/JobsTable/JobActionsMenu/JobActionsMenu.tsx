@@ -9,17 +9,16 @@ import {
     IconCheckmark16,
     IconArrowRight16,
     IconUndo16,
-    CircularLoader,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import { OverflowButton } from '@dhis2-chap/chap-lib';
 import { ViewJobLogsModal } from './ViewJobLogsModal/ViewJobLogsModal';
 import { DeleteJobModal } from './DeleteJobModal/DeleteJobModal';
+import { CancelJobModal } from './CancelJobModal/CancelJobModal';
 import { JOB_STATUSES, JOB_TYPES } from '../../../hooks/useJobs';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import { useAlert } from '@dhis2/app-runtime';
 import { useNavigate } from 'react-router-dom';
-import { useCancelJob } from './hooks/useCancelJob';
 
 type Props = {
     jobId: string;
@@ -38,7 +37,7 @@ export const JobActionsMenu = ({
     const [flyoutMenuIsOpen, setFlyoutMenuIsOpen] = useState(false);
     const [viewLogsModalIsOpen, setViewLogsModalIsOpen] = useState(false);
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
-    const { cancelJob, isLoading } = useCancelJob();
+    const [cancelModalIsOpen, setCancelModalIsOpen] = useState(false);
 
     const { show: showErrorAlert } = useAlert(
         i18n.t('Failed to copy job ID'),
@@ -105,24 +104,25 @@ export const JobActionsMenu = ({
                                 label={i18n.t('Cancel')}
                                 dataTest={'job-overflow-cancel'}
                                 destructive
-                                icon={isLoading ? <CircularLoader extrasmall /> : <IconUndo16 />}
+                                icon={<IconUndo16 />}
                                 onClick={() => {
-                                    cancelJob(jobId);
+                                    setCancelModalIsOpen(true);
+                                    setFlyoutMenuIsOpen(false);
                                 }}
                             />
                         )}
 
                         {(status === JOB_STATUSES.SUCCESS || status === JOB_STATUSES.FAILED || status === JOB_STATUSES.REVOKED) && (
                             <MenuItem
-                            label={i18n.t('Delete')}
-                            dataTest={'job-overflow-delete'}
-                            destructive
-                            icon={<IconDelete16 />}
-                            onClick={() => {
-                                setDeleteModalIsOpen(true);
-                                setFlyoutMenuIsOpen(false);
-                            }}
-                        />
+                                label={i18n.t('Delete')}
+                                dataTest={'job-overflow-delete'}
+                                destructive
+                                icon={<IconDelete16 />}
+                                onClick={() => {
+                                    setDeleteModalIsOpen(true);
+                                    setFlyoutMenuIsOpen(false);
+                                }}
+                            />
                         )}
                     </FlyoutMenu>
                 }
@@ -140,6 +140,13 @@ export const JobActionsMenu = ({
                 <DeleteJobModal
                     id={jobId}
                     onClose={() => setDeleteModalIsOpen(false)}
+                />
+            )}
+
+            {cancelModalIsOpen && (
+                <CancelJobModal
+                    id={jobId}
+                    onClose={() => setCancelModalIsOpen(false)}
                 />
             )}
         </>

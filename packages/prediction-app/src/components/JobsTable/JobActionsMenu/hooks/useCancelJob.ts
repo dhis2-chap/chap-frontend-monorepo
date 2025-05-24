@@ -4,9 +4,19 @@ import { JobDescription, JobsService } from "@dhis2-chap/chap-lib";
 import { useAlert } from "@dhis2/app-runtime";
 import { JOB_STATUSES } from "../../../../hooks/useJobs";
 
-export const useCancelJob = () => {
+type Props = {
+    onSuccess?: ({ id }: { id: string }) => void;
+    onError?: () => void;
+}
+
+export const useCancelJob = ({ onSuccess, onError }: Props = {}) => {
     const queryClient = useQueryClient();
     
+    const { show: showSuccessAlert } = useAlert(
+        i18n.t('Job cancelled'),
+        { success: true },
+    );
+
     const { show: showErrorAlert } = useAlert(
         i18n.t('Failed to cancel job'),
         { critical: true },
@@ -28,8 +38,13 @@ export const useCancelJob = () => {
                     return job;
                 });
             });
+            showSuccessAlert();
+            onSuccess?.({ id: jobId });
         },
-        onError: () => showErrorAlert(),
+        onError: () => {
+            showErrorAlert();
+            onError?.();
+        },
     });
 
     return {
