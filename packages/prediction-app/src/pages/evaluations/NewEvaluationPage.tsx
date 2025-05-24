@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import i18n from '@dhis2/d2-i18n'
-import { EvaluationForm, EvaluationFormValues } from './EvaluationForm'
+import { EvaluationForm, EvaluationFormValues } from './EvaluationForm/EvaluationForm'
 import { Card } from '@dhis2-chap/chap-lib'
 import { Button } from '@dhis2/ui'
 import PageHeader from '../../features/common-features/PageHeader/PageHeader'

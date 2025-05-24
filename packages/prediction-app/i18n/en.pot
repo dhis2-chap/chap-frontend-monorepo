@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-22T19:38:00.233Z\n"
-"PO-Revision-Date: 2025-05-22T19:38:00.234Z\n"
+"POT-Creation-Date: 2025-05-24T11:55:08.556Z\n"
+"PO-Revision-Date: 2025-05-24T11:55:08.556Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -113,6 +113,12 @@ msgstr "Oops!"
 
 msgid "Sorry, an unexpected error has occurred."
 msgstr "Sorry, an unexpected error has occurred."
+
+msgid "Analyze dataset"
+msgstr "Analyze dataset"
+
+msgid "Close"
+msgstr "Close"
 
 msgid "Get started with the Modeling app"
 msgstr "Get started with the Modeling app"
@@ -401,5 +407,41 @@ msgstr ""
 "Evaluates the accuracy of a predictive model using historical data. "
 "Compares actual outcomes with predicted values to assess model performance."
 
+msgid "Period type is required"
+msgstr "Period type is required"
+
+msgid "Start date is required"
+msgstr "Start date is required"
+
+msgid "End date is required"
+msgstr "End date is required"
+
+msgid "Evaluation name"
+msgstr "Evaluation name"
+
+msgid "Period type"
+msgstr "Period type"
+
+msgid "Daily"
+msgstr "Daily"
+
+msgid "Weekly"
+msgstr "Weekly"
+
+msgid "Monthly"
+msgstr "Monthly"
+
+msgid "From date"
+msgstr "From date"
+
+msgid "To date"
+msgstr "To date"
+
 msgid "Start job"
 msgstr "Start job"
+
+msgid "Create a new evaluation to assess the performance of a model"
+msgstr "Create a new evaluation to assess the performance of a model"
+
+msgid "Inspect dataset"
+msgstr "Inspect dataset"
