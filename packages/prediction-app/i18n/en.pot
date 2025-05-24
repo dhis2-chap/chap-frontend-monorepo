@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-24T11:55:08.556Z\n"
-"PO-Revision-Date: 2025-05-24T11:55:08.556Z\n"
+"POT-Creation-Date: 2025-05-23T12:29:38.787Z\n"
+"PO-Revision-Date: 2025-05-23T12:29:38.787Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -114,11 +114,83 @@ msgstr "Oops!"
 msgid "Sorry, an unexpected error has occurred."
 msgstr "Sorry, an unexpected error has occurred."
 
-msgid "Analyze dataset"
-msgstr "Analyze dataset"
+msgid "Delete job"
+msgstr "Delete job"
+
+msgid "Are you sure you want to delete this job? This action cannot be undone."
+msgstr "Are you sure you want to delete this job? This action cannot be undone."
+
+msgid "Failed to copy job ID"
+msgstr "Failed to copy job ID"
+
+msgid "Go to result"
+msgstr "Go to result"
+
+msgid "View Logs"
+msgstr "View Logs"
+
+msgid "Copy Job ID"
+msgstr "Copy Job ID"
+
+msgid "Job Logs"
+msgstr "Job Logs"
+
+msgid "An error occurred while loading the logs."
+msgstr "An error occurred while loading the logs."
+
+msgid "No logs reported for this job"
+msgstr "No logs reported for this job"
 
 msgid "Close"
 msgstr "Close"
+
+msgid "Job deleted"
+msgstr "Job deleted"
+
+msgid "Failed to delete job"
+msgstr "Failed to delete job"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Start Time"
+msgstr "Start Time"
+
+msgid "End Time"
+msgstr "End Time"
+
+msgid "No jobs available"
+msgstr "No jobs available"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Running"
+msgstr "Running"
+
+msgid "Success"
+msgstr "Success"
+
+msgid "Failed"
+msgstr "Failed"
+
+msgid "Create evaluation"
+msgstr "Create evaluation"
+
+msgid "Evaluation with data"
+msgstr "Evaluation with data"
+
+msgid "Make prediction"
+msgstr "Make prediction"
+
+msgid "Create dataset"
+msgstr "Create dataset"
+
+msgid "Create evaluation with data"
+msgstr "Create evaluation with data"
 
 msgid "Get started with the Modeling app"
 msgstr "Get started with the Modeling app"
@@ -138,11 +210,14 @@ msgstr "Overview"
 msgid "Compare"
 msgstr "Compare"
 
+msgid "Evaluations (WIP)"
+msgstr "Evaluations (WIP)"
+
 msgid "Predict"
 msgstr "Predict"
 
-msgid "Evaluations (WIP)"
-msgstr "Evaluations (WIP)"
+msgid "Jobs"
+msgstr "Jobs"
 
 msgid "Settings"
 msgstr "Settings"
@@ -407,41 +482,11 @@ msgstr ""
 "Evaluates the accuracy of a predictive model using historical data. "
 "Compares actual outcomes with predicted values to assess model performance."
 
-msgid "Period type is required"
-msgstr "Period type is required"
+msgid "Error loading jobs"
+msgstr "Error loading jobs"
 
-msgid "Start date is required"
-msgstr "Start date is required"
+msgid "Active jobs"
+msgstr "Active jobs"
 
-msgid "End date is required"
-msgstr "End date is required"
-
-msgid "Evaluation name"
-msgstr "Evaluation name"
-
-msgid "Period type"
-msgstr "Period type"
-
-msgid "Daily"
-msgstr "Daily"
-
-msgid "Weekly"
-msgstr "Weekly"
-
-msgid "Monthly"
-msgstr "Monthly"
-
-msgid "From date"
-msgstr "From date"
-
-msgid "To date"
-msgstr "To date"
-
-msgid "Start job"
-msgstr "Start job"
-
-msgid "Create a new evaluation to assess the performance of a model"
-msgstr "Create a new evaluation to assess the performance of a model"
-
-msgid "Inspect dataset"
-msgstr "Inspect dataset"
+msgid "View and manage currently running jobs and their status."
+msgstr "View and manage currently running jobs and their status."

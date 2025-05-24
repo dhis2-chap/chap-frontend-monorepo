@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import NewPredictionDrawer from '../new-prediction/NewPredictionDrawer'
 import JobResults from '../job-results/JobResults'
-import PageHeader from '../common-features/PageHeader/PageHeader'
+import { PageHeader } from '../common-features/PageHeader/PageHeader'
 
 const PredictionOverview = () => {
     const [newPredictionDrawerOpen, setNewPredictionDrawerOpen] =

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styles from './InfoAboutReportingBugs.module.css'
-import { maxWidth } from '../../navbar/NavBar'
 import { Button, IconCross16, IconWarning16 } from '@dhis2/ui'
 
 const InfoAboutReportingBugs = () => {
@@ -10,8 +9,8 @@ const InfoAboutReportingBugs = () => {
         <div className={styles.infoAboutReportingBugs}>
             {closeWarning && (
                 <div
-                    style={{ maxWidth: maxWidth }}
                     className={styles.infoAboutReportingBugsInner}
+                    style={{ maxWidth: '1400px' }}
                 >
                     <div>
                         <span className={styles.icon}>

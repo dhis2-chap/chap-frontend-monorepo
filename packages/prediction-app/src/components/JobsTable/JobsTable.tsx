@@ -6,9 +6,6 @@ import {
     DataTableBody,
     DataTableCell,
     DataTableColumnHeader,
-    Checkbox,
-    Button,
-    IconAdd16,
     DataTableFoot,
     Pagination,
 } from '@dhis2/ui';
@@ -23,79 +20,97 @@ import {
     getPaginationRowModel,
     Column,
 } from '@tanstack/react-table';
-import { BackTestRead, ModelSpecRead } from '@dhis2-chap/chap-lib';
-import { useNavigate } from 'react-router-dom';
-import styles from './BacktestsTable.module.css';
-import { BacktestActionsMenu } from './BacktestActionsMenu';
-import { BacktestsTableFilters } from './BacktestsTableFilters';
-import { BatchActions } from './BatchActions';
+import {
+    JobDescription,
+} from '@dhis2-chap/chap-lib';
+import styles from './JobsTable.module.css';
+import { JobsTableFilters } from './JobsTableFilters';
+import { StatusCell } from './TableCells/StatusCell';
+import { JobTypeCell } from './TableCells/JobTypeCell';
+import { JobActionsMenu } from './JobActionsMenu/JobActionsMenu';
+import { JOB_STATUSES } from '../../hooks/useJobs';
 
-const columnHelper = createColumnHelper<BackTestRead>();
+const columnHelper = createColumnHelper<JobDescription>();
 
 const columns = [
-    columnHelper.display({
-        id: 'select',
-        header: ({ table }) => (
-            <Checkbox
-                checked={table.getIsAllPageRowsSelected()}
-                onChange={() => table.toggleAllPageRowsSelected()}
-                disabled={table.getRowModel().rows.length === 0}
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onChange={() => row.toggleSelected()}
-            />
-        ),
-    }),
     columnHelper.accessor('id', {
         header: i18n.t('ID'),
+        enableSorting: false,
+    }),
+    columnHelper.accessor('status', {
+        header: i18n.t('Status'),
         filterFn: 'equals',
+        enableSorting: false,
+        cell: (info) => (
+            <StatusCell
+                status={info.getValue()}
+            />
+        ),
     }),
     columnHelper.accessor('name', {
         header: i18n.t('Name'),
         filterFn: 'includesString',
     }),
-    columnHelper.accessor('created', {
-        header: i18n.t('Created'),
-        cell: (info) => info.getValue() ? new Date(info.getValue()!).toLocaleString() : undefined,
+    columnHelper.accessor('type', {
+        header: i18n.t('Type'),
+        enableSorting: false,
+        cell: (info) => (
+            <JobTypeCell
+                jobType={info.getValue()}
+            />
+        ),
     }),
-    columnHelper.accessor('modelId', {
-        header: i18n.t('Model'),
-        filterFn: 'equals',
+    columnHelper.accessor('start_time', {
+        header: i18n.t('Start Time'),
+        cell: (info) => {
+            const value = info.getValue();
+            return value ? new Date(value).toLocaleString() : undefined;
+        },
+    }),
+    columnHelper.accessor('end_time', {
+        header: i18n.t('End Time'),
+        cell: (info) => {
+            const value = info.getValue();
+            return value ? new Date(value).toLocaleString() : undefined;
+        },
     }),
     columnHelper.display({
         id: 'actions',
         header: i18n.t('Actions'),
-        cell: (info) => (
-            <BacktestActionsMenu
-                id={info.row.original.id}
-                name={info.row.original.name}
-            />
-        ),
+        cell: (info) => {
+            const status = info.row.original.status as keyof typeof JOB_STATUSES;
+            return (
+                <JobActionsMenu
+                    jobId={info.row.original.id}
+                    result={info.row.original.result}
+                    status={status}
+                    type={info.row.original.type}
+                />
+            );
+        },
     }),
 ];
 
-const getSortDirection = (column: Column<BackTestRead>) => {
-    return column.getIsSorted() || 'default'
-}
+const getSortDirection = (column: Column<JobDescription>) => {
+    return column.getIsSorted() || 'default';
+};
 
 type Props = {
-    backtests: BackTestRead[];
-    models: ModelSpecRead[];
+    jobs: JobDescription[];
 }
 
-export const BacktestsTable = ({ backtests, models }: Props) => {
-    const navigate = useNavigate();
+export const JobsTable = ({ jobs }: Props) => {
     const table = useReactTable({
-        data: backtests || [],
+        data: jobs || [],
         columns,
         initialState: {
-            sorting: [{ id: 'created', desc: true }],
+            sorting: [{ id: 'start_time', desc: true }],
+            columnVisibility: {
+                id: false,
+            },
         },
         getRowId: (row) => row.id.toString(),
-        enableRowSelection: true,
+        enableRowSelection: false,
         getSortedRowModel: getSortedRowModel(),
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
@@ -106,31 +121,13 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
 
     return (
         <div>
-            {(table.getIsSomeRowsSelected() || table.getIsAllRowsSelected()) ? (
-                <BatchActions table={table} />
-            ) : (
-                <div className={styles.buttonContainer}>
-                    <div className={styles.leftSection}>
-                        <BacktestsTableFilters
-                            table={table}
-                            models={models}
-                        />
-                    </div>
-
-                    <div className={styles.rightSection}>
-                        <Button
-                            primary
-                            icon={<IconAdd16 />}
-                            small
-                            onClick={() => {
-                                navigate('/evaluations/new');
-                            }}
-                        >
-                            {i18n.t('New evaluation')}
-                        </Button>
-                    </div>
+            <div className={styles.buttonContainer}>
+                <div className={styles.leftSection}>
+                    <JobsTableFilters
+                        table={table}
+                    />
                 </div>
-            )}
+            </div>
             <DataTable>
                 <DataTableHead>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -160,7 +157,7 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
                 <DataTableBody>
                     {hasVisibleRows ? table.getRowModel().rows
                         .map((row) => (
-                            <DataTableRow selected={row.getIsSelected()} key={row.id}>
+                            <DataTableRow key={row.id}>
                                 {row.getVisibleCells().map((cell) => (
                                     <DataTableCell key={cell.id}>
                                         {flexRender(
@@ -173,7 +170,7 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
                         )) : (
                         <DataTableRow>
                             <DataTableCell colSpan={String(table.getAllColumns().length)} align='center'>
-                                {i18n.t('No evaluations available')}
+                                {i18n.t('No jobs available')}
                             </DataTableCell>
                         </DataTableRow>
                     )}
@@ -195,6 +192,6 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
                     </DataTableRow>
                 </DataTableFoot>
             </DataTable>
-        </div >
+        </div>
     );
 };
