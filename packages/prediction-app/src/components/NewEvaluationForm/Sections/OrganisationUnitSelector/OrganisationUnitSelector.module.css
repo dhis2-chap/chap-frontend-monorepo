@@ -1,0 +1,23 @@
+.formField {
+  margin-block-start: 1rem;
+}
+
+.selectionInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block-start: 0.5rem;
+}
+
+.selectionInfo p {
+  margin: 0;
+  color: var(--colors-grey700);
+  font-size: 0.875rem;
+}
+
+.errorText {
+  color: red;
+  font-size: 0.875rem;
+  margin-block-start: 4px;
+} 

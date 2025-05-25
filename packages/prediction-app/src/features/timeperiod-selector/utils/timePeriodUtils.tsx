@@ -1,95 +1,92 @@
 import { Period } from "../interfaces/Period";
-
-
+import {
+  parse,
+  format,
+  addMonths,
+  addWeeks,
+  startOfISOWeek,
+  getISOWeek,
+  isAfter,
+  isSameMonth,
+  isSameYear
+} from 'date-fns';
 
 export const toDHIS2PeriodeData = (start: string, end: string, periodType: "week" | "month" | ""): Period[] => {
-  // Parse the starting and ending year and week numbers
   if (periodType === "week") return getWeeks(start, end);
   if (periodType === "month") return getMonths(start, end);
-
   return [];
 }
 
 const getWeeks = (start: string, end: string): Period[] => {
-  const [startYear, startWeek] = start.split('-W').map(Number);
-  const [endYear, endWeek] = end.split('-W').map(Number);
+  try {
+    // Parse ISO week format (e.g., "2024-W01")
+    const startDate = parse(start, 'yyyy-\'W\'II', new Date());
+    const endDate = parse(end, 'yyyy-\'W\'II', new Date());
 
-  //if more than 100 years between start and end, just return as the user probably made a mistake
-  if (endYear - startYear > 100) {
+    // Safety check for unreasonable date ranges
+    const yearDifference = endDate.getFullYear() - startDate.getFullYear();
+    if (yearDifference > 100) {
+      return [];
+    }
+
+    const weeks: Period[] = [];
+    let currentDate = startOfISOWeek(startDate);
+    const endWeekStart = startOfISOWeek(endDate);
+
+    while (!isAfter(currentDate, endWeekStart)) {
+      const year = currentDate.getFullYear();
+      const weekNumber = getISOWeek(currentDate);
+      const weekString = `${year}W${String(weekNumber).padStart(2, '0')}`;
+
+      weeks.push({
+        endDate: undefined,
+        startDate: undefined,
+        id: weekString,
+      });
+
+      currentDate = addWeeks(currentDate, 1);
+    }
+
+    return weeks;
+  } catch (error) {
+    console.error('Error parsing week dates:', error);
     return [];
   }
-
-  const weeks : Period[] = [];
-
-  for (let year = startYear; year <= endYear; year++) {
-    // Determine the maximum number of weeks in the current year
-    // January 4th should always be in the first week of the ISO calendar.
-    //let maxWeeks = Math.max( moment(new Date(year, 11, 31)).isoWeek() , moment(new Date(year, 11, 31-7)).isoWeek() );
-    const maxWeeks = weeksInYear(year);
-
-    // Determine the correct starting and ending week numbers
-    const startW = year === startYear ? startWeek : 1;
-    const endW = year === endYear ? endWeek : maxWeeks;
-
-    for (let week = startW; week <= endW; week++) {
-      const weekString = `${year}W${String(week).padStart(2, '0')}`;
-      weeks.push(
-        {
-          endDate : undefined,
-          startDate : undefined,
-          id : weekString,
-        });
-    }
-  }
-  return weeks;
 }
-
-//https://stackoverflow.com/questions/18478741/get-weeks-in-year
-const getWeekNumber = (d : any) => {
-  d = new Date(+d);
-  d.setHours(0, 0, 0, 0);
-  d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-  const yearStart : any = new Date(d.getFullYear(), 0, 1);
-  const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
-  return [d.getFullYear(), weekNo];
-}
-
-const weeksInYear = (year : number) => {
-  const d = new Date(year, 11, 31);
-  const week = getWeekNumber(d)[1];
-  return week == 1 ? 52 : week;
-}
-
 
 const getMonths = (start: string, end: string): Period[] => {
-  const [startYear, startMonth] = start.split('-').map(Number);
-  const [endYear, endMonth] = end.split('-').map(Number);
+  try {
+    // Parse month format (e.g., "2024-01")
+    const startDate = parse(start, 'yyyy-MM', new Date());
+    const endDate = parse(end, 'yyyy-MM', new Date());
 
-  //if more than 100 years between start and end, just return as the user probably made a mistake
-  if (endYear - startYear > 100) {
+    // Safety check for unreasonable date ranges
+    const yearDifference = endDate.getFullYear() - startDate.getFullYear();
+    if (yearDifference > 100) {
+      return [];
+    }
+
+    const months: Period[] = [];
+    let currentDate = startDate;
+
+    while (
+      isAfter(endDate, currentDate) ||
+      (isSameYear(currentDate, endDate) && isSameMonth(currentDate, endDate))
+    ) {
+      const monthId = format(currentDate, 'yyyyMM');
+
+      months.push({
+        id: monthId,
+        endDate: undefined,
+        startDate: undefined,
+      });
+
+      currentDate = addMonths(currentDate, 1);
+    }
+
+    return months;
+  } catch (error) {
+    console.error('Error parsing month dates:', error);
     return [];
   }
-
-  const months : Period[] = [];
-  let currentYear = startYear;
-  let currentMonth = startMonth;
-
-  while (currentYear < endYear || (currentYear === endYear && currentMonth <= endMonth)) {
-    const formattedMonth = String(currentMonth).padStart(2, '0');
-    months.push(
-      {
-        id : `${currentYear}${formattedMonth}`,
-        endDate : undefined,
-        startDate : undefined,
-      })
-
-    currentMonth++;
-    if (currentMonth > 12) {
-      currentMonth = 1;
-      currentYear++;
-    }
-  }
-
-  return months;
-
 }

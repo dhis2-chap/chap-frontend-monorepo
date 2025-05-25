@@ -7,7 +7,7 @@ import {
 import ErrorPage from './components/ErrorPage'
 import React from 'react'
 import './locales'
-import './App.css'
+import './App.module.css'
 import PageWrapper from './components/PageWrapper'
 import EvaluationPage from './pages/EvaluationPage'
 import PredictionOverview from './features/predictions-overview/PredictionOverview'
@@ -22,7 +22,7 @@ import InfoAboutReportingBugs from './features/common-features/InfoAboutReportin
 import WarnAboutIncompatibleVersion from './features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
 import { EvaluationsWIPPage } from './pages/EvaluationWIPPAge'
 import { ChapValidator } from './components/ChapValidator'
-import { NewEvaluationPage } from './pages/evaluations/NewEvaluationPage'
+import { NewEvaluationPage } from './pages/NewEvaluationPage'
 import { JobsPage } from './pages/JobsPage'
 
 export type RouteHandle = {

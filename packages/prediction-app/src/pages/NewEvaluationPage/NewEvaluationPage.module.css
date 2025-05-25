@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  gap: 1rem;
+}
+
+.leftColumn {
+  width: 75%;
+}
+
+.rightColumn {
+  width: 25%;
+} 

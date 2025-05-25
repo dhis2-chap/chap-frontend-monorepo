@@ -6,9 +6,10 @@ import { VisualizationPlugin } from '../VisualizationPlugin'
 type Props = {
     isOpen: boolean
     onClose: () => void
+    selectedOrgUnits: any[]
 }
 
-export const InspectDatasetModal = ({ isOpen, onClose }: Props) => {
+export const InspectDatasetModal = ({ isOpen, onClose, selectedOrgUnits }: Props) => {
     if (!isOpen) return null
 
     return (
@@ -71,9 +72,9 @@ export const InspectDatasetModal = ({ isOpen, onClose }: Props) => {
                         rows: [
                             {
                                 dimension: "ou",
-                                items: [{
-                                    id: "LEVEL-hLVRGSsaL38"
-                                }]
+                                items: selectedOrgUnits.map((unit) => ({
+                                    id: unit.id
+                                }))
                             },
                             {
                                 dimension: "dx",

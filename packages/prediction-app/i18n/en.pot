@@ -5,8 +5,47 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-23T12:29:38.787Z\n"
-"PO-Revision-Date: 2025-05-23T12:29:38.787Z\n"
+"POT-Creation-Date: 2025-05-24T13:09:07.191Z\n"
+"PO-Revision-Date: 2025-05-24T13:09:07.192Z\n"
+
+msgid "{{count}} org units"
+msgid_plural "{{count}} org units"
+msgstr[0] "{{count}} org unit"
+msgstr[1] "{{count}} org units"
+
+msgid "{{count}} levels"
+msgid_plural "{{count}} levels"
+msgstr[0] "{{count}} level"
+msgstr[1] "{{count}} levels"
+
+msgid "{{count}} groups"
+msgid_plural "{{count}} groups"
+msgstr[0] "{{count}} group"
+msgstr[1] "{{count}} groups"
+
+msgid "Selected: {{commaSeparatedListOfOrganisationUnits}}"
+msgstr "Selected: {{commaSeparatedListOfOrganisationUnits}}"
+
+msgid "Nothing selected"
+msgstr "Nothing selected"
+
+msgid "User organisation unit"
+msgstr "User organisation unit"
+
+msgid "User sub-units"
+msgstr "User sub-units"
+
+msgid "User sub-x2-units"
+msgstr "User sub-x2-units"
+
+msgid "Select a level"
+msgstr "Select a level"
+
+msgid "Select a group"
+msgstr "Select a group"
+
+msgid "Deselect all"
+msgstr "Deselect all"
 
 msgid "Rename"
 msgstr "Rename"
@@ -114,6 +153,12 @@ msgstr "Oops!"
 msgid "Sorry, an unexpected error has occurred."
 msgstr "Sorry, an unexpected error has occurred."
 
+msgid "Analyze dataset"
+msgstr "Analyze dataset"
+
+msgid "Close"
+msgstr "Close"
+
 msgid "Delete job"
 msgstr "Delete job"
 
@@ -140,9 +185,6 @@ msgstr "An error occurred while loading the logs."
 
 msgid "No logs reported for this job"
 msgstr "No logs reported for this job"
-
-msgid "Close"
-msgstr "Close"
 
 msgid "Job deleted"
 msgstr "Job deleted"
@@ -191,6 +233,39 @@ msgstr "Create dataset"
 
 msgid "Create evaluation with data"
 msgstr "Create evaluation with data"
+
+msgid "Period type is required"
+msgstr "Period type is required"
+
+msgid "Start date is required"
+msgstr "Start date is required"
+
+msgid "End date is required"
+msgstr "End date is required"
+
+msgid "Start job"
+msgstr "Start job"
+
+msgid "Evaluation name"
+msgstr "Evaluation name"
+
+msgid "Period type"
+msgstr "Period type"
+
+msgid "Daily"
+msgstr "Daily"
+
+msgid "Weekly"
+msgstr "Weekly"
+
+msgid "Monthly"
+msgstr "Monthly"
+
+msgid "From date"
+msgstr "From date"
+
+msgid "To date"
+msgstr "To date"
 
 msgid "Get started with the Modeling app"
 msgstr "Get started with the Modeling app"
@@ -350,9 +425,6 @@ msgstr "Python Version"
 msgid "Operating System"
 msgstr "Operating System"
 
-msgid "Status"
-msgstr "Status"
-
 msgid "Connected"
 msgstr "Connected"
 
@@ -490,3 +562,9 @@ msgstr "Active jobs"
 
 msgid "View and manage currently running jobs and their status."
 msgstr "View and manage currently running jobs and their status."
+
+msgid "Create a new evaluation to assess the performance of a model"
+msgstr "Create a new evaluation to assess the performance of a model"
+
+msgid "Inspect dataset"
+msgstr "Inspect dataset"
