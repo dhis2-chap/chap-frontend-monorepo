@@ -1,4 +1,4 @@
-import { ComparisonPlotList, SplitPeriodSelector } from '@dhis2-chap/chap-lib'
+import { ComparisonPlotList } from '@dhis2-chap/chap-lib'
 import {
     EvaluationCompatibleSelector,
     EvaluationSelectorBase,

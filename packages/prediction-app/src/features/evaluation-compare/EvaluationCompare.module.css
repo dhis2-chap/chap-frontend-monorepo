@@ -99,6 +99,7 @@
     bottom: 0;
     margin-block-end: var(--spacers-dp16);
     width: 50%;
+    min-width: 350px;
     display: flex;
     align-self: center;
     border-radius: 10px;
