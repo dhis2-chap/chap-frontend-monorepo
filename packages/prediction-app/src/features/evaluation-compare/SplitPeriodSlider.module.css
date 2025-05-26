@@ -42,10 +42,8 @@
 }
 
 .thumb {
-    width: 48px;
-    height: 48px;
-    color: var(--colors-blue600);
-    fill: var(--colors-blue600);
+    width: 54px;
+    height: 54px;
     outline: none;
 }
 

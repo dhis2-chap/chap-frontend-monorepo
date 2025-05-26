@@ -95,7 +95,7 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                     max={withExtraPeriods.length - 1}
                     values={[splitPeriodIndex]}
                     renderThumb={({ props }) => (
-                        <div {...props} className={css.thumb}>
+                        <div {...props} key={props.key} className={css.thumb}>
                             <svg
                                 width="100%"
                                 height="auto"
@@ -109,7 +109,6 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                     renderTrack={({ props, children }) => (
                         <div
                             {...props}
-                            key={1}
                             style={{
                                 ...props.style,
                                 background: getTrackBackground(),
