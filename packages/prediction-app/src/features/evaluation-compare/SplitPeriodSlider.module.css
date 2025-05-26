@@ -3,16 +3,14 @@
     flex-direction: column;
     width: 100%;
     padding: 6px;
-    gap: var(--spacers-dp4);
+    gap: var(--spacers-dp8);
 }
 
 .sliderContainer {
     padding-inline: var(--spacers-dp8);
-    padding-block-start: var(--spacers-dp4);
 }
 
 .labelsContainer {
-    padding-block-start: var(--spacers-dp8);
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -25,7 +23,6 @@
 }
 
 .selectedLabelContainer {
-    
     position: relative;
     display: flex;
     align-items: center;
@@ -37,7 +34,6 @@
     text-align: center;
     width: 100%;
 }
-
 
 .track {
     height: 6px;

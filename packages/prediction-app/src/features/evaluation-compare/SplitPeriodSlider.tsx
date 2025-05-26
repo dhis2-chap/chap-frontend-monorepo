@@ -117,14 +117,14 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                     )}
                     onChange={handleChange}
                 />
-                <div className={css.labelsContainer}>
+            </div>
+            <div className={css.labelsContainer}>
                     {splitPeriodLabels.map((point) => (
                         <span key={point} className={css.label}>
                             {point}
                         </span>
                     ))}
                 </div>
-            </div>
         </div>
     )
 }

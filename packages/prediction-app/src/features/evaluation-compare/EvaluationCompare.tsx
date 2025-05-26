@@ -62,7 +62,6 @@ export const EvaluationCompare = () => {
         return { dataForSplitPoint, periods }
     }, [combined.viewData, selectedSplitPeriod, orgUnitsData])
 
-    console.log({ periods })
     return (
         <div className={css.wrapper}>
             <div className={css.selectionToolbar}>
