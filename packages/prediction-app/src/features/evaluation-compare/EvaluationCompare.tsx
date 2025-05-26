@@ -17,6 +17,7 @@ import { PageHeader } from '../common-features/PageHeader/PageHeader'
 import OrganisationUnitMultiSelect from '../../components/OrganisationUnitsSelect/OrganisationUnitMultiSelect'
 import { useCompareSelectionController } from './useCompareSelectionController'
 import { useOrgUnitsById } from '../../hooks/useOrgUnitsById'
+import SplitPeriodSlider from './SplitPointSlider'
 
 const MAX_SELECTED_ORG_UNITS = 10
 
@@ -120,7 +121,13 @@ export const EvaluationCompare = () => {
                     />
                 </div>
             </div>
-
+            <div className={css.footerSlider}>
+                <SplitPeriodSlider
+                    splitPeriods={splitPeriods}
+                    selectedSplitPeriod={selectedSplitPeriod}
+                    onChange={setSelectedSplitPoint}
+                />
+            </div>
             <div>
                 {combined.viewData.length > 0 && (
                     <ComparisonPlotList
