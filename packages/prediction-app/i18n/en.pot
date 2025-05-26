@@ -5,47 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-24T13:09:07.191Z\n"
-"PO-Revision-Date: 2025-05-24T13:09:07.192Z\n"
-
-msgid "{{count}} org units"
-msgid_plural "{{count}} org units"
-msgstr[0] "{{count}} org unit"
-msgstr[1] "{{count}} org units"
-
-msgid "{{count}} levels"
-msgid_plural "{{count}} levels"
-msgstr[0] "{{count}} level"
-msgstr[1] "{{count}} levels"
-
-msgid "{{count}} groups"
-msgid_plural "{{count}} groups"
-msgstr[0] "{{count}} group"
-msgstr[1] "{{count}} groups"
-
-msgid "Selected: {{commaSeparatedListOfOrganisationUnits}}"
-msgstr "Selected: {{commaSeparatedListOfOrganisationUnits}}"
-
-msgid "Nothing selected"
-msgstr "Nothing selected"
-
-msgid "User organisation unit"
-msgstr "User organisation unit"
-
-msgid "User sub-units"
-msgstr "User sub-units"
-
-msgid "User sub-x2-units"
-msgstr "User sub-x2-units"
-
-msgid "Select a level"
-msgstr "Select a level"
-
-msgid "Select a group"
-msgstr "Select a group"
-
-msgid "Deselect all"
-msgstr "Deselect all"
+"POT-Creation-Date: 2025-05-25T10:23:33.198Z\n"
+"PO-Revision-Date: 2025-05-25T10:23:33.198Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -249,6 +210,18 @@ msgstr "Start job"
 msgid "Evaluation name"
 msgstr "Evaluation name"
 
+msgid "Organisation Units"
+msgstr "Organisation Units"
+
+msgid "Loading organisation units..."
+msgstr "Loading organisation units..."
+
+msgid "Select Organisation Units"
+msgstr "Select Organisation Units"
+
+msgid "Confirm Selection"
+msgstr "Confirm Selection"
+
 msgid "Period type"
 msgstr "Period type"
 
@@ -266,6 +239,45 @@ msgstr "From date"
 
 msgid "To date"
 msgstr "To date"
+
+msgid "{{count}} org units"
+msgid_plural "{{count}} org units"
+msgstr[0] "{{count}} org unit"
+msgstr[1] "{{count}} org units"
+
+msgid "{{count}} levels"
+msgid_plural "{{count}} levels"
+msgstr[0] "{{count}} level"
+msgstr[1] "{{count}} levels"
+
+msgid "{{count}} groups"
+msgid_plural "{{count}} groups"
+msgstr[0] "{{count}} group"
+msgstr[1] "{{count}} groups"
+
+msgid "Selected: {{commaSeparatedListOfOrganisationUnits}}"
+msgstr "Selected: {{commaSeparatedListOfOrganisationUnits}}"
+
+msgid "Nothing selected"
+msgstr "Nothing selected"
+
+msgid "User organisation unit"
+msgstr "User organisation unit"
+
+msgid "User sub-units"
+msgstr "User sub-units"
+
+msgid "User sub-x2-units"
+msgstr "User sub-x2-units"
+
+msgid "Select a level"
+msgstr "Select a level"
+
+msgid "Select a group"
+msgstr "Select a group"
+
+msgid "Deselect all"
+msgstr "Deselect all"
 
 msgid "Get started with the Modeling app"
 msgstr "Get started with the Modeling app"
@@ -565,6 +577,3 @@ msgstr "View and manage currently running jobs and their status."
 
 msgid "Create a new evaluation to assess the performance of a model"
 msgstr "Create a new evaluation to assess the performance of a model"
-
-msgid "Inspect dataset"
-msgstr "Inspect dataset"

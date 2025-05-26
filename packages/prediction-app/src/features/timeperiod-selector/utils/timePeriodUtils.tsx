@@ -5,10 +5,14 @@ import {
   addMonths,
   addWeeks,
   startOfISOWeek,
+  endOfISOWeek,
+  startOfMonth,
+  endOfMonth,
   getISOWeek,
   isAfter,
   isSameMonth,
-  isSameYear
+  isSameYear,
+  isValid
 } from 'date-fns';
 
 export const toDHIS2PeriodeData = (start: string, end: string, periodType: "week" | "month" | ""): Period[] => {
@@ -17,11 +21,19 @@ export const toDHIS2PeriodeData = (start: string, end: string, periodType: "week
   return [];
 }
 
+// This function takes in a start and end string in the format of "2024-W01" and returns an array of Period objects
 const getWeeks = (start: string, end: string): Period[] => {
+  debugger
   try {
-    // Parse ISO week format (e.g., "2024-W01")
-    const startDate = parse(start, 'yyyy-\'W\'II', new Date());
-    const endDate = parse(end, 'yyyy-\'W\'II', new Date());
+    //Parse ISO week format (e.g., "2024-W01")
+    const startDate = parse(start, 'RRRR-\'W\'II', new Date());
+    const endDate = parse(end, 'RRRR-\'W\'II', new Date());
+
+    // Check if parsed dates are valid
+    if (!isValid(startDate) || !isValid(endDate)) {
+      console.error('Invalid date format provided for weeks:', { start, end });
+      return [];
+    }
 
     // Safety check for unreasonable date ranges
     const yearDifference = endDate.getFullYear() - startDate.getFullYear();
@@ -38,9 +50,12 @@ const getWeeks = (start: string, end: string): Period[] => {
       const weekNumber = getISOWeek(currentDate);
       const weekString = `${year}W${String(weekNumber).padStart(2, '0')}`;
 
+      const weekStart = startOfISOWeek(currentDate);
+      const weekEnd = endOfISOWeek(currentDate);
+
       weeks.push({
-        endDate: undefined,
-        startDate: undefined,
+        endDate: new Date(format(weekEnd, 'yyyy-MM-dd')),
+        startDate: new Date(format(weekStart, 'yyyy-MM-dd')),
         id: weekString,
       });
 
@@ -54,11 +69,18 @@ const getWeeks = (start: string, end: string): Period[] => {
   }
 }
 
+// This function takes in a start and end string in the format of "2024-01" and returns an array of Period objects
 const getMonths = (start: string, end: string): Period[] => {
   try {
     // Parse month format (e.g., "2024-01")
     const startDate = parse(start, 'yyyy-MM', new Date());
     const endDate = parse(end, 'yyyy-MM', new Date());
+
+    // Check if parsed dates are valid
+    if (!isValid(startDate) || !isValid(endDate)) {
+      console.error('Invalid date format provided for months:', { start, end });
+      return [];
+    }
 
     // Safety check for unreasonable date ranges
     const yearDifference = endDate.getFullYear() - startDate.getFullYear();
@@ -75,10 +97,13 @@ const getMonths = (start: string, end: string): Period[] => {
     ) {
       const monthId = format(currentDate, 'yyyyMM');
 
+      const monthStart = startOfMonth(currentDate);
+      const monthEnd = endOfMonth(currentDate);
+
       months.push({
         id: monthId,
-        endDate: undefined,
-        startDate: undefined,
+        endDate: new Date(format(monthEnd, 'yyyy-MM-dd')),
+        startDate: new Date(format(monthStart, 'yyyy-MM-dd')),
       });
 
       currentDate = addMonths(currentDate, 1);
