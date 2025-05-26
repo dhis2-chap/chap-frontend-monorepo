@@ -16,7 +16,7 @@ type SplitPeriodSlider = {
 
 export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
     splitPeriods,
-    selectedSplitPeriod: selectedSplitPoint,
+    selectedSplitPeriod,
     onChange,
     periods = [],
     splitPeriodLength = 3,
@@ -35,23 +35,27 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
 
     // add last periods to be able to the end of the periods
     // note that this portion cannot be selected, and will select the last valid split period
-    const withExtraPeriods = splitPeriods.concat(
-        periods.slice(
-            lastSplitPeriodInPeriodsIndex + 1,
-            lastSplitPeriodInPeriodsIndex + splitPeriodLength
+    const withExtraPeriods = splitPeriods
+        .concat(
+            periods.slice(
+                lastSplitPeriodInPeriodsIndex + 1,
+                lastSplitPeriodInPeriodsIndex + splitPeriodLength
+            )
         )
-    )
+        // hack last period to ensure the slider can go to the end
+        // we dont care about the value, since it will not be selectable
+        .concat('LAST_PERIOD')
 
-    const middlePeriodIndex = Math.floor(splitPeriods.length / 2)
+    const middlePeriodIndex = Math.floor(withExtraPeriods.length / 2)
     const splitPeriodLabels = [
         withExtraPeriods[0],
         withExtraPeriods[middlePeriodIndex],
-        withExtraPeriods[withExtraPeriods.length - 1],
+        withExtraPeriods[withExtraPeriods.length - 2],
     ]
         .filter((sp, i, arr) => arr.indexOf(sp) === i)
         .map((point) => getPeriodNameFromId(point))
 
-    const splitPeriodIndex = withExtraPeriods.indexOf(selectedSplitPoint)
+    const splitPeriodIndex = withExtraPeriods.indexOf(selectedSplitPeriod)
 
     const getTrackBackground = () => {
         const total = withExtraPeriods.length - 1
@@ -77,7 +81,7 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                 </Label>
                 <span className={css.selectedLabel}>
                     {`${getPeriodNameFromId(
-                        selectedSplitPoint
+                        selectedSplitPeriod
                     )} - ${getPeriodNameFromId(
                         withExtraPeriods[splitPeriodIndex + 2]
                     )}`}
@@ -89,7 +93,7 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                     labelledBy="splitPeriodSlider"
                     min={0}
                     max={withExtraPeriods.length - 1}
-                    values={[withExtraPeriods.indexOf(selectedSplitPoint)]}
+                    values={[splitPeriodIndex]}
                     renderThumb={({ props }) => (
                         <div {...props} className={css.thumb}>
                             <svg
@@ -116,15 +120,20 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                         </div>
                     )}
                     onChange={handleChange}
+                    renderMark={({ props, index }) =>
+                        index >= splitPeriods.length ? null : (
+                            <div {...props} key={index} className={css.mark} />
+                        )
+                    }
                 />
             </div>
             <div className={css.labelsContainer}>
-                    {splitPeriodLabels.map((point) => (
-                        <span key={point} className={css.label}>
-                            {point}
-                        </span>
-                    ))}
-                </div>
+                {splitPeriodLabels.map((point) => (
+                    <span key={point} className={css.label}>
+                        {point}
+                    </span>
+                ))}
+            </div>
         </div>
     )
 }

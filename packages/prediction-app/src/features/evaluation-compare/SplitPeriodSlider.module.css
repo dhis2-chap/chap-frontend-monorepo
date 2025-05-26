@@ -42,15 +42,21 @@
 }
 
 .thumb {
-   width: 48px;
-   height: 48px;
-   color: var(--colors-blue600);
-   fill: var(--colors-blue600);
-   outline: none;
+    width: 48px;
+    height: 48px;
+    color: var(--colors-blue600);
+    fill: var(--colors-blue600);
+    outline: none;
 }
 
 .thumb svg {
     width: 100%;
     height: auto;
     fill: var(--colors-blue600);
+}
+
+.mark {
+    background-color: var(--colors-grey400);
+    height: 10px;
+    width: 2px;
 }
