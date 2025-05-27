@@ -126,7 +126,7 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                     onChange={handleChange}
                     renderMark={({ props, index }) =>
                         index >= splitPeriods.length ? null : (
-                            <div {...props} key={index} className={css.mark} />
+                            <div {...props} key={props.key} className={css.mark} />
                         )
                     }
                 />
