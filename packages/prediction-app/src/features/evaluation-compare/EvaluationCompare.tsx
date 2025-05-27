@@ -13,7 +13,7 @@ import {
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import { usePlotDataForEvaluations } from '../../hooks/usePlotDataForEvaluations'
-import PageHeader from '../common-features/PageHeader/PageHeader'
+import { PageHeader } from '../common-features/PageHeader/PageHeader'
 import OrganisationUnitMultiSelect from '../../components/OrganisationUnitsSelect/OrganisationUnitMultiSelect'
 import { useCompareSelectionController } from './useCompareSelectionController'
 
