@@ -11,7 +11,8 @@ import { useQuery } from '@tanstack/react-query'
 import i18n from '@dhis2/d2-i18n'
 
 const WarnAboutIncompatibleVersion = () => {
-    let { appVersion, ...rest } = useConfig()
+    const { appVersion } = useConfig()
+    const appVersionFull = appVersion?.full
 
     const { route } = useRoute()
     const { status } = useChapStatus({ route })
@@ -21,10 +22,10 @@ const WarnAboutIncompatibleVersion = () => {
         isVersionCompatible(status.chap_core_version, chapConfig.minChapVersion)
 
     const { data: backendCompatibleCheck, isError } = useQuery({
-        queryKey: ['is-compatible', route?.url, appVersion?.full],
+        queryKey: ['is-compatible', route?.url, appVersionFull],
         queryFn: async () =>
-            await DefaultService.isCompatibleIsCompatibleGet(appVersion?.full!),
-        enabled: !!appVersion?.full,
+            await DefaultService.isCompatibleIsCompatibleGet(appVersionFull!),
+        enabled: !!appVersionFull,
         staleTime: Infinity,
         cacheTime: Infinity,
     })
