@@ -1,6 +1,4 @@
 import React, { useMemo, useState } from 'react'
-import { unstable_batchedUpdates } from 'react-dom'
-
 import {
     MultiSelect,
     MultiSelectOption,
@@ -81,11 +79,11 @@ const OrganisationUnitMultiSelect = ({
                     onSelect({
                         selected: pendingSelectedOrgUnits ?? [],
                     })
-
                     setPendingSelectedOrgUnits(null)
                 }
             }}
             inputMaxHeight="26px"
+            {...multiSelectProps}
         >
             {selected.length >= maxSelections && (
                 <Help className={css.help} warning>

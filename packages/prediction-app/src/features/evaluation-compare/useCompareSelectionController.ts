@@ -5,7 +5,6 @@ import {
     useSelectedSplitPeriod,
 } from './useSearchParamSelections'
 import { useEvaluationOverlap } from '../../hooks/useEvaluationOverlap'
-import { useOrgUnitsById } from '../../hooks/useOrgUnitsById'
 
 export const useCompareSelectionController = ({
     maxSelectedOrgUnits = 10,
@@ -23,7 +22,8 @@ export const useCompareSelectionController = ({
         [baseEvaluation, comparisonEvaluation]
     )
 
-    const [selectedSplitPeriod, setSelectedSplitPeriod] = useSelectedSplitPeriod()
+    const [selectedSplitPeriod, setSelectedSplitPeriod] =
+        useSelectedSplitPeriod()
 
     const evaluationOverlap = useEvaluationOverlap({
         baseEvaluation: baseEvaluation?.id,
@@ -46,8 +46,6 @@ export const useCompareSelectionController = ({
             availableOrgUnitSet: new Set(availableOrgUnitIds),
         }
     }, [evaluationOverlap.data, baseEvaluation?.orgUnits])
-
-
 
     const [selectedOrgUnits, setSelectedOrgUnits] = useSelectedOrgUnits({
         initialValue: availableOrgUnitIds.slice(0, maxSelectedOrgUnits),
