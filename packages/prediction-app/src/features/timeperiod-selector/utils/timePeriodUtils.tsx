@@ -15,9 +15,10 @@ import {
   isValid
 } from 'date-fns';
 
-export const toDHIS2PeriodeData = (start: string, end: string, periodType: "week" | "month" | ""): Period[] => {
+export const toDHIS2PeriodData = (start: string, end: string, periodType: string): Period[] => {
   if (periodType === "week") return getWeeks(start, end);
   if (periodType === "month") return getMonths(start, end);
+  console.error('Invalid period type:', periodType);
   return [];
 }
 

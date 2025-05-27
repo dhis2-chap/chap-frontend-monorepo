@@ -8,7 +8,6 @@ import type { BackTestRead } from '../models/BackTestRead';
 import type { BackTestUpdate } from '../models/BackTestUpdate';
 import type { Body_create_dataset_csv_crud_datasets_csvFile_post } from '../models/Body_create_dataset_csv_crud_datasets_csvFile_post';
 import type { ConfiguredModelDB } from '../models/ConfiguredModelDB';
-import type { ConfiguredModelDBCreate } from '../models/ConfiguredModelDBCreate';
 import type { DataBaseResponse } from '../models/DataBaseResponse';
 import type { DatasetCreate } from '../models/DatasetCreate';
 import type { DataSetRead } from '../models/DataSetRead';
@@ -16,7 +15,9 @@ import type { DataSetWithObservations } from '../models/DataSetWithObservations'
 import type { DebugEntry } from '../models/DebugEntry';
 import type { FeatureSource } from '../models/FeatureSource';
 import type { JobResponse } from '../models/JobResponse';
+import type { ModelConfigurationCreate } from '../models/ModelConfigurationCreate';
 import type { ModelSpecRead } from '../models/ModelSpecRead';
+import type { ModelTemplateRead } from '../models/ModelTemplateRead';
 import type { NewClass } from '../models/NewClass';
 import type { PredictionCreate } from '../models/PredictionCreate';
 import type { PredictionRead } from '../models/PredictionRead';
@@ -50,6 +51,26 @@ export class CrudService {
             url: '/crud/backtests',
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Delete Backtest Batch
+     * @param ids
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static deleteBacktestBatchCrudBacktestsDelete(
+        ids: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/crud/backtests',
+            query: {
+                'ids': ids,
+            },
             errors: {
                 422: `Validation Error`,
             },
@@ -280,6 +301,7 @@ export class CrudService {
     }
     /**
      * List Models
+     * List all configured models from the db (new db tables)
      * @returns ModelSpecRead Successful Response
      * @throws ApiError
      */
@@ -287,18 +309,6 @@ export class CrudService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/crud/models',
-        });
-    }
-    /**
-     * List Models V2
-     * List all configured models from the db (new db tables)
-     * @returns ModelSpecRead Successful Response
-     * @throws ApiError
-     */
-    public static listModelsV2CrudModelsV2Get(): CancelablePromise<Array<ModelSpecRead>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/crud/models-v2',
         });
     }
     /**
@@ -344,18 +354,30 @@ export class CrudService {
         });
     }
     /**
+     * List Model Templates
+     * Lists all model templates by reading local config files and presenting models.
+     * @returns ModelTemplateRead Successful Response
+     * @throws ApiError
+     */
+    public static listModelTemplatesCrudModelTemplatesGet(): CancelablePromise<Array<ModelTemplateRead>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/model-templates',
+        });
+    }
+    /**
      * Add Configured Model
      * Add a configured model to the database.
      * @param requestBody
      * @returns ConfiguredModelDB Successful Response
      * @throws ApiError
      */
-    public static addConfiguredModelCrudconfiguredModelPost(
-        requestBody: ConfiguredModelDBCreate,
+    public static addConfiguredModelCrudConfiguredModelsPost(
+        requestBody: ModelConfigurationCreate,
     ): CancelablePromise<ConfiguredModelDB> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/crudconfigured-model',
+            url: '/crud/configured-models',
             body: requestBody,
             mediaType: 'application/json',
             errors: {

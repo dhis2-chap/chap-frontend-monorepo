@@ -24,7 +24,7 @@ import {
 import { DIMENSION_ID_ORGUNIT } from './modules/predefinedDimensions'
 import styles from './styles/OrganisationUnitSelector.module.css'
 
-const DYNAMIC_ORG_UNITS = [
+export const DYNAMIC_ORG_UNITS = [
     USER_ORG_UNIT,
     USER_ORG_UNIT_CHILDREN,
     USER_ORG_UNIT_GRANDCHILDREN,
@@ -35,6 +35,7 @@ export interface OrganisationUnit {
     name?: string
     displayName?: string
     path?: string
+    level?: number
 }
 
 export interface OrganisationUnitLevel {
@@ -95,13 +96,13 @@ const OrganisationUnitSelector: React.FC<OrganisationUnitSelectorProps> = ({
     const dataEngine = useDataEngine()
 
     const onSelectItems = (selectedItem: TreeSelectionItem): void => {
-        const { id, checked, displayName, path } = selectedItem
+        const { id, checked, displayName, path, level } = selectedItem
         let result = [...selected]
 
         if (checked && DYNAMIC_ORG_UNITS.includes(id)) {
             result = [...result, { id, displayName }]
         } else if (checked) {
-            result.push({ id, path, name: displayName })
+            result.push({ id, path, name: displayName, level })
         } else {
             result = [...result.filter((item) => item.id !== id)]
         }

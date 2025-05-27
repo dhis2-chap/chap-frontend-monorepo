@@ -1,12 +1,3 @@
-.container {
-  display: flex;
-  gap: 1rem;
+.backButton {
+    margin-bottom: 20px;
 }
-
-.leftColumn {
-  width: 75%;
-}
-
-.rightColumn {
-  width: 25%;
-} 

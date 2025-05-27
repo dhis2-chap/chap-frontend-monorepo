@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-25T10:23:33.198Z\n"
-"PO-Revision-Date: 2025-05-25T10:23:33.198Z\n"
+"POT-Creation-Date: 2025-05-27T17:46:27.054Z\n"
+"PO-Revision-Date: 2025-05-27T17:46:27.055Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -204,17 +204,20 @@ msgstr "Start date is required"
 msgid "End date is required"
 msgstr "End date is required"
 
+msgid "Missing id for org unit"
+msgstr "Missing id for org unit"
+
+msgid "At least one org unit is required"
+msgstr "At least one org unit is required"
+
 msgid "Start job"
 msgstr "Start job"
-
-msgid "Evaluation name"
-msgstr "Evaluation name"
 
 msgid "Organisation Units"
 msgstr "Organisation Units"
 
-msgid "Loading organisation units..."
-msgstr "Loading organisation units..."
+msgid "Select organisation units"
+msgstr "Select organisation units"
 
 msgid "Select Organisation Units"
 msgstr "Select Organisation Units"
@@ -222,8 +225,20 @@ msgstr "Select Organisation Units"
 msgid "Confirm Selection"
 msgstr "Confirm Selection"
 
-msgid "Period type"
-msgstr "Period type"
+msgid "Select model"
+msgstr "Select model"
+
+msgid "Select Model"
+msgstr "Select Model"
+
+msgid "Model selection interface will be implemented here"
+msgstr "Model selection interface will be implemented here"
+
+msgid "Evaluation name"
+msgstr "Evaluation name"
+
+msgid "EWARS Evaluation 22-24"
+msgstr "EWARS Evaluation 22-24"
 
 msgid "Daily"
 msgstr "Daily"
@@ -234,11 +249,26 @@ msgstr "Weekly"
 msgid "Monthly"
 msgstr "Monthly"
 
+msgid "Period type"
+msgstr "Period type"
+
 msgid "From date"
 msgstr "From date"
 
 msgid "To date"
 msgstr "To date"
+
+msgid "Summary"
+msgstr "Summary"
+
+msgid "Not entered"
+msgstr "Not entered"
+
+msgid "Not selected"
+msgstr "Not selected"
+
+msgid "Organisation units"
+msgstr "Organisation units"
 
 msgid "{{count}} org units"
 msgid_plural "{{count}} org units"
@@ -408,9 +438,6 @@ msgstr "Organisation unit level"
 
 msgid "Organisation unit level to import data to"
 msgstr "Organisation unit level to import data to"
-
-msgid "Organisation units"
-msgstr "Organisation units"
 
 msgid "CHAP settings"
 msgstr "CHAP settings"

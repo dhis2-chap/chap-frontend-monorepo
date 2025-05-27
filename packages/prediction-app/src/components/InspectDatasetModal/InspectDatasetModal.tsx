@@ -2,15 +2,31 @@ import React from 'react'
 import i18n from '@dhis2/d2-i18n'
 import { Modal, Button, ModalTitle, ModalContent, ButtonStrip, ModalActions } from '@dhis2/ui'
 import { VisualizationPlugin } from '../VisualizationPlugin'
+import { OrganisationUnit } from '../OrganisationUnitSelector'
+import { toDHIS2PeriodData } from '../../features/timeperiod-selector/utils/timePeriodUtils'
+import { PERIOD_TYPES } from '../NewEvaluationForm/Sections/PeriodSelector'
+import { useConfig } from '@dhis2/app-runtime'
 
 type Props = {
-    isOpen: boolean
     onClose: () => void
-    selectedOrgUnits: any[]
+    selectedOrgUnits: OrganisationUnit[]
+    periodType: keyof typeof PERIOD_TYPES
+    fromDate: string
+    toDate: string
 }
 
-export const InspectDatasetModal = ({ isOpen, onClose, selectedOrgUnits }: Props) => {
-    if (!isOpen) return null
+export const InspectDatasetModal = ({ onClose, selectedOrgUnits, periodType, fromDate, toDate }: Props) => {
+    const { baseUrl } = useConfig();
+    
+    const calculatePeriods = () => {
+        const selectedPeriodType = PERIOD_TYPES[periodType]
+        if (!selectedPeriodType) return []
+
+        const dateRange = toDHIS2PeriodData(fromDate, toDate, selectedPeriodType.toLowerCase())
+        return dateRange.map((period) => ({
+            id: period.id,
+        }))
+    }
 
     return (
         <Modal
@@ -20,7 +36,7 @@ export const InspectDatasetModal = ({ isOpen, onClose, selectedOrgUnits }: Props
             <ModalTitle>{i18n.t('Analyze dataset')}</ModalTitle>
             <ModalContent>
                 <VisualizationPlugin
-                    pluginSource='http://localhost:8080/dhis-web-data-visualizer/plugin.html'
+                    pluginSource={`${baseUrl}/dhis-web-data-visualizer/plugin.html`}
                     height={'500px'}
                     forDashboard={true}
                     displayProperty={'name'}
@@ -29,44 +45,7 @@ export const InspectDatasetModal = ({ isOpen, onClose, selectedOrgUnits }: Props
                         columns: [
                             {
                                 dimension: "pe",
-                                items: [
-                                    { id: "202201" },
-                                    { id: "202202" },
-                                    { id: "202203" },
-                                    { id: "202204" },
-                                    { id: "202205" },
-                                    { id: "202206" },
-                                    { id: "202207" },
-                                    { id: "202208" },
-                                    { id: "202209" },
-                                    { id: "202210" },
-                                    { id: "202211" },
-                                    { id: "202212" },
-                                    { id: "202301" },
-                                    { id: "202302" },
-                                    { id: "202303" },
-                                    { id: "202304" },
-                                    { id: "202305" },
-                                    { id: "202306" },
-                                    { id: "202307" },
-                                    { id: "202308" },
-                                    { id: "202309" },
-                                    { id: "202310" },
-                                    { id: "202311" },
-                                    { id: "202312" },
-                                    { id: "202401" },
-                                    { id: "202402" },
-                                    { id: "202403" },
-                                    { id: "202404" },
-                                    { id: "202405" },
-                                    { id: "202406" },
-                                    { id: "202407" },
-                                    { id: "202408" },
-                                    { id: "202409" },
-                                    { id: "202410" },
-                                    { id: "202411" },
-                                    { id: "202412" }
-                                ]
+                                items: calculatePeriods()
                             },
                         ],
                         rows: [
@@ -87,12 +66,16 @@ export const InspectDatasetModal = ({ isOpen, onClose, selectedOrgUnits }: Props
                             }
                         ],
                         filters: [],
-                    }}
-                />
+                    }} />
             </ModalContent>
             <ModalActions>
                 <ButtonStrip>
-                    <Button onClick={onClose}>{i18n.t('Close')}</Button>
+                    <Button
+                        onClick={onClose}
+                        primary
+                    >
+                        {i18n.t('Close')}
+                    </Button>
                 </ButtonStrip>
             </ModalActions>
         </Modal>

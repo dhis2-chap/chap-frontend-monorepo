@@ -81,6 +81,9 @@ const router = createHashRouter([
                     },
                     {
                         path: '/evaluations/new',
+                        handle: {
+                            fullWidth: true,
+                        } satisfies RouteHandle,
                         element: <NewEvaluationPage />,
                     },
                 ],

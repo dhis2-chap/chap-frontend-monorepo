@@ -9,7 +9,7 @@ import {
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import { Controller, Control, FieldErrors, useWatch } from 'react-hook-form'
-import { EvaluationFormValues } from '../../NewEvaluationForm'
+import { EvaluationFormValues } from '../../hooks/useFormController'
 import styles from './PeriodSelector.module.css'
 
 type Props = {
@@ -17,18 +17,25 @@ type Props = {
     errors: FieldErrors<EvaluationFormValues>
 }
 
-const getInputType = (periodType: string): string => {
+export const PERIOD_TYPES = {
+    DAY: 'DAY',
+    WEEK: 'WEEK',
+    MONTH: 'MONTH',
+} as const;
+
+const getInputType = (periodType: keyof typeof PERIOD_TYPES): string => {
     switch (periodType) {
-        case 'daily':
+        case PERIOD_TYPES.DAY:
             return 'date';
-        case 'weekly':
+        case PERIOD_TYPES.WEEK:
             return 'week';
-        case 'monthly':
+        case PERIOD_TYPES.MONTH:
             return 'month';
         default:
             return 'text';
     }
 };
+
 
 export const PeriodSelector = ({ control, errors }: Props) => {
     const periodType = useWatch({ control, name: 'periodType' });
@@ -47,9 +54,19 @@ export const PeriodSelector = ({ control, errors }: Props) => {
                             onChange={({ selected }) => field.onChange(selected)}
                             dataTest="evaluation-period-type-select"
                         >
-                            <SingleSelectOption disabled value="daily" label={i18n.t('Daily')} />
-                            <SingleSelectOption value="weekly" label={i18n.t('Weekly')} />
-                            <SingleSelectOption value="monthly" label={i18n.t('Monthly')} />
+                            <SingleSelectOption
+                                disabled
+                                value={PERIOD_TYPES.DAY}
+                                label={i18n.t('Daily')}
+                            />
+                            <SingleSelectOption
+                                value={PERIOD_TYPES.WEEK}
+                                label={i18n.t('Weekly')}
+                            />
+                            <SingleSelectOption
+                                value={PERIOD_TYPES.MONTH}
+                                label={i18n.t('Monthly')}
+                            />
                         </SingleSelectField>
                     )}
                 />
@@ -57,7 +74,7 @@ export const PeriodSelector = ({ control, errors }: Props) => {
             </div>
             <div className={styles.datePickersContainer}>
                 <div className={styles.datePickerField}>
-                    <Label>{i18n.t('From date')}</Label>
+                    <Label>{i18n.t('From period')}</Label>
                     <Controller
                         name="fromDate"
                         control={control}
@@ -83,7 +100,7 @@ export const PeriodSelector = ({ control, errors }: Props) => {
                     />
                 </div>
                 <div className={styles.datePickerField}>
-                    <Label>{i18n.t('To date')}</Label>
+                    <Label>{i18n.t('To period')}</Label>
                     <Controller
                         name="toDate"
                         control={control}
