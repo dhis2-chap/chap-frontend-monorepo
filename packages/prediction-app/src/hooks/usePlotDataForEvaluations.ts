@@ -68,7 +68,7 @@ export const usePlotDataForEvaluations = (
                 }
             },
             select: select,
-            enabled: !!evaluation,
+            enabled: !!evaluation && (!!orgUnits ? orgUnits.length > 0 : true),
             staleTime: 60 * 1000,
         })),
     })

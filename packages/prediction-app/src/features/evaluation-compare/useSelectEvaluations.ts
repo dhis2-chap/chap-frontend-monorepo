@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { act, useCallback, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 import { useEvaluations } from '../../hooks/useEvaluations'
@@ -12,8 +12,6 @@ const evaluationParamsSchema = z.object({
 
     comparisonEvaluation: z.array(z.string()).optional().default([]),
 })
-
-evaluationParamsSchema.shape.comparisonEvaluation._type
 
 const PARAMS_KEYS = {
     baseEvaluation: 'baseEvaluation',
@@ -61,7 +59,7 @@ const createSearchParamsListUpdater =
         return updatedParams
     }
 
-export const useSelectEvaluations = () => {
+export const useSelectedEvaluations = () => {
     const [searchParams, setSearchParams] = useSearchParams()
 
     const params: EvaluationParams = useMemo(() => {
@@ -135,7 +133,7 @@ export type EvaluationControllerResult = {
     comparisonEvaluation: BackTestRead | undefined
     query: ReturnType<typeof useEvaluations>
 } & Pick<
-    ReturnType<typeof useSelectEvaluations>,
+    ReturnType<typeof useSelectedEvaluations>,
     'setBaseEvaluation' | 'setComparisonEvaluation'
 >
 
@@ -148,7 +146,7 @@ export const useSelectedEvaluationsController =
             comparisonEvaluations,
             setComparisonEvaluations,
             ...selectors
-        } = useSelectEvaluations()
+        } = useSelectedEvaluations()
 
         // map selected evaluationIds to the actual evaluations
         const mappedEvaluations = useMemo(() => {
@@ -198,12 +196,22 @@ export const useSelectedSplitPoint = () => {
     return [splitPoint, setSplitPoint] as const
 }
 
-export const useSelectedOrgUnits = () => {
+export const useSelectedOrgUnits = ({
+    initialValue,
+}: { initialValue?: string[] } = {}) => {
+    // we cant use useSearchParams's initialValue, because initialValue is async, and
+    // thus empty on first render which is passed to useSearchParams, and wont update after the fact
     const [searchParams, setSearchParams] = useSearchParams()
+    const [hasSetSearchParams, setHasSetSearchParams] = useState(false)
 
-    const organisationUnits = searchParams.getAll(PARAMS_KEYS.orgUnit)
+    const resolvedValue =
+        !hasSetSearchParams && initialValue
+            ? initialValue
+            : searchParams.getAll(PARAMS_KEYS.orgUnit)
+
     const setOrgUnits = useCallback(
         (valueOrUpdater: Updater<string[] | undefined>) => {
+            setHasSetSearchParams(true)
             return setSearchParams(
                 createSearchParamsListUpdater(
                     PARAMS_KEYS.orgUnit,
@@ -211,8 +219,8 @@ export const useSelectedOrgUnits = () => {
                 )
             )
         },
-        [setSearchParams]
+        [setSearchParams, setHasSetSearchParams]
     )
 
-    return [organisationUnits, setOrgUnits] as const
+    return [resolvedValue, setOrgUnits] as const
 }

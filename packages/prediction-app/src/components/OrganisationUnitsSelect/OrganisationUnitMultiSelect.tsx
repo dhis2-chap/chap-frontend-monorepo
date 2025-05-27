@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
+import { unstable_batchedUpdates } from 'react-dom'
+
 import {
     MultiSelect,
     MultiSelectOption,
@@ -41,24 +43,52 @@ const OrganisationUnitMultiSelect = ({
     const resolvedSelected =
         pendingSelectedOrgUnits !== null ? pendingSelectedOrgUnits : selected
 
+    // Multiselect will crash if selected contains items that are not in available
+    // this can happen when loading, thus we add the selected items to the available list
+    const { orgUnitsMap, orgUnits } = useMemo(() => {
+        const orgUnitsMap = new Map(available.map((o) => [o.id, o]))
+        resolvedSelected.forEach((s) => {
+            if (!orgUnitsMap.get(s)) {
+                orgUnitsMap.set(s, {
+                    id: s,
+                    displayName: s,
+                })
+            }
+        })
+
+        return {
+            orgUnitsMap: orgUnitsMap,
+            orgUnits: Array.from(orgUnitsMap.values()),
+        }
+    }, [available, resolvedSelected])
+
     return (
         <MultiSelect
             prefix={i18n.t('Organisation Units')}
             selected={resolvedSelected}
             disabled={available.length < 1}
-            onChange={({ selected }) =>
-                setPendingSelectedOrgUnits(selected.slice(0, maxSelections))
-            }
+            onChange={({ selected }, event) => {
+                const isChipDeletion = event.type === 'click'
+                if (isChipDeletion) {
+                    // dont batch updates on chip deletion
+                    onSelect({ selected })
+                } else {
+                    setPendingSelectedOrgUnits(selected.slice(0, maxSelections))
+                }
+            }}
             onBlur={() => {
-                onSelect({
-                    selected: pendingSelectedOrgUnits ?? [],
-                })
-                setPendingSelectedOrgUnits(null)
+                if (pendingSelectedOrgUnits != null) {
+                    onSelect({
+                        selected: pendingSelectedOrgUnits ?? [],
+                    })
+
+                    setPendingSelectedOrgUnits(null)
+                }
             }}
             inputMaxHeight="26px"
         >
             {selected.length >= maxSelections && (
-                <Help className={css.help} warning> 
+                <Help className={css.help} warning>
                     {i18n.t(
                         'You cannot select more than {{max}} organisation units at a time',
                         {
@@ -67,7 +97,7 @@ const OrganisationUnitMultiSelect = ({
                     )}
                 </Help>
             )}
-            {available.map((ou) => (
+            {orgUnits.map((ou) => (
                 <MultiSelectOption
                     key={ou.id}
                     label={ou.displayName}
