@@ -33,7 +33,7 @@ export const EvaluationCompare = () => {
         setSelectedOrgUnits,
         setBaseEvaluation,
         setComparisonEvaluation,
-        setSelectedSplitPoint,
+        setSelectedSplitPeriod: setSelectedSplitPoint,
     } = useCompareSelectionController({
         maxSelectedOrgUnits: MAX_SELECTED_ORG_UNITS,
     })

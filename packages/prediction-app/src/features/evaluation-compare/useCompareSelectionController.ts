@@ -2,8 +2,8 @@ import { useEffect, useMemo } from 'react'
 import {
     useSelectedEvaluationsController,
     useSelectedOrgUnits,
-    useSelectedSplitPoint,
-} from './useSelectEvaluations'
+    useSelectedSplitPeriod,
+} from './useSearchParamSelections'
 import { useEvaluationOverlap } from '../../hooks/useEvaluationOverlap'
 import { useOrgUnitsById } from '../../hooks/useOrgUnitsById'
 
@@ -23,7 +23,7 @@ export const useCompareSelectionController = ({
         [baseEvaluation, comparisonEvaluation]
     )
 
-    const [selectedSplitPoint, setSelectedSplitPoint] = useSelectedSplitPoint()
+    const [selectedSplitPeriod, setSelectedSplitPeriod] = useSelectedSplitPeriod()
 
     const evaluationOverlap = useEvaluationOverlap({
         baseEvaluation: baseEvaluation?.id,
@@ -35,7 +35,7 @@ export const useCompareSelectionController = ({
         : baseEvaluation?.splitPeriods ?? []
 
     const resolvedSelectedSplitPeriod =
-        selectedSplitPoint ?? resolvedSplitPeriods[0]
+        selectedSplitPeriod ?? resolvedSplitPeriods[0]
 
     const { availableOrgUnitIds, availableOrgUnitSet } = useMemo(() => {
         const availableOrgUnitIds = evaluationOverlap.data
@@ -67,11 +67,11 @@ export const useCompareSelectionController = ({
         if (
             resolvedSelectedSplitPeriod &&
             resolvedSplitPeriods.length > 0 &&
-            !resolvedSplitPeriods.some((sp) => sp === selectedSplitPoint)
+            !resolvedSplitPeriods.some((sp) => sp === selectedSplitPeriod)
         ) {
-            setSelectedSplitPoint(undefined)
+            setSelectedSplitPeriod(undefined)
         }
-    }, [resolvedSplitPeriods, selectedSplitPoint])
+    }, [resolvedSplitPeriods, selectedSplitPeriod])
 
     return {
         selectedEvaluations,
@@ -86,6 +86,6 @@ export const useCompareSelectionController = ({
         setBaseEvaluation,
         setComparisonEvaluation,
         setSelectedOrgUnits,
-        setSelectedSplitPoint,
+        setSelectedSplitPeriod,
     }
 }
