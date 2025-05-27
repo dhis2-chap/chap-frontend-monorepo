@@ -1,7 +1,4 @@
-import {
-    ComparisonPlotList,
-    SplitPeriodSelector
-} from '@dhis2-chap/chap-lib'
+import { ComparisonPlotList, SplitPeriodSelector } from '@dhis2-chap/chap-lib'
 import {
     EvaluationCompatibleSelector,
     EvaluationSelectorBase,
@@ -12,7 +9,7 @@ import {
     IconArrowLeft16,
     IconArrowRight16,
     IconVisualizationLine24,
-    IconVisualizationLineMulti24
+    IconVisualizationLineMulti24,
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import { usePlotDataForEvaluations } from '../../hooks/usePlotDataForEvaluations'
@@ -37,7 +34,9 @@ export const EvaluationCompare = () => {
         setBaseEvaluation,
         setComparisonEvaluation,
         setSelectedSplitPoint,
-    } = useCompareSelectionController()
+    } = useCompareSelectionController({
+        maxSelectedOrgUnits: MAX_SELECTED_ORG_UNITS,
+    })
 
     const { combined } = usePlotDataForEvaluations(selectedEvaluations, {
         orgUnits: selectedOrgUnits,

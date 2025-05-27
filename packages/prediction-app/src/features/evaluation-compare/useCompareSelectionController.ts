@@ -7,7 +7,9 @@ import {
 import { useEvaluationOverlap } from '../../hooks/useEvaluationOverlap'
 import { useOrgUnitsById } from '../../hooks/useOrgUnitsById'
 
-export const useCompareSelectionController = () => {
+export const useCompareSelectionController = ({
+    maxSelectedOrgUnits = 10,
+} = {}) => {
     const {
         query: evaluationsQuery,
         baseEvaluation,
@@ -48,7 +50,7 @@ export const useCompareSelectionController = () => {
     const orgUnits = useOrgUnitsById(availableOrgUnitIds)
 
     const [selectedOrgUnits, setSelectedOrgUnits] = useSelectedOrgUnits({
-        initialValue: availableOrgUnitIds.slice(0, 10),
+        initialValue: availableOrgUnitIds.slice(0, maxSelectedOrgUnits),
     })
 
     const compatibleSelectedOrgUnits = useMemo(
