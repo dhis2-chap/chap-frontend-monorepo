@@ -47,7 +47,7 @@ export const useCompareSelectionController = ({
         }
     }, [evaluationOverlap.data, baseEvaluation?.orgUnits])
 
-    const orgUnits = useOrgUnitsById(availableOrgUnitIds)
+
 
     const [selectedOrgUnits, setSelectedOrgUnits] = useSelectedOrgUnits({
         initialValue: availableOrgUnitIds.slice(0, maxSelectedOrgUnits),
@@ -81,7 +81,6 @@ export const useCompareSelectionController = ({
         selectedOrgUnits: compatibleSelectedOrgUnits,
         evaluations: evaluationsQuery.data,
         splitPeriods: resolvedSplitPeriods,
-        orgUnits: orgUnits.data?.organisationUnits,
         hasNoMatchingSplitPeriods,
         setBaseEvaluation,
         setComparisonEvaluation,
