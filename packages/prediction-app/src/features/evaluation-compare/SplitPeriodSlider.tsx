@@ -32,17 +32,22 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
     const lastSplitPeriodInPeriodsIndex = periods.findIndex(
         (period) => period === lastSplitPeriod
     )
+    // fallback to end of period if splitPeriod not found
+    const extraPeriodsStartIndex =
+        lastSplitPeriodInPeriodsIndex < 0
+            ? periods.length - splitPeriodLength
+            : lastSplitPeriodInPeriodsIndex
 
-    // add last periods to be able to the end of the periods
+    // add extra periods so we can show the full period when last split period is selected
     // note that this portion cannot be selected, and will select the last valid split period
     const withExtraPeriods = splitPeriods
         .concat(
             periods.slice(
-                lastSplitPeriodInPeriodsIndex + 1,
-                lastSplitPeriodInPeriodsIndex + splitPeriodLength
+                extraPeriodsStartIndex + 1,
+                extraPeriodsStartIndex + splitPeriodLength
             )
         )
-        // hack last period to ensure the slider can go to the end
+        // hack last period so that last real period has an end
         // we dont care about the value, since it will not be selectable
         .concat('LAST_PERIOD')
 
@@ -55,14 +60,14 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
         .filter((sp, i, arr) => arr.indexOf(sp) === i)
         .map((point) => getPeriodNameFromId(point))
 
-    const splitPeriodIndex = withExtraPeriods.indexOf(selectedSplitPeriod)
+    const splitPeriodStartIndex = withExtraPeriods.indexOf(selectedSplitPeriod)
+    const splitPeriodEndIndex = splitPeriodStartIndex + splitPeriodLength - 1
 
     const getTrackBackground = () => {
         const total = withExtraPeriods.length - 1
-        const splitPeriodStart =
-            splitPeriodIndex * (100 / (withExtraPeriods.length - 1))
+        const splitPeriodStart = splitPeriodStartIndex * (100 / total)
         const splitPeriodEnd =
-            (splitPeriodIndex + splitPeriodLength) * (100 / total)
+            (splitPeriodStartIndex + splitPeriodLength) * (100 / total)
         return `linear-gradient(
             to right,
             var(--colors-grey300) ${splitPeriodStart}%,
@@ -83,7 +88,7 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                     {`${getPeriodNameFromId(
                         selectedSplitPeriod
                     )} - ${getPeriodNameFromId(
-                        withExtraPeriods[splitPeriodIndex + 2]
+                        withExtraPeriods[splitPeriodEndIndex]
                     )}`}
                 </span>
             </div>
@@ -93,7 +98,7 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                     labelledBy="splitPeriodSlider"
                     min={0}
                     max={withExtraPeriods.length - 1}
-                    values={[splitPeriodIndex]}
+                    values={[splitPeriodStartIndex]}
                     renderThumb={({ props }) => (
                         <div {...props} key={props.key} className={css.thumb}>
                             <svg
