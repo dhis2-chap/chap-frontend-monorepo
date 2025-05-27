@@ -180,13 +180,13 @@ export const useSelectedEvaluationsController =
 export const useSelectedSplitPeriod = () => {
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const splitPoint = searchParams.get(PARAMS_KEYS.splitPeriod)
-    const setSplitPoint = useCallback(
-        (splitPoint: string | undefined) => {
+    const splitPeriod = searchParams.get(PARAMS_KEYS.splitPeriod)
+    const setSplitPeriod = useCallback(
+        (newSplitPeriod: string | undefined) => {
             setSearchParams((prev) => {
                 const updatedParams = new URLSearchParams(prev)
-                if (splitPoint) {
-                    updatedParams.set(PARAMS_KEYS.splitPeriod, splitPoint)
+                if (newSplitPeriod) {
+                    updatedParams.set(PARAMS_KEYS.splitPeriod, newSplitPeriod)
                 } else {
                     updatedParams.delete(PARAMS_KEYS.splitPeriod)
                 }
@@ -195,7 +195,7 @@ export const useSelectedSplitPeriod = () => {
         },
         [setSearchParams]
     )
-    return [splitPoint, setSplitPoint] as const
+    return [splitPeriod, setSplitPeriod] as const
 }
 
 export const useSelectedOrgUnits = ({

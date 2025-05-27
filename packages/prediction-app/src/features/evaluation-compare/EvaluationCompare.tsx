@@ -46,8 +46,8 @@ export const EvaluationCompare = () => {
     })
     const { data: orgUnitsData } = useOrgUnitsById(availableOrgUnitIds)
 
-    const { dataForSplitPoint, periods } = useMemo(() => {
-        const dataForSplitPoint = combined.viewData
+    const { dataForSplitPeriod, periods } = useMemo(() => {
+        const dataForSplitPeriod = combined.viewData
             .filter((v) => v.splitPoint === selectedSplitPeriod)
             .flatMap((v) =>
                 v.evaluation.map((e) => ({
@@ -58,8 +58,8 @@ export const EvaluationCompare = () => {
                         )?.displayName ?? e.orgUnitId,
                 }))
             )
-        const periods = dataForSplitPoint[0]?.models[0].data.periods ?? []
-        return { dataForSplitPoint, periods }
+        const periods = dataForSplitPeriod[0]?.models[0].data.periods ?? []
+        return { dataForSplitPeriod, periods }
     }, [combined.viewData, selectedSplitPeriod, orgUnitsData])
 
     return (
@@ -124,7 +124,7 @@ export const EvaluationCompare = () => {
                 {combined.viewData.length > 0 && (
                     <ComparisonPlotList
                         useVirtuoso={false}
-                        evaluationPerOrgUnits={dataForSplitPoint}
+                        evaluationPerOrgUnits={dataForSplitPeriod}
                     />
                 )}
             </div>
