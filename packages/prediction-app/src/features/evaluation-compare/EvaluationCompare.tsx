@@ -63,14 +63,13 @@ export const EvaluationCompare = () => {
 
     return (
         <div className={css.wrapper}>
-            <PageHeader
-                pageTitle={i18n.t('Compare evaluations')}
-                pageDescription={i18n.t(
-                    'Compare evaluations to assess model, co-variates and data performance.'
-                )}
-            />
-
             <div className={css.selectionToolbar}>
+                <PageHeader
+                    pageTitle={i18n.t('Compare evaluations')}
+                    pageDescription={i18n.t(
+                        'Compare evaluations to assess model, co-variates and data performance.'
+                    )}
+                />
                 <div className={css.compareSelectors}>
                     <EvaluationSelectorBase
                         onSelect={(evaluation1) => {
