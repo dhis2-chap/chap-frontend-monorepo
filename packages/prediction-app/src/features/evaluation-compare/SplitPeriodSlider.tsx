@@ -117,8 +117,8 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                     min={0}
                     max={withExtraPeriods.length - 1}
                     values={[splitPeriodStartIndex]}
-                    renderThumb={({ props }) => (
-                        <div {...props} key={props.key} className={css.thumb}>
+                    renderThumb={({ props: thumbProps }) => (
+                        <div {...thumbProps} key={thumbProps.key} className={css.thumb}>
                             <svg
                                 width="100%"
                                 height="auto"
@@ -129,11 +129,11 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                             </svg>
                         </div>
                     )}
-                    renderTrack={({ props, children }) => (
+                    renderTrack={({ props: trackProps, children }) => (
                         <div
-                            {...props}
+                            {...trackProps}
                             style={{
-                                ...props.style,
+                                ...trackProps.style,
                                 background: getTrackBackground(),
                             }}
                             className={css.track}
@@ -142,11 +142,11 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                         </div>
                     )}
                     onChange={handleChange}
-                    renderMark={({ props, index }) =>
+                    renderMark={({ props: markProps, index }) =>
                         index >= splitPeriods.length ? null : (
                             <div
-                                {...props}
-                                key={props.key}
+                                {...markProps}
+                                key={markProps.key}
                                 className={css.mark}
                             />
                         )
