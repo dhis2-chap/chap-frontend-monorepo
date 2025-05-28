@@ -54,7 +54,7 @@
 }
 
 .mark {
-    background-color: var(--colors-grey400);
+    background-color: var(--colors-grey500);
     height: 10px;
     width: 2px;
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import css from './SplitPeriodSlider.module.css'
 import { getPeriodNameFromId } from '../utils/Time'
 import i18n from '@dhis2/d2-i18n'
@@ -78,6 +78,24 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
         )`
     }
 
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            const currentIndex = splitPeriodStartIndex
+            const downKeys = new Set(['j', 'J'])
+            const upKeys = new Set(['k', 'K'])
+            if (downKeys.has(event.key)) {
+                handleChange([currentIndex - 1])
+            } else if (upKeys.has(event.key)) {
+                handleChange([currentIndex + 1])
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown)
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [splitPeriodStartIndex, splitPeriods, onChange])
+
     return (
         <div className={css.wrapper}>
             <div className={css.selectedLabelContainer}>
@@ -126,7 +144,11 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                     onChange={handleChange}
                     renderMark={({ props, index }) =>
                         index >= splitPeriods.length ? null : (
-                            <div {...props} key={props.key} className={css.mark} />
+                            <div
+                                {...props}
+                                key={props.key}
+                                className={css.mark}
+                            />
                         )
                     }
                 />
