@@ -10,7 +10,7 @@ export const useCompareSelectionController = ({
     maxSelectedOrgUnits = 10,
 } = {}) => {
     const {
-        query: evaluationsQuery,
+        evaluations,
         baseEvaluation,
         comparisonEvaluation,
         setBaseEvaluation,
@@ -83,7 +83,7 @@ export const useCompareSelectionController = ({
         selectedSplitPeriod: resolvedSelectedSplitPeriod,
         selectedOrgUnits: compatibleSelectedOrgUnits,
         availableOrgUnitIds,
-        evaluations: evaluationsQuery.data,
+        evaluations,
         splitPeriods: resolvedSplitPeriods,
         hasNoMatchingSplitPeriods,
         setBaseEvaluation,

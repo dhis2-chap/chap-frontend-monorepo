@@ -34,7 +34,7 @@ export const EvaluationCompatibleSelector = ({
         error,
         isSuccess,
     } = useQuery({
-        queryKey: ['evaluations', 'compatible', compatibleEvaluationId],
+        queryKey: ['backtests', 'compatible', compatibleEvaluationId],
         queryFn: () => {
             if (!compatibleEvaluationId) {
                 return Promise.resolve([] as BackTestRead[])

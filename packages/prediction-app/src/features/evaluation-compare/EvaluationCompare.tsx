@@ -2,7 +2,7 @@ import { ComparisonPlotList, SplitPeriodSelector } from '@dhis2-chap/chap-lib'
 import {
     EvaluationCompatibleSelector,
     EvaluationSelectorBase,
-} from '../select-evaluation/EvaluationSelector'
+} from '../select-evaluation'
 import React, { useMemo } from 'react'
 import css from './EvaluationCompare.module.css'
 import {
@@ -77,7 +77,7 @@ export const EvaluationCompare = () => {
                             setBaseEvaluation(evaluation1?.id.toString())
                         }}
                         selected={baseEvaluation}
-                        available={evaluations?.evaluations ?? []}
+                        available={evaluations ?? []}
                         loading={evaluations === undefined}
                         placeholder={i18n.t('Select base evaluation')}
                     />

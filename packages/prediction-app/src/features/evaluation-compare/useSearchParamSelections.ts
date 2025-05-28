@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
-import { useEvaluations } from '../../hooks/useEvaluations'
 import { BackTestRead } from '@dhis2-chap/chap-lib'
+import { useBacktests } from '../../hooks/useBacktests'
 
 const evaluationParamsSchema = z.object({
     baseEvaluation: z.string().optional(),
@@ -131,7 +131,7 @@ export const useSelectedEvaluations = () => {
 export type EvaluationControllerResult = {
     baseEvaluation: BackTestRead | undefined
     comparisonEvaluation: BackTestRead | undefined
-    query: ReturnType<typeof useEvaluations>
+    evaluations: BackTestRead[] | undefined
 } & Pick<
     ReturnType<typeof useSelectedEvaluations>,
     'setBaseEvaluation' | 'setComparisonEvaluation'
@@ -139,7 +139,7 @@ export type EvaluationControllerResult = {
 
 export const useSelectedEvaluationsController =
     (): EvaluationControllerResult => {
-        const evaluationsQuery = useEvaluations()
+        const { backtests } = useBacktests()
         const {
             baseEvaluation,
             comparisonEvaluation,
@@ -149,29 +149,31 @@ export const useSelectedEvaluationsController =
 
         // map selected evaluationIds to the actual evaluations
         const mappedEvaluations = useMemo(() => {
-            if (!evaluationsQuery.data) {
+            if (!backtests || backtests.length === 0) {
                 return {
                     baseEvaluation: undefined,
                     comparisonEvaluation: undefined,
                     comparisonEvaluations: [],
                 }
             }
-            const { evaluationsMap } = evaluationsQuery.data
+            const backTestMap = new Map(
+                backtests.map((bt) => [bt.id.toString(), bt])
+            )
             return {
                 baseEvaluation: baseEvaluation
-                    ? evaluationsMap.get(baseEvaluation)
+                    ? backTestMap.get(baseEvaluation)
                     : undefined,
                 comparisonEvaluation: comparisonEvaluation
-                    ? evaluationsMap.get(comparisonEvaluation)
+                    ? backTestMap.get(comparisonEvaluation)
                     : undefined,
             }
-        }, [evaluationsQuery.data, baseEvaluation, comparisonEvaluation])
+        }, [backtests, baseEvaluation, comparisonEvaluation])
 
         return {
             ...mappedEvaluations,
             setBaseEvaluation,
             setComparisonEvaluation,
-            query: evaluationsQuery,
+            evaluations: backtests,
         }
     }
 
