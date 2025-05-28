@@ -6,6 +6,7 @@ import {
 import React, { useMemo } from 'react'
 import css from './EvaluationCompare.module.css'
 import {
+    CircularLoader,
     IconArrowLeft16,
     IconArrowRight16,
     IconVisualizationLine24,
@@ -41,9 +42,12 @@ export const EvaluationCompare = () => {
         maxSelectedOrgUnits: MAX_SELECTED_ORG_UNITS,
     })
 
-    const { combined } = usePlotDataForEvaluations(selectedEvaluations, {
-        orgUnits: selectedOrgUnits,
-    })
+    const { combined, isLoading: plotDataLoading } = usePlotDataForEvaluations(
+        selectedEvaluations,
+        {
+            orgUnits: selectedOrgUnits,
+        }
+    )
     const { data: orgUnitsData } = useOrgUnitsById(availableOrgUnitIds)
 
     const { dataForSplitPeriod, periods } = useMemo(() => {
@@ -102,6 +106,11 @@ export const EvaluationCompare = () => {
                         maxSelections={MAX_SELECTED_ORG_UNITS}
                     />
                 </div>
+                {plotDataLoading && (
+                    <div className={css.loaderWrapper}>
+                        <CircularLoader small className={css.loader} />
+                    </div>
+                )}
             </div>
             {hasNoMatchingSplitPeriods && (
                 <NoticeBox warning>

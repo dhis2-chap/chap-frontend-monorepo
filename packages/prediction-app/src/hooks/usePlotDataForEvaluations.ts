@@ -85,5 +85,7 @@ export const usePlotDataForEvaluations = (
         return { viewData, splitPeriods }
     }, [evaluationQueries])
 
-    return { queries: evaluationQueries, combined }
+    const isLoading = evaluationQueries.some((q) => q.isLoading && q.isFetching)
+
+    return { queries: evaluationQueries, combined, isLoading }
 }
