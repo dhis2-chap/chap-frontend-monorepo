@@ -30,9 +30,14 @@ export const useCompareSelectionController = ({
         comparisonEvaluation: comparisonEvaluation?.id,
     })
 
-    const resolvedSplitPeriods = evaluationOverlap.isSuccess
-        ? evaluationOverlap.data.splitPeriods
-        : baseEvaluation?.splitPeriods ?? []
+    const resolvedSplitPeriods = useMemo(
+        () =>
+            (evaluationOverlap.isSuccess
+                ? evaluationOverlap.data.splitPeriods
+                : baseEvaluation?.splitPeriods ?? []
+            ).sort(),
+        [evaluationOverlap.data, baseEvaluation?.splitPeriods]
+    )
 
     const resolvedSelectedSplitPeriod =
         selectedSplitPeriod ?? resolvedSplitPeriods[0]
