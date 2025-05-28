@@ -80,6 +80,9 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
+            if(event.defaultPrevented) {
+                return
+            }
             const currentIndex = splitPeriodStartIndex
             const downKeys = new Set(['j', 'J'])
             const upKeys = new Set(['k', 'K'])
@@ -118,7 +121,11 @@ export const SplitPeriodSlider: React.FC<SplitPeriodSlider> = ({
                     max={withExtraPeriods.length - 1}
                     values={[splitPeriodStartIndex]}
                     renderThumb={({ props: thumbProps }) => (
-                        <div {...thumbProps} key={thumbProps.key} className={css.thumb}>
+                        <div
+                            {...thumbProps}
+                            key={thumbProps.key}
+                            className={css.thumb}
+                        >
                             <svg
                                 width="100%"
                                 height="auto"
