@@ -3,9 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AuthorAssessedStatus } from './AuthorAssessedStatus';
-import type { FeatureType } from './FeatureType';
 import type { PeriodType } from './PeriodType';
-export type ModelSpecRead = {
+/**
+ * ModelTemplateRead is a read model for the ModelTemplateDB.
+ * It is used to return the model template in a readable format.
+ */
+export type ModelTemplateRead = {
     displayName?: string;
     description?: string;
     authorNote?: string;
@@ -15,11 +18,12 @@ export type ModelSpecRead = {
     organizationLogoUrl?: (string | null);
     contactEmail?: (string | null);
     citationInfo?: (string | null);
-    name: string;
-    sourceUrl?: (string | null);
     supportedPeriodType?: PeriodType;
+    userOptions?: (Record<string, any> | null);
+    requiredCovariates?: Array<string>;
+    target?: string;
+    allowFreeAdditionalContinuousCovariates?: boolean;
+    name: string;
     id: number;
-    covariates: Array<FeatureType>;
-    target: FeatureType;
 };
 
