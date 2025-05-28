@@ -1,0 +1,60 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 6px;
+    gap: var(--spacers-dp8);
+}
+
+.sliderContainer {
+    padding-inline: var(--spacers-dp8);
+}
+
+.labelsContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 12px;
+    color: #666;
+}
+
+.label {
+    text-align: center;
+}
+
+.selectedLabelContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+}
+
+.selectedLabel {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.track {
+    height: 6px;
+    width: 100%;
+    background-color: var(--colors-grey400);
+}
+
+.thumb {
+    width: 54px;
+    height: 54px;
+    outline: none;
+}
+
+.thumb svg {
+    width: 100%;
+    height: auto;
+    fill: var(--colors-blue600);
+}
+
+.mark {
+    background-color: var(--colors-grey500);
+    height: 10px;
+    width: 2px;
+}

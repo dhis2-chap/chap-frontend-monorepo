@@ -8,7 +8,6 @@ import type { Feature } from '../models/Feature';
 import type { FullPredictionResponse } from '../models/FullPredictionResponse';
 import type { HealthResponse } from '../models/HealthResponse';
 import type { ModelSpec } from '../models/ModelSpec';
-import type { ModelTemplateConfig } from '../models/ModelTemplateConfig';
 import type { PredictionRequest } from '../models/PredictionRequest';
 import type { State } from '../models/State';
 import type { SystemInfoResponse } from '../models/SystemInfoResponse';
@@ -87,17 +86,6 @@ export class DefaultService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/list-models',
-        });
-    }
-    /**
-     * List Model Templates
-     * @returns ModelTemplateConfig Successful Response
-     * @throws ApiError
-     */
-    public static listModelTemplatesListModelTemplatesGet(): CancelablePromise<Array<ModelTemplateConfig>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/list-model-templates',
         });
     }
     /**

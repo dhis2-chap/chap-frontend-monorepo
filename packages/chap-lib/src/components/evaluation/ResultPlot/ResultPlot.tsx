@@ -1,6 +1,6 @@
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { HighChartsData } from '../../../interfaces/Evaluation'
 import { getPeriodNameFromId } from '../../../utils/Time'
 
@@ -91,7 +91,7 @@ const getOptions = (data: any, modelName: string, syncZoom: boolean) => {
                 formatter: function (
                     this: Highcharts.AxisLabelsFormatterContextObject
                 ): string {
-                    return getPeriodNameFromId(this.value)
+                    return getPeriodNameFromId(this.value.toString())
                 },
                 style: {
                     fontSize: '0.9rem',
@@ -127,26 +127,12 @@ const getOptions = (data: any, modelName: string, syncZoom: boolean) => {
 }
 
 export const ResultPlot = ({ data, modelName, syncZoom }: ResultPlotProps) => {
-    const [isRerendering, setIsRerendering] = useState(false)
-
-    useEffect(() => {
-        setIsRerendering(true)
-    }, [data])
-
-    useEffect(() => {
-        if (isRerendering) {
-            setIsRerendering(false)
-        }
-    }, [isRerendering])
-
     return (
         <>
-            {!isRerendering && (
-                <HighchartsReact
-                    highcharts={Highcharts}
-                    options={getOptions(data, modelName, syncZoom)}
-                />
-            )}
+            <HighchartsReact
+                highcharts={Highcharts}
+                options={getOptions(data, modelName, syncZoom)}
+            />
         </>
     )
 }

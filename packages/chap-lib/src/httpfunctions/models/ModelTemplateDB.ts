@@ -3,9 +3,17 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AuthorAssessedStatus } from './AuthorAssessedStatus';
-import type { FeatureType } from './FeatureType';
 import type { PeriodType } from './PeriodType';
-export type ModelSpecRead = {
+/**
+ * TODO: Maybe remove Spec from name, or find common convention for all models.
+ * Just a mixin here to get the model info flat in the database.
+ */
+export type ModelTemplateDB = {
+    supportedPeriodType?: PeriodType;
+    userOptions?: (Record<string, any> | null);
+    requiredCovariates?: Array<string>;
+    target?: string;
+    allowFreeAdditionalContinuousCovariates?: boolean;
     displayName?: string;
     description?: string;
     authorNote?: string;
@@ -16,10 +24,7 @@ export type ModelSpecRead = {
     contactEmail?: (string | null);
     citationInfo?: (string | null);
     name: string;
+    id?: (number | null);
     sourceUrl?: (string | null);
-    supportedPeriodType?: PeriodType;
-    id: number;
-    covariates: Array<FeatureType>;
-    target: FeatureType;
 };
 
