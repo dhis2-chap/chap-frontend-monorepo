@@ -16,7 +16,7 @@ import { type Control, useWatch } from 'react-hook-form'
 import styles from './Summary.module.css'
 import { InspectDatasetModal } from '../../../InspectDatasetModal'
 import { getSelectionSummary, OrganisationUnit } from '../../../OrganisationUnitSelector'
-import { EvaluationFormValues } from '../../NewEvaluationForm.component'
+import { EvaluationFormValues } from '../../hooks/useFormController'
 
 type Props = {
     control: Control<EvaluationFormValues>
