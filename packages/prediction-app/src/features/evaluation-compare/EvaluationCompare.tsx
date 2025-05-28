@@ -28,6 +28,7 @@ export const EvaluationCompare = () => {
         evaluations,
         selectedOrgUnits,
         selectedSplitPeriod,
+        availableOrgUnitIds,
         splitPeriods,
         hasNoMatchingSplitPeriods,
         setSelectedOrgUnits,
@@ -41,7 +42,7 @@ export const EvaluationCompare = () => {
     const { combined } = usePlotDataForEvaluations(selectedEvaluations, {
         orgUnits: selectedOrgUnits,
     })
-    const { data: orgUnitsData } = useOrgUnitsById(selectedOrgUnits)
+    const { data: orgUnitsData } = useOrgUnitsById(availableOrgUnitIds)
 
     const evaluationsPerOrgUnit = useMemo(() => {
         return combined.viewData

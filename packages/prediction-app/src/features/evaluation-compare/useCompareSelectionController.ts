@@ -77,6 +77,7 @@ export const useCompareSelectionController = ({
         comparisonEvaluation,
         selectedSplitPeriod: resolvedSelectedSplitPeriod,
         selectedOrgUnits: compatibleSelectedOrgUnits,
+        availableOrgUnitIds,
         evaluations: evaluationsQuery.data,
         splitPeriods: resolvedSplitPeriods,
         hasNoMatchingSplitPeriods,
