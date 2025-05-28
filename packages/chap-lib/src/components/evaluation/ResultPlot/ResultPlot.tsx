@@ -91,7 +91,7 @@ const getOptions = (data: any, modelName: string, syncZoom: boolean) => {
                 formatter: function (
                     this: Highcharts.AxisLabelsFormatterContextObject
                 ): string {
-                    return getPeriodNameFromId(this.value)
+                    return getPeriodNameFromId(this.value.toString())
                 },
                 style: {
                     fontSize: '0.9rem',
@@ -127,13 +127,12 @@ const getOptions = (data: any, modelName: string, syncZoom: boolean) => {
 }
 
 export const ResultPlot = ({ data, modelName, syncZoom }: ResultPlotProps) => {
-
     return (
         <>
-                <HighchartsReact
-                    highcharts={Highcharts}
-                    options={getOptions(data, modelName, syncZoom)}
-                />
+            <HighchartsReact
+                highcharts={Highcharts}
+                options={getOptions(data, modelName, syncZoom)}
+            />
         </>
     )
 }

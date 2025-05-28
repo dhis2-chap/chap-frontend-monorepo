@@ -25,12 +25,6 @@ export const useEvaluationOverlap = (options: UseBackTestOverlapOptions) => {
         enabled: !!baseEvaluation && !!comparisonEvaluation,
         select: useCallback(
             (data: BacktestDomain) => ({
-                // orgUnits: data.orgUnits.map(
-                //     (orgunitId) =>
-                //         orgUnits.orgUnits?.organisationUnits.find(
-                //             (o) => o.id === orgunitId
-                //         ) ?? { id: orgunitId, displayName: orgunitId }
-                // ),
                 ...data,
                 splitPeriods: data.splitPeriods.sort(),
             }),
