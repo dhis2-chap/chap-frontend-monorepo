@@ -13,6 +13,7 @@ export type BackTestRead = {
     orgUnits?: Array<string>;
     splitPeriods?: Array<string>;
     dataset: DataSetMeta;
+    aggregateMetrics: Record<string, number>;
     configuredModel: ConfiguredModelRead;
 };
 

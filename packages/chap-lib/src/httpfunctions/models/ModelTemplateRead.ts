@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { AuthorAssessedStatus } from './AuthorAssessedStatus';
 import type { PeriodType } from './PeriodType';
 /**
  * ModelTemplateRead is a read model for the ModelTemplateDB.
@@ -10,6 +11,8 @@ import type { PeriodType } from './PeriodType';
 export type ModelTemplateRead = {
     displayName?: string;
     description?: string;
+    authorNote?: string;
+    authorAssessedStatus?: AuthorAssessedStatus;
     author?: string;
     organization?: (string | null);
     organizationLogoUrl?: (string | null);

@@ -13,7 +13,6 @@ import type { DatasetCreate } from '../models/DatasetCreate';
 import type { DataSetRead } from '../models/DataSetRead';
 import type { DataSetWithObservations } from '../models/DataSetWithObservations';
 import type { DebugEntry } from '../models/DebugEntry';
-import type { FeatureSource } from '../models/FeatureSource';
 import type { JobResponse } from '../models/JobResponse';
 import type { ModelConfigurationCreate } from '../models/ModelConfigurationCreate';
 import type { ModelSpecRead } from '../models/ModelSpecRead';
@@ -300,8 +299,52 @@ export class CrudService {
         });
     }
     /**
+     * List Model Templates
+     * Lists all model templates from the db.
+     * @returns ModelTemplateRead Successful Response
+     * @throws ApiError
+     */
+    public static listModelTemplatesCrudModelTemplatesGet(): CancelablePromise<Array<ModelTemplateRead>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/model-templates',
+        });
+    }
+    /**
+     * List Configured Models
+     * List all configured models from the db
+     * @returns ModelSpecRead Successful Response
+     * @throws ApiError
+     */
+    public static listConfiguredModelsCrudConfiguredModelsGet(): CancelablePromise<Array<ModelSpecRead>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/crud/configured-models',
+        });
+    }
+    /**
+     * Add Configured Model
+     * Add a configured model to the database
+     * @param requestBody
+     * @returns ConfiguredModelDB Successful Response
+     * @throws ApiError
+     */
+    public static addConfiguredModelCrudConfiguredModelsPost(
+        requestBody: ModelConfigurationCreate,
+    ): CancelablePromise<ConfiguredModelDB> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/crud/configured-models',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * List Models
-     * List all configured models from the db (new db tables)
+     * List all models from the db (alias for configured models)
      * @returns ModelSpecRead Successful Response
      * @throws ApiError
      */
@@ -309,6 +352,26 @@ export class CrudService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/crud/models',
+        });
+    }
+    /**
+     * Add Model
+     * Add a model to the database (alias for configured models)
+     * @param requestBody
+     * @returns ConfiguredModelDB Successful Response
+     * @throws ApiError
+     */
+    public static addModelCrudModelsPost(
+        requestBody: ModelConfigurationCreate,
+    ): CancelablePromise<ConfiguredModelDB> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/crud/models',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
         });
     }
     /**
@@ -337,49 +400,6 @@ export class CrudService {
             path: {
                 'debugId': debugId,
             },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * List Feature Types
-     * @returns FeatureSource Successful Response
-     * @throws ApiError
-     */
-    public static listFeatureTypesCrudFeatureSourcesGet(): CancelablePromise<Array<FeatureSource>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/crud/feature-sources',
-        });
-    }
-    /**
-     * List Model Templates
-     * Lists all model templates by reading local config files and presenting models.
-     * @returns ModelTemplateRead Successful Response
-     * @throws ApiError
-     */
-    public static listModelTemplatesCrudModelTemplatesGet(): CancelablePromise<Array<ModelTemplateRead>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/crud/model-templates',
-        });
-    }
-    /**
-     * Add Configured Model
-     * Add a configured model to the database.
-     * @param requestBody
-     * @returns ConfiguredModelDB Successful Response
-     * @throws ApiError
-     */
-    public static addConfiguredModelCrudConfiguredModelsPost(
-        requestBody: ModelConfigurationCreate,
-    ): CancelablePromise<ConfiguredModelDB> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/crud/configured-models',
-            body: requestBody,
-            mediaType: 'application/json',
             errors: {
                 422: `Validation Error`,
             },

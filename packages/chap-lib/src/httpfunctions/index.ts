@@ -7,6 +7,7 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export { AuthorAssessedStatus } from './models/AuthorAssessedStatus';
 export type { BackTestCreate } from './models/BackTestCreate';
 export type { BacktestDomain } from './models/BacktestDomain';
 export type { BackTestForecast } from './models/BackTestForecast';
@@ -34,7 +35,6 @@ export type { EvaluationResponse } from './models/EvaluationResponse';
 export type { Feature } from './models/Feature';
 export type { FeatureCollectionModel } from './models/FeatureCollectionModel';
 export type { FeatureModel } from './models/FeatureModel';
-export type { FeatureSource } from './models/FeatureSource';
 export type { FeatureType } from './models/FeatureType';
 export type { FetchRequest } from './models/FetchRequest';
 export type { ForecastRead } from './models/ForecastRead';

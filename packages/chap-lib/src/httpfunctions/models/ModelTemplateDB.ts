@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { AuthorAssessedStatus } from './AuthorAssessedStatus';
 import type { PeriodType } from './PeriodType';
 /**
  * TODO: Maybe remove Spec from name, or find common convention for all models.
@@ -15,6 +16,8 @@ export type ModelTemplateDB = {
     allowFreeAdditionalContinuousCovariates?: boolean;
     displayName?: string;
     description?: string;
+    authorNote?: string;
+    authorAssessedStatus?: AuthorAssessedStatus;
     author?: string;
     organization?: (string | null);
     organizationLogoUrl?: (string | null);

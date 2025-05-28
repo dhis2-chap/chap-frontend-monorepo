@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-27T17:46:27.054Z\n"
-"PO-Revision-Date: 2025-05-27T17:46:27.055Z\n"
+"POT-Creation-Date: 2025-05-28T19:26:10.072Z\n"
+"PO-Revision-Date: 2025-05-28T19:26:10.073Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -195,6 +195,95 @@ msgstr "Create dataset"
 msgid "Create evaluation with data"
 msgstr "Create evaluation with data"
 
+msgid "Unsaved changes"
+msgstr "Unsaved changes"
+
+msgid ""
+"You have unsaved changes that will be lost if you leave this page. Are you "
+"sure you want to continue?"
+msgstr ""
+"You have unsaved changes that will be lost if you leave this page. Are you "
+"sure you want to continue?"
+
+msgid "Leave page"
+msgstr "Leave page"
+
+msgid "Back to evaluations"
+msgstr "Back to evaluations"
+
+msgid "Organisation Units"
+msgstr "Organisation Units"
+
+msgid "Select organisation units"
+msgstr "Select organisation units"
+
+msgid "Select Organisation Units"
+msgstr "Select Organisation Units"
+
+msgid "Organisation unit levels"
+msgstr "Organisation unit levels"
+
+msgid ""
+"Some models require you to only select organisation units from the same "
+"level."
+msgstr ""
+"Some models require you to only select organisation units from the same "
+"level."
+
+msgid "Confirm Selection"
+msgstr "Confirm Selection"
+
+msgid "Selected"
+msgstr "Selected"
+
+msgid "Select Model"
+msgstr "Select Model"
+
+msgid "Filter models"
+msgstr "Filter models"
+
+msgid "Search by name"
+msgstr "Search by name"
+
+msgid "No model selected"
+msgstr "No model selected"
+
+msgid "Select model"
+msgstr "Select model"
+
+msgid "Evaluation name"
+msgstr "Evaluation name"
+
+msgid "EWARS Evaluation 22-24"
+msgstr "EWARS Evaluation 22-24"
+
+msgid "Period type"
+msgstr "Period type"
+
+msgid "Daily"
+msgstr "Daily"
+
+msgid "Weekly"
+msgstr "Weekly"
+
+msgid "Monthly"
+msgstr "Monthly"
+
+msgid "From period"
+msgstr "From period"
+
+msgid "To period"
+msgstr "To period"
+
+msgid "Organisation units"
+msgstr "Organisation units"
+
+msgid "Summary"
+msgstr "Summary"
+
+msgid "Start job"
+msgstr "Start job"
+
 msgid "Period type is required"
 msgstr "Period type is required"
 
@@ -210,65 +299,11 @@ msgstr "Missing id for org unit"
 msgid "At least one org unit is required"
 msgstr "At least one org unit is required"
 
-msgid "Start job"
-msgstr "Start job"
+msgid "Model is required"
+msgstr "Model is required"
 
-msgid "Organisation Units"
-msgstr "Organisation Units"
-
-msgid "Select organisation units"
-msgstr "Select organisation units"
-
-msgid "Select Organisation Units"
-msgstr "Select Organisation Units"
-
-msgid "Confirm Selection"
-msgstr "Confirm Selection"
-
-msgid "Select model"
-msgstr "Select model"
-
-msgid "Select Model"
-msgstr "Select Model"
-
-msgid "Model selection interface will be implemented here"
-msgstr "Model selection interface will be implemented here"
-
-msgid "Evaluation name"
-msgstr "Evaluation name"
-
-msgid "EWARS Evaluation 22-24"
-msgstr "EWARS Evaluation 22-24"
-
-msgid "Daily"
-msgstr "Daily"
-
-msgid "Weekly"
-msgstr "Weekly"
-
-msgid "Monthly"
-msgstr "Monthly"
-
-msgid "Period type"
-msgstr "Period type"
-
-msgid "From date"
-msgstr "From date"
-
-msgid "To date"
-msgstr "To date"
-
-msgid "Summary"
-msgstr "Summary"
-
-msgid "Not entered"
-msgstr "Not entered"
-
-msgid "Not selected"
-msgstr "Not selected"
-
-msgid "Organisation units"
-msgstr "Organisation units"
+msgid "End period must be after start period"
+msgstr "End period must be after start period"
 
 msgid "{{count}} org units"
 msgid_plural "{{count}} org units"
