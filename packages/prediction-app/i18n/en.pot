@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-24T09:11:52.188Z\n"
-"PO-Revision-Date: 2025-05-24T09:11:52.188Z\n"
+"POT-Creation-Date: 2025-05-28T13:37:41.253Z\n"
+"PO-Revision-Date: 2025-05-28T13:37:41.253Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -109,6 +109,15 @@ msgstr "Oops!"
 msgid "Sorry, an unexpected error has occurred."
 msgstr "Sorry, an unexpected error has occurred."
 
+msgid "Cancel job"
+msgstr "Cancel job"
+
+msgid "Are you sure you want to cancel this job? This action cannot be undone."
+msgstr "Are you sure you want to cancel this job? This action cannot be undone."
+
+msgid "Close"
+msgstr "Close"
+
 msgid "Delete job"
 msgstr "Delete job"
 
@@ -136,8 +145,8 @@ msgstr "An error occurred while loading the logs."
 msgid "No logs reported for this job"
 msgstr "No logs reported for this job"
 
-msgid "Close"
-msgstr "Close"
+msgid "Job cancelled"
+msgstr "Job cancelled"
 
 msgid "Failed to cancel job"
 msgstr "Failed to cancel job"
@@ -154,11 +163,11 @@ msgstr "Status"
 msgid "Type"
 msgstr "Type"
 
-msgid "Start Time"
-msgstr "Start Time"
+msgid "Start date"
+msgstr "Start date"
 
-msgid "End Time"
-msgstr "End Time"
+msgid "End date"
+msgstr "End date"
 
 msgid "Duration"
 msgstr "Duration"
