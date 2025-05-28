@@ -22,7 +22,7 @@ import WarnAboutIncompatibleVersion from './features/common-features/WarnAboutIn
 import { EvaluationsWIPPage } from './pages/EvaluationWIPPAge'
 import { ChapValidator } from './components/ChapValidator'
 import { JobsPage } from './pages/JobsPage'
-import EvaluationCompare from './pages/EvaluationCompare'
+import { EvaluationComparePage } from './pages/EvaluationCompare'
 
 export type RouteHandle = {
     fullWidth?: boolean
@@ -63,7 +63,7 @@ const router = createHashRouter([
                                 handle: {
                                     fullWidth: true,
                                 } satisfies RouteHandle,
-                                element: <EvaluationCompare />,
+                                element: <EvaluationComparePage />,
                             },
                         ],
                     },

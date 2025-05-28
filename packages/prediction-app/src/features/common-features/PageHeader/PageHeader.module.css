@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: end;
-    margin-bottom: 8px;
+    margin-block-end: 8px;
 }
 .pageHeader h2 {
     margin-block-start: 0;
