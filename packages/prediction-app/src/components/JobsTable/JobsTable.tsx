@@ -20,6 +20,7 @@ import {
     getPaginationRowModel,
     Column,
 } from '@tanstack/react-table';
+import { intervalToDuration, formatDuration, format } from 'date-fns';
 import {
     JobDescription,
 } from '@dhis2-chap/chap-lib';
@@ -61,17 +62,38 @@ const columns = [
         ),
     }),
     columnHelper.accessor('start_time', {
-        header: i18n.t('Start Time'),
+        header: i18n.t('Start date'),
         cell: (info) => {
             const value = info.getValue();
-            return value ? new Date(value).toLocaleString() : undefined;
+            return value ? format(new Date(value), 'dd-MM-yyyy hh:mm') : undefined;
         },
     }),
     columnHelper.accessor('end_time', {
-        header: i18n.t('End Time'),
+        header: i18n.t('End date'),
         cell: (info) => {
             const value = info.getValue();
-            return value ? new Date(value).toLocaleString() : undefined;
+            return value ? format(new Date(value), 'dd-MM-yyyy hh:mm') : undefined;
+        },
+    }),
+    columnHelper.display({
+        id: 'duration',
+        header: i18n.t('Duration'),
+        cell: (info) => {
+            const start = info.row.original.start_time;
+            const end = info.row.original.end_time;
+            if (!start || !end) {
+                return undefined;
+            }
+
+            const duration = intervalToDuration({
+                start: new Date(start),
+                end: new Date(end),
+            });
+
+            return formatDuration(duration, {
+                format: ['hours', 'minutes', 'seconds'],
+                delimiter: ' ',
+            });
         },
     }),
     columnHelper.display({

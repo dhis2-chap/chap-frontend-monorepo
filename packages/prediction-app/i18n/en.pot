@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-23T12:29:38.787Z\n"
-"PO-Revision-Date: 2025-05-23T12:29:38.787Z\n"
+"POT-Creation-Date: 2025-05-28T13:37:41.253Z\n"
+"PO-Revision-Date: 2025-05-28T13:37:41.253Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -69,11 +69,6 @@ msgstr "No models found"
 msgid "Clear"
 msgstr "Clear"
 
-msgid "{{count}} evaluations selected"
-msgid_plural "{{count}} evaluations selected"
-msgstr[0] "{{count}} evaluation selected"
-msgstr[1] "{{count}} evaluations selected"
-
 msgid "Evaluations deleted"
 msgstr "Evaluations deleted"
 
@@ -114,6 +109,15 @@ msgstr "Oops!"
 msgid "Sorry, an unexpected error has occurred."
 msgstr "Sorry, an unexpected error has occurred."
 
+msgid "Cancel job"
+msgstr "Cancel job"
+
+msgid "Are you sure you want to cancel this job? This action cannot be undone."
+msgstr "Are you sure you want to cancel this job? This action cannot be undone."
+
+msgid "Close"
+msgstr "Close"
+
 msgid "Delete job"
 msgstr "Delete job"
 
@@ -141,8 +145,11 @@ msgstr "An error occurred while loading the logs."
 msgid "No logs reported for this job"
 msgstr "No logs reported for this job"
 
-msgid "Close"
-msgstr "Close"
+msgid "Job cancelled"
+msgstr "Job cancelled"
+
+msgid "Failed to cancel job"
+msgstr "Failed to cancel job"
 
 msgid "Job deleted"
 msgstr "Job deleted"
@@ -156,11 +163,14 @@ msgstr "Status"
 msgid "Type"
 msgstr "Type"
 
-msgid "Start Time"
-msgstr "Start Time"
+msgid "Start date"
+msgstr "Start date"
 
-msgid "End Time"
-msgstr "End Time"
+msgid "End date"
+msgstr "End date"
+
+msgid "Duration"
+msgstr "Duration"
 
 msgid "No jobs available"
 msgstr "No jobs available"
@@ -177,6 +187,9 @@ msgstr "Success"
 msgid "Failed"
 msgstr "Failed"
 
+msgid "Revoked"
+msgstr "Revoked"
+
 msgid "Create evaluation"
 msgstr "Create evaluation"
 
@@ -191,6 +204,9 @@ msgstr "Create dataset"
 
 msgid "Create evaluation with data"
 msgstr "Create evaluation with data"
+
+msgid "Cancelled"
+msgstr "Cancelled"
 
 msgid "Get started with the Modeling app"
 msgstr "Get started with the Modeling app"
@@ -487,3 +503,11 @@ msgstr "Active jobs"
 
 msgid "View and manage currently running jobs and their status."
 msgstr "View and manage currently running jobs and their status."
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Modeling"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr ""
