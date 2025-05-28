@@ -14,7 +14,6 @@ import PredictionOverview from './features/predictions-overview/PredictionOvervi
 import { SetChapUrl } from './features/route-api/SetChapUrl'
 import { SettingsPage } from './features/settings/Settings'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import EvaluationResult from './features/import-prediction/EvaluationResult'
 import { CssReset, CssVariables } from '@dhis2/ui'
 import { Layout } from './components/layout/Layout'
 import { RouteValidator } from './components/RouteValidator'
@@ -24,6 +23,7 @@ import { EvaluationsWIPPage } from './pages/EvaluationWIPPAge'
 import { ChapValidator } from './components/ChapValidator'
 import { NewEvaluationPage } from './pages/NewEvaluationPage'
 import { JobsPage } from './pages/JobsPage'
+import { EvaluationComparePage } from './pages/EvaluationCompare'
 
 export type RouteHandle = {
     fullWidth?: boolean
@@ -50,6 +50,7 @@ const router = createHashRouter([
                         </ChapValidator>
                     </RouteValidator>
                 ),
+                errorElement: <ErrorPage />,
                 children: [
                     {
                         path: '/evaluate',
@@ -63,7 +64,7 @@ const router = createHashRouter([
                                 handle: {
                                     fullWidth: true,
                                 } satisfies RouteHandle,
-                                element: <EvaluationResult evaluationId={1} />,
+                                element: <EvaluationComparePage />,
                             },
                         ],
                     },

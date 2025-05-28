@@ -1,0 +1,109 @@
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
+    margin-block-end: 72px;
+}
+
+.wrapper .compareSelectors {
+    display: flex;
+    gap: var(--spacers-dp8);
+    
+}
+
+.selectorRow {
+    display: flex;
+    gap: var(--spacers-dp8);
+    width: 100%;
+}
+
+.selectorRow > div {
+    width: 100%;
+}
+
+.selectionToolbar {
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
+    width: 100%;
+    align-self: center;
+}
+
+
+.emptySelection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: var(--spacers-dp16);
+    padding-block-start: var(--spacers-dp16);
+}
+
+.emptySelection h2 {
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--colors-grey800);
+    margin: 0;
+    font-weight: 500;
+}
+
+.iconGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacers-dp8);
+    border: 1px dashed var(--colors-grey600);
+    padding: var(--spacers-dp8);
+    color: var(--colors-grey800);
+}
+
+.arrowIcons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrowIcons svg:first-child {
+    margin-block-end: -8px;
+    margin-inline-start: 2px;
+}
+
+.iconGroup > svg {
+    width: 32px;
+    height: 32px;
+}
+
+.textGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacers-dp4);
+}
+
+.textGroup p {
+    color: var(--colors-grey800);
+    font-size: 14px;
+    margin: 0;
+    margin-block-start: var(--spacers-dp4);
+}
+
+
+.footerSlider {
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    margin-block-end: var(--spacers-dp16);
+    width: 50%;
+    min-width: 350px;
+    display: flex;
+    align-self: center;
+    border-radius: 10px;
+    background-color: var(--colors-white);
+    padding: var(--spacers-dp4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}

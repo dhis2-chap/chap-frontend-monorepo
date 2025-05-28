@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-28T19:26:10.072Z\n"
-"PO-Revision-Date: 2025-05-28T19:26:10.073Z\n"
+"POT-Creation-Date: 2025-05-28T13:37:41.253Z\n"
+"PO-Revision-Date: 2025-05-28T13:37:41.253Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -69,11 +69,6 @@ msgstr "No models found"
 msgid "Clear"
 msgstr "Clear"
 
-msgid "{{count}} evaluations selected"
-msgid_plural "{{count}} evaluations selected"
-msgstr[0] "{{count}} evaluation selected"
-msgstr[1] "{{count}} evaluations selected"
-
 msgid "Evaluations deleted"
 msgstr "Evaluations deleted"
 
@@ -114,11 +109,17 @@ msgstr "Oops!"
 msgid "Sorry, an unexpected error has occurred."
 msgstr "Sorry, an unexpected error has occurred."
 
-msgid "Analyze dataset"
-msgstr "Analyze dataset"
+msgid "Cancel job"
+msgstr "Cancel job"
+
+msgid "Are you sure you want to cancel this job? This action cannot be undone."
+msgstr "Are you sure you want to cancel this job? This action cannot be undone."
 
 msgid "Close"
 msgstr "Close"
+
+msgid "Analyze dataset"
+msgstr "Analyze dataset"
 
 msgid "Delete job"
 msgstr "Delete job"
@@ -147,6 +148,12 @@ msgstr "An error occurred while loading the logs."
 msgid "No logs reported for this job"
 msgstr "No logs reported for this job"
 
+msgid "Job cancelled"
+msgstr "Job cancelled"
+
+msgid "Failed to cancel job"
+msgstr "Failed to cancel job"
+
 msgid "Job deleted"
 msgstr "Job deleted"
 
@@ -159,11 +166,14 @@ msgstr "Status"
 msgid "Type"
 msgstr "Type"
 
-msgid "Start Time"
-msgstr "Start Time"
+msgid "Start date"
+msgstr "Start date"
 
-msgid "End Time"
-msgstr "End Time"
+msgid "End date"
+msgstr "End date"
+
+msgid "Duration"
+msgstr "Duration"
 
 msgid "No jobs available"
 msgstr "No jobs available"
@@ -179,6 +189,9 @@ msgstr "Success"
 
 msgid "Failed"
 msgstr "Failed"
+
+msgid "Revoked"
+msgstr "Revoked"
 
 msgid "Create evaluation"
 msgstr "Create evaluation"
@@ -343,6 +356,9 @@ msgstr "Select a group"
 
 msgid "Deselect all"
 msgstr "Deselect all"
+
+msgid "Cancelled"
+msgstr "Cancelled"
 
 msgid "Get started with the Modeling app"
 msgstr "Get started with the Modeling app"

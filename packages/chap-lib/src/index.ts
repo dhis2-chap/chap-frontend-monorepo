@@ -30,6 +30,7 @@ export {
 export type {
     PillVariant,
 } from './ui/Pill'
+export { default as SplitPeriodSelector } from './components/evaluation/SplitPeriodSelector/SplitPeriodSelector'
 
 //interfaces
 export type {
