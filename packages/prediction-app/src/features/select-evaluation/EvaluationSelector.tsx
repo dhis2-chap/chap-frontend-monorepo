@@ -8,8 +8,7 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import {
     AnalyticsService,
-    BackTestRead,
-    CrudService,
+    BackTestRead
 } from '@dhis2-chap/chap-lib'
 import css from './EvaluationSelector.module.css'
 import i18n from '@dhis2/d2-i18n'
