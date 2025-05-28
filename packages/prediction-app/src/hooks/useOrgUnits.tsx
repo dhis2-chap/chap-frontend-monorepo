@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useDataQuery } from "@dhis2/app-runtime";
 
+type OrganisationUnit = {
+  id: string;
+  displayName: string;
+}
+
 const REQUEST = {
  orgUnits : {
     resource: "organisationUnits",
@@ -12,7 +17,7 @@ const REQUEST = {
 }
 
 const useOrgUnits = () => {
-  const [orgUnits, setOrgunits] = useState<{organisationUnits : any}>();
+  const [orgUnits, setOrgunits] = useState<{organisationUnits : OrganisationUnit[]}>();
 
   const { loading, error } = useDataQuery(REQUEST, {
     onComplete: (data : any) => setOrgunits(data.orgUnits),
@@ -26,3 +31,4 @@ const useOrgUnits = () => {
 };
 
 export default useOrgUnits;
+
