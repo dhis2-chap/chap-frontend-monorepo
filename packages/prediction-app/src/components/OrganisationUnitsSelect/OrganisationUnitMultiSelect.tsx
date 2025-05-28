@@ -64,6 +64,8 @@ const OrganisationUnitMultiSelect = ({
             prefix={i18n.t('Organisation Units')}
             selected={resolvedSelected}
             disabled={available.length < 1}
+            filterable
+            filterPlaceholder={i18n.t('Search organisation units')}
             onChange={({ selected }, event) => {
                 const isChipDeletion = event.type === 'click'
                 if (isChipDeletion) {
