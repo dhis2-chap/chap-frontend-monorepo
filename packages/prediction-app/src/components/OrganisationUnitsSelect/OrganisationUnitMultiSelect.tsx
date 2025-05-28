@@ -43,7 +43,7 @@ const OrganisationUnitMultiSelect = ({
 
     // Multiselect will crash if selected contains items that are not in available
     // this can happen when loading, thus we add the selected items to the available list
-    const { orgUnitsMap, orgUnits } = useMemo(() => {
+    const { orgUnits } = useMemo(() => {
         const orgUnitsMap = new Map(available.map((o) => [o.id, o]))
         resolvedSelected.forEach((s) => {
             if (!orgUnitsMap.get(s)) {
@@ -55,7 +55,6 @@ const OrganisationUnitMultiSelect = ({
         })
 
         return {
-            orgUnitsMap: orgUnitsMap,
             orgUnits: Array.from(orgUnitsMap.values()),
         }
     }, [available, resolvedSelected])

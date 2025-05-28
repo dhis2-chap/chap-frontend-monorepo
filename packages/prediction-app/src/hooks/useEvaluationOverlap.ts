@@ -1,7 +1,6 @@
 import { AnalyticsService, BacktestDomain } from '@dhis2-chap/chap-lib'
 import { useQuery } from '@tanstack/react-query'
 import { useCallback } from 'react'
-import useOrgUnits from './useOrgUnits'
 
 type UseBackTestOverlapOptions = {
     baseEvaluation?: number

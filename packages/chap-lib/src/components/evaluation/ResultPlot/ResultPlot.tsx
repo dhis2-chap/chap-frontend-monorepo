@@ -1,6 +1,6 @@
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { HighChartsData } from '../../../interfaces/Evaluation'
 import { getPeriodNameFromId } from '../../../utils/Time'
 

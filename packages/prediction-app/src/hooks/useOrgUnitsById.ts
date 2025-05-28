@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Query, useQuery, useQueryClient } from '@tanstack/react-query'
+import { Query, useQueryClient } from '@tanstack/react-query'
 import { useApiDataQuery } from '../utils/useApiDataQuery'
 
 type OrganisationUnit = {

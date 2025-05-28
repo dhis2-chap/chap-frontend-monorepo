@@ -1,4 +1,4 @@
-import { act, useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 import { useEvaluations } from '../../hooks/useEvaluations'
@@ -143,9 +143,8 @@ export const useSelectedEvaluationsController =
         const {
             baseEvaluation,
             comparisonEvaluation,
-            comparisonEvaluations,
-            setComparisonEvaluations,
-            ...selectors
+            setBaseEvaluation,
+            setComparisonEvaluation,
         } = useSelectedEvaluations()
 
         // map selected evaluationIds to the actual evaluations
@@ -170,7 +169,8 @@ export const useSelectedEvaluationsController =
 
         return {
             ...mappedEvaluations,
-            ...selectors,
+            setBaseEvaluation,
+            setComparisonEvaluation,
             query: evaluationsQuery,
         }
     }
