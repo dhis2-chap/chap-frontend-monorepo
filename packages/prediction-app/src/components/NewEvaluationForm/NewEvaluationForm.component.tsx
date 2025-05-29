@@ -1,11 +1,12 @@
 import React from 'react'
+import i18n from '@dhis2/d2-i18n'
 import { type UseFormReturn } from 'react-hook-form'
 import styles from './NewEvaluationForm.module.css'
 import { PeriodSelector } from './Sections/PeriodSelector'
 import { NameInput } from './Sections/NameInput'
 import { LocationSelector } from './Sections/LocationSelector'
-import { Separator } from './Separator/Separator'
 import { ModelSelector } from './Sections/ModelSelector/ModelSelector'
+import { DatasetConfiguration } from './Sections/DatasetConfiguration'
 import { OrganisationUnit } from '../OrganisationUnitSelector'
 import { EvaluationFormValues } from './hooks/useFormController'
 
@@ -13,14 +14,12 @@ type Props = {
     onSubmit: (data: EvaluationFormValues) => void
     methods: UseFormReturn<EvaluationFormValues>
     onUpdateOrgUnits: (orgUnits: OrganisationUnit[]) => void
-    isSubmitting?: boolean
 }
 
 export const NewEvaluationFormComponent = ({
     onSubmit,
     methods,
     onUpdateOrgUnits,
-    isSubmitting = false,
 }: Props) => {
     const handleFormSubmit = (data: EvaluationFormValues) => {
         onSubmit(data)
@@ -54,6 +53,11 @@ export const NewEvaluationFormComponent = ({
 
                     <ModelSelector
                         control={control}
+                    />
+
+                    <DatasetConfiguration
+                        control={control}
+                        errors={errors}
                     />
                 </form>
             </div>

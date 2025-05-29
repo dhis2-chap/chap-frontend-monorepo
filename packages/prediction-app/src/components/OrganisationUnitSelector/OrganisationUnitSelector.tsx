@@ -2,6 +2,8 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import {
     OrganisationUnitTree,
     Checkbox,
+    SingleSelectField,
+    SingleSelectOption,
     MultiSelect,
     MultiSelectOption,
     Button,
@@ -96,13 +98,13 @@ const OrganisationUnitSelector: React.FC<OrganisationUnitSelectorProps> = ({
     const dataEngine = useDataEngine()
 
     const onSelectItems = (selectedItem: TreeSelectionItem): void => {
-        const { id, checked, displayName, path, level } = selectedItem
+        const { id, checked, displayName, path } = selectedItem
         let result = [...selected]
 
         if (checked && DYNAMIC_ORG_UNITS.includes(id)) {
             result = [...result, { id, displayName }]
         } else if (checked) {
-            result.push({ id, path, name: displayName, level })
+            result.push({ id, path, name: displayName })
         } else {
             result = [...result.filter((item) => item.id !== id)]
         }
@@ -133,22 +135,31 @@ const OrganisationUnitSelector: React.FC<OrganisationUnitSelectorProps> = ({
             setOuGroups(result)
         }
 
-        !hideLevelSelect && doFetchOuLevels()
-        !hideGroupSelect && doFetchOuGroups()
+        if (!hideLevelSelect) {
+            doFetchOuLevels()
+        }
+        if (!hideGroupSelect) {
+            doFetchOuGroups()
+        }
     }, [dataEngine, hideLevelSelect, hideGroupSelect, displayNameProp])
 
-    const onLevelChange = (ids: string[]): void => {
-        const items = ids.map((id) => ({
-            id: ouIdHelper.addLevelPrefix(id),
-            name: ouLevels.find((level) => level.id === id)?.displayName || '',
-        }))
+    const onLevelChange = (id: string): void => {
+        // Filter out any existing level selections
+        const filteredItems = selected.filter((ou) => !ouIdHelper.hasLevelPrefix(ou.id))
+
+        // If id is empty (cleared), just use the filtered items
+        // Otherwise, add the new level selection
+        const items = id ? [
+            ...filteredItems,
+            {
+                id: ouIdHelper.addLevelPrefix(id),
+                name: ouLevels.find((level) => level.id === id)?.displayName || '',
+            }
+        ] : filteredItems
 
         onSelect({
             dimensionId: DIMENSION_ID_ORGUNIT,
-            items: [
-                ...selected.filter((ou) => !ouIdHelper.hasLevelPrefix(ou.id)),
-                ...items,
-            ],
+            items,
         })
     }
 
@@ -321,7 +332,7 @@ const OrganisationUnitSelector: React.FC<OrganisationUnitSelectorProps> = ({
                 })}
             >
                 {!hideLevelSelect && (
-                    <MultiSelect
+                    <SingleSelectField
                         selected={
                             ouLevels.length
                                 ? selected
@@ -330,24 +341,26 @@ const OrganisationUnitSelector: React.FC<OrganisationUnitSelectorProps> = ({
                                     )
                                     .map((item) =>
                                         ouIdHelper.removePrefix(item.id)
-                                    )
-                                : []
+                                    )[0] || ''
+                                : ''
                         }
                         onChange={({ selected }) => onLevelChange(selected)}
                         placeholder={i18n?.t ? i18n.t('Select a level') : 'Select a level'}
                         loading={!ouLevels.length}
                         dense
+                        clearable
+                        clearText={i18n?.t ? i18n.t('Clear') : 'Clear'}
                         dataTest={'org-unit-level-select'}
                     >
                         {ouLevels.map((level) => (
-                            <MultiSelectOption
+                            <SingleSelectOption
                                 key={level.id}
                                 value={level.id}
                                 label={level.displayName}
                                 dataTest={`org-unit-level-select-option-${level.id}`}
                             />
                         ))}
-                    </MultiSelect>
+                    </SingleSelectField>
                 )}
                 {!hideGroupSelect && (
                     <MultiSelect

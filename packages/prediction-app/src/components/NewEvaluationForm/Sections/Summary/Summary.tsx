@@ -16,7 +16,7 @@ import { type Control, useWatch } from 'react-hook-form'
 import styles from './Summary.module.css'
 import { InspectDatasetModal } from '../../../InspectDatasetModal'
 import { getSelectionSummary, OrganisationUnit } from '../../../OrganisationUnitSelector'
-import { EvaluationFormValues } from '../../hooks/useFormController'
+import { CovariateMapping, EvaluationFormValues } from '../../hooks/useFormController'
 
 type Props = {
     control: Control<EvaluationFormValues>
@@ -88,14 +88,14 @@ export const Summary = ({
                         onClick={() => setIsInspectDatasetModalOpen(true)}
                         disabled={!isValid}
                     >
-                        {i18n.t('Analyze dataset')}
+                        {i18n.t('Open dataset')}
                     </Button>
 
                     <Button
                         onClick={onStartJob}
                         primary
                         icon={<IconArrowRightMulti16 />}
-                        disabled={!onStartJob}
+                        disabled={!isValid}
                     >
                         {i18n.t('Start job')}
                     </Button>
@@ -110,6 +110,8 @@ export const Summary = ({
                     periodType={formValues.periodType as PeriodType}
                     fromDate={formValues.fromDate as string}
                     toDate={formValues.toDate as string}
+                    covariateMappings={formValues.covariateMappings as CovariateMapping[]}
+                    targetMapping={formValues.targetMapping as CovariateMapping}
                 />
             )}
         </>

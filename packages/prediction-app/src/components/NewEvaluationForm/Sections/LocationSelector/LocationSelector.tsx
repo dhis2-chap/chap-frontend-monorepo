@@ -1,26 +1,19 @@
 import React, { useState } from 'react'
 import {
     Button,
-    ButtonStrip,
     Label,
-    Modal,
-    ModalTitle,
-    ModalContent,
-    ModalActions,
     IconDimensionOrgUnit16,
-    NoticeBox,
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import cn from 'classnames'
-import { Control, FieldErrors, useFormContext, useWatch, set, useForm } from 'react-hook-form'
+import { Control, FieldErrors, useWatch } from 'react-hook-form'
 import { EvaluationFormValues } from '../../hooks/useFormController'
 import {
     getSelectionSummary,
     OrganisationUnit,
-    OrganisationUnitSelector as OrgUnitSelector,
-    SelectionChangeEvent,
 } from '../../../OrganisationUnitSelector'
 import { useDataViewRootOrgUnits } from '../../../../hooks/useDataViewRootOrgUnits'
+import { OrganisationUnitSelectionModal } from './OrganisationUnitSelectionModal'
 import styles from './LocationSelector.module.css'
 
 type Props = {
@@ -38,15 +31,12 @@ export const LocationSelector = ({
     const [isOrgUnitModalOpen, setIsOrgUnitModalOpen] = useState(false)
     const { orgUnits: orgUnitRoots, isLoading: isLoadingOrgUnits } = useDataViewRootOrgUnits()
 
-    const onOrgUnitSelect = (e: SelectionChangeEvent) => {
-        onUpdateOrgUnits(e.items)
-    }
-
     const handleModalClose = () => {
         setIsOrgUnitModalOpen(false)
     }
 
-    const handleModalConfirm = () => {
+    const handleModalConfirm = (pendingOrgUnits: OrganisationUnit[]) => {
+        onUpdateOrgUnits(pendingOrgUnits)
         setIsOrgUnitModalOpen(false)
     }
 
@@ -69,34 +59,12 @@ export const LocationSelector = ({
             </div>
 
             {isOrgUnitModalOpen && (
-                <Modal onClose={handleModalClose} large>
-                    <ModalTitle>{i18n.t('Select Organisation Units')}</ModalTitle>
-                    <ModalContent>
-                        <div className={styles.noticeBox}>
-                            <NoticeBox title={i18n.t('Organisation unit levels')}>
-                                {i18n.t('Some models require you to only select organisation units from the same level.')}
-                            </NoticeBox>
-                        </div>
-                        <OrgUnitSelector
-                            roots={orgUnitRoots?.map(unit => unit.id) || []}
-                            selected={selectedOrgUnits}
-                            onSelect={onOrgUnitSelect}
-                            hideGroupSelect={true}
-                            hideLevelSelect={false}
-                            hideUserOrgUnits={true}
-                        />
-                    </ModalContent>
-                    <ModalActions>
-                        <ButtonStrip>
-                            <Button onClick={handleModalClose}>
-                                {i18n.t('Cancel')}
-                            </Button>
-                            <Button primary onClick={handleModalConfirm}>
-                                {i18n.t('Confirm Selection')}
-                            </Button>
-                        </ButtonStrip>
-                    </ModalActions>
-                </Modal>
+                <OrganisationUnitSelectionModal
+                    orgUnitRoots={orgUnitRoots?.map(unit => unit.id) || []}
+                    selectedOrgUnits={selectedOrgUnits}
+                    onClose={handleModalClose}
+                    onConfirm={handleModalConfirm}
+                />
             )}
         </>
     )

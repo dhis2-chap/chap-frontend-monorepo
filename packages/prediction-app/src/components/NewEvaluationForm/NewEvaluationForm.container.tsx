@@ -3,7 +3,6 @@ import i18n from '@dhis2/d2-i18n'
 import { FormProvider } from 'react-hook-form'
 import { NewEvaluationFormComponent } from './NewEvaluationForm.component'
 import { Card } from '@dhis2-chap/chap-lib'
-import { Summary } from './Sections/Summary/Summary'
 import { useFormController } from './hooks/useFormController'
 import styles from './NewEvaluationForm.module.css'
 import { Button, IconArrowLeft16 } from '@dhis2/ui'
@@ -51,15 +50,6 @@ export const NewEvaluationForm = () => {
                                 onSubmit={handleSubmit}
                                 methods={methods}
                                 onUpdateOrgUnits={onUpdateOrgUnits}
-                            />
-                        </Card>
-                    </div>
-                    <div className={styles.rightColumn}>
-                        <Card>
-                            <Summary
-                                control={methods.control}
-                                isValid={methods.formState.isValid}
-                                onStartJob={handleStartJob}
                             />
                         </Card>
                     </div>

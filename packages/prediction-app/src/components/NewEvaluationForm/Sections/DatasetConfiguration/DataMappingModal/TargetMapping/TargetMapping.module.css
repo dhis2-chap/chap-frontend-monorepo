@@ -1,0 +1,31 @@
+.targetMappingWrapper {
+    border: 1px solid rgb(160, 173, 186);
+    border-radius: 0.3rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #fdfdfd;
+}
+
+.errorMessage {
+    color: var(--colors-red500);
+    margin-block-start: 0.5rem;
+}
+
+.sectionTitle {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.sectionDescription {
+    margin: 0 0 1rem 0;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.targetDescription {
+    margin: 0.5rem 0 0 0;
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-style: italic;
+} 

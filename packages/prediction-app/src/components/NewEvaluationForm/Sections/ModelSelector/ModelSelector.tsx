@@ -30,7 +30,10 @@ export const ModelSelector = ({
     }
 
     const handleModalConfirm = (model: ModelSpecRead) => {
-        methods.setValue('modelId', model.id.toString())
+        methods.setValue('modelId', model.id.toString(), { shouldValidate: true, shouldDirty: true })
+        // Clear existing mappings when a new model is selected
+        methods.setValue('targetMapping', undefined, { shouldValidate: true, shouldDirty: true })
+        methods.setValue('covariateMappings', [], { shouldValidate: true, shouldDirty: true })
         setIsModelModalOpen(false)
     }
 

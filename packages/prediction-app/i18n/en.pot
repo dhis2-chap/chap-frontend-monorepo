@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-28T13:37:41.253Z\n"
-"PO-Revision-Date: 2025-05-28T13:37:41.253Z\n"
+"POT-Creation-Date: 2025-05-28T20:17:33.519Z\n"
+"PO-Revision-Date: 2025-05-28T20:17:33.520Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -109,17 +109,17 @@ msgstr "Oops!"
 msgid "Sorry, an unexpected error has occurred."
 msgstr "Sorry, an unexpected error has occurred."
 
+msgid "Analyze dataset"
+msgstr "Analyze dataset"
+
+msgid "Close"
+msgstr "Close"
+
 msgid "Cancel job"
 msgstr "Cancel job"
 
 msgid "Are you sure you want to cancel this job? This action cannot be undone."
 msgstr "Are you sure you want to cancel this job? This action cannot be undone."
-
-msgid "Close"
-msgstr "Close"
-
-msgid "Analyze dataset"
-msgstr "Analyze dataset"
 
 msgid "Delete job"
 msgstr "Delete job"
@@ -208,6 +208,9 @@ msgstr "Create dataset"
 msgid "Create evaluation with data"
 msgstr "Create evaluation with data"
 
+msgid "Cancelled"
+msgstr "Cancelled"
+
 msgid "Unsaved changes"
 msgstr "Unsaved changes"
 
@@ -294,6 +297,9 @@ msgstr "Organisation units"
 msgid "Summary"
 msgstr "Summary"
 
+msgid "Open dataset"
+msgstr "Open dataset"
+
 msgid "Start job"
 msgstr "Start job"
 
@@ -317,21 +323,6 @@ msgstr "Model is required"
 
 msgid "End period must be after start period"
 msgstr "End period must be after start period"
-
-msgid "{{count}} org units"
-msgid_plural "{{count}} org units"
-msgstr[0] "{{count}} org unit"
-msgstr[1] "{{count}} org units"
-
-msgid "{{count}} levels"
-msgid_plural "{{count}} levels"
-msgstr[0] "{{count}} level"
-msgstr[1] "{{count}} levels"
-
-msgid "{{count}} groups"
-msgid_plural "{{count}} groups"
-msgstr[0] "{{count}} group"
-msgstr[1] "{{count}} groups"
 
 msgid "Selected: {{commaSeparatedListOfOrganisationUnits}}"
 msgstr "Selected: {{commaSeparatedListOfOrganisationUnits}}"
@@ -357,8 +348,11 @@ msgstr "Select a group"
 msgid "Deselect all"
 msgstr "Deselect all"
 
-msgid "Cancelled"
-msgstr "Cancelled"
+msgid "Search organisation units"
+msgstr "Search organisation units"
+
+msgid "You cannot select more than {{max}} organisation units at a time"
+msgstr "You cannot select more than {{max}} organisation units at a time"
 
 msgid "Get started with the Modeling app"
 msgstr "Get started with the Modeling app"
@@ -389,6 +383,39 @@ msgstr "Jobs"
 
 msgid "Settings"
 msgstr "Settings"
+
+msgid "Compare evaluations"
+msgstr "Compare evaluations"
+
+msgid "Compare evaluations to assess model, co-variates and data performance."
+msgstr "Compare evaluations to assess model, co-variates and data performance."
+
+msgid "Select base evaluation"
+msgstr "Select base evaluation"
+
+msgid ""
+"Selected evaluations do not have any split periods in common. Please select "
+"evaluations with overlapping split periods."
+msgstr ""
+"Selected evaluations do not have any split periods in common. Please select "
+"evaluations with overlapping split periods."
+
+msgid ""
+"Select two evaluations to compare their results. The\n"
+"                    selected evaluations must be compatible."
+msgstr ""
+"Select two evaluations to compare their results. The\n"
+"                    selected evaluations must be compatible."
+
+msgid ""
+"Compatible evaluations have overlapping organisation units and split "
+"periods."
+msgstr ""
+"Compatible evaluations have overlapping organisation units and split "
+"periods."
+
+msgid "Split period"
+msgstr "Split period"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
@@ -489,6 +516,18 @@ msgstr "Organisation unit level"
 
 msgid "Organisation unit level to import data to"
 msgstr "Organisation unit level to import data to"
+
+msgid "No compatible evaluations found"
+msgstr "No compatible evaluations found"
+
+msgid "Select evaluation to compare with"
+msgstr "Select evaluation to compare with"
+
+msgid "No evaluations found"
+msgstr "No evaluations found"
+
+msgid "Evaluation"
+msgstr "Evaluation"
 
 msgid "CHAP settings"
 msgstr "CHAP settings"
@@ -655,3 +694,11 @@ msgstr "View and manage currently running jobs and their status."
 
 msgid "Create a new evaluation to assess the performance of a model"
 msgstr "Create a new evaluation to assess the performance of a model"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Modeling"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr ""

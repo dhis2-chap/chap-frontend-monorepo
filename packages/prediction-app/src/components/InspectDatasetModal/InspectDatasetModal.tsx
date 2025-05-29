@@ -6,6 +6,7 @@ import { OrganisationUnit } from '../OrganisationUnitSelector'
 import { toDHIS2PeriodData } from '../../features/timeperiod-selector/utils/timePeriodUtils'
 import { PERIOD_TYPES } from '../NewEvaluationForm/Sections/PeriodSelector'
 import { useConfig } from '@dhis2/app-runtime'
+import { CovariateMapping } from '../NewEvaluationForm/hooks/useFormController'
 
 type Props = {
     onClose: () => void
@@ -13,11 +14,21 @@ type Props = {
     periodType: keyof typeof PERIOD_TYPES
     fromDate: string
     toDate: string
+    covariateMappings: CovariateMapping[]
+    targetMapping: CovariateMapping
 }
 
-export const InspectDatasetModal = ({ onClose, selectedOrgUnits, periodType, fromDate, toDate }: Props) => {
+export const InspectDatasetModal = ({
+    onClose,
+    selectedOrgUnits,
+    periodType,
+    fromDate,
+    toDate,
+    covariateMappings,
+    targetMapping
+}: Props) => {
     const { baseUrl } = useConfig();
-    
+
     const calculatePeriods = () => {
         const selectedPeriodType = PERIOD_TYPES[periodType]
         if (!selectedPeriodType) return []
@@ -25,6 +36,24 @@ export const InspectDatasetModal = ({ onClose, selectedOrgUnits, periodType, fro
         const dateRange = toDHIS2PeriodData(fromDate, toDate, selectedPeriodType.toLowerCase())
         return dateRange.map((period) => ({
             id: period.id,
+        }))
+    }
+
+    const calculateDataDimensions = () => {
+        const dataDimensions = [
+            {
+                id: targetMapping.dataItemId,
+            },
+            ...covariateMappings.map((mapping) => ({
+                id: mapping.dataItemId,
+            })),
+        ]
+        return dataDimensions
+    }
+
+    const calculateOrgUnits = () => {
+        return selectedOrgUnits.map((unit) => ({
+            id: unit.id
         }))
     }
 
@@ -57,12 +86,7 @@ export const InspectDatasetModal = ({ onClose, selectedOrgUnits, periodType, fro
                             },
                             {
                                 dimension: "dx",
-                                items: [
-                                    { id: "QpaUDYqd5tw" },
-                                    { id: "YwIISeS7ruc" },
-                                    { id: "eEXTDifdxhH" },
-                                    { id: "Pi3zfVY962v" }
-                                ]
+                                items: calculateDataDimensions()
                             }
                         ],
                         filters: [],
@@ -72,7 +96,6 @@ export const InspectDatasetModal = ({ onClose, selectedOrgUnits, periodType, fro
                 <ButtonStrip>
                     <Button
                         onClick={onClose}
-                        primary
                     >
                         {i18n.t('Close')}
                     </Button>
