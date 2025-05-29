@@ -7,7 +7,6 @@ import {
     EvaluationEntry,
     EvaluationEntryExtend,
     EvaluationForSplitPoint,
-    evaluationResultToViewData,
     getSplitPeriod,
     HighChartsData,
     joinRealAndPredictedData,
@@ -152,14 +151,13 @@ const plotResultToViewData = (
                             dataForEvaluation.actualCases.filter(
                                 (item) => item.ou === orgUnit
                             )
-
+                        const quantiles = evaluationEntries.map(
+                            (item) => item.quantile
+                        )
+                        
                         const highChartData = createHighChartsData(
                             evaluationEntries,
-                            createQuantileFunc(
-                                dataForEvaluation.evaluationEntries.map(
-                                    (e) => e.quantile
-                                )
-                            )
+                            createQuantileFunc(quantiles)
                         )
                         const joinedRealAndPredictedData: HighChartsData =
                             joinRealAndPredictedData(
