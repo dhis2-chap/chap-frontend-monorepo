@@ -9,10 +9,15 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import cn from 'classnames'
 import { Control, FieldErrors, useFormContext, useWatch } from 'react-hook-form'
-import { EvaluationFormValues, useMappingValidationStatus, CovariateMapping } from '../../hooks/useFormController'
+import { EvaluationFormValues, CovariateMapping } from '../../hooks/useFormController'
 import { useModels } from '../../../../hooks/useModels'
 import { DataMappingModal } from './DataMappingModal'
+import { useDatasetValidation } from './useDatasetValidation'
 import styles from './DatasetConfiguration.module.css'
+import { OrganisationUnit } from '../../../OrganisationUnitSelector/OrganisationUnitSelector'
+import { PeriodType } from '../../../../../../chap-lib/build/types/httpfunctions/models/PeriodType'
+import { InspectDatasetModal } from '../../../InspectDatasetModal/InspectDatasetModal'
+import { PERIOD_TYPES } from '../PeriodSelector'
 
 type Props = {
     control: Control<EvaluationFormValues>
@@ -24,9 +29,11 @@ export const DatasetConfiguration = ({
     errors,
 }: Props) => {
     const [isDataMappingModalOpen, setIsDataMappingModalOpen] = useState(false)
+    const [isInspectDatasetModalOpen, setIsInspectDatasetModalOpen] = useState(false)
     const methods = useFormContext<EvaluationFormValues>()
     const modelId = useWatch({ control, name: 'modelId' })
-    const mappingStatus = useMappingValidationStatus()
+    const datasetValidation = useDatasetValidation()
+    const mappingStatus = datasetValidation.getDetailedValidationSummary()
     const { models } = useModels()
 
     const selectedModel = models?.find((model) => model.id.toString() === modelId)
@@ -69,7 +76,7 @@ export const DatasetConfiguration = ({
                         dataTest="evaluation-data-mapping-button"
                         disabled={!selectedModel}
                         small
-                        >
+                    >
                         {i18n.t('Configure data mappings')}
                     </Button>
 
@@ -77,12 +84,12 @@ export const DatasetConfiguration = ({
                         small
                         disabled={!selectedModel || !mappingStatus.isValid}
                         icon={<IconVisualizationLine16 />}
+                        onClick={() => setIsInspectDatasetModalOpen(true)}
                     >
                         {i18n.t('Inspect dataset')}
                     </Button>
                 </ButtonStrip>
 
-                {/* Show validation errors */}
                 {errors.targetMapping && (
                     <p className={styles.errorText}>{errors.targetMapping.message}</p>
                 )}
@@ -96,6 +103,18 @@ export const DatasetConfiguration = ({
                     model={selectedModel}
                     onClose={handleModalClose}
                     onConfirm={handleModalConfirm}
+                />
+            )}
+
+            {isInspectDatasetModalOpen && (
+                <InspectDatasetModal
+                    onClose={() => setIsInspectDatasetModalOpen(false)}
+                    selectedOrgUnits={methods.getValues('orgUnits') as OrganisationUnit[]}
+                    periodType={methods.getValues('periodType') as keyof typeof PERIOD_TYPES}
+                    fromDate={methods.getValues('fromDate') as string}
+                    toDate={methods.getValues('toDate') as string}
+                    covariateMappings={methods.getValues('covariateMappings') as CovariateMapping[]}
+                    targetMapping={methods.getValues('targetMapping') as CovariateMapping}
                 />
             )}
         </>

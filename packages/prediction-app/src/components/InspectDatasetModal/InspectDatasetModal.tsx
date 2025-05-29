@@ -80,9 +80,7 @@ export const InspectDatasetModal = ({
                         rows: [
                             {
                                 dimension: "ou",
-                                items: selectedOrgUnits.map((unit) => ({
-                                    id: unit.id
-                                }))
+                                items: calculateOrgUnits()
                             },
                             {
                                 dimension: "dx",

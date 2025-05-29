@@ -1,25 +1,19 @@
 .container {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
-}
-
-.leftColumn {
-  width: 100%;
-}
-
-.rightColumn {
-  width: 40%;
+  padding: 1rem;
 }
 
 .backButton {
   margin-bottom: 20px;
+  margin-inline-start: 1rem;
 }
 
 .formWrapper {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
 }
 
 .formWrapper label {

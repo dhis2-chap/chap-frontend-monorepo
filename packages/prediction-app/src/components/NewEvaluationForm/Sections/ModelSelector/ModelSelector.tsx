@@ -25,15 +25,11 @@ export const ModelSelector = ({
     const methods = useFormContext<EvaluationFormValues>()
     const modelId = useWatch({ control, name: 'modelId' })
 
-    const handleModalClose = () => {
-        setIsModelModalOpen(false)
-    }
 
     const handleModalConfirm = (model: ModelSpecRead) => {
         methods.setValue('modelId', model.id.toString(), { shouldValidate: true, shouldDirty: true })
-        // Clear existing mappings when a new model is selected
-        methods.setValue('targetMapping', undefined, { shouldValidate: true, shouldDirty: true })
-        methods.setValue('covariateMappings', [], { shouldValidate: true, shouldDirty: true })
+        methods.resetField('covariateMappings')
+        methods.resetField('targetMapping')
         setIsModelModalOpen(false)
     }
 
@@ -64,7 +60,7 @@ export const ModelSelector = ({
                 <ModelSelectionModal
                     models={models}
                     selectedModel={selectedFormModel}
-                    onClose={handleModalClose}
+                    onClose={() => setIsModelModalOpen(false)}
                     onConfirm={handleModalConfirm}
                 />
             )}

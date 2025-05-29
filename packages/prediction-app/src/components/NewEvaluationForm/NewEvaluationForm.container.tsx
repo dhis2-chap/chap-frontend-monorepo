@@ -5,7 +5,7 @@ import { NewEvaluationFormComponent } from './NewEvaluationForm.component'
 import { Card } from '@dhis2-chap/chap-lib'
 import { useFormController } from './hooks/useFormController'
 import styles from './NewEvaluationForm.module.css'
-import { Button, IconArrowLeft16 } from '@dhis2/ui'
+import { Button, ButtonStrip, IconArrowLeft16, IconArrowRight16 } from '@dhis2/ui'
 import { useNavigate } from 'react-router-dom'
 import { useNavigationBlocker } from './hooks/useNavigationBlocker'
 import { NavigationConfirmModal } from '../NavigationConfirmModal'
@@ -44,16 +44,27 @@ export const NewEvaluationForm = () => {
 
             <FormProvider {...methods}>
                 <div className={styles.container}>
-                    <div className={styles.leftColumn}>
                         <Card>
                             <NewEvaluationFormComponent
                                 onSubmit={handleSubmit}
                                 methods={methods}
                                 onUpdateOrgUnits={onUpdateOrgUnits}
                             />
+                            <div className={styles.buttons}>
+                            <ButtonStrip end>
+                                <Button
+                                    primary
+                                    onClick={handleStartJob}
+                                    disabled={!methods.formState.isValid}
+                                    icon={<IconArrowRight16 />}
+                                >
+                                    {i18n.t('Start job')}
+                                    </Button>
+                                </ButtonStrip>
+                            </div>
                         </Card>
-                    </div>
                 </div>
+
             </FormProvider>
 
             {showConfirmModal && (
