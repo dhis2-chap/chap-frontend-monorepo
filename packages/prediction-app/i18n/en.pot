@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-23T12:29:38.787Z\n"
-"PO-Revision-Date: 2025-05-23T12:29:38.787Z\n"
+"POT-Creation-Date: 2025-05-29T23:41:53.645Z\n"
+"PO-Revision-Date: 2025-05-29T23:41:53.646Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -313,6 +313,64 @@ msgstr ""
 "Job is still running. Please wait until it is finished before doing any "
 "actions."
 
+msgid "No model templates found."
+msgstr "No model templates found."
+
+msgid "Available Templates"
+msgstr "Available Templates"
+
+msgid "Configured Model"
+msgstr "Configured Model"
+
+msgid "Model Templates"
+msgstr "Model Templates"
+
+msgid ""
+"Base models that can be configured with covariates and parameters to create "
+"configured models."
+msgstr ""
+"Base models that can be configured with covariates and parameters to create "
+"configured models."
+
+msgid "Template is required"
+msgstr "Template is required"
+
+msgid "Covariate name is required"
+msgstr "Covariate name is required"
+
+msgid "Configure Model Template"
+msgstr "Configure Model Template"
+
+msgid "Configured Model Name"
+msgstr "Configured Model Name"
+
+msgid "Enter model name"
+msgstr "Enter model name"
+
+msgid "Model Template"
+msgstr "Model Template"
+
+msgid "Select a model template"
+msgstr "Select a model template"
+
+msgid "Additional Covariates"
+msgstr "Additional Covariates"
+
+msgid "Enter covariate name"
+msgstr "Enter covariate name"
+
+msgid "Add"
+msgstr "Add"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Please check covariates"
+msgstr "Please check covariates"
+
+msgid "Configure Model"
+msgstr "Configure Model"
+
 msgid "Prediction for Northern Province"
 msgstr "Prediction for Northern Province"
 
@@ -371,9 +429,6 @@ msgstr "No route found."
 
 msgid "Add route"
 msgstr "Add route"
-
-msgid "Add"
-msgstr "Add"
 
 msgid "Delete route"
 msgstr "Delete route"
