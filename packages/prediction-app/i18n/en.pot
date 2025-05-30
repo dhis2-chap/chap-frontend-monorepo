@@ -5,10 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-30T13:47:24.961Z\n"
-"PO-Revision-Date: 2025-05-30T13:47:24.962Z\n"
-"POT-Creation-Date: 2025-05-28T13:37:41.253Z\n"
-"PO-Revision-Date: 2025-05-28T13:37:41.253Z\n"
+"POT-Creation-Date: 2025-05-30T14:12:37.579Z\n"
+"PO-Revision-Date: 2025-05-30T14:12:37.579Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -210,6 +208,15 @@ msgstr "Create evaluation with data"
 msgid "Cancelled"
 msgstr "Cancelled"
 
+msgid "Organisation Units"
+msgstr "Organisation Units"
+
+msgid "Search organisation units"
+msgstr "Search organisation units"
+
+msgid "You cannot select more than {{max}} organisation units at a time"
+msgstr "You cannot select more than {{max}} organisation units at a time"
+
 msgid "Get started with the Modeling app"
 msgstr "Get started with the Modeling app"
 
@@ -239,6 +246,42 @@ msgstr "Jobs"
 
 msgid "Settings"
 msgstr "Settings"
+
+msgid "Compare evaluations"
+msgstr "Compare evaluations"
+
+msgid "Compare evaluations to assess model, co-variates and data performance."
+msgstr "Compare evaluations to assess model, co-variates and data performance."
+
+msgid "Select base evaluation"
+msgstr "Select base evaluation"
+
+msgid ""
+"Selected evaluations do not have any split periods in common. Please select "
+"evaluations with overlapping split periods."
+msgstr ""
+"Selected evaluations do not have any split periods in common. Please select "
+"evaluations with overlapping split periods."
+
+msgid "An error occurred while fetching chart data "
+msgstr "An error occurred while fetching chart data "
+
+msgid ""
+"Select two evaluations to compare their results. The\n"
+"                    selected evaluations must be compatible."
+msgstr ""
+"Select two evaluations to compare their results. The\n"
+"                    selected evaluations must be compatible."
+
+msgid ""
+"Compatible evaluations have overlapping organisation units and split "
+"periods."
+msgstr ""
+"Compatible evaluations have overlapping organisation units and split "
+"periods."
+
+msgid "Split period"
+msgstr "Split period"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
@@ -418,6 +461,18 @@ msgstr "Organisation unit level to import data to"
 
 msgid "Organisation units"
 msgstr "Organisation units"
+
+msgid "No compatible evaluations found"
+msgstr "No compatible evaluations found"
+
+msgid "Select evaluation to compare with"
+msgstr "Select evaluation to compare with"
+
+msgid "No evaluations found"
+msgstr "No evaluations found"
+
+msgid "Evaluation"
+msgstr "Evaluation"
 
 msgid "CHAP settings"
 msgstr "CHAP settings"

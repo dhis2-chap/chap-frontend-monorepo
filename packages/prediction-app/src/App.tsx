@@ -92,11 +92,16 @@ const router = createHashRouter([
                 children: [
                     {
                         path: '/settings',
-                        element: <SettingsPage />,
-                    },
-                    {
-                        path: '/settings/models',
-                        element: <ModelTemplatesPage />,
+                        children: [
+                            {
+                                index: true,
+                                element: <SettingsPage />,
+                            },
+                            {
+                                path: 'models',
+                                element: <ModelTemplatesPage />,
+                            },
+                        ],
                     },
                 ],
             },
