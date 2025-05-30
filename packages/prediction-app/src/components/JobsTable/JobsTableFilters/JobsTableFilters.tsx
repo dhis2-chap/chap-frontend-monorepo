@@ -51,6 +51,11 @@ export const JobsTableFilters = ({ table }: Props) => {
                         label={i18n.t('Failed')}
                         value={JOB_STATUSES.FAILED}
                     />
+
+                    <MenuItem
+                        label={i18n.t('Revoked')}
+                        value={JOB_STATUSES.REVOKED}
+                    />
                 </SingleSelect>
             </div>
             <div className={styles.singleSelectContainer}>
