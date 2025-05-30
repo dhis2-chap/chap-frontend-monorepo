@@ -57,7 +57,7 @@ export const useFormController = () => {
     },
     shouldFocusError: false,
   })
-  
+
   const { createNewBacktest, isSubmitting, error } = useCreateNewBacktest({
     onSuccess: () => {
       methods.reset()

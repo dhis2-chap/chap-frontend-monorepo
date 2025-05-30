@@ -54,9 +54,8 @@ export const JobActionsMenu = ({
     };
 
     const handleNavigateToResult = () => {
-        console.log('type', type);
         if (type === JOB_TYPES.CREATE_BACKTEST_WITH_DATA || type === JOB_TYPES.BACKTEST) {
-            navigate(`/evaluate?id=${result}`);
+            navigate(`/evaluate/compare?baseEvaluation=${result}`);
         } else if (type === JOB_TYPES.MAKE_PREDICTION) {
             navigate(`/predict`);
         }

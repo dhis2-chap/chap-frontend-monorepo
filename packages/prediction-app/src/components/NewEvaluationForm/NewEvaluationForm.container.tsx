@@ -5,7 +5,7 @@ import { NewEvaluationFormComponent } from './NewEvaluationForm.component'
 import { Card } from '@dhis2-chap/chap-lib'
 import { useFormController } from './hooks/useFormController'
 import styles from './NewEvaluationForm.module.css'
-import { Button, ButtonStrip, IconArrowLeft16, IconArrowRightMulti16 } from '@dhis2/ui'
+import { Button, ButtonStrip, IconArrowLeft16, IconArrowRightMulti16, NoticeBox } from '@dhis2/ui'
 import { useNavigate } from 'react-router-dom'
 import { useNavigationBlocker } from './hooks/useNavigationBlocker'
 import { NavigationConfirmModal } from '../NavigationConfirmModal'
@@ -53,10 +53,14 @@ export const NewEvaluationForm = () => {
                             onUpdateOrgUnits={onUpdateOrgUnits}
                         />
 
-                        {error && (
-                            <div className={styles.error}>
-                                {i18n.t('Error: {{error}}', { error: error.message })}
-                            </div>
+                        {!!error && (
+                            <NoticeBox
+                                error
+                                title={i18n.t('Error starting evaluation job')}
+                                className={styles.errorNotice}
+                            >
+                                {error.message}
+                            </NoticeBox>
                         )}
 
                         <div className={styles.buttons}>

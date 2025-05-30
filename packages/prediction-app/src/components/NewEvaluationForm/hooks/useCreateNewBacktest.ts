@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { EvaluationFormValues } from "./useFormController"
-import { AnalyticsService, FeatureCollectionModel, ObservationBase, MakeBacktestWithDataRequest, ModelSpecRead, ApiError } from "@dhis2-chap/chap-lib"
+import { AnalyticsService, FeatureCollectionModel, ObservationBase, MakeBacktestWithDataRequest, ModelSpecRead, ApiError, JobResponse } from "@dhis2-chap/chap-lib"
 import { useDataEngine } from "@dhis2/app-runtime"
 import { PERIOD_TYPES } from "../Sections/PeriodSelector"
 import { toDHIS2PeriodData } from "../../../features/timeperiod-selector/utils/timePeriodUtils"
@@ -45,6 +45,7 @@ type OrgUnitResponse = {
     geojson: {
         organisationUnits: {
             id: string,
+            displayName: string,
             geometry: {
                 type: string,
                 coordinates: number[][]
@@ -62,7 +63,7 @@ const ORG_UNITS_QUERY = (orgUnitIds: string[]) => ({
         resource: "organisationUnits",
         params: {
             filter: `id:in:[${orgUnitIds.join(',')}]`,
-            fields: 'id,geometry,parent[id],level',
+            fields: 'id,geometry,parent[id],level,displayName',
             paging: false,
         },
     },
@@ -81,22 +82,22 @@ export const useCreateNewBacktest = ({
     const queryClient = useQueryClient()
     const navigate = useNavigate()
 
-    const { 
+    const {
         mutate: createNewBacktest,
         isLoading,
         error,
-    } = useMutation({
+    } = useMutation<JobResponse, ApiError, EvaluationFormValues>({
         mutationFn: async (formData: EvaluationFormValues) => {
             const model = queryClient.getQueryData<ModelSpecRead[]>(['models'])
-            ?.find(model => model.id === Number(formData.modelId))
+                ?.find(model => model.id === Number(formData.modelId))
 
             if (!model) {
                 throw new Error('Model not found')
             }
 
             const periods = calculatePeriods(
-                formData.periodType, 
-                formData.fromDate, 
+                formData.periodType,
+                formData.fromDate,
                 formData.toDate
             )
 
@@ -104,8 +105,7 @@ export const useCreateNewBacktest = ({
                 ...formData.covariateMappings.map(mapping => mapping.dataItemId),
                 formData.targetMapping.dataItemId
             ]
-            
-            // Fetch analytics data from DHIS2
+
             const analyticsResponse = await dataEngine.query(
                 ANALYTICS_QUERY(
                     dataElements,
@@ -113,21 +113,20 @@ export const useCreateNewBacktest = ({
                     formData.orgUnits.map(ou => ou.id)
                 )
             ) as AnalyticsResponse
-            
-            
+
+
             const orgUnitIds: string[] = analyticsResponse.response.metaData.dimensions.ou;
-            
+
             const orgUnitResponse = await dataEngine.query(
                 ORG_UNITS_QUERY(orgUnitIds)
             ) as OrgUnitResponse
 
-            // orgUnitResponse.geojson.organisationUnits.forEach((ou) => {
-            //     if (!ou.geometry) {
-            //         console.error(`Org unit ${ou.id} has no geometry`)
-            //         throw new Error(`Org unit ${ou.id} has no geometry`)
-            //     }
-            // })
-            
+            const orgUnitsWithoutGeometry = orgUnitResponse.geojson.organisationUnits.filter((ou) => !ou.geometry)
+
+            if (orgUnitsWithoutGeometry.length > 0) {
+                throw new Error(`The following org units have no geometry: ${orgUnitsWithoutGeometry.map(ou => ou.displayName).join(', ')}`)
+            }
+
             const convertDhis2AnalyticsToChap = (data: [string, string, string, string][]): ObservationBase[] => {
                 return data.map((row) => {
                     const dataItemId = row[0]
@@ -136,7 +135,7 @@ export const useCreateNewBacktest = ({
                     if (!dataLayer) {
                         throw new Error(`Data layer not found for data item id: ${dataItemId}`)
                     }
-                    
+
                     return {
                         featureName: dataLayer.covariateName,
                         orgUnit: row[1],
@@ -145,9 +144,9 @@ export const useCreateNewBacktest = ({
                     }
                 })
             }
-            
+
             const observations = convertDhis2AnalyticsToChap(analyticsResponse.response.rows)
-            
+
             const filteredGeoJson: FeatureCollectionModel = {
                 type: 'FeatureCollection',
                 features: orgUnitResponse.geojson.organisationUnits.map(ou => ({
@@ -163,7 +162,7 @@ export const useCreateNewBacktest = ({
                 })),
             }
 
-            
+
             // Construct the backtest request
             const backtestRequest: MakeBacktestWithDataRequest = {
                 name: formData.name,
@@ -175,7 +174,7 @@ export const useCreateNewBacktest = ({
                 nSplits: N_SPLITS,
                 stride: STRIDE,
             }
-            
+
             // Create the backtest
             return AnalyticsService.createBacktestWithDataAnalyticsCreateBacktestWithDataPost(backtestRequest)
         },
@@ -184,8 +183,8 @@ export const useCreateNewBacktest = ({
             onSuccess?.()
             navigate('/jobs');
         },
-        onError: (error) => {
-            onError?.(error as ApiError)
+        onError: (error: ApiError) => {
+            onError?.(error)
         }
     })
 

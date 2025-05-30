@@ -29,6 +29,10 @@
   margin-block-start: 1rem;
 }
 
+.errorNotice {
+  margin-block-start: 1rem;
+}
+
 .errorText {
   color: red;
   font-size: 0.875rem;
