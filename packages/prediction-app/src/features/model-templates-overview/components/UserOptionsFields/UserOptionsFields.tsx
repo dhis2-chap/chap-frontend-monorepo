@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Button,
     InputField,
@@ -95,19 +95,19 @@ export const UserOptionsFields: React.FC<UserOptionsFieldsProps> = ({
 
     const userOptions = currentTemplate?.userOptions || {}
 
-    // Watch for user options changes
     const watchedUserOptions = useWatch({
         control,
         name: 'userOptions'
     })
 
-    // Update default user options when template changes
-    React.useEffect(() => {
+    useEffect(() => {
         if (currentTemplate?.userOptions) {
             const defaults: Record<string, any> = {}
-            Object.entries(currentTemplate.userOptions).forEach(([key, option]) => {
-                defaults[key] = getDefaultValue(option as UserOptionConfig)
-            })
+            Object.entries(currentTemplate.userOptions)
+                .filter(([key]) => key !== 'additional_covariates')
+                .forEach(([key, option]) => {
+                    defaults[key] = getDefaultValue(option as UserOptionConfig)
+                })
             setValue('userOptions', defaults)
         } else {
             setValue('userOptions', {})
@@ -295,9 +295,11 @@ export const UserOptionsFields: React.FC<UserOptionsFieldsProps> = ({
         <div className={styles.formField}>
             <Label>{i18n.t('Model Parameters')}</Label>
             <div className={styles.userOptionsContainer}>
-                {Object.entries(userOptions).map(([key, option]) =>
-                    renderUserOption(key, option as UserOptionConfig)
-                )}
+                {Object.entries(userOptions)
+                    .filter(([key]) => key !== 'additional_covariates')
+                    .map(([key, option]) =>
+                        renderUserOption(key, option as UserOptionConfig)
+                    )}
             </div>
         </div>
     )

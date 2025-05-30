@@ -78,31 +78,25 @@ export const ModelTemplateConfigForm = ({
         if (newCovariate.trim()) {
             const trimmedName = newCovariate.trim()
 
-            // Check for spaces
             if (/\s/.test(trimmedName)) {
                 setCovariateError(i18n.t('Covariate name cannot contain spaces'))
                 return
             }
 
-            // Check if the covariate already exists in required covariates
             const existsInRequired = requiredCovariates.includes(trimmedName)
 
-            // Check if the covariate already exists in additional covariates
             const existsInAdditional = fields.some(field =>
                 watch(`covariates.${fields.indexOf(field)}.name`) === trimmedName
             )
 
-            // Only add if it doesn't exist in either list
             if (!existsInRequired && !existsInAdditional) {
                 append({ name: trimmedName })
+                setNewCovariate('')
                 setCovariateError('')
             } else {
                 setCovariateError(i18n.t('Covariate already exists'))
                 return
             }
-
-            // Always clear the input field
-            setNewCovariate('')
         }
     }
 

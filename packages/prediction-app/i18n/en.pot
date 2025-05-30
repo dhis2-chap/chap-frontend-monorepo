@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-29T23:41:53.645Z\n"
-"PO-Revision-Date: 2025-05-29T23:41:53.646Z\n"
+"POT-Creation-Date: 2025-05-30T13:47:24.961Z\n"
+"PO-Revision-Date: 2025-05-30T13:47:24.962Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -316,12 +316,6 @@ msgstr ""
 msgid "No model templates found."
 msgstr "No model templates found."
 
-msgid "Available Templates"
-msgstr "Available Templates"
-
-msgid "Configured Model"
-msgstr "Configured Model"
-
 msgid "Model Templates"
 msgstr "Model Templates"
 
@@ -338,20 +332,29 @@ msgstr "Template is required"
 msgid "Covariate name is required"
 msgstr "Covariate name is required"
 
-msgid "Configure Model Template"
-msgstr "Configure Model Template"
+msgid "Covariate name cannot contain spaces"
+msgstr "Covariate name cannot contain spaces"
 
-msgid "Configured Model Name"
-msgstr "Configured Model Name"
+msgid "Covariate already exists"
+msgstr "Covariate already exists"
 
-msgid "Enter model name"
-msgstr "Enter model name"
+msgid "Configure Model"
+msgstr "Configure Model"
 
 msgid "Model Template"
 msgstr "Model Template"
 
 msgid "Select a model template"
 msgstr "Select a model template"
+
+msgid "Configured Model Name"
+msgstr "Configured Model Name"
+
+msgid "Enter something to identify your model, e.g. \"Debug\" or \"Malaria\""
+msgstr "Enter something to identify your model, e.g. \"Debug\" or \"Malaria\""
+
+msgid "Your model will be saved as {{modelName}} [{{configuredModelName}}]"
+msgstr "Your model will be saved as {{modelName}} [{{configuredModelName}}]"
 
 msgid "Additional Covariates"
 msgstr "Additional Covariates"
@@ -362,14 +365,29 @@ msgstr "Enter covariate name"
 msgid "Add"
 msgstr "Add"
 
+msgid "Required"
+msgstr "Required"
+
 msgid "Remove"
 msgstr "Remove"
 
 msgid "Please check covariates"
 msgstr "Please check covariates"
 
-msgid "Configure Model"
-msgstr "Configure Model"
+msgid "Enter item"
+msgstr "Enter item"
+
+msgid "Leave empty for null"
+msgstr "Leave empty for null"
+
+msgid "Model Parameters"
+msgstr "Model Parameters"
+
+msgid "Model configured"
+msgstr "Model configured"
+
+msgid "Failed to configure model"
+msgstr "Failed to configure model"
 
 msgid "Prediction for Northern Province"
 msgstr "Prediction for Northern Province"
@@ -423,6 +441,40 @@ msgstr ""
 
 msgid "Your server is not secure"
 msgstr "Your server is not secure"
+
+msgid "Model settings"
+msgstr "Model settings"
+
+msgid "An error occurred while loading models."
+msgstr "An error occurred while loading models."
+
+msgid ""
+"Please try to reload the page. If the problem persists, contact your system "
+"administrator."
+msgstr ""
+"Please try to reload the page. If the problem persists, contact your system "
+"administrator."
+
+msgid "Model templates"
+msgstr "Model templates"
+
+msgid ""
+"Model templates are base models that can be configured to fit your data "
+"with different parameters and covariates. This is still an advanced feature "
+"and should be used with caution."
+msgstr ""
+"Model templates are base models that can be configured to fit your data "
+"with different parameters and covariates. This is still an advanced feature "
+"and should be used with caution."
+
+msgid "Configured models"
+msgstr "Configured models"
+
+msgid "Configure"
+msgstr "Configure"
+
+msgid "Models configured"
+msgstr "Models configured"
 
 msgid "No route found."
 msgstr "No route found."
@@ -542,12 +594,3 @@ msgstr "Active jobs"
 
 msgid "View and manage currently running jobs and their status."
 msgstr "View and manage currently running jobs and their status."
-
-msgid "Covariates"
-msgstr "Covariates"
-
-msgid "Required Covariates"
-msgstr "Required Covariates"
-
-msgid "Required"
-msgstr "Required"
