@@ -41,6 +41,7 @@ export type { ForecastRead } from './models/ForecastRead';
 export type { FullPredictionResponse } from './models/FullPredictionResponse';
 export type { HealthResponse } from './models/HealthResponse';
 export type { HTTPValidationError } from './models/HTTPValidationError';
+export type { ImportSummaryResponse } from './models/ImportSummaryResponse';
 export type { JobDescription } from './models/JobDescription';
 export type { JobResponse } from './models/JobResponse';
 export type { LineStringModel } from './models/LineStringModel';
