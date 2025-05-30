@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, InputField, Label, Chip } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
-import { Control, UseFormSetValue } from 'react-hook-form'
+import { UseFormSetValue } from 'react-hook-form'
 import { UserOptionConfig } from '../UserOptionsFields'
 import styles from '../UserOptionsFields.module.css'
 
