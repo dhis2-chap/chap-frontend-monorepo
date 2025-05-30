@@ -12,6 +12,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
                 <div className={styles.header}>
                     <h2>{i18n.t('Model settings')}</h2>
                 </div>
+
                 {children}
             </div>
         </Card>
@@ -57,9 +58,13 @@ export const ModelSettings = () => {
     return (
         <Wrapper>
             <div className={styles.settingsContainer}>
+            <NoticeBox title={i18n.t('Model templates')}>
+                        {i18n.t('Model templates are base models that can be configured to fit your data with different parameters and covariates. This is still an advanced feature and should be used with caution.')}
+                    </NoticeBox>
                 <div className={styles.info}>
                     <div className={styles.infoHeader}>
-                        <h3>{i18n.t('Configured models')}</h3>
+                        <h3>{i18n.t('Configured models')}</h3> 
+
                         <Button
                             small
                             onClick={handleConfigureModels}
