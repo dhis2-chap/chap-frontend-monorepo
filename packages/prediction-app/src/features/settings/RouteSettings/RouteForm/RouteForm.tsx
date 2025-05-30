@@ -49,6 +49,7 @@ export const RouteForm = ({
         formState: { errors },
     } = useForm<RouteFormValues>({
         resolver: zodResolver(routeSchema),
+        shouldFocusError: false,
         defaultValues: {
             url: initialUrl,
         },
