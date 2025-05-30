@@ -1,14 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { EvaluationFormValues } from "./useFormController"
-import { AnalyticsService, FeatureCollectionModel, ObservationBase, MakeBacktestWithDataRequest } from "@dhis2-chap/chap-lib"
+import { AnalyticsService, FeatureCollectionModel, ObservationBase, MakeBacktestWithDataRequest, ModelSpecRead, ApiError } from "@dhis2-chap/chap-lib"
 import { useDataEngine } from "@dhis2/app-runtime"
 import { PERIOD_TYPES } from "../Sections/PeriodSelector"
 import { toDHIS2PeriodData } from "../../../features/timeperiod-selector/utils/timePeriodUtils"
 import { useNavigate } from "react-router-dom"
 
 const N_SPLITS = 10
-const N_PERIODS = 3
 const STRIDE = 1
+
+const N_PERIODS = {
+    [PERIOD_TYPES.MONTH]: 3,
+    [PERIOD_TYPES.WEEK]: 12,
+}
 
 const calculatePeriods = (periodType: keyof typeof PERIOD_TYPES, fromDate: string, toDate: string): string[] => {
     const selectedPeriodType = PERIOD_TYPES[periodType]
@@ -64,13 +68,31 @@ const ORG_UNITS_QUERY = (orgUnitIds: string[]) => ({
     },
 })
 
-export const useCreateNewBacktest = () => {
+type Props = {
+    onSuccess?: () => void
+    onError?: (error: ApiError) => void
+}
+
+export const useCreateNewBacktest = ({
+    onSuccess,
+    onError,
+}: Props = {}) => {
     const dataEngine = useDataEngine()
     const queryClient = useQueryClient()
     const navigate = useNavigate()
 
-    const { mutate: createNewBacktest } = useMutation({
+    const { 
+        mutate: createNewBacktest,
+        isLoading,
+    } = useMutation({
         mutationFn: async (formData: EvaluationFormValues) => {
+            const model = queryClient.getQueryData<ModelSpecRead[]>(['models'])
+            ?.find(model => model.id === Number(formData.modelId))
+
+            if (!model) {
+                throw new Error('Model not found')
+            }
+
             const periods = calculatePeriods(
                 formData.periodType, 
                 formData.fromDate, 
@@ -92,14 +114,18 @@ export const useCreateNewBacktest = () => {
             ) as AnalyticsResponse
             
             
-            debugger;
             const orgUnitIds: string[] = analyticsResponse.response.metaData.dimensions.ou;
             
             const orgUnitResponse = await dataEngine.query(
                 ORG_UNITS_QUERY(orgUnitIds)
             ) as OrgUnitResponse
 
-                
+            orgUnitResponse.geojson.organisationUnits.forEach((ou) => {
+                if (!ou.geometry) {
+                    console.error(`Org unit ${ou.id} has no geometry`)
+                    throw new Error(`Org unit ${ou.id} has no geometry`)
+                }
+            })
             
             const convertDhis2AnalyticsToChap = (data: [string, string, string, string][]): ObservationBase[] => {
                 return data.map((row) => {
@@ -124,6 +150,7 @@ export const useCreateNewBacktest = () => {
             const filteredGeoJson: FeatureCollectionModel = {
                 type: 'FeatureCollection',
                 features: orgUnitResponse.geojson.organisationUnits.map(ou => ({
+                    id: ou.id,
                     type: 'Feature',
                     geometry: ou.geometry,
                     properties: {
@@ -135,7 +162,6 @@ export const useCreateNewBacktest = () => {
                 })),
             }
 
-            debugger;
             
             // Construct the backtest request
             const backtestRequest: MakeBacktestWithDataRequest = {
@@ -143,8 +169,8 @@ export const useCreateNewBacktest = () => {
                 geojson: filteredGeoJson,
                 providedData: observations,
                 dataToBeFetched: [],
-                modelId: formData.name,
-                nPeriods: N_PERIODS,
+                modelId: model.name,
+                nPeriods: N_PERIODS[formData.periodType],
                 nSplits: N_SPLITS,
                 stride: STRIDE,
             }
@@ -152,14 +178,18 @@ export const useCreateNewBacktest = () => {
             // Create the backtest
             return AnalyticsService.createBacktestWithDataAnalyticsCreateBacktestWithDataPost(backtestRequest)
         },
-        onSuccess: (data) => {
-            console.log(data)
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['jobs'] })
+            onSuccess?.()
             navigate('/jobs');
         },
+        onError: (error) => {
+            onError?.(error as ApiError)
+        }
     })
 
     return {
         createNewBacktest,
+        isSubmitting: isLoading,
     }
 }

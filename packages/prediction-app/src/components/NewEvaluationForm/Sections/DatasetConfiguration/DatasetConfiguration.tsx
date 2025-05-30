@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import {
     Button,
     Label,
-    IconArrowRightMulti16,
     ButtonStrip,
-    IconVisualizationLine16,
+    IconDimensionData16,
+    IconVisualizationArea16,
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import cn from 'classnames'
@@ -15,7 +15,6 @@ import { DataMappingModal } from './DataMappingModal'
 import { useDatasetValidation } from './useDatasetValidation'
 import styles from './DatasetConfiguration.module.css'
 import { OrganisationUnit } from '../../../OrganisationUnitSelector/OrganisationUnitSelector'
-import { PeriodType } from '../../../../../../chap-lib/build/types/httpfunctions/models/PeriodType'
 import { InspectDatasetModal } from '../../../InspectDatasetModal/InspectDatasetModal'
 import { PERIOD_TYPES } from '../PeriodSelector'
 
@@ -72,18 +71,18 @@ export const DatasetConfiguration = ({
                 <ButtonStrip>
                     <Button
                         onClick={() => setIsDataMappingModalOpen(true)}
-                        icon={<IconArrowRightMulti16 />}
+                        icon={<IconDimensionData16 />}
                         dataTest="evaluation-data-mapping-button"
                         disabled={!selectedModel}
                         small
                     >
-                        {i18n.t('Configure data mappings')}
+                        {i18n.t('Configure sources')}
                     </Button>
 
                     <Button
                         small
                         disabled={!selectedModel || !mappingStatus.isValid}
-                        icon={<IconVisualizationLine16 />}
+                        icon={<IconVisualizationArea16 />}
                         onClick={() => setIsInspectDatasetModalOpen(true)}
                     >
                         {i18n.t('Inspect dataset')}

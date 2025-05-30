@@ -1,12 +1,10 @@
-import { useForm, useFormContext, useWatch } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import i18n from '@dhis2/d2-i18n'
 import { OrganisationUnit } from '../../OrganisationUnitSelector'
 import { PERIOD_TYPES } from '../Sections/PeriodSelector'
 import { isAfter, isEqual, parseISO } from 'date-fns'
-import { useQueryClient } from '@tanstack/react-query'
-import { ModelSpecRead } from '@dhis2-chap/chap-lib'
 import { useCreateNewBacktest } from './useCreateNewBacktest'
 
 export type CovariateMapping = z.infer<typeof covariateMappingSchema>
@@ -29,9 +27,12 @@ const evaluationSchema = z.object({
   fromDate: z.string().min(1, { message: i18n.t('Start date is required') }),
   toDate: z.string().min(1, { message: i18n.t('End date is required') }),
   orgUnits: z.array(orgUnitSchema).min(1, { message: i18n.t('At least one org unit is required') }),
-  modelId: z.string().min(1, { message: i18n.t('Model is required') }),
-  covariateMappings: z.array(covariateMappingSchema).min(1, { message: i18n.t('At least one covariate must be mapped') }),
-  targetMapping: covariateMappingSchema.required(),
+  modelId: z.string().min(1, { message: i18n.t('Please select a model') }),
+  covariateMappings: z.array(covariateMappingSchema).min(1, { message: i18n.t('Please map the covariates to valid data items') }),
+  targetMapping: z.object({
+    covariateName: z.string(),
+    dataItemId: z.string(),
+  }, { message: i18n.t('Please map the target to a valid data item') }),
 })
   .refine((data) => {
     const fromDate = parseISO(data.fromDate)
@@ -42,7 +43,6 @@ const evaluationSchema = z.object({
 export type EvaluationFormValues = z.infer<typeof evaluationSchema>
 
 export const useFormController = () => {
-  const { createNewBacktest } = useCreateNewBacktest()
 
   const methods = useForm<EvaluationFormValues>({
     resolver: zodResolver(evaluationSchema),
@@ -56,6 +56,11 @@ export const useFormController = () => {
       covariateMappings: [],
       targetMapping: undefined,
     },
+  })
+  const { createNewBacktest, isSubmitting } = useCreateNewBacktest({
+    onSuccess: () => {
+      methods.reset()
+    }
   })
 
   const onUpdateOrgUnits = (orgUnits: OrganisationUnit[]) => {
@@ -73,5 +78,6 @@ export const useFormController = () => {
     onUpdateOrgUnits,
     handleSubmit,
     handleStartJob,
+    isSubmitting,
   }
 }

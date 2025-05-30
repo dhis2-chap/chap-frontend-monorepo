@@ -57,7 +57,7 @@ const router = createHashRouter([
                         children: [
                             {
                                 index: true,
-                                element: <EvaluationPage />,
+                                element: <EvaluationsWIPPage />,
                             },
                             {
                                 path: 'compare',
@@ -66,11 +66,15 @@ const router = createHashRouter([
                                 } satisfies RouteHandle,
                                 element: <EvaluationComparePage />,
                             },
+                            {
+                                path: 'new',
+                                element: <NewEvaluationPage />,
+                            },
                         ],
                     },
                     {
-                        path: '/evaluationsWIP',
-                        element: <EvaluationsWIPPage />,
+                        path: '/evaluate-old',
+                        element: <EvaluationPage />,
                     },
                     {
                         path: '/jobs',
@@ -79,10 +83,6 @@ const router = createHashRouter([
                     {
                         path: '/predict',
                         element: <PredictionOverview />,
-                    },
-                    {
-                        path: '/evaluations/new',
-                        element: <NewEvaluationPage />,
                     },
                 ],
             },

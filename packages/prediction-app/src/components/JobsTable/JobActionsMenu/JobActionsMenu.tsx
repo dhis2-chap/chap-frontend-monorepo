@@ -56,7 +56,7 @@ export const JobActionsMenu = ({
     const handleNavigateToResult = () => {
         console.log('type', type);
         if (type === JOB_TYPES.CREATE_BACKTEST_WITH_DATA || type === JOB_TYPES.BACKTEST) {
-            navigate(`/evaluationsWIP?id=${result}`);
+            navigate(`/evaluate?id=${result}`);
         } else if (type === JOB_TYPES.MAKE_PREDICTION) {
             navigate(`/predict`);
         }
@@ -83,12 +83,14 @@ export const JobActionsMenu = ({
                         />)}
 
 
-                        <MenuItem
-                            label={i18n.t('View Logs')}
-                            dataTest={'job-overflow-view-logs'}
-                            icon={<IconView16 />}
-                            onClick={handleViewLogs}
-                        />
+                        {status !== JOB_STATUSES.PENDING && (
+                            <MenuItem
+                                label={i18n.t('View Logs')}
+                                dataTest={'job-overflow-view-logs'}
+                                icon={<IconView16 />}
+                                onClick={handleViewLogs}
+                            />
+                        )}
 
                         <MenuItem
                             label={i18n.t('Copy Job ID')}

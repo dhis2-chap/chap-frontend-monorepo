@@ -5,7 +5,7 @@ import { NewEvaluationFormComponent } from './NewEvaluationForm.component'
 import { Card } from '@dhis2-chap/chap-lib'
 import { useFormController } from './hooks/useFormController'
 import styles from './NewEvaluationForm.module.css'
-import { Button, ButtonStrip, IconArrowLeft16, IconArrowRight16 } from '@dhis2/ui'
+import { Button, ButtonStrip, IconArrowLeft16, IconArrowRightMulti16 } from '@dhis2/ui'
 import { useNavigate } from 'react-router-dom'
 import { useNavigationBlocker } from './hooks/useNavigationBlocker'
 import { NavigationConfirmModal } from '../NavigationConfirmModal'
@@ -16,7 +16,8 @@ export const NewEvaluationForm = () => {
         methods,
         onUpdateOrgUnits,
         handleSubmit,
-        handleStartJob
+        handleStartJob,
+        isSubmitting,
     } = useFormController()
 
     const {
@@ -24,11 +25,11 @@ export const NewEvaluationForm = () => {
         handleConfirmNavigation,
         handleCancelNavigation,
     } = useNavigationBlocker({
-        shouldBlock: methods.formState.isDirty
+        shouldBlock: !isSubmitting && methods.formState.isDirty
     })
 
     const handleBackClick = () => {
-        navigate('/evaluationsWIP')
+        navigate('/evaluate')
     }
 
     return (
@@ -44,25 +45,25 @@ export const NewEvaluationForm = () => {
 
             <FormProvider {...methods}>
                 <div className={styles.container}>
-                        <Card>
-                            <NewEvaluationFormComponent
-                                onSubmit={handleSubmit}
-                                methods={methods}
-                                onUpdateOrgUnits={onUpdateOrgUnits}
-                            />
-                            <div className={styles.buttons}>
+                    <Card>
+                        <NewEvaluationFormComponent
+                            onSubmit={handleSubmit}
+                            methods={methods}
+                            onUpdateOrgUnits={onUpdateOrgUnits}
+                        />
+                        <div className={styles.buttons}>
                             <ButtonStrip end>
                                 <Button
                                     primary
+                                    loading={isSubmitting}
                                     onClick={handleStartJob}
-                                    disabled={!methods.formState.isValid}
-                                    icon={<IconArrowRight16 />}
+                                    icon={<IconArrowRightMulti16 />}
                                 >
                                     {i18n.t('Start job')}
-                                    </Button>
-                                </ButtonStrip>
-                            </div>
-                        </Card>
+                                </Button>
+                            </ButtonStrip>
+                        </div>
+                    </Card>
                 </div>
 
             </FormProvider>

@@ -45,15 +45,20 @@ export const ModelSelector = ({
                     <p className={styles.mutedText}>{i18n.t('No model selected')}</p>
                 )}
 
+
                 <Button
                     onClick={() => setIsModelModalOpen(true)}
                     icon={<IconSettings16 />}
                     dataTest="evaluation-model-select-button"
                     small
                     loading={isLoading}
-                >
+                    >
                     {i18n.t('Select model')}
                 </Button>
+                
+                {methods.formState.errors.modelId && (
+                    <p className={styles.errorText}>{methods.formState.errors.modelId.message}</p>
+                )}
             </div>
 
             {isModelModalOpen && (

@@ -24,7 +24,6 @@ export const toDHIS2PeriodData = (start: string, end: string, periodType: string
 
 // This function takes in a start and end string in the format of "2024-W01" and returns an array of Period objects
 const getWeeks = (start: string, end: string): Period[] => {
-  debugger
   try {
     //Parse ISO week format (e.g., "2024-W01")
     const startDate = parse(start, 'RRRR-\'W\'II', new Date());

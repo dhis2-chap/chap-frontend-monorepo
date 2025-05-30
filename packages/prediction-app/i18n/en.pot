@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-28T20:17:33.519Z\n"
-"PO-Revision-Date: 2025-05-28T20:17:33.520Z\n"
+"POT-Creation-Date: 2025-05-30T11:48:15.845Z\n"
+"PO-Revision-Date: 2025-05-30T11:48:15.845Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -227,6 +227,54 @@ msgstr "Leave page"
 msgid "Back to evaluations"
 msgstr "Back to evaluations"
 
+msgid "Start job"
+msgstr "Start job"
+
+msgid "Map Data Items"
+msgstr "Map Data Items"
+
+msgid "Map the model features to corresponding data items in DHIS2"
+msgstr "Map the model features to corresponding data items in DHIS2"
+
+msgid "Map the model target to the corresponding data item in DHIS2"
+msgstr "Map the model target to the corresponding data item in DHIS2"
+
+msgid "Please select a data item for this target field"
+msgstr "Please select a data item for this target field"
+
+msgid "Map each model covariate to the corresponding data item in DHIS2"
+msgstr "Map each model covariate to the corresponding data item in DHIS2"
+
+msgid "Please select a data item for this covariate"
+msgstr "Please select a data item for this covariate"
+
+msgid "Save Mappings"
+msgstr "Save Mappings"
+
+msgid "No model selected"
+msgstr "No model selected"
+
+msgid "All data items mapped"
+msgstr "All data items mapped"
+
+msgid "{{mapped}}/{{total}} data items mapped"
+msgstr "{{mapped}}/{{total}} data items mapped"
+
+msgid "Dataset Configuration"
+msgstr "Dataset Configuration"
+
+msgid "Configure sources"
+msgstr "Configure sources"
+
+msgid "Inspect dataset"
+msgstr "Inspect dataset"
+
+msgid "Target \"{{targetName}}\" must be mapped to a data item"
+msgstr "Target \"{{targetName}}\" must be mapped to a data item"
+
+msgid "Covariate \"{{covariateName}}\" must be mapped to a data item"
+msgstr "Covariate \"{{covariateName}}\" must be mapped to a data item"
+
 msgid "Organisation Units"
 msgstr "Organisation Units"
 
@@ -246,6 +294,9 @@ msgstr ""
 "Some models require you to only select organisation units from the same "
 "level."
 
+msgid "All org units must be at the same level"
+msgstr "All org units must be at the same level"
+
 msgid "Confirm Selection"
 msgstr "Confirm Selection"
 
@@ -260,9 +311,6 @@ msgstr "Filter models"
 
 msgid "Search by name"
 msgstr "Search by name"
-
-msgid "No model selected"
-msgstr "No model selected"
 
 msgid "Select model"
 msgstr "Select model"
@@ -300,8 +348,8 @@ msgstr "Summary"
 msgid "Open dataset"
 msgstr "Open dataset"
 
-msgid "Start job"
-msgstr "Start job"
+msgid "Missing id for org unit"
+msgstr "Missing id for org unit"
 
 msgid "Period type is required"
 msgstr "Period type is required"
@@ -312,14 +360,17 @@ msgstr "Start date is required"
 msgid "End date is required"
 msgstr "End date is required"
 
-msgid "Missing id for org unit"
-msgstr "Missing id for org unit"
-
 msgid "At least one org unit is required"
 msgstr "At least one org unit is required"
 
-msgid "Model is required"
-msgstr "Model is required"
+msgid "Please select a model"
+msgstr "Please select a model"
+
+msgid "Please map the covariates to valid data items"
+msgstr "Please map the covariates to valid data items"
+
+msgid "Please map the target to a valid data item"
+msgstr "Please map the target to a valid data item"
 
 msgid "End period must be after start period"
 msgstr "End period must be after start period"
@@ -371,9 +422,6 @@ msgstr "Overview"
 
 msgid "Compare"
 msgstr "Compare"
-
-msgid "Evaluations (WIP)"
-msgstr "Evaluations (WIP)"
 
 msgid "Predict"
 msgstr "Predict"
@@ -516,6 +564,27 @@ msgstr "Organisation unit level"
 
 msgid "Organisation unit level to import data to"
 msgstr "Organisation unit level to import data to"
+
+msgid "Data Element"
+msgstr "Data Element"
+
+msgid "Indicator"
+msgstr "Indicator"
+
+msgid "Program Indicator"
+msgstr "Program Indicator"
+
+msgid "Loading"
+msgstr "Loading"
+
+msgid "Start typing to search for data items"
+msgstr "Start typing to search for data items"
+
+msgid "No matches found"
+msgstr "No matches found"
+
+msgid "Search for indicators, data elements, or program indicators"
+msgstr "Search for indicators, data elements, or program indicators"
 
 msgid "No compatible evaluations found"
 msgstr "No compatible evaluations found"

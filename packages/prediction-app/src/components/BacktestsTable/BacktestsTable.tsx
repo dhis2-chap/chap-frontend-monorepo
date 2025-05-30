@@ -123,7 +123,7 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
                             icon={<IconAdd16 />}
                             small
                             onClick={() => {
-                                navigate('/evaluations/new');
+                                navigate('/evaluate/new');
                             }}
                         >
                             {i18n.t('New evaluation')}
