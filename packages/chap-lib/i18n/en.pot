@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-28T13:37:49.423Z\n"
-"PO-Revision-Date: 2025-05-28T13:37:49.424Z\n"
+"POT-Creation-Date: 2025-05-30T15:08:29.719Z\n"
+"PO-Revision-Date: 2025-05-30T15:08:29.720Z\n"
 
 msgid "Median Prediction for {{predictionTargetName}}"
 msgstr "Median Prediction for {{predictionTargetName}}"
@@ -25,7 +25,3 @@ msgstr "Range"
 
 msgid "More"
 msgstr "More"
-
-msgctxt "Application title"
-msgid "__MANIFEST_APP_TITLE"
-msgstr "@dhis2-chap/chap-lib"
