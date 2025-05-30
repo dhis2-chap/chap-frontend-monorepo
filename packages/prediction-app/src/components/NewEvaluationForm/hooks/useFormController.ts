@@ -43,7 +43,6 @@ const evaluationSchema = z.object({
 export type EvaluationFormValues = z.infer<typeof evaluationSchema>
 
 export const useFormController = () => {
-
   const methods = useForm<EvaluationFormValues>({
     resolver: zodResolver(evaluationSchema),
     defaultValues: {
@@ -58,6 +57,7 @@ export const useFormController = () => {
     },
     shouldFocusError: false,
   })
+  
   const { createNewBacktest, isSubmitting, error } = useCreateNewBacktest({
     onSuccess: () => {
       methods.reset()

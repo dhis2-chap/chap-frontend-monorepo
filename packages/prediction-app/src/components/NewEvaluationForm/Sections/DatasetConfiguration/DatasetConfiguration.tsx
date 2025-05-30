@@ -17,11 +17,15 @@ import styles from './DatasetConfiguration.module.css'
 import { OrganisationUnit } from '../../../OrganisationUnitSelector/OrganisationUnitSelector'
 import { InspectDatasetModal } from '../../../InspectDatasetModal/InspectDatasetModal'
 import { PERIOD_TYPES } from '../PeriodSelector'
+import { useInstalledDVVersion } from '../../../../utils/useInstalledDVVersion'
+import { ConditionalTooltip } from '../../../ConditionalTooltip'
 
 type Props = {
     control: Control<EvaluationFormValues>
     errors: FieldErrors<EvaluationFormValues>
 }
+
+
 
 export const DatasetConfiguration = ({
     control,
@@ -34,6 +38,10 @@ export const DatasetConfiguration = ({
     const datasetValidation = useDatasetValidation()
     const mappingStatus = datasetValidation.getDetailedValidationSummary()
     const { models } = useModels()
+    const {
+        isCompatible: isDVCompatible,
+        isLoading: isDVLoading,
+    } = useInstalledDVVersion()
 
     const selectedModel = models?.find((model) => model.id.toString() === modelId)
 
@@ -79,14 +87,19 @@ export const DatasetConfiguration = ({
                         {i18n.t('Configure sources')}
                     </Button>
 
-                    <Button
-                        small
-                        disabled={!selectedModel || !mappingStatus.isValid}
-                        icon={<IconVisualizationArea16 />}
-                        onClick={() => setIsInspectDatasetModalOpen(true)}
+                    <ConditionalTooltip
+                        enabled={!isDVLoading && !isDVCompatible}
+                        content={i18n.t('The Data Visualizer app is not compatible with this feature. Please update to a newer version.')}
                     >
-                        {i18n.t('Inspect dataset')}
-                    </Button>
+                        <Button
+                            small
+                            disabled={!selectedModel || !mappingStatus.isValid || !isDVCompatible}
+                            icon={<IconVisualizationArea16 />}
+                            onClick={() => setIsInspectDatasetModalOpen(true)}
+                        >
+                            {i18n.t('Inspect dataset')}
+                        </Button>
+                    </ConditionalTooltip>
                 </ButtonStrip>
 
                 {(errors.targetMapping || errors.covariateMappings) && (
