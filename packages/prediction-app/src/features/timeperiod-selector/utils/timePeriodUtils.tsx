@@ -32,7 +32,7 @@ const getWeeks = (start: string, end: string): Period[] => {
     const endW = year === endYear ? endWeek : maxWeeks;
 
     for (let week = startW; week <= endW; week++) {
-      const weekString = `${year}W${String(week).padStart(2, '0')}`;
+      const weekString = `${year}W${week}`
       weeks.push(
         {
           endDate : undefined,

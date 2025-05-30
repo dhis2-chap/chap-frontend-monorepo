@@ -32,6 +32,20 @@ interface SendChapDataProps {
     onDrawerSubmit: () => void
 }
 
+const safeCreateFixedPeriodFromPeriodId = (
+    params: Parameters<typeof createFixedPeriodFromPeriodId>[0]
+) => {
+    try {
+        return createFixedPeriodFromPeriodId(params)
+    } catch (error) {
+        console.error(
+            `Error creating fixed period from ID ${params.periodId}:`,
+            error
+        )
+        return { displayName: params.periodId }
+    }
+}
+
 export const SendChapData = ({
     onSendAction,
     onDrawerSubmit,
@@ -42,7 +56,7 @@ export const SendChapData = ({
     orgUnitLevel,
     dataLayers,
 }: SendChapDataProps) => {
-    const queryClient = useQueryClient();
+    const queryClient = useQueryClient()
 
     //States applies for both "predict" and "new-dataset"
     const [startDownload, setStartDownload] = useState<{
@@ -169,7 +183,8 @@ export const SendChapData = ({
                                 href={
                                     config?.systemInfo?.contextPath +
                                     '/api/apps/climate-data/index.html#/import'
-                                } rel="noreferrer"
+                                }
+                                rel="noreferrer"
                             >
                                 Climate App
                             </a>{' '}
@@ -186,11 +201,13 @@ export const SendChapData = ({
                                 <tbody>
                                     {missingData.map((d) => {
                                         return (
-                                            <tr key={`${d.orgUnitName}-${d.period}`}>
+                                            <tr
+                                                key={`${d.orgUnitName}-${d.period}`}
+                                            >
                                                 <td>{d.orgUnitName}</td>
                                                 <td>
                                                     {
-                                                        createFixedPeriodFromPeriodId(
+                                                        safeCreateFixedPeriodFromPeriodId(
                                                             {
                                                                 periodId:
                                                                     d.period,
@@ -291,7 +308,15 @@ export const SendChapData = ({
     }
 
     const getNewDatasetRequest = (): DatasetMakeRequest => {
-        return getCommonRequestData()
+        const data = getCommonRequestData()
+
+        return {
+            ...data,
+            providedData: data.providedData.map((d) => ({
+                ...d,
+                period: d.period.replace(/(.*)W([1-9])/g, '$1W0$2'),
+            })),
+        }
     }
 
     const getPredictionRequest = (): MakePredictionRequest => {
@@ -322,7 +347,7 @@ export const SendChapData = ({
             .then(() => {
                 setErrorChapMsg('')
                 onDrawerSubmit()
-                queryClient.invalidateQueries({ queryKey: ['jobs'] });
+                queryClient.invalidateQueries({ queryKey: ['jobs'] })
             })
             .catch((error: any) => {
                 if (error?.body?.detail)
@@ -346,7 +371,7 @@ export const SendChapData = ({
         )
             .then(() => {
                 onDrawerSubmit()
-                queryClient.invalidateQueries({ queryKey: ['jobs'] });
+                queryClient.invalidateQueries({ queryKey: ['jobs'] })
             })
             .catch((error: any) => {
                 if (error?.body?.detail)
