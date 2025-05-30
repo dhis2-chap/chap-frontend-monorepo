@@ -12,6 +12,8 @@ export const useModelTemplates = ({ route }: Props) => {
         queryFn: () => CrudService.listModelTemplatesCrudModelTemplatesGet(),
         enabled: !!route,
         retry: 0,
+        staleTime: 5 * 60 * 1000,
+        cacheTime: 5 * 60 * 1000,
     })
 
     return {

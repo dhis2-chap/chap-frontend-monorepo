@@ -6,17 +6,17 @@ import { Button, CircularLoader, IconArrowLeft16 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import styles from './ModelTemplatesOverview.module.css'
 import ModelTemplateConfigForm, { ModelTemplateConfigFormValues } from './components/ModelTemplateConfigForm/ModelTemplateConfigForm'
-import { useConfigureModelTemplate } from './hooks/useConfigureModelTemplate'
+import { useConfiguredModels } from './hooks/useConfiguredModels'
 import { useNavigate } from 'react-router-dom'
 
 export const ModelTemplatesOverview = () => {
     const { route } = useRoute()
     const { modelTemplates, error, isLoading: isLoadingTemplates } = useModelTemplates({ route })
-    const { mutate: configureModelTemplate, isLoading: isSubmitting } = useConfigureModelTemplate()
+    const { mutate: configureModel, isLoading: isSubmitting } = useConfiguredModels()
     const navigate = useNavigate()
 
     const handleSubmit = (data: ModelTemplateConfigFormValues) => {
-        configureModelTemplate(data)
+        configureModel(data)
     }
 
     const renderContent = () => {
@@ -32,7 +32,7 @@ export const ModelTemplatesOverview = () => {
             return (
                 <div className={styles.errorContainer}>
                     <p>{i18n.t('Error loading model templates:')}</p>
-                    <p>{error.message}</p>
+                    <p>{error instanceof Error ? error.message : i18n.t('Unknown error')}</p>
                 </div>
             )
         }
@@ -59,7 +59,7 @@ export const ModelTemplatesOverview = () => {
         <div>
             <PageHeader
                 pageTitle={i18n.t("Model Templates")}
-                pageDescription={i18n.t("Base models that can be configured with covariates and parameters to create configured models.")}
+                pageDescription={i18n.t("Configure new models based on generic model templates")}
             />
 
             <Button
