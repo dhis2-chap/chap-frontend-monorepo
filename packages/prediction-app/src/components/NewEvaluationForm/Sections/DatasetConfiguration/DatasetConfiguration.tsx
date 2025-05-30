@@ -89,11 +89,10 @@ export const DatasetConfiguration = ({
                     </Button>
                 </ButtonStrip>
 
-                {errors.targetMapping && (
-                    <p className={styles.errorText}>{errors.targetMapping.message}</p>
-                )}
-                {errors.covariateMappings && (
-                    <p className={styles.errorText}>{errors.covariateMappings.message}</p>
+                {(errors.targetMapping || errors.covariateMappings) && (
+                    <p className={styles.errorText}>{
+                        i18n.t('Please map all model covariates to valid data items')
+                    }</p>
                 )}
             </div>
 

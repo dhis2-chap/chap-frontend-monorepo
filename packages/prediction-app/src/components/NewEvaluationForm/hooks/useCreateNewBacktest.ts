@@ -84,6 +84,7 @@ export const useCreateNewBacktest = ({
     const { 
         mutate: createNewBacktest,
         isLoading,
+        error,
     } = useMutation({
         mutationFn: async (formData: EvaluationFormValues) => {
             const model = queryClient.getQueryData<ModelSpecRead[]>(['models'])
@@ -120,12 +121,12 @@ export const useCreateNewBacktest = ({
                 ORG_UNITS_QUERY(orgUnitIds)
             ) as OrgUnitResponse
 
-            orgUnitResponse.geojson.organisationUnits.forEach((ou) => {
-                if (!ou.geometry) {
-                    console.error(`Org unit ${ou.id} has no geometry`)
-                    throw new Error(`Org unit ${ou.id} has no geometry`)
-                }
-            })
+            // orgUnitResponse.geojson.organisationUnits.forEach((ou) => {
+            //     if (!ou.geometry) {
+            //         console.error(`Org unit ${ou.id} has no geometry`)
+            //         throw new Error(`Org unit ${ou.id} has no geometry`)
+            //     }
+            // })
             
             const convertDhis2AnalyticsToChap = (data: [string, string, string, string][]): ObservationBase[] => {
                 return data.map((row) => {
@@ -191,5 +192,6 @@ export const useCreateNewBacktest = ({
     return {
         createNewBacktest,
         isSubmitting: isLoading,
+        error,
     }
 }

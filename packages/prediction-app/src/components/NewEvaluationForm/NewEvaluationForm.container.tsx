@@ -18,6 +18,7 @@ export const NewEvaluationForm = () => {
         handleSubmit,
         handleStartJob,
         isSubmitting,
+        error,
     } = useFormController()
 
     const {
@@ -51,6 +52,13 @@ export const NewEvaluationForm = () => {
                             methods={methods}
                             onUpdateOrgUnits={onUpdateOrgUnits}
                         />
+
+                        {error && (
+                            <div className={styles.error}>
+                                {i18n.t('Error: {{error}}', { error: error.message })}
+                            </div>
+                        )}
+
                         <div className={styles.buttons}>
                             <ButtonStrip end>
                                 <Button

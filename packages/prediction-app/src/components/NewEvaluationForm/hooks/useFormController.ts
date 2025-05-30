@@ -56,8 +56,9 @@ export const useFormController = () => {
       covariateMappings: [],
       targetMapping: undefined,
     },
+    shouldFocusError: false,
   })
-  const { createNewBacktest, isSubmitting } = useCreateNewBacktest({
+  const { createNewBacktest, isSubmitting, error } = useCreateNewBacktest({
     onSuccess: () => {
       methods.reset()
     }
@@ -79,5 +80,6 @@ export const useFormController = () => {
     handleSubmit,
     handleStartJob,
     isSubmitting,
+    error,
   }
 }

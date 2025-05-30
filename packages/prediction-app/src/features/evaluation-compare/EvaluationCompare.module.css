@@ -67,7 +67,6 @@
     justify-content: center;
     align-items: center;
     gap: var(--spacers-dp8);
-    border: 1px dashed var(--colors-grey600);
     padding: var(--spacers-dp8);
     color: var(--colors-grey800);
 }

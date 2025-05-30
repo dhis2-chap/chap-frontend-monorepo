@@ -64,6 +64,12 @@ const columns = [
     columnHelper.accessor('modelId', {
         header: i18n.t('Model'),
         filterFn: 'equals',
+        cell: (info) => {
+            const modelId = info.getValue();
+            const models = (info.table.options.meta as { models: ModelSpecRead[] })?.models;
+            const model = models?.find((model: ModelSpecRead) => model.name === modelId);
+            return model?.displayName || modelId;
+        }
     }),
     columnHelper.display({
         id: 'actions',
@@ -93,6 +99,9 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
         columns,
         initialState: {
             sorting: [{ id: 'created', desc: true }],
+        },
+        meta: {
+            models,
         },
         getRowId: (row) => row.id.toString(),
         enableRowSelection: true,

@@ -62,7 +62,7 @@ export const InspectDatasetModal = ({
             large
             onClose={onClose}
         >
-            <ModalTitle>{i18n.t('Analyze dataset')}</ModalTitle>
+            <ModalTitle>{i18n.t('Inspect dataset')}</ModalTitle>
             <ModalContent>
                 <VisualizationPlugin
                     pluginSource={`${baseUrl}/dhis-web-data-visualizer/plugin.html`}

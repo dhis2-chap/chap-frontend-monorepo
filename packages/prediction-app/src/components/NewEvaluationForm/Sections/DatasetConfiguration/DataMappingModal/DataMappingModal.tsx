@@ -57,14 +57,12 @@ export const DataMappingModal = ({
             let updatedMappings: CovariateMapping[]
 
             if (existingIndex >= 0) {
-                // Update existing mapping
                 updatedMappings = [...existingMappings]
                 updatedMappings[existingIndex] = {
                     covariateName,
                     dataItemId,
                 }
             } else {
-                // Add new mapping
                 updatedMappings = [
                     ...existingMappings,
                     {
@@ -100,7 +98,6 @@ export const DataMappingModal = ({
             && feature.description.toLowerCase() !== (feature.displayName ?? feature.name).toLowerCase()
     }
 
-    // Individual field validation helpers
     const isTargetMapped = () => {
         if (!model.target || !localState.targetMapping) return false
 
@@ -114,7 +111,6 @@ export const DataMappingModal = ({
         )
     }
 
-    // Validation logic
     const areAllCovariatesMapped = () => {
         if (!model.covariates || model.covariates.length === 0) return true
 
@@ -141,10 +137,9 @@ export const DataMappingModal = ({
                         {i18n.t('Map the model features to corresponding data items in DHIS2')}
                     </p>
 
-                    {/* Target Mapping Section */}
                     {model.target && (
                         <div className={styles.targetSection}>
-                            <h4 className={styles.sectionTitle}>Target</h4>
+                            <h4 className={styles.sectionTitle}>{i18n.t('Target')}</h4>
                             <p className={styles.sectionDescription}>
                                 {i18n.t('Map the model target to the corresponding data item in DHIS2')}
                             </p>
@@ -159,11 +154,6 @@ export const DataMappingModal = ({
                                         )
                                     }}
                                 />
-                                {!isTargetMapped() && (
-                                    <p className={styles.errorMessage}>
-                                        {i18n.t('Please select a data item for this target field')}
-                                    </p>
-                                )}
                                 {shouldShowDescription(model.target) && (
                                     <p className={styles.featureDescription}>
                                         {model.target.description}
@@ -182,7 +172,6 @@ export const DataMappingModal = ({
 
                             {model.covariates.map((covariate, index) => {
                                 const feature = createFeatureFromCovariate(covariate)
-                                const covariateName = covariate.name || covariate.displayName
 
                                 return (
                                     <div key={covariate.name || index} className={styles.mappingItem}>
@@ -195,11 +184,7 @@ export const DataMappingModal = ({
                                                 )
                                             }
                                         />
-                                        {!isCovariateNameMapped(covariateName) && (
-                                            <p className={styles.errorMessage}>
-                                                {i18n.t('Please select a data item for this covariate')}
-                                            </p>
-                                        )}
+                                        
                                         {shouldShowDescription(covariate) && (
                                             <p className={styles.featureDescription}>
                                                 {covariate.description}
