@@ -9,7 +9,7 @@ import React from 'react'
 import './locales'
 import './App.module.css'
 import PageWrapper from './components/PageWrapper'
-import EvaluationPage from './pages/EvaluationPage'
+import EvaluationPageLegacy from './pages/EvaluationPageLegacy'
 import ModelTemplatesPage from './pages/ModelTemplatesPage'
 import PredictionOverview from './features/predictions-overview/PredictionOverview'
 import { SetChapUrl } from './features/route-api/SetChapUrl'
@@ -20,7 +20,7 @@ import { Layout } from './components/layout/Layout'
 import { RouteValidator } from './components/RouteValidator'
 import InfoAboutReportingBugs from './features/common-features/InfoAboutReportingBugs/InfoAboutReportingBugs'
 import WarnAboutIncompatibleVersion from './features/common-features/WarnAboutIncompatibleVersion/WarnAboutIncompatibleVersion'
-import { EvaluationsWIPPage } from './pages/EvaluationWIPPAge'
+import { EvaluationPage } from './pages/EvaluationPage'
 import { ChapValidator } from './components/ChapValidator'
 import { NewEvaluationPage } from './pages/NewEvaluationPage'
 import { JobsPage } from './pages/JobsPage'
@@ -58,7 +58,7 @@ const router = createHashRouter([
                         children: [
                             {
                                 index: true,
-                                element: <EvaluationsWIPPage />,
+                                element: <EvaluationPage />,
                             },
                             {
                                 path: 'compare',
@@ -75,7 +75,7 @@ const router = createHashRouter([
                     },
                     {
                         path: '/evaluate-old',
-                        element: <EvaluationPage />,
+                        element: <EvaluationPageLegacy />,
                     },
                     {
                         path: '/jobs',
