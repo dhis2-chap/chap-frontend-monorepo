@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import {
     Button,
     ButtonStrip,
@@ -13,32 +13,37 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useModelTemplates } from '../../../../hooks/useModelTemplates'
 import { useRoute } from '../../../../hooks/useRoute'
+import { UserOptionsFields } from '../UserOptionsFields'
 import styles from './ModelTemplateConfigForm.module.css'
 
 const modelTemplateConfigSchema = z.object({
     name: z.string().min(1, { message: i18n.t('Name is required') }),
-    templateName: z.string().min(1, { message: i18n.t('Template is required') }),
+    templateId: z.number().min(1, { message: i18n.t('Template is required') }),
     covariates: z.array(
         z.object({
-            name: z.string().min(1, { message: i18n.t('Covariate name is required') })
+            name: z.string()
+                .min(1, { message: i18n.t('Covariate name is required') })
+                .regex(/^\S*$/, { message: i18n.t('Covariate name cannot contain spaces') })
         })
-    )
+    ),
+    userOptions: z.record(z.any())
 })
 
 export type ModelTemplateConfigFormValues = z.infer<typeof modelTemplateConfigSchema>
 
 interface ModelTemplateConfigFormProps {
     onSubmit: (data: ModelTemplateConfigFormValues) => void
-    isLoading?: boolean
+    isSubmitting: boolean
 }
 
 export const ModelTemplateConfigForm = ({
     onSubmit,
-    isLoading = false
+    isSubmitting,
 }: ModelTemplateConfigFormProps) => {
     const { route } = useRoute()
-    const { modelTemplates, error, isLoading: isLoadingTemplates } = useModelTemplates({ route })
+    const { modelTemplates, isLoading: isLoadingTemplates } = useModelTemplates({ route })
     const [newCovariate, setNewCovariate] = useState('')
+    const [covariateError, setCovariateError] = useState('')
 
     const {
         control,
@@ -46,13 +51,13 @@ export const ModelTemplateConfigForm = ({
         formState: { errors },
         watch,
         setValue,
-        getValues,
     } = useForm<ModelTemplateConfigFormValues>({
         resolver: zodResolver(modelTemplateConfigSchema),
         defaultValues: {
             name: '',
-            templateName: '',
-            covariates: []
+            templateId: 0,
+            covariates: [],
+            userOptions: {}
         }
     })
 
@@ -61,9 +66,42 @@ export const ModelTemplateConfigForm = ({
         name: 'covariates'
     })
 
+    // Watch for template changes
+    const watchedTemplateId = watch('templateId')
+    const currentTemplate = useMemo(() => {
+        return modelTemplates?.find(template => template.id === watchedTemplateId)
+    }, [modelTemplates, watchedTemplateId])
+
+    const requiredCovariates = currentTemplate?.requiredCovariates || []
+
     const handleAddCovariate = () => {
         if (newCovariate.trim()) {
-            append({ name: newCovariate.trim() })
+            const trimmedName = newCovariate.trim()
+
+            // Check for spaces
+            if (/\s/.test(trimmedName)) {
+                setCovariateError(i18n.t('Covariate name cannot contain spaces'))
+                return
+            }
+
+            // Check if the covariate already exists in required covariates
+            const existsInRequired = requiredCovariates.includes(trimmedName)
+
+            // Check if the covariate already exists in additional covariates
+            const existsInAdditional = fields.some(field =>
+                watch(`covariates.${fields.indexOf(field)}.name`) === trimmedName
+            )
+
+            // Only add if it doesn't exist in either list
+            if (!existsInRequired && !existsInAdditional) {
+                append({ name: trimmedName })
+                setCovariateError('')
+            } else {
+                setCovariateError(i18n.t('Covariate already exists'))
+                return
+            }
+
+            // Always clear the input field
             setNewCovariate('')
         }
     }
@@ -74,8 +112,35 @@ export const ModelTemplateConfigForm = ({
 
     return (
         <div className={styles.formContainer}>
-            <h2 className={styles.formTitle}>{i18n.t('Configure Model Template')}</h2>
+            <h2 className={styles.formTitle}>{i18n.t('Configure Model')}</h2>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
+                <div className={styles.formField}>
+                    <Label>{i18n.t('Model Template')}</Label>
+                    <Controller
+                        name="templateId"
+                        control={control}
+                        render={({ field }) => (
+                            <SingleSelect
+                                selected={field.value > 0 ? field.value.toString() : ''}
+                                loading={isLoadingTemplates}
+                                error={!!errors.templateId}
+                                placeholder={i18n.t('Select a model template')}
+                                disabled={isLoadingTemplates || !modelTemplates}
+                                onChange={({ selected }) => field.onChange(selected ? Number(selected) : 0)}
+                            >
+                                {modelTemplates?.map((template) => (
+                                    <SingleSelectOption
+                                        key={template.id}
+                                        label={template.displayName ?? template.name}
+                                        value={template.id.toString()}
+                                    />
+                                ))}
+                            </SingleSelect>
+                        )}
+                    />
+                    {errors.templateId && <p className={styles.errorText}>{errors.templateId.message}</p>}
+                </div>
+
                 <div className={styles.formField}>
                     <Controller
                         name="name"
@@ -85,41 +150,31 @@ export const ModelTemplateConfigForm = ({
                                 label={i18n.t('Configured Model Name')}
                                 value={field.value}
                                 error={!!errors.name}
-                                placeholder={i18n.t('Enter model name')}
-                                disabled={isLoading}
+                                disabled={!watchedTemplateId}
+                                placeholder={i18n.t('Enter something to identify your model, e.g. "Debug" or "Malaria"')}
                                 onChange={({ value }) => field.onChange(value)}
+                                helpText={field.value ?
+                                    i18n.t('Your model will be saved as {{modelName}} [{{configuredModelName}}]',
+                                        {
+                                            modelName: currentTemplate?.displayName,
+                                            configuredModelName: field.value,
+                                            escape: ':'
+                                        }
+                                    ) : undefined
+                                }
                             />
                         )}
                     />
                     {errors.name && <p className={styles.errorText}>{errors.name.message}</p>}
                 </div>
 
-                <div className={styles.formField}>
-                    <Label>{i18n.t('Model Template')}</Label>
-                    <Controller
-                        name="templateName"
-                        control={control}
-                        render={({ field }) => (
-                            <SingleSelect
-                                selected={field.value}
-                                loading={isLoadingTemplates}
-                                error={!!errors.templateName}
-                                placeholder={i18n.t('Select a model template')}
-                                disabled={isLoading || isLoadingTemplates || !modelTemplates}
-                                onChange={({ selected }) => field.onChange(selected)}
-                            >
-                                {modelTemplates?.map((template) => (
-                                    <SingleSelectOption
-                                        key={template.name}
-                                        label={template.name}
-                                        value={template.name}
-                                    />
-                                ))}
-                            </SingleSelect>
-                        )}
-                    />
-                    {errors.templateName && <p className={styles.errorText}>{errors.templateName.message}</p>}
-                </div>
+                {/* User Options Section */}
+                <UserOptionsFields
+                    control={control}
+                    setValue={setValue}
+                    currentTemplate={currentTemplate}
+                    disabled={!watchedTemplateId}
+                />
 
                 <div className={styles.formField}>
                     <Label>{i18n.t('Additional Covariates')}</Label>
@@ -128,19 +183,37 @@ export const ModelTemplateConfigForm = ({
                             <InputField
                                 value={newCovariate}
                                 placeholder={i18n.t('Enter covariate name')}
-                                disabled={isLoading}
-                                onChange={({ value }) => setNewCovariate(value || '')}
+                                onChange={({ value }) => {
+                                    setNewCovariate(value || '')
+                                    if (covariateError) {
+                                        setCovariateError('')
+                                    }
+                                }}
+                                disabled={!watchedTemplateId}
+                                error={!!covariateError}
                             />
+
                         </div>
                         <Button
                             onClick={handleAddCovariate}
-                            disabled={!newCovariate.trim() || isLoading}
+                            disabled={!newCovariate.trim()}
                         >
                             {i18n.t('Add')}
                         </Button>
                     </div>
-                    
+
                     <div className={styles.covariatesList}>
+                        {/* Required Covariates */}
+                        {requiredCovariates.map((covariate, index) => (
+                            <div key={`required-${index}`} className={`${styles.covariateItem} ${styles.requiredCovariateItem}`}>
+                                <span className={styles.covariateItemText}>
+                                    {covariate}
+                                </span>
+                                <span className={styles.requiredLabel}>{i18n.t('Required')}</span>
+                            </div>
+                        ))}
+
+                        {/* User-added Additional Covariates */}
                         {fields.map((field, index) => (
                             <div key={field.id} className={styles.covariateItem}>
                                 <span className={styles.covariateItemText}>
@@ -148,13 +221,14 @@ export const ModelTemplateConfigForm = ({
                                 </span>
                                 <Button
                                     onClick={() => remove(index)}
-                                    disabled={isLoading}
+                                    small
                                 >
                                     {i18n.t('Remove')}
                                 </Button>
                             </div>
                         ))}
                     </div>
+                    {covariateError && <p className={styles.errorText}>{covariateError}</p>}
                     {errors.covariates && <p className={styles.errorText}>{i18n.t('Please check covariates')}</p>}
                 </div>
 
@@ -162,9 +236,8 @@ export const ModelTemplateConfigForm = ({
                     <ButtonStrip>
                         <Button
                             primary
+                            loading={isSubmitting}
                             type="submit"
-                            loading={isLoading}
-                            disabled={isLoading}
                         >
                             {i18n.t('Configure Model')}
                         </Button>

@@ -542,3 +542,12 @@ msgstr "Active jobs"
 
 msgid "View and manage currently running jobs and their status."
 msgstr "View and manage currently running jobs and their status."
+
+msgid "Covariates"
+msgstr "Covariates"
+
+msgid "Required Covariates"
+msgstr "Required Covariates"
+
+msgid "Required"
+msgstr "Required"

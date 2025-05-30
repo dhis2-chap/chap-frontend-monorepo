@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { ApiError, DefaultService, ModelTemplateConfig } from "@dhis2-chap/chap-lib";
+import { ApiError, CrudService, ModelTemplateRead } from "@dhis2-chap/chap-lib";
 import { Route } from "./useRoute";
 
 type Props = {
@@ -7,13 +7,11 @@ type Props = {
 }
 
 export const useModelTemplates = ({ route }: Props) => {
-    const { data: modelTemplates, error, isLoading } = useQuery<Array<ModelTemplateConfig>, ApiError>({
+    const { data: modelTemplates, error, isLoading } = useQuery<ModelTemplateRead[], ApiError>({
         queryKey: ['modelTemplates', route?.url],
-        queryFn: () => DefaultService.listModelTemplatesListModelTemplatesGet(),
+        queryFn: () => CrudService.listModelTemplatesCrudModelTemplatesGet(),
         enabled: !!route,
-        staleTime: 5 * 60 * 1000, // 5 minutes
-        cacheTime: 5 * 60 * 1000, // 5 minutes
-        retry: 0, // Don't retry on error
+        retry: 0,
     })
 
     return {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { PageHeader } from '../common-features/PageHeader/PageHeader'
 import { useModelTemplates } from '../../hooks/useModelTemplates'
 import { useRoute } from '../../hooks/useRoute'
@@ -6,22 +6,19 @@ import { CircularLoader } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import styles from './ModelTemplatesOverview.module.css'
 import ModelTemplateConfigForm, { ModelTemplateConfigFormValues } from './components/ModelTemplateConfigForm/ModelTemplateConfigForm'
+import { useConfigureModelTemplate } from './hooks/useConfigureModelTemplate'
 
 export const ModelTemplatesOverview = () => {
     const { route } = useRoute()
-    const { modelTemplates, error, isLoading } = useModelTemplates({ route })
-    const [configuredModel, setConfiguredModel] = useState<ModelTemplateConfigFormValues | null>(null)
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const { modelTemplates, error, isLoading: isLoadingTemplates } = useModelTemplates({ route })
+    const { mutate: configureModelTemplate, isLoading: isSubmitting } = useConfigureModelTemplate()
 
     const handleSubmit = (data: ModelTemplateConfigFormValues) => {
-        setIsSubmitting(true)
-        console.log('Configured model:', data)
-        setConfiguredModel(data)
-        setIsSubmitting(false)
+        configureModelTemplate(data)
     }
 
     const renderContent = () => {
-        if (isLoading) {
+        if (isLoadingTemplates) {
             return (
                 <div className={styles.loadingContainer}>
                     <CircularLoader />
@@ -48,22 +45,10 @@ export const ModelTemplatesOverview = () => {
 
         return (
             <div>
-                <ModelTemplateConfigForm 
-                    onSubmit={handleSubmit} 
-                    isLoading={isSubmitting} 
+                <ModelTemplateConfigForm
+                    onSubmit={handleSubmit}
+                    isSubmitting={isSubmitting}
                 />
-                
-                <div className={styles.dataContainer}>
-                    <h3>{i18n.t('Available Templates')}</h3>
-                    <pre>{JSON.stringify(modelTemplates, null, 2)}</pre>
-                    
-                    {configuredModel && (
-                        <div className={styles.configuredModelContainer}>
-                            <h3>{i18n.t('Configured Model')}</h3>
-                            <pre>{JSON.stringify(configuredModel, null, 2)}</pre>
-                        </div>
-                    )}
-                </div>
             </div>
         )
     }

@@ -79,19 +79,25 @@ const router = createHashRouter([
                         path: '/predict',
                         element: <PredictionOverview />,
                     },
-                    {
-                        path: '/model-templates',
-                        element: <ModelTemplatesPage />,
-                    },
                 ],
             },
             {
                 path: '/settings',
                 element: (
                     <PageWrapper>
-                        <SettingsPage />
+                        <Outlet />
                     </PageWrapper>
                 ),
+                children: [
+                    {
+                        path: '/settings',
+                        element: <SettingsPage />,
+                    },
+                    {
+                        path: '/settings/models',
+                        element: <ModelTemplatesPage />,
+                    },
+                ],
             },
         ],
     },
