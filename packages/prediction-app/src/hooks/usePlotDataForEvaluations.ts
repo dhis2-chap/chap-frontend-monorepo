@@ -2,10 +2,15 @@ import {
     AnalyticsService,
     ApiError,
     BackTestRead,
+    createHighChartsData,
+    DataElement,
     DataList,
     EvaluationEntry,
-    evaluationResultToViewData,
+    EvaluationEntryExtend,
+    EvaluationForSplitPoint,
     getSplitPeriod,
+    HighChartsData,
+    joinRealAndPredictedData,
 } from '@dhis2-chap/chap-lib'
 import { useMemo } from 'react'
 import { useQueries } from '@tanstack/react-query'
@@ -75,14 +80,12 @@ export const usePlotDataForEvaluations = (
     })
 
     const combined = useMemo(() => {
-        const realData = evaluationQueries[0]?.data?.actualCases || []
-        const allEntries = evaluationQueries.flatMap(
-            (q) => q.data?.evaluationEntries || []
-        )
-        const viewData = evaluationResultToViewData(allEntries, realData)
+        const allData = evaluationQueries.flatMap((q) => q.data || [])
         const splitPeriods = evaluationQueries.flatMap(
             (q) => q.data?.splitPeriods || []
         )
+        const viewData = plotResultToViewData(allData)
+
         return { viewData, splitPeriods }
     }, [evaluationQueries])
 
@@ -92,4 +95,91 @@ export const usePlotDataForEvaluations = (
         undefined
 
     return { queries: evaluationQueries, combined, isLoading, error }
+}
+
+type PlotDataResult = {
+    evaluationEntries: EvaluationEntryExtend[]
+    actualCases: DataElement[]
+    splitPeriods: string[]
+    evaluation: BackTestRead
+}
+
+const plotResultToViewData = (
+    data: PlotDataResult[]
+): EvaluationForSplitPoint[] => {
+    const evaluationData = data.flatMap((d) => d.evaluationEntries)
+
+    const allSplitPeriods = Array.from(
+        new Set(evaluationData.map((item) => item.splitPeriod))
+    )
+    const allOrgunits = Array.from(
+        new Set(evaluationData.map((item) => item.orgUnit))
+    )
+
+    const createQuantileFunc = (quantiles: number[]) => {
+        const lowQuantile = quantiles[0]
+        const midLowQuantile = quantiles[1]
+        const midHighQuantile = quantiles[quantiles.length - 2]
+        const highQuantile = quantiles[quantiles.length - 1]
+
+        return (item: EvaluationEntry) => {
+            if (item.quantile === lowQuantile) {
+                return 'quantile_low'
+            } else if (item.quantile === highQuantile) {
+                return 'quantile_high'
+            } else if (item.quantile === 0.5) {
+                return 'median'
+            } else if (item.quantile === midLowQuantile) {
+                return 'quantile_mid_low'
+            } else if (item.quantile === midHighQuantile) {
+                return 'quantile_mid_high'
+            } else {
+                return 'unknown'
+            }
+        }
+    }
+    //loop trough each unique split period (each row / line of plots)
+    return allSplitPeriods.map((splitPeriod: string) => {
+        return {
+            splitPoint: splitPeriod,
+            evaluation: allOrgunits.map((orgUnit: string) => {
+                return {
+                    orgUnitName: orgUnit,
+                    orgUnitId: orgUnit,
+                    models: data.map((dataForEvaluation) => {
+                        const evaluationEntries =
+                            dataForEvaluation.evaluationEntries.filter(
+                                (entry) =>
+                                    entry.orgUnit === orgUnit &&
+                                    entry.splitPeriod === splitPeriod
+                            )
+                        const actualCasesForOrgunit =
+                            dataForEvaluation.actualCases.filter(
+                                (item) => item.ou === orgUnit
+                            )
+                        const quantiles = evaluationEntries.map(
+                            (item) => item.quantile
+                        )
+                        
+                        const highChartData = createHighChartsData(
+                            evaluationEntries,
+                            createQuantileFunc(quantiles)
+                        )
+                        const joinedRealAndPredictedData: HighChartsData =
+                            joinRealAndPredictedData(
+                                highChartData,
+                                actualCasesForOrgunit
+                            )
+                        return {
+                            // this conforms to old API where modelName is shown, however we actually want to use the evaluation name...
+                            modelName:
+                                dataForEvaluation.evaluation.name ||
+                                dataForEvaluation.evaluation.modelId,
+                            data: joinedRealAndPredictedData,
+                        }
+                    }),
+                }
+            }),
+        }
+    })
 }
