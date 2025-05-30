@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-30T11:48:15.845Z\n"
-"PO-Revision-Date: 2025-05-30T11:48:15.845Z\n"
+"POT-Creation-Date: 2025-05-30T14:12:37.579Z\n"
+"PO-Revision-Date: 2025-05-30T14:12:37.579Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -211,193 +211,8 @@ msgstr "Create evaluation with data"
 msgid "Cancelled"
 msgstr "Cancelled"
 
-msgid "Unsaved changes"
-msgstr "Unsaved changes"
-
-msgid ""
-"You have unsaved changes that will be lost if you leave this page. Are you "
-"sure you want to continue?"
-msgstr ""
-"You have unsaved changes that will be lost if you leave this page. Are you "
-"sure you want to continue?"
-
-msgid "Leave page"
-msgstr "Leave page"
-
-msgid "Back to evaluations"
-msgstr "Back to evaluations"
-
-msgid "Start job"
-msgstr "Start job"
-
-msgid "Map Data Items"
-msgstr "Map Data Items"
-
-msgid "Map the model features to corresponding data items in DHIS2"
-msgstr "Map the model features to corresponding data items in DHIS2"
-
-msgid "Map the model target to the corresponding data item in DHIS2"
-msgstr "Map the model target to the corresponding data item in DHIS2"
-
-msgid "Please select a data item for this target field"
-msgstr "Please select a data item for this target field"
-
-msgid "Map each model covariate to the corresponding data item in DHIS2"
-msgstr "Map each model covariate to the corresponding data item in DHIS2"
-
-msgid "Please select a data item for this covariate"
-msgstr "Please select a data item for this covariate"
-
-msgid "Save Mappings"
-msgstr "Save Mappings"
-
-msgid "No model selected"
-msgstr "No model selected"
-
-msgid "All data items mapped"
-msgstr "All data items mapped"
-
-msgid "{{mapped}}/{{total}} data items mapped"
-msgstr "{{mapped}}/{{total}} data items mapped"
-
-msgid "Dataset Configuration"
-msgstr "Dataset Configuration"
-
-msgid "Configure sources"
-msgstr "Configure sources"
-
-msgid "Inspect dataset"
-msgstr "Inspect dataset"
-
-msgid "Target \"{{targetName}}\" must be mapped to a data item"
-msgstr "Target \"{{targetName}}\" must be mapped to a data item"
-
-msgid "Covariate \"{{covariateName}}\" must be mapped to a data item"
-msgstr "Covariate \"{{covariateName}}\" must be mapped to a data item"
-
 msgid "Organisation Units"
 msgstr "Organisation Units"
-
-msgid "Select organisation units"
-msgstr "Select organisation units"
-
-msgid "Select Organisation Units"
-msgstr "Select Organisation Units"
-
-msgid "Organisation unit levels"
-msgstr "Organisation unit levels"
-
-msgid ""
-"Some models require you to only select organisation units from the same "
-"level."
-msgstr ""
-"Some models require you to only select organisation units from the same "
-"level."
-
-msgid "All org units must be at the same level"
-msgstr "All org units must be at the same level"
-
-msgid "Confirm Selection"
-msgstr "Confirm Selection"
-
-msgid "Selected"
-msgstr "Selected"
-
-msgid "Select Model"
-msgstr "Select Model"
-
-msgid "Filter models"
-msgstr "Filter models"
-
-msgid "Search by name"
-msgstr "Search by name"
-
-msgid "Select model"
-msgstr "Select model"
-
-msgid "Evaluation name"
-msgstr "Evaluation name"
-
-msgid "EWARS Evaluation 22-24"
-msgstr "EWARS Evaluation 22-24"
-
-msgid "Period type"
-msgstr "Period type"
-
-msgid "Daily"
-msgstr "Daily"
-
-msgid "Weekly"
-msgstr "Weekly"
-
-msgid "Monthly"
-msgstr "Monthly"
-
-msgid "From period"
-msgstr "From period"
-
-msgid "To period"
-msgstr "To period"
-
-msgid "Organisation units"
-msgstr "Organisation units"
-
-msgid "Summary"
-msgstr "Summary"
-
-msgid "Open dataset"
-msgstr "Open dataset"
-
-msgid "Missing id for org unit"
-msgstr "Missing id for org unit"
-
-msgid "Period type is required"
-msgstr "Period type is required"
-
-msgid "Start date is required"
-msgstr "Start date is required"
-
-msgid "End date is required"
-msgstr "End date is required"
-
-msgid "At least one org unit is required"
-msgstr "At least one org unit is required"
-
-msgid "Please select a model"
-msgstr "Please select a model"
-
-msgid "Please map the covariates to valid data items"
-msgstr "Please map the covariates to valid data items"
-
-msgid "Please map the target to a valid data item"
-msgstr "Please map the target to a valid data item"
-
-msgid "End period must be after start period"
-msgstr "End period must be after start period"
-
-msgid "Selected: {{commaSeparatedListOfOrganisationUnits}}"
-msgstr "Selected: {{commaSeparatedListOfOrganisationUnits}}"
-
-msgid "Nothing selected"
-msgstr "Nothing selected"
-
-msgid "User organisation unit"
-msgstr "User organisation unit"
-
-msgid "User sub-units"
-msgstr "User sub-units"
-
-msgid "User sub-x2-units"
-msgstr "User sub-x2-units"
-
-msgid "Select a level"
-msgstr "Select a level"
-
-msgid "Select a group"
-msgstr "Select a group"
-
-msgid "Deselect all"
-msgstr "Deselect all"
 
 msgid "Search organisation units"
 msgstr "Search organisation units"
@@ -447,6 +262,9 @@ msgid ""
 msgstr ""
 "Selected evaluations do not have any split periods in common. Please select "
 "evaluations with overlapping split periods."
+
+msgid "An error occurred while fetching chart data "
+msgstr "An error occurred while fetching chart data "
 
 msgid ""
 "Select two evaluations to compare their results. The\n"
@@ -556,6 +374,82 @@ msgstr ""
 "Job is still running. Please wait until it is finished before doing any "
 "actions."
 
+msgid "No model templates found."
+msgstr "No model templates found."
+
+msgid "Model Templates"
+msgstr "Model Templates"
+
+msgid ""
+"Base models that can be configured with covariates and parameters to create "
+"configured models."
+msgstr ""
+"Base models that can be configured with covariates and parameters to create "
+"configured models."
+
+msgid "Template is required"
+msgstr "Template is required"
+
+msgid "Covariate name is required"
+msgstr "Covariate name is required"
+
+msgid "Covariate name cannot contain spaces"
+msgstr "Covariate name cannot contain spaces"
+
+msgid "Covariate already exists"
+msgstr "Covariate already exists"
+
+msgid "Configure Model"
+msgstr "Configure Model"
+
+msgid "Model Template"
+msgstr "Model Template"
+
+msgid "Select a model template"
+msgstr "Select a model template"
+
+msgid "Configured Model Name"
+msgstr "Configured Model Name"
+
+msgid "Enter something to identify your model, e.g. \"Debug\" or \"Malaria\""
+msgstr "Enter something to identify your model, e.g. \"Debug\" or \"Malaria\""
+
+msgid "Your model will be saved as {{modelName}} [{{configuredModelName}}]"
+msgstr "Your model will be saved as {{modelName}} [{{configuredModelName}}]"
+
+msgid "Additional Covariates"
+msgstr "Additional Covariates"
+
+msgid "Enter covariate name"
+msgstr "Enter covariate name"
+
+msgid "Add"
+msgstr "Add"
+
+msgid "Required"
+msgstr "Required"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Please check covariates"
+msgstr "Please check covariates"
+
+msgid "Enter item"
+msgstr "Enter item"
+
+msgid "Leave empty for null"
+msgstr "Leave empty for null"
+
+msgid "Model Parameters"
+msgstr "Model Parameters"
+
+msgid "Model configured"
+msgstr "Model configured"
+
+msgid "Failed to configure model"
+msgstr "Failed to configure model"
+
 msgid "Prediction for Northern Province"
 msgstr "Prediction for Northern Province"
 
@@ -565,26 +459,8 @@ msgstr "Organisation unit level"
 msgid "Organisation unit level to import data to"
 msgstr "Organisation unit level to import data to"
 
-msgid "Data Element"
-msgstr "Data Element"
-
-msgid "Indicator"
-msgstr "Indicator"
-
-msgid "Program Indicator"
-msgstr "Program Indicator"
-
-msgid "Loading"
-msgstr "Loading"
-
-msgid "Start typing to search for data items"
-msgstr "Start typing to search for data items"
-
-msgid "No matches found"
-msgstr "No matches found"
-
-msgid "Search for indicators, data elements, or program indicators"
-msgstr "Search for indicators, data elements, or program indicators"
+msgid "Organisation units"
+msgstr "Organisation units"
 
 msgid "No compatible evaluations found"
 msgstr "No compatible evaluations found"
@@ -639,14 +515,45 @@ msgstr ""
 msgid "Your server is not secure"
 msgstr "Your server is not secure"
 
+msgid "Model settings"
+msgstr "Model settings"
+
+msgid "An error occurred while loading models."
+msgstr "An error occurred while loading models."
+
+msgid ""
+"Please try to reload the page. If the problem persists, contact your system "
+"administrator."
+msgstr ""
+"Please try to reload the page. If the problem persists, contact your system "
+"administrator."
+
+msgid "Model templates"
+msgstr "Model templates"
+
+msgid ""
+"Model templates are base models that can be configured to fit your data "
+"with different parameters and covariates. This is still an advanced feature "
+"and should be used with caution."
+msgstr ""
+"Model templates are base models that can be configured to fit your data "
+"with different parameters and covariates. This is still an advanced feature "
+"and should be used with caution."
+
+msgid "Configured models"
+msgstr "Configured models"
+
+msgid "Configure"
+msgstr "Configure"
+
+msgid "Models configured"
+msgstr "Models configured"
+
 msgid "No route found."
 msgstr "No route found."
 
 msgid "Add route"
 msgstr "Add route"
-
-msgid "Add"
-msgstr "Add"
 
 msgid "Delete route"
 msgstr "Delete route"

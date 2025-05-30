@@ -10,6 +10,7 @@ import './locales'
 import './App.module.css'
 import PageWrapper from './components/PageWrapper'
 import EvaluationPage from './pages/EvaluationPage'
+import ModelTemplatesPage from './pages/ModelTemplatesPage'
 import PredictionOverview from './features/predictions-overview/PredictionOverview'
 import { SetChapUrl } from './features/route-api/SetChapUrl'
 import { SettingsPage } from './features/settings/Settings'
@@ -90,9 +91,24 @@ const router = createHashRouter([
                 path: '/settings',
                 element: (
                     <PageWrapper>
-                        <SettingsPage />
+                        <Outlet />
                     </PageWrapper>
                 ),
+                children: [
+                    {
+                        path: '/settings',
+                        children: [
+                            {
+                                index: true,
+                                element: <SettingsPage />,
+                            },
+                            {
+                                path: 'models',
+                                element: <ModelTemplatesPage />,
+                            },
+                        ],
+                    },
+                ],
             },
         ],
     },

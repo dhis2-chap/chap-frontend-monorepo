@@ -12,6 +12,18 @@
     
 }
 
+.loaderWrapper {
+    position: relative;
+    align-self: center;
+    /* counteract gap in selectionToolbar */
+    margin-block-start: -8px;
+    inset-block-start: 38px;
+}
+
+.loader {
+    position: absolute;
+}
+
 .selectorRow {
     display: flex;
     gap: var(--spacers-dp8);
