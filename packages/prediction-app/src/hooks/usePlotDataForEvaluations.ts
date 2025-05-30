@@ -1,5 +1,6 @@
 import {
     AnalyticsService,
+    ApiError,
     BackTestRead,
     DataList,
     EvaluationEntry,
@@ -46,7 +47,7 @@ export const usePlotDataForEvaluations = (
             queryKey: [
                 'evaluation-entry',
                 evaluation.id,
-                { splitPeriod, orgUnits },
+                { splitPeriod, orgUnits: orgUnits?.sort() },
             ],
             queryFn: async () => {
                 const evaluationEntries =
@@ -86,6 +87,9 @@ export const usePlotDataForEvaluations = (
     }, [evaluationQueries])
 
     const isLoading = evaluationQueries.some((q) => q.isLoading && q.isFetching)
+    const error =
+        (evaluationQueries.find((q) => q.isError)?.error as ApiError) ||
+        undefined
 
-    return { queries: evaluationQueries, combined, isLoading }
+    return { queries: evaluationQueries, combined, isLoading, error }
 }

@@ -42,12 +42,13 @@ export const EvaluationCompare = () => {
         maxSelectedOrgUnits: MAX_SELECTED_ORG_UNITS,
     })
 
-    const { combined, isLoading: plotDataLoading } = usePlotDataForEvaluations(
-        selectedEvaluations,
-        {
-            orgUnits: selectedOrgUnits,
-        }
-    )
+    const {
+        combined,
+        isLoading: plotDataLoading,
+        error,
+    } = usePlotDataForEvaluations(selectedEvaluations, {
+        orgUnits: selectedOrgUnits,
+    })
     const { data: orgUnitsData } = useOrgUnitsById(availableOrgUnitIds)
 
     const { dataForSplitPeriod, periods } = useMemo(() => {
@@ -117,6 +118,16 @@ export const EvaluationCompare = () => {
                     {i18n.t(
                         'Selected evaluations do not have any split periods in common. Please select evaluations with overlapping split periods.'
                     )}
+                </NoticeBox>
+            )}
+            {!!error && (
+                <NoticeBox
+                    title={i18n.t(
+                        'An error occurred while fetching chart data '
+                    )}
+                    error
+                >
+                    {error.message}
                 </NoticeBox>
             )}
             {splitPeriods.length > 0 && (
