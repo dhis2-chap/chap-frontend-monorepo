@@ -6,6 +6,7 @@ import {
 import React, { useMemo } from 'react'
 import css from './EvaluationCompare.module.css'
 import {
+    CircularLoader,
     IconArrowLeft16,
     IconArrowRight16,
     IconVisualizationLine24,
@@ -41,7 +42,11 @@ export const EvaluationCompare = () => {
         maxSelectedOrgUnits: MAX_SELECTED_ORG_UNITS,
     })
 
-    const { combined } = usePlotDataForEvaluations(selectedEvaluations, {
+    const {
+        combined,
+        isLoading: plotDataLoading,
+        error,
+    } = usePlotDataForEvaluations(selectedEvaluations, {
         orgUnits: selectedOrgUnits,
     })
     const { data: orgUnitsData } = useOrgUnitsById(availableOrgUnitIds)
@@ -102,12 +107,27 @@ export const EvaluationCompare = () => {
                         maxSelections={MAX_SELECTED_ORG_UNITS}
                     />
                 </div>
+                {plotDataLoading && (
+                    <div className={css.loaderWrapper}>
+                        <CircularLoader small className={css.loader} />
+                    </div>
+                )}
             </div>
             {hasNoMatchingSplitPeriods && (
                 <NoticeBox warning>
                     {i18n.t(
                         'Selected evaluations do not have any split periods in common. Please select evaluations with overlapping split periods.'
                     )}
+                </NoticeBox>
+            )}
+            {!!error && (
+                <NoticeBox
+                    title={i18n.t(
+                        'An error occurred while fetching chart data '
+                    )}
+                    error
+                >
+                    {error.message}
                 </NoticeBox>
             )}
             {splitPeriods.length > 0 && (
