@@ -4,3 +4,5 @@
 **/src/locales/
 .vscode
 **.tsbuildinfo
+**yarn-error.log
+.cursor

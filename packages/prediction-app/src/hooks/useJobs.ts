@@ -7,11 +7,12 @@ export const JOB_STATUSES = {
     PENDING: 'PENDING',
     STARTED: 'STARTED',
     FAILED: 'FAILURE',
+    REVOKED: 'REVOKED',
 } as const;
 
 export const JOB_TYPES = {
     BACKTEST: 'create_backtest',
-    CREATE_BACKTEST_WITH_DATA: 'create_backtest_with_data',
+    CREATE_BACKTEST_WITH_DATA: 'create_backtest_from_data',
     MAKE_PREDICTION: 'create_prediction',
     CREATE_DATASET: 'create_dataset',
 } as const;
@@ -55,6 +56,7 @@ export const useJobs = () => {
         if (!activeJobsData?.length ) {
             return;
         }
+        let statusChanged = false;
 
         queryClient.setQueryData(['jobs'], (oldJobs: JobDescription[] | undefined) => {
             return oldJobs?.map(job => {
@@ -63,8 +65,13 @@ export const useJobs = () => {
                     
                     // check if status has changed and if so, return the pulled job
                     if (pulledJob && pulledJob.status !== job.status) {
+                        statusChanged = true;
                         return pulledJob;
                     }
+                }
+                if (statusChanged) {
+                    queryClient.invalidateQueries({ queryKey: ['backtests'] });
+                    queryClient.invalidateQueries({ queryKey: ['predictions'] });
                 }
                 return job;
             });

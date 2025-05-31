@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-27T16:24:05.682Z\n"
-"PO-Revision-Date: 2025-05-27T16:24:05.684Z\n"
+"POT-Creation-Date: 2025-05-30T18:49:09.050Z\n"
+"PO-Revision-Date: 2025-05-30T18:49:09.050Z\n"
 
 msgid "Rename"
 msgstr "Rename"
@@ -69,11 +69,6 @@ msgstr "No models found"
 msgid "Clear"
 msgstr "Clear"
 
-msgid "{{count}} evaluations selected"
-msgid_plural "{{count}} evaluations selected"
-msgstr[0] "{{count}} evaluation selected"
-msgstr[1] "{{count}} evaluations selected"
-
 msgid "Evaluations deleted"
 msgstr "Evaluations deleted"
 
@@ -114,6 +109,18 @@ msgstr "Oops!"
 msgid "Sorry, an unexpected error has occurred."
 msgstr "Sorry, an unexpected error has occurred."
 
+msgid "Inspect dataset"
+msgstr "Inspect dataset"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Cancel job"
+msgstr "Cancel job"
+
+msgid "Are you sure you want to cancel this job? This action cannot be undone."
+msgstr "Are you sure you want to cancel this job? This action cannot be undone."
+
 msgid "Delete job"
 msgstr "Delete job"
 
@@ -141,8 +148,11 @@ msgstr "An error occurred while loading the logs."
 msgid "No logs reported for this job"
 msgstr "No logs reported for this job"
 
-msgid "Close"
-msgstr "Close"
+msgid "Job cancelled"
+msgstr "Job cancelled"
+
+msgid "Failed to cancel job"
+msgstr "Failed to cancel job"
 
 msgid "Job deleted"
 msgstr "Job deleted"
@@ -156,11 +166,14 @@ msgstr "Status"
 msgid "Type"
 msgstr "Type"
 
-msgid "Start Time"
-msgstr "Start Time"
+msgid "Start date"
+msgstr "Start date"
 
-msgid "End Time"
-msgstr "End Time"
+msgid "End date"
+msgstr "End date"
+
+msgid "Duration"
+msgstr "Duration"
 
 msgid "No jobs available"
 msgstr "No jobs available"
@@ -177,20 +190,217 @@ msgstr "Success"
 msgid "Failed"
 msgstr "Failed"
 
+msgid "Revoked"
+msgstr "Revoked"
+
 msgid "Create evaluation"
 msgstr "Create evaluation"
-
-msgid "Evaluation with data"
-msgstr "Evaluation with data"
 
 msgid "Make prediction"
 msgstr "Make prediction"
 
+msgid "Create dataset (deprecated)"
+msgstr "Create dataset (deprecated)"
+
+msgid "Create evaluation (deprecated)"
+msgstr "Create evaluation (deprecated)"
+
+msgid "Create evaluation (Legacy)"
+msgstr "Create evaluation (Legacy)"
+
 msgid "Create dataset"
 msgstr "Create dataset"
 
-msgid "Create evaluation with data"
-msgstr "Create evaluation with data"
+msgid "Cancelled"
+msgstr "Cancelled"
+
+msgid "Unsaved changes"
+msgstr "Unsaved changes"
+
+msgid ""
+"You have unsaved changes that will be lost if you leave this page. Are you "
+"sure you want to continue?"
+msgstr ""
+"You have unsaved changes that will be lost if you leave this page. Are you "
+"sure you want to continue?"
+
+msgid "Leave page"
+msgstr "Leave page"
+
+msgid "Back to evaluations"
+msgstr "Back to evaluations"
+
+msgid "Start job"
+msgstr "Start job"
+
+msgid "Map Data Items"
+msgstr "Map Data Items"
+
+msgid "Map the model features to corresponding data items in DHIS2"
+msgstr "Map the model features to corresponding data items in DHIS2"
+
+msgid "Target"
+msgstr "Target"
+
+msgid "Map the model target to the corresponding data item in DHIS2"
+msgstr "Map the model target to the corresponding data item in DHIS2"
+
+msgid "Map each model covariate to the corresponding data item in DHIS2"
+msgstr "Map each model covariate to the corresponding data item in DHIS2"
+
+msgid "Save Mappings"
+msgstr "Save Mappings"
+
+msgid "No model selected"
+msgstr "No model selected"
+
+msgid "All data items mapped"
+msgstr "All data items mapped"
+
+msgid "{{mapped}}/{{total}} data items mapped"
+msgstr "{{mapped}}/{{total}} data items mapped"
+
+msgid "Dataset Configuration"
+msgstr "Dataset Configuration"
+
+msgid "Configure sources"
+msgstr "Configure sources"
+
+msgid "Target \"{{targetName}}\" must be mapped to a data item"
+msgstr "Target \"{{targetName}}\" must be mapped to a data item"
+
+msgid "Covariate \"{{covariateName}}\" must be mapped to a data item"
+msgstr "Covariate \"{{covariateName}}\" must be mapped to a data item"
+
+msgid "Organisation Units"
+msgstr "Organisation Units"
+
+msgid "Select organisation units"
+msgstr "Select organisation units"
+
+msgid "Select Organisation Units"
+msgstr "Select Organisation Units"
+
+msgid "Organisation unit levels"
+msgstr "Organisation unit levels"
+
+msgid ""
+"Some models require you to only select organisation units from the same "
+"level."
+msgstr ""
+"Some models require you to only select organisation units from the same "
+"level."
+
+msgid "All org units must be at the same level"
+msgstr "All org units must be at the same level"
+
+msgid "Confirm Selection"
+msgstr "Confirm Selection"
+
+msgid "Selected"
+msgstr "Selected"
+
+msgid "Select Model"
+msgstr "Select Model"
+
+msgid "Filter models"
+msgstr "Filter models"
+
+msgid "Search by name"
+msgstr "Search by name"
+
+msgid "Select model"
+msgstr "Select model"
+
+msgid "Evaluation name"
+msgstr "Evaluation name"
+
+msgid "EWARS Evaluation 22-24"
+msgstr "EWARS Evaluation 22-24"
+
+msgid "Period type"
+msgstr "Period type"
+
+msgid "Daily"
+msgstr "Daily"
+
+msgid "Weekly"
+msgstr "Weekly"
+
+msgid "Monthly"
+msgstr "Monthly"
+
+msgid "From period"
+msgstr "From period"
+
+msgid "To period"
+msgstr "To period"
+
+msgid "Organisation units"
+msgstr "Organisation units"
+
+msgid "Summary"
+msgstr "Summary"
+
+msgid "Open dataset"
+msgstr "Open dataset"
+
+msgid "Missing id for org unit"
+msgstr "Missing id for org unit"
+
+msgid "Period type is required"
+msgstr "Period type is required"
+
+msgid "Start date is required"
+msgstr "Start date is required"
+
+msgid "End date is required"
+msgstr "End date is required"
+
+msgid "At least one org unit is required"
+msgstr "At least one org unit is required"
+
+msgid "Please select a model"
+msgstr "Please select a model"
+
+msgid "Please map the covariates to valid data items"
+msgstr "Please map the covariates to valid data items"
+
+msgid "Please map the target to a valid data item"
+msgstr "Please map the target to a valid data item"
+
+msgid "End period must be after start period"
+msgstr "End period must be after start period"
+
+msgid "Selected: {{commaSeparatedListOfOrganisationUnits}}"
+msgstr "Selected: {{commaSeparatedListOfOrganisationUnits}}"
+
+msgid "Nothing selected"
+msgstr "Nothing selected"
+
+msgid "User organisation unit"
+msgstr "User organisation unit"
+
+msgid "User sub-units"
+msgstr "User sub-units"
+
+msgid "User sub-x2-units"
+msgstr "User sub-x2-units"
+
+msgid "Select a level"
+msgstr "Select a level"
+
+msgid "Select a group"
+msgstr "Select a group"
+
+msgid "Deselect all"
+msgstr "Deselect all"
+
+msgid "Search organisation units"
+msgstr "Search organisation units"
+
+msgid "You cannot select more than {{max}} organisation units at a time"
+msgstr "You cannot select more than {{max}} organisation units at a time"
 
 msgid "Get started with the Modeling app"
 msgstr "Get started with the Modeling app"
@@ -210,9 +420,6 @@ msgstr "Overview"
 msgid "Compare"
 msgstr "Compare"
 
-msgid "Evaluations (WIP)"
-msgstr "Evaluations (WIP)"
-
 msgid "Predict"
 msgstr "Predict"
 
@@ -222,12 +429,41 @@ msgstr "Jobs"
 msgid "Settings"
 msgstr "Settings"
 
+msgid "Compare evaluations"
+msgstr "Compare evaluations"
+
+msgid "Compare evaluations to assess model, co-variates and data performance."
+msgstr "Compare evaluations to assess model, co-variates and data performance."
+
+msgid "Select base evaluation"
+msgstr "Select base evaluation"
+
 msgid ""
-"The version of the Modeling App is not compatible with the backend (Chap "
-"core)."
+"Selected evaluations do not have any split periods in common. Please select "
+"evaluations with overlapping split periods."
 msgstr ""
-"The version of the Modeling App is not compatible with the backend (Chap "
-"core)."
+"Selected evaluations do not have any split periods in common. Please select "
+"evaluations with overlapping split periods."
+
+msgid "An error occurred while fetching chart data "
+msgstr "An error occurred while fetching chart data "
+
+msgid ""
+"Select two evaluations to compare their results. The\n"
+"                    selected evaluations must be compatible."
+msgstr ""
+"Select two evaluations to compare their results. The\n"
+"                    selected evaluations must be compatible."
+
+msgid ""
+"Compatible evaluations have overlapping organisation units and split "
+"periods."
+msgstr ""
+"Compatible evaluations have overlapping organisation units and split "
+"periods."
+
+msgid "Split period"
+msgstr "Split period"
 
 msgid "Add required Data Elements"
 msgstr "Add required Data Elements"
@@ -320,6 +556,84 @@ msgstr ""
 "Job is still running. Please wait until it is finished before doing any "
 "actions."
 
+msgid "Unknown error"
+msgstr "Unknown error"
+
+msgid "No model templates found."
+msgstr "No model templates found."
+
+msgid "Model Templates"
+msgstr "Model Templates"
+
+msgid "Configure new models based on generic model templates"
+msgstr "Configure new models based on generic model templates"
+
+msgid "Back to settings"
+msgstr "Back to settings"
+
+msgid "Configure Model"
+msgstr "Configure Model"
+
+msgid "Model Template"
+msgstr "Model Template"
+
+msgid "Select a model template"
+msgstr "Select a model template"
+
+msgid "Configured Model Name"
+msgstr "Configured Model Name"
+
+msgid "Enter something to identify your model, e.g. \"Debug\" or \"Malaria\""
+msgstr "Enter something to identify your model, e.g. \"Debug\" or \"Malaria\""
+
+msgid "Your model will be saved as {{modelName}} [{{configuredModelName}}]"
+msgstr "Your model will be saved as {{modelName}} [{{configuredModelName}}]"
+
+msgid "Additional Covariates"
+msgstr "Additional Covariates"
+
+msgid "Enter covariate name"
+msgstr "Enter covariate name"
+
+msgid "Add"
+msgstr "Add"
+
+msgid "Required"
+msgstr "Required"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Please check covariates"
+msgstr "Please check covariates"
+
+msgid "Template is required"
+msgstr "Template is required"
+
+msgid "Covariate name is required"
+msgstr "Covariate name is required"
+
+msgid "Covariate name cannot contain spaces"
+msgstr "Covariate name cannot contain spaces"
+
+msgid "Covariate already exists"
+msgstr "Covariate already exists"
+
+msgid "Model Parameters"
+msgstr "Model Parameters"
+
+msgid "Enter item"
+msgstr "Enter item"
+
+msgid "Leave empty for null"
+msgstr "Leave empty for null"
+
+msgid "Model configured"
+msgstr "Model configured"
+
+msgid "Failed to configure model"
+msgstr "Failed to configure model"
+
 msgid "Prediction for Northern Province"
 msgstr "Prediction for Northern Province"
 
@@ -329,8 +643,38 @@ msgstr "Organisation unit level"
 msgid "Organisation unit level to import data to"
 msgstr "Organisation unit level to import data to"
 
-msgid "Organisation units"
-msgstr "Organisation units"
+msgid "Data Element"
+msgstr "Data Element"
+
+msgid "Indicator"
+msgstr "Indicator"
+
+msgid "Program Indicator"
+msgstr "Program Indicator"
+
+msgid "Loading"
+msgstr "Loading"
+
+msgid "Start typing to search for data items"
+msgstr "Start typing to search for data items"
+
+msgid "No matches found"
+msgstr "No matches found"
+
+msgid "Search for indicators, data elements, or program indicators"
+msgstr "Search for indicators, data elements, or program indicators"
+
+msgid "No compatible evaluations found"
+msgstr "No compatible evaluations found"
+
+msgid "Select evaluation to compare with"
+msgstr "Select evaluation to compare with"
+
+msgid "No evaluations found"
+msgstr "No evaluations found"
+
+msgid "Evaluation"
+msgstr "Evaluation"
 
 msgid "CHAP settings"
 msgstr "CHAP settings"
@@ -373,14 +717,48 @@ msgstr ""
 msgid "Your server is not secure"
 msgstr "Your server is not secure"
 
+msgid "Model settings"
+msgstr "Model settings"
+
+msgid "An error occurred while loading models."
+msgstr "An error occurred while loading models."
+
+msgid ""
+"Please try to reload the page. If the problem persists, contact your system "
+"administrator."
+msgstr ""
+"Please try to reload the page. If the problem persists, contact your system "
+"administrator."
+
+msgid "Model templates"
+msgstr "Model templates"
+
+msgid ""
+"Model templates are base models that can be configured to fit your data "
+"with different parameters and covariates. This is still an advanced feature "
+"and should be used with caution."
+msgstr ""
+"Model templates are base models that can be configured to fit your data "
+"with different parameters and covariates. This is still an advanced feature "
+"and should be used with caution."
+
+msgid "Configured models"
+msgstr "Configured models"
+
+msgid "Configure"
+msgstr "Configure"
+
+msgid "Models configured"
+msgstr "Models configured"
+
+msgid "Route configuration"
+msgstr "Route configuration"
+
 msgid "No route found."
 msgstr "No route found."
 
 msgid "Add route"
 msgstr "Add route"
-
-msgid "Add"
-msgstr "Add"
 
 msgid "Delete route"
 msgstr "Delete route"
@@ -440,9 +818,6 @@ msgstr "You do not have permission to add or modify routes."
 msgid "If you think this is an error, please contact your system administrator."
 msgstr "If you think this is an error, please contact your system administrator."
 
-msgid "Route configuration"
-msgstr "Route configuration"
-
 msgid "URL"
 msgstr "URL"
 
@@ -494,3 +869,14 @@ msgstr "Active jobs"
 
 msgid "View and manage currently running jobs and their status."
 msgstr "View and manage currently running jobs and their status."
+
+msgid "Create a new evaluation to assess the performance of a model"
+msgstr "Create a new evaluation to assess the performance of a model"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Modeling"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr ""

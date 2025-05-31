@@ -51,6 +51,11 @@ export const JobsTableFilters = ({ table }: Props) => {
                         label={i18n.t('Failed')}
                         value={JOB_STATUSES.FAILED}
                     />
+
+                    <MenuItem
+                        label={i18n.t('Revoked')}
+                        value={JOB_STATUSES.REVOKED}
+                    />
                 </SingleSelect>
             </div>
             <div className={styles.singleSelectContainer}>
@@ -64,20 +69,20 @@ export const JobsTableFilters = ({ table }: Props) => {
                 >
                     <MenuItem
                         label={i18n.t('Create evaluation')}
-                        value={JOB_TYPES.BACKTEST}
-                    />
-                    <MenuItem
-                        label={i18n.t('Evaluation with data')}
                         value={JOB_TYPES.CREATE_BACKTEST_WITH_DATA}
                     />
                     <MenuItem
                         label={i18n.t('Make prediction')}
                         value={JOB_TYPES.MAKE_PREDICTION}
                     />
-                    <MenuItem
-                        label={i18n.t('Create dataset')}
+                    {/* <MenuItem
+                        label={i18n.t('Create dataset (deprecated)')}
                         value={JOB_TYPES.CREATE_DATASET}
                     />
+                    <MenuItem
+                        label={i18n.t('Create evaluation (deprecated)')}
+                        value={JOB_TYPES.BACKTEST}
+                    />  */}
                 </SingleSelect>
             </div>
         </>
