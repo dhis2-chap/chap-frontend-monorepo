@@ -73,11 +73,11 @@ const columns = [
             return model?.displayName || modelId;
         }
     }),
-    columnHelper.accessor('aggregateMetrics.crps_mean', {
+    columnHelper.accessor('aggregateMetrics.crps_norm_mean', {
         header: () => (
             <div className={styles.headerWithTooltip}>
-                <span>{i18n.t('CRPS')}</span>
-                <Tooltip content={i18n.t('CRPS (Continuous Ranked Probability Score) measures how close a model\'s predicted range of outcomes is to what actually happened. Lower CRPS values mean the model\'s probabilistic predictions were more accurate.')}>
+                <span>{i18n.t('CRPS (Norm)')}</span>
+                <Tooltip content={i18n.t('Normalized CRPS (Continuous Ranked Probability Score) shows how close a model\'s predicted range of outcomes is to the actual result on a 0 - 1 scale. Lower values indicate better probabilistic accuracy')}>
                     <div className={styles.iconContainer}>
                         <IconInfo16 />
                     </div>
