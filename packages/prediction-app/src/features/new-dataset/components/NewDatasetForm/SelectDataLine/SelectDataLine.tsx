@@ -190,6 +190,10 @@ const SelectDataLine = ({
                                             )[0]?.name,
                                             id: dataLayer.feature,
                                             description: '',
+                                            displayName:features.filter(
+                                                (f) =>
+                                                    f.id === dataLayer.feature
+                                            )[0]?.name || ''
                                         }}
                                         onChangeSearchSelectField={(
                                             e,

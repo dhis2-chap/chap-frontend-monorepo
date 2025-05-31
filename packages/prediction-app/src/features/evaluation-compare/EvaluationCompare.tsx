@@ -6,6 +6,7 @@ import {
 import React, { useMemo } from 'react'
 import css from './EvaluationCompare.module.css'
 import {
+    Button,
     CircularLoader,
     IconArrowLeft16,
     IconArrowRight16,
@@ -20,10 +21,12 @@ import OrganisationUnitMultiSelect from '../../components/OrganisationUnitsSelec
 import { useCompareSelectionController } from './useCompareSelectionController'
 import { useOrgUnitsById } from '../../hooks/useOrgUnitsById'
 import { SplitPeriodSlider } from './SplitPeriodSlider'
+import { useNavigate } from 'react-router-dom'
 
 const MAX_SELECTED_ORG_UNITS = 10
 
 export const EvaluationCompare = () => {
+    const navigate = useNavigate();
     const {
         selectedEvaluations,
         baseEvaluation,
@@ -76,6 +79,17 @@ export const EvaluationCompare = () => {
                         'Compare evaluations to assess model, co-variates and data performance.'
                     )}
                 />
+                <div>
+                    <Button
+                        small
+                        icon={<IconArrowLeft16 />}
+                        onClick={() => {
+                            navigate('/evaluate')
+                        }}
+                    >
+                        {i18n.t('Back to evaluations')}
+                    </Button>
+                </div>
                 <div className={css.compareSelectors}>
                     <EvaluationSelectorBase
                         onSelect={(evaluation1) => {
