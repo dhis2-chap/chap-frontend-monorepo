@@ -24,7 +24,7 @@ import {
     Column,
 } from '@tanstack/react-table';
 import { BackTestRead, ModelSpecRead } from '@dhis2-chap/chap-lib';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './BacktestsTable.module.css';
 import { BacktestActionsMenu } from './BacktestActionsMenu';
 import { BacktestsTableFilters } from './BacktestsTableFilters';
@@ -56,6 +56,15 @@ const columns = [
     columnHelper.accessor('name', {
         header: i18n.t('Name'),
         filterFn: 'includesString',
+        cell: (info) => {
+            return (
+                <Link
+                    to={`/evaluate/compare?baseEvaluation=${info.row.original.id}`}
+                >
+                    {info.getValue()}
+                </Link>
+            );
+        }
     }),
     columnHelper.accessor('created', {
         header: i18n.t('Created'),
