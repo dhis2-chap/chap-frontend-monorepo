@@ -29,6 +29,7 @@ import styles from './BacktestsTable.module.css';
 import { BacktestActionsMenu } from './BacktestActionsMenu';
 import { BacktestsTableFilters } from './BacktestsTableFilters';
 import { BatchActions } from './BatchActions';
+import { RunningJobsIndicator } from './RunningJobsIndicator';
 
 const columnHelper = createColumnHelper<BackTestRead>();
 
@@ -127,6 +128,7 @@ export const BacktestsTable = ({ backtests, models }: Props) => {
                     </div>
 
                     <div className={styles.rightSection}>
+                        <RunningJobsIndicator />
                         <Button
                             primary
                             icon={<IconAdd16 />}
