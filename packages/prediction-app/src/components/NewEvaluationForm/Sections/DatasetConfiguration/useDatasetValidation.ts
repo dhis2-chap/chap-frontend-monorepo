@@ -14,6 +14,7 @@ export const useDatasetValidation = () => {
 
   const getSelectedModel = (modelId: string): ModelSpecRead | undefined => {
     if (!modelId) return undefined
+    
     return queryClient.getQueryData<ModelSpecRead[]>(['models'])?.find((model) => model.id === Number(modelId))
   }
 
