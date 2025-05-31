@@ -1,0 +1,79 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.orgUnitTreeWrapper {
+    height: 382px;
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.orgUnitTreeWrapper > * {
+    flex-grow: 1;
+}
+
+.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.disabled > * {
+    pointer-events: none;
+}
+
+.userOrgUnitsWrapper {
+    display: flex;
+    background: #f4f6f8;
+    padding: 8px 8px 8px 24px;
+    margin-bottom: 12px;
+}
+
+.userOrgUnitsWrapper > * {
+    margin-right: 48px;
+}
+
+.selectsWrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.selectsWrapper.hidden {
+    display: none;
+}
+
+.selectsWrapper > * {
+    width: 50%;
+}
+
+.summaryWrapper {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.warningWrapper {
+    display: inline-flex;
+    align-items: center;
+}
+
+.warningText {
+    margin-left: 8px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #d32f2f;
+}
+
+.summaryText {
+    font-size: 14px;
+    line-height: 18px;
+    color: #494949;
+}
+
+.deselectButton {
+    display: inline-block;
+    margin-left: 8px;
+} 

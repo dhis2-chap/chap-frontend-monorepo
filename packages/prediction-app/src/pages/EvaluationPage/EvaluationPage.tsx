@@ -5,13 +5,13 @@ import {
 } from '@dhis2/ui';
 import { Card } from '@dhis2-chap/chap-lib';
 import i18n from '@dhis2/d2-i18n';
-import styles from './EvaluationsWIPPage.module.css';
+import styles from './EvaluationPage.module.css';
 import { useBacktests } from '../../hooks/useBacktests';
 import { BacktestsTable } from '../../components/BacktestsTable';
 import { PageHeader } from '../../features/common-features/PageHeader/PageHeader';
 import { useModels } from '../../hooks/useModels';
 
-export const EvaluationsWIPPage: React.FC = () => {
+export const EvaluationPage: React.FC = () => {
   const { backtests, error: backtestsError, isLoading: backtestsLoading } = useBacktests();
   const { models, error: modelsError, isLoading: modelsLoading } = useModels();
 

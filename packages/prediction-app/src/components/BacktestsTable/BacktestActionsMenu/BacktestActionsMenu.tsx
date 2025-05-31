@@ -5,11 +5,13 @@ import {
     IconDelete16,
     IconEdit16,
     IconMore16,
+    IconView16,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import { OverflowButton } from '@dhis2-chap/chap-lib';
 import { EditBacktestModal } from './EditBacktestModal';
 import { DeleteBacktestModal } from './DeleteBacktestModal/DeleteBacktestModal';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     id: number;
@@ -22,9 +24,14 @@ export const BacktestActionsMenu = ({
     id,
     name,
 }: Props) => {
+    const navigate = useNavigate();
     const [flyoutMenuIsOpen, setFlyoutMenuIsOpen] = useState(false);
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+
+    const handleView = () => {
+        navigate(`/evaluate/compare?baseEvaluation=${id}`);
+    }
 
     return (
         <>
@@ -37,6 +44,15 @@ export const BacktestActionsMenu = ({
                 }}
                 component={
                     <FlyoutMenu dense>
+                        <MenuItem
+                            label={i18n.t('View')}
+                            dataTest={'backtest-overflow-view'}
+                            icon={<IconView16 />}
+                            onClick={() => {
+                                handleView();
+                                setFlyoutMenuIsOpen(false);
+                            }}
+                        />
                         <MenuItem
                             label={i18n.t('Rename')}
                             dataTest={'backtest-overflow-rename'}
