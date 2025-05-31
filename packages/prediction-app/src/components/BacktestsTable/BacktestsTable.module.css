@@ -40,3 +40,15 @@
     text-overflow: ellipsis;
     margin-inline-end: var(--spacers-dp8);
 }
+
+.headerWithTooltip {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+}
+
+.iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
