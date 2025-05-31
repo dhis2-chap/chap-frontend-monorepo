@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import {
     Button,
     ButtonStrip,
@@ -49,6 +49,7 @@ export const RouteForm = ({
         formState: { errors },
     } = useForm<RouteFormValues>({
         resolver: zodResolver(routeSchema),
+        shouldFocusError: false,
         defaultValues: {
             url: initialUrl,
         },

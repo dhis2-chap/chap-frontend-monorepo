@@ -1,14 +1,7 @@
 import React, { useState } from "react"
 import {
     Button,
-    ButtonStrip,
     IconAdd16,
-    Input,
-    Label,
-    Modal,
-    ModalActions,
-    ModalContent,
-    ModalTitle
 } from "@dhis2/ui"
 import i18n from "@dhis2/d2-i18n"
 import styles from '../RouteSettings.module.css'
@@ -37,18 +30,29 @@ export const CreateRoute = () => {
 
     return (
         <>
-            <div>
-                <p className={styles.mutedText}>{i18n.t('No route found.')}</p>
+            <div className={styles.settingsContainer}>
+                <div className={styles.routeInfo}>
+                    <div className={styles.routeInfoHeader}>
+                        <h3>{i18n.t('Route configuration')}</h3>
+                    </div>
 
-                <Button
-                    onClick={handleOpenDialog}
-                    icon={<IconAdd16 />}
-                    small
-                    loading={isSaving}
-                    dataTest="add-route-button"
-                >
-                    {i18n.t('Add route')}
-                </Button>
+                    <div className={styles.infoGrid}>
+                        <span className={styles.label}>{i18n.t('Status')}</span>
+                        <span className={styles.mutedText}>{i18n.t('No route found.')}</span>
+                    </div>
+
+                    <div style={{ marginTop: '16px' }}>
+                        <Button
+                            onClick={handleOpenDialog}
+                            icon={<IconAdd16 />}
+                            small
+                            loading={isSaving}
+                            dataTest="add-route-button"
+                        >
+                            {i18n.t('Add route')}
+                        </Button>
+                    </div>
+                </div>
             </div>
 
             {isDialogOpen && (

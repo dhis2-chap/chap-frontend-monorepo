@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-04-24T13:47:59.394Z\n"
-"PO-Revision-Date: 2025-04-24T13:47:59.395Z\n"
+"POT-Creation-Date: 2025-05-31T08:46:03.211Z\n"
+"PO-Revision-Date: 2025-05-31T08:46:03.212Z\n"
 
 msgid "Median Prediction for {{predictionTargetName}}"
 msgstr "Median Prediction for {{predictionTargetName}}"
@@ -22,3 +22,10 @@ msgstr "Quantile median"
 
 msgid "Range"
 msgstr "Range"
+
+msgid "More"
+msgstr "More"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "@dhis2-chap/chap-lib"

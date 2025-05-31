@@ -1,9 +1,8 @@
-import { Time } from 'highcharts'
 import React, { useEffect, useState } from 'react'
 import { PeriodTypeSelector } from './PeriodTypeSelector'
 import TimePeriodInputField from './TimePeriodInputField'
 import styles from './TimePeriodPicker.module.css'
-import { toDHIS2PeriodeData } from '../utils/timePeriodUtils'
+import { toDHIS2PeriodData } from '../utils/timePeriodUtils'
 
 import { Period } from '../interfaces/Period'
 
@@ -26,7 +25,7 @@ const TimePeriodeSelector = ({ setTimePeriods }: TimePeriodeSelectorProps) => {
 
     useEffect(() => {
         //updates the timePeriode used in the analytics request later
-        setTimePeriods(toDHIS2PeriodeData(startTime, endTime, timePeriodeType))
+        setTimePeriods(toDHIS2PeriodData(startTime, endTime, timePeriodeType))
     }, [startTime, endTime])
 
     return (

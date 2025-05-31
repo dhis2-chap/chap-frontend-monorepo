@@ -5,6 +5,7 @@ import { useRouteError, isRouteErrorResponse } from 'react-router-dom'
 const ErrorPage = () => {
     const error = useRouteError()
 
+    console.error(error)
     if (!isRouteErrorResponse(error)) {
         return (
             <div id="error-page">

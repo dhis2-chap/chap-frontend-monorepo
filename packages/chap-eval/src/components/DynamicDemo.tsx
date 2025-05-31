@@ -1,6 +1,4 @@
-// @ts-nocheck
-
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import BackTestRunner from '../components/BackTestRunner'
 
 const DynamicDemo: React.FC = () => {

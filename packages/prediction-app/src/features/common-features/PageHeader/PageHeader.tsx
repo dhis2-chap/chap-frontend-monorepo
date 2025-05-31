@@ -9,7 +9,7 @@ interface PageHeaderProps {
     setDrawerOpenText?: string
 }
 
-const PageHeader = ({
+export const PageHeader = ({
     pageTitle,
     pageDescription,
     setDrawerOpen,
@@ -33,5 +33,3 @@ const PageHeader = ({
         </div>
     )
 }
-
-export default PageHeader

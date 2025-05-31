@@ -1,17 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import JobResultPanel from './JobResultPanel/JobResultPanel'
 import PanelHeader from './JobResultPanel/JobResultPanelHeader'
 import {
-    AnalyticsService,
     ApiError,
     BackTestRead,
     CancelablePromise,
     CrudService,
     DataSetRead,
-    DefaultService,
     JobDescription,
     JobsService,
-    PredictionInfo,
+    NewClass,
 } from '@dhis2-chap/chap-lib'
 import { JobResult } from './interfaces/JobResult'
 import FetchError from './FetchError/FetchError'
@@ -19,20 +17,13 @@ import LoadingJobResult from './LoadingJobResult/LoadingJobResult'
 import { NoJobResult } from './NoJobResult/NoJobResult'
 import usePolling from '../../hooks/usePolling'
 
-interface Job {
-    id: string
-    name: string
-    status: string
-    created: Date
-}
-
 export interface JobResultsProps {
     type: 'predictions' | 'datasets' | 'evaluations'
 }
 
 const JobResults = ({ type }: JobResultsProps) => {
     const [jobs, setJobs] = useState<JobDescription[]>([])
-    const [predictions, setPredictions] = useState<PredictionInfo[]>([])
+    const [predictions, setPredictions] = useState<NewClass[]>([])
     const [datasets, setDatasets] = useState<DataSetRead[]>([])
     const [evaluations, setEvaluations] = useState<BackTestRead[]>([])
 
@@ -47,7 +38,7 @@ const JobResults = ({ type }: JobResultsProps) => {
 
     const fetchPredictions = async (
         service: CancelablePromise<
-            Array<PredictionInfo | BackTestRead | DataSetRead>
+            Array<NewClass | BackTestRead | DataSetRead>
         >
     ) => {
         for (let i = 0; i < 5; i++) {
@@ -71,7 +62,7 @@ const JobResults = ({ type }: JobResultsProps) => {
             case 'predictions':
                 return fetchPredictions(
                     CrudService.getPredictionsCrudPredictionsGet()
-                ).then((e) => setPredictions(e as PredictionInfo[]))
+                ).then((e) => setPredictions(e as NewClass[]))
             case 'datasets':
                 return fetchPredictions(
                     CrudService.getDatasetsCrudDatasetsGet()

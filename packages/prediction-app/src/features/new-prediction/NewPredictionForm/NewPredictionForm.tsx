@@ -7,13 +7,13 @@ import {
     OrgUnit,
 } from '../../orgunit-selector/interfaces/orgUnit'
 import { Period } from '../../timeperiod-selector/interfaces/Period'
-import { Button, IconAdd24, IconCross24, InputField } from '@dhis2/ui'
+import { Button, IconCross24, InputField } from '@dhis2/ui'
 import SelectDataLine from '../../new-dataset/components/NewDatasetForm/SelectDataLine/SelectDataLine'
 import OrgUnitSelector from '../../orgunit-selector/OrgUnitSelector'
 import { SendChapData } from '../../send-chap-data/SendChapData'
 import TimePeriodeSelector from '../../timeperiod-selector/components/TimePeriodPicker'
 import SelectModel from '../../select-model/SelectModel'
-import { ModelSpec, ModelSpecRead } from '@dhis2-chap/chap-lib'
+import { ModelSpecRead } from '@dhis2-chap/chap-lib'
 
 interface NewPredictionFormProps {
     onDrawerClose: () => void

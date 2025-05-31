@@ -96,7 +96,7 @@ export const RouteActions = ({ route }: Props) => {
                     id={route.id}
                     type="route"
                     onClose={() => {
-                        queryClient.invalidateQueries({ queryKey: ['routes'] });
+                        queryClient.invalidateQueries({ queryKey: ['routes'] })
                         setIsSharingDialogOpen(false)
                     }}
                 />
@@ -117,4 +117,4 @@ export const RouteActions = ({ route }: Props) => {
             )}
         </>
     )
-} 
+}

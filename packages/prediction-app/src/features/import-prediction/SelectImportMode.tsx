@@ -1,8 +1,4 @@
-import {
-    MultiSelectField,
-    SingleSelectField,
-    SingleSelectOption,
-} from '@dhis2/ui'
+import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import React from 'react'
 
 interface SelectImportModeProps {

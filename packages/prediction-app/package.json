@@ -19,11 +19,13 @@
         "@dhis2/app-runtime": "^3.13.0",
         "@dhis2/ui": "^10.1.10",
         "@hookform/resolvers": "^5.0.1",
+        "@tanstack/react-table": "^8.21.3",
         "file-saver": "^2.0.5",
         "jszip": "^3.10.1",
         "react-dropzone": "^14.3.5",
         "react-hook-form": "^7.51.5",
         "react-modern-drawer": "^1.4.0",
+        "react-range": "^1.10.0",
         "react-router-dom": "^7.0.2",
         "zod": "^3.23.8"
     }

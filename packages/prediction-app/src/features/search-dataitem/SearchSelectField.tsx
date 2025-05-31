@@ -1,23 +1,9 @@
-import { Feature } from '@dhis2-chap/chap-lib'
-import { useDataEngine } from '@dhis2/app-runtime'
-import { useDataQuery } from '@dhis2/app-runtime'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
+import i18n from '@dhis2/d2-i18n';
 import styles from './SearchSelectField.module.css'
-
-const dataItemQuery = (search: string) => {
-    return {
-        results: {
-            resource: 'dataItems',
-            params: {
-                filter: 'displayName:ilike:' + search,
-                fields: 'id,displayName,dimensionItemType',
-                order: 'displayName:asc',
-                page: 1,
-                pageSize: 20,
-            },
-        },
-    }
-}
+import { Label, Layer, Popper, IconChevronDown16, IconCross16 } from '@dhis2/ui'
+import { useApiDataQuery } from '../../utils/useApiDataQuery'
+import { useDebounce } from '../../hooks/useDebounce'
 
 interface Option {
     id: string
@@ -25,8 +11,15 @@ interface Option {
     dimensionItemType: string
 }
 
-interface SearchableDropdownProps {
-    options: Option[]
+interface DataItemsResponse {
+    dataItems: Option[]
+}
+
+type Feature = {
+    id: string
+    name: string
+    displayName: string
+    description: string
 }
 
 interface SearchSelectFieldProps {
@@ -38,100 +31,98 @@ interface SearchSelectFieldProps {
     ) => void
 }
 
+const DIMENSION_ITEM_TYPE_LABELS = {
+    PROGRAM_DATA_ELEMENT: i18n.t('Data Element'),
+    INDICATOR: i18n.t('Indicator'),
+    PROGRAM_INDICATOR: i18n.t('Program Indicator'),
+    DATA_ELEMENT: i18n.t('Data Element'),
+}
+
 const SearchSelectField = ({
     feature,
     onChangeSearchSelectField,
 }: SearchSelectFieldProps) => {
-    const [query, setQuery] = useState<string>('')
-    const engine = useDataEngine()
-    const [dataItems, setDataItems] = useState<Option[]>([])
+    const [searchQuery, setSearchQuery] = useState<string>('')
+    const [selectedOption, setSelectedOption] = useState<Option | null>(null)
+    const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
 
-    const [isLoading, setIsLoading] = useState(false)
+    const debouncedQuery = useDebounce(searchQuery, 300)
 
-    const fetchDataItem = async () => {
-        try {
-            const response: any = await engine.query(dataItemQuery(query))
-            setDataItems(response.results.dataItems)
-        } catch (error) {
-            console.error('Error fetching data:', error)
-        } finally {
-            setIsLoading(false)
+    const anchorRef = useRef<HTMLDivElement>(null)
+    const searchInputRef = useRef<HTMLInputElement>(null)
+
+    const { data, isLoading } = useApiDataQuery<DataItemsResponse>({
+        queryKey: ['dataItems', debouncedQuery],
+        query: {
+            resource: 'dataItems',
+            params: {
+                filter: [
+                    ...(debouncedQuery ? [`displayName:ilike:${debouncedQuery}`] : []),
+                    'dimensionItemType:in:[PROGRAM_DATA_ELEMENT,INDICATOR,PROGRAM_INDICATOR,DATA_ELEMENT]',
+                ],
+                fields: 'id,displayName,dimensionItemType',
+                order: 'displayName:asc',
+                page: 1,
+                pageSize: 20,
+            },
+        },
+        staleTime: 5 * 60 * 1000,
+        cacheTime: 10 * 60 * 1000,
+    })
+
+    const dataItems = data?.dataItems || []
+
+    const handleTriggerClick = () => {
+        setIsDropdownOpen(!isDropdownOpen)
+        setSearchQuery('')
+
+        // Focus the search input when dropdown opens
+        if (!isDropdownOpen) {
+            setTimeout(() => {
+                if (searchInputRef.current) {
+                    searchInputRef.current.focus()
+                }
+            }, 100)
         }
     }
 
-    //removed, since unknown why needed
-    /*useEffect(() => {
-        console.log(feature)
-        setQuery('')
-    }, [feature])*/
+    const handleBackdropClick = () => {
+        setIsDropdownOpen(false)
+        setSearchQuery('')
+    }
 
-    useEffect(() => {
-        if (query.length === 0) {
-            setDataItems([])
-            return
-        }
-
-        setIsLoading(true)
-
-        const handler = setTimeout(() => {
-            fetchDataItem()
-        }, 300)
-
-        // Cleanup function to cancel the timeout if query changes
-        return () => {
-            clearTimeout(handler)
-        }
-    }, [query])
-
-    const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setIsDropdownOpen(true)
+    const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newQuery = event.target.value
-        setQuery(newQuery)
+        setSearchQuery(newQuery)
     }
 
     const handleOptionClick = (option: Option) => {
-        setQuery(option.displayName)
-        onChangeSearchSelectField(feature, option.id, option.displayName)
+        setSelectedOption(option)
+        setSearchQuery('')
         setIsDropdownOpen(false)
+        onChangeSearchSelectField(feature, option.id, option.displayName)
     }
 
-    const dropdownRef = useRef<HTMLDivElement>(null)
-
-    const capitalizeWords = (str: string) => {
-        return str
-            .replaceAll('_', ' ')
-            .split(' ')
-            .map(
-                (word) =>
-                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-            )
-            .join(' ')
-    }
-
-    const handleClickOutside = (event: MouseEvent) => {
-        if (
-            dropdownRef.current &&
-            !dropdownRef.current.contains(event.target as Node)
-        ) {
-            setIsDropdownOpen(false)
-        }
+    const handleClearSelection = (event: React.MouseEvent) => {
+        event.stopPropagation() // Prevent trigger click
+        setSelectedOption(null)
+        setSearchQuery('')
+        onChangeSearchSelectField(feature, '', '')
     }
 
     const renderList = () => {
         if (isLoading) {
-            return <li className={styles.infoSearchItem}>Loading...</li>
+            return <li className={styles.infoSearchItem}>{i18n.t('Loading')}</li>
         }
-        if (dataItems.length == 0 && query.length == 0) {
+        if (dataItems.length === 0 && searchQuery.length === 0) {
             return (
                 <li className={styles.infoSearchItem}>
-                    Start to search by typing
+                    {i18n.t('Start typing to search for data items')}
                 </li>
             )
         }
-        if (dataItems.length == 0) {
-            return <li className={styles.infoSearchItem}>No match found</li>
+        if (dataItems.length === 0 && searchQuery.length > 0) {
+            return <li className={styles.infoSearchItem}>{i18n.t('No matches found')}</li>
         }
 
         return (
@@ -144,7 +135,7 @@ const SearchSelectField = ({
                     >
                         <div>{option.displayName}</div>
                         <div className={styles.rightDropDownItem}>
-                            {capitalizeWords(option.dimensionItemType) ?? ''}
+                            {DIMENSION_ITEM_TYPE_LABELS[option.dimensionItemType as keyof typeof DIMENSION_ITEM_TYPE_LABELS]}
                         </div>
                     </li>
                 ))}
@@ -152,29 +143,61 @@ const SearchSelectField = ({
         )
     }
 
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside)
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
-        }
-    }, [])
-
     return (
-        <div ref={dropdownRef} className={styles.searchSelectField}>
-            <label className={styles.label}>
-                <span>{capitalizeWords(feature.name ?? '')}</span>
-            </label>
+        <div className={styles.searchSelectField}>
+            <Label className={styles.label}>
+                {feature.displayName}
+            </Label>
 
-            <input
-                type="search"
-                value={query}
-                onChange={handleInputChange}
-                placeholder="Search for indicators, Data Elements, Data Sets, Event Data Items, Program Indicators..."
-                className={styles.inputField}
-            />
+            <div ref={anchorRef} className={styles.selectContainer}>
+                <button
+                    type="button"
+                    onClick={handleTriggerClick}
+                    className={`${styles.triggerButton} ${selectedOption ? styles.hasSelection : ''}`}
+                >
+                    <span className={styles.triggerText}>
+                        {selectedOption ? selectedOption.displayName : 'Select a data item...'}
+                    </span>
+
+                    <div className={styles.iconContainer}>
+                        {selectedOption && (
+                            <button
+                                type="button"
+                                onClick={handleClearSelection}
+                                className={styles.clearButton}
+                                aria-label="Clear selection"
+                            >
+                                <IconCross16 />
+                            </button>
+                        )}
+
+                        <div className={styles.dropdownIcon}>
+                            <IconChevronDown16 />
+                        </div>
+                    </div>
+                </button>
+            </div>
+
             {isDropdownOpen && (
-                <ul className={styles.dropDown}>{renderList()}</ul>
+                <Layer onBackdropClick={handleBackdropClick}>
+                    <Popper reference={anchorRef} placement="bottom-start">
+                        <div className={styles.dropDown}>
+                            <div className={styles.searchContainer}>
+                                <input
+                                    ref={searchInputRef}
+                                    type="text"
+                                    value={searchQuery}
+                                    onChange={handleSearchInputChange}
+                                    placeholder={i18n.t('Search for indicators, data elements, or program indicators')}
+                                    className={styles.searchInput}
+                                />
+                            </div>
+                            <ul className={styles.resultsList}>
+                                {renderList()}
+                            </ul>
+                        </div>
+                    </Popper>
+                </Layer>
             )}
         </div>
     )

@@ -2,12 +2,16 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { BacktestDomain } from '../models/BacktestDomain';
+import type { BackTestRead } from '../models/BackTestRead';
 import type { DataList } from '../models/DataList';
 import type { DatasetMakeRequest } from '../models/DatasetMakeRequest';
 import type { DataSource } from '../models/DataSource';
 import type { EvaluationEntry } from '../models/EvaluationEntry';
+import type { ImportSummaryResponse } from '../models/ImportSummaryResponse';
 import type { JobResponse } from '../models/JobResponse';
 import type { MakeBacktestRequest } from '../models/MakeBacktestRequest';
+import type { MakeBacktestWithDataRequest } from '../models/MakeBacktestWithDataRequest';
 import type { MakePredictionRequest } from '../models/MakePredictionRequest';
 import type { PredictionEntry } from '../models/PredictionEntry';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -19,12 +23,12 @@ export class AnalyticsService {
      * This endpoint creates a dataset from the provided data and the data to be fetched3
      * and puts it in the database
      * @param requestBody
-     * @returns JobResponse Successful Response
+     * @returns ImportSummaryResponse Successful Response
      * @throws ApiError
      */
     public static makeDatasetAnalyticsMakeDatasetPost(
         requestBody: DatasetMakeRequest,
-    ): CancelablePromise<JobResponse> {
+    ): CancelablePromise<ImportSummaryResponse> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/analytics/make-dataset',
@@ -36,15 +40,65 @@ export class AnalyticsService {
         });
     }
     /**
+     * Get Compatible Backtests
+     * Return a list of backtests that are compatible for comparison with the given backtest
+     * @param backtestId
+     * @returns BackTestRead Successful Response
+     * @throws ApiError
+     */
+    public static getCompatibleBacktestsAnalyticsCompatibleBacktestsBacktestIdGet(
+        backtestId: number,
+    ): CancelablePromise<Array<BackTestRead>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/analytics/compatible-backtests/{backtestId}',
+            path: {
+                'backtestId': backtestId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get Backtest Overlap
+     * Return the org units and split periods that are common between two backtests
+     * @param backtestId1
+     * @param backtestId2
+     * @returns BacktestDomain Successful Response
+     * @throws ApiError
+     */
+    public static getBacktestOverlapAnalyticsBacktestOverlapBacktestId1BacktestId2Get(
+        backtestId1: number,
+        backtestId2: number,
+    ): CancelablePromise<BacktestDomain> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/analytics/backtest-overlap/{backtestId1}/{backtestId2}',
+            path: {
+                'backtestId1': backtestId1,
+                'backtestId2': backtestId2,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Get Evaluation Entries
+     * Return quantiles for the forecasts in a backtest. Can optionally be filtered on split period and org units.
      * @param backtestId
      * @param quantiles
+     * @param splitPeriod
+     * @param orgUnits
      * @returns EvaluationEntry Successful Response
      * @throws ApiError
      */
     public static getEvaluationEntriesAnalyticsEvaluationEntryGet(
         backtestId: number,
         quantiles: Array<number>,
+        splitPeriod?: string,
+        orgUnits?: Array<string>,
     ): CancelablePromise<Array<EvaluationEntry>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -52,6 +106,8 @@ export class AnalyticsService {
             query: {
                 'backtestId': backtestId,
                 'quantiles': quantiles,
+                'splitPeriod': splitPeriod,
+                'orgUnits': orgUnits,
             },
             errors: {
                 422: `Validation Error`,
@@ -123,18 +179,24 @@ export class AnalyticsService {
     }
     /**
      * Get Actual Cases
+     * Return the actual disease cases corresponding to a backtest. Can optionally be filtered on org units.
      * @param backtestId
+     * @param orgUnits
      * @returns DataList Successful Response
      * @throws ApiError
      */
     public static getActualCasesAnalyticsActualCasesBacktestIdGet(
         backtestId: number,
+        orgUnits?: Array<string>,
     ): CancelablePromise<DataList> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/analytics/actualCases/{backtestId}',
             path: {
                 'backtestId': backtestId,
+            },
+            query: {
+                'orgUnits': orgUnits,
             },
             errors: {
                 422: `Validation Error`,
@@ -150,6 +212,25 @@ export class AnalyticsService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/analytics/data-sources',
+        });
+    }
+    /**
+     * Create Backtest With Data
+     * @param requestBody
+     * @returns JobResponse Successful Response
+     * @throws ApiError
+     */
+    public static createBacktestWithDataAnalyticsCreateBacktestWithDataPost(
+        requestBody: MakeBacktestWithDataRequest,
+    ): CancelablePromise<JobResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/analytics/create-backtest-with-data',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
         });
     }
 }

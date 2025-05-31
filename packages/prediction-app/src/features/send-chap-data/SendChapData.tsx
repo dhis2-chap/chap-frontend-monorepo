@@ -5,7 +5,6 @@ import {
     DatasetMakeRequest,
     FeatureCollectionModel,
     FetchRequest,
-    JobResponse,
     MakePredictionRequest,
     ModelSpecRead,
     ObservationBase,
@@ -20,6 +19,7 @@ import { Period } from '../timeperiod-selector/interfaces/Period'
 import { DatasetLayer } from '../new-dataset/interfaces/DataSetLayer'
 import { useConfig } from '@dhis2/app-runtime'
 import { createFixedPeriodFromPeriodId } from '@dhis2/multi-calendar-dates'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface SendChapDataProps {
     onSendAction: 'predict' | 'new-dataset'
@@ -42,6 +42,8 @@ export const SendChapData = ({
     orgUnitLevel,
     dataLayers,
 }: SendChapDataProps) => {
+    const queryClient = useQueryClient();
+
     //States applies for both "predict" and "new-dataset"
     const [startDownload, setStartDownload] = useState<{
         action: 'download' | 'predict' | 'new-dataset'
@@ -167,7 +169,7 @@ export const SendChapData = ({
                                 href={
                                     config?.systemInfo?.contextPath +
                                     '/api/apps/climate-data/index.html#/import'
-                                }
+                                } rel="noreferrer"
                             >
                                 Climate App
                             </a>{' '}
@@ -184,7 +186,7 @@ export const SendChapData = ({
                                 <tbody>
                                     {missingData.map((d) => {
                                         return (
-                                            <tr>
+                                            <tr key={`${d.orgUnitName}-${d.period}`}>
                                                 <td>{d.orgUnitName}</td>
                                                 <td>
                                                     {
@@ -212,7 +214,7 @@ export const SendChapData = ({
 
     //Check if the analytics content is empty, before sending it to CHAP
     const isAnalyticsContentIsEmpty = (observations: ObservationBase[]) => {
-        let emptyFeatures: ErrorResponse[] = []
+        const emptyFeatures: ErrorResponse[] = []
 
         dataLayers
             .filter((o) => o.origin == 'dataItem')
@@ -313,13 +315,14 @@ export const SendChapData = ({
     }
 
     const newDataset = async () => {
-        let request: DatasetMakeRequest = getNewDatasetRequest()
+        const request: DatasetMakeRequest = getNewDatasetRequest()
 
         setIsSendingDataToChap(true)
         await AnalyticsService.makeDatasetAnalyticsMakeDatasetPost(request)
-            .then((response: JobResponse) => {
+            .then(() => {
                 setErrorChapMsg('')
                 onDrawerSubmit()
+                queryClient.invalidateQueries({ queryKey: ['jobs'] });
             })
             .catch((error: any) => {
                 if (error?.body?.detail)
@@ -335,14 +338,15 @@ export const SendChapData = ({
     }
 
     const predict = async () => {
-        let request: MakePredictionRequest = getPredictionRequest()
+        const request: MakePredictionRequest = getPredictionRequest()
 
         setIsSendingDataToChap(true)
         await AnalyticsService.makePredictionAnalyticsMakePredictionPost(
             request
         )
-            .then((response: JobResponse) => {
+            .then(() => {
                 onDrawerSubmit()
+                queryClient.invalidateQueries({ queryKey: ['jobs'] });
             })
             .catch((error: any) => {
                 if (error?.body?.detail)
@@ -367,7 +371,7 @@ export const SendChapData = ({
             content = getNewDatasetRequest()
         }
 
-        var fileToSave = new Blob([JSON.stringify(content, null, 2)], {
+        const fileToSave = new Blob([JSON.stringify(content, null, 2)], {
             type: 'application/json',
         })
 

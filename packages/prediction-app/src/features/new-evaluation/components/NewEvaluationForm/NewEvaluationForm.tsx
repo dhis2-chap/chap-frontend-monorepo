@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './NewEvaluationForm.module.css'
 import {
     Button,
-    IconArrowLeft16,
-    IconArrowLeft24,
-    IconArrowRight16,
     IconArrowRight24,
     IconCross24,
     InputField,
 } from '@dhis2/ui'
 import DatasetDetails from '../../../dataset-details/DatasetDetails'
 import SelectModel from '../../../select-model/SelectModel'
-import { AnalyticsService, CrudService } from '@dhis2-chap/chap-lib'
-
+import { AnalyticsService } from '@dhis2-chap/chap-lib'
+import { useQueryClient } from '@tanstack/react-query'
 interface NewEvaluationFormProps {
     onDrawerClose: () => void
     datasetIdToEvaluate: number | undefined
@@ -22,6 +19,7 @@ const NewEvaluationForm = ({
     onDrawerClose,
     datasetIdToEvaluate,
 }: NewEvaluationFormProps) => {
+    const queryClient = useQueryClient();
     const [evaluationName, setEvaluationName] = useState<string | undefined>('')
     const [selectedModel, setSelectedModel] = useState<any>(undefined)
 
@@ -45,6 +43,8 @@ const NewEvaluationForm = ({
                         datasetId: datasetIdToEvaluate,
                         modelId: selectedModel.name,
                     })
+
+                queryClient.invalidateQueries({ queryKey: ['jobs'] });
                 console.log('evaluate response', response)
             } catch {
                 alert('There was an unknown error creating the evaluation')
