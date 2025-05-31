@@ -1,64 +1,88 @@
 import { NoticeBox } from '@dhis2/ui'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import style from './WarnAboutIncompatibleVersion.module.css'
-import {
-    DefaultService,
-} from '@dhis2-chap/chap-lib'
+import { DefaultService } from '@dhis2-chap/chap-lib'
 import { useConfig } from '@dhis2/app-runtime'
 import { useRoute } from '../../../hooks/useRoute'
+import chapConfig from '../../../chap.json'
+import { useChapStatus } from '../../settings/ChapSettings/hooks/useChapStatus'
+import { isVersionCompatible } from '../../../utils/compareVersions'
+import { useQuery } from '@tanstack/react-query'
+import i18n from '@dhis2/d2-i18n'
 
 const WarnAboutIncompatibleVersion = () => {
     const { appVersion } = useConfig()
-    const { route, isLoading } = useRoute();
-    const prevRouteUrl = useRef<string | undefined>(undefined)
+    const appVersionFull = appVersion?.full
 
-    const [isCompatible, setIsCompatible] = useState<
-        | {
-              compatible: boolean
-              description: string
-          }
-        | undefined
-    >(undefined)
+    const { route } = useRoute()
+    const { status } = useChapStatus({ route })
 
-    const getIsCompatible = async () => {
-        if (!appVersion) return
-        await DefaultService.isCompatibleIsCompatibleGet(appVersion?.full)
-            .then((a: any) => {
-                setIsCompatible(a)
-            })
-            .catch(() => {
-                setIsCompatible({
-                    compatible: false,
-                    description:
-                        'Not able to check if the app is compatible with the Chap Core you are using, which means you are probably using an old version of Chap Core. See https://github.com/dhis2-chap/chap-core/releases/ for information on how to update.',
-                })
-            })
-    }
+    const clientCompatibleCheck =
+        status &&
+        isVersionCompatible(status.chap_core_version, chapConfig.minChapVersion)
 
-    useEffect(() => {
-        if (!appVersion || isLoading) return
+    const { data: backendCompatibleCheck, isError } = useQuery({
+        queryKey: ['is-compatible', route?.url, appVersionFull],
+        queryFn: async () =>
+            await DefaultService.isCompatibleIsCompatibleGet(appVersionFull!),
+        enabled: !!appVersionFull,
+        staleTime: Infinity,
+        cacheTime: Infinity,
+    })
 
-        // Trigger the check if the route url has changed
-        if (prevRouteUrl.current !== route?.url) {
-            getIsCompatible()
-            prevRouteUrl.current = route?.url
-        }
-    }, [appVersion, route?.url])
+    const anyNotCompatible =
+        clientCompatibleCheck === false ||
+        backendCompatibleCheck?.compatible === false ||
+        isError
 
     return (
         <>
-            {isCompatible && !isCompatible?.compatible && (
+            {anyNotCompatible && (
                 <div
                     className={style.warningMargin}
                     style={{ maxWidth: '1400px' }}
                 >
                     <div className={style.warningMarginInner}>
                         <NoticeBox error title="Incompatible versions">
-                            Version of the Modeling App is not compatible with
-                            the backend (Chap core)
+                            <div>
+                                {i18n.t(
+                                    'The version of the Modeling App is not compatible with the backend (Chap core).'
+                                )}
+                            </div>
                             <br />
-                            <br />
-                            <i>{isCompatible.description}</i>
+
+                            {!backendCompatibleCheck?.compatible && (
+                                <p className={style.resultDescription}>
+                                    <i>{backendCompatibleCheck?.description}</i>
+                                </p>
+                            )}
+                            {isError && (
+                                <p className={style.resultDescription}>
+                                    <i>
+                                        Not able to check if the app is
+                                        compatible with the Chap Core you are
+                                        using, which means you are probably
+                                        using an old version of Chap Core. See
+                                        https://github.com/dhis2-chap/chap-core/releases/
+                                        for information on how to update.
+                                    </i>
+                                </p>
+                            )}
+                            {clientCompatibleCheck === false && (
+                                <p className={style.resultDescription}>
+                                    <i>
+                                        {i18n.t(
+                                            'The Chap Core version {{chapVersion}} is too old. The Modeling App specifies minimum Chap core version: {{chapMinVersion}}',
+                                            {
+                                                chapVersion:
+                                                    status?.chap_core_version,
+                                                chapMinVersion:
+                                                    chapConfig.minChapVersion,
+                                            }
+                                        )}
+                                    </i>
+                                </p>
+                            )}
                         </NoticeBox>
                     </div>
                 </div>
