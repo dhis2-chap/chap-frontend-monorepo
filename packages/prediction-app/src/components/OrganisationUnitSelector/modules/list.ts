@@ -10,6 +10,7 @@ export const formatList = (items: string[]): string => {
         })
         return formatter.format(items)
     } catch (error) {
+        console.error(error)
         return items.join(', ')
     }
 } 

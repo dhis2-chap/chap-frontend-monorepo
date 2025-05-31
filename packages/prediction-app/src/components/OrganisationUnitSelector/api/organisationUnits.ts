@@ -1,5 +1,7 @@
-import { DataEngine } from '@dhis2/app-runtime'
 import { onError } from './index'
+import { useDataEngine } from '@dhis2/app-runtime'
+
+type DataEngine = ReturnType<typeof useDataEngine>
 
 interface OrganisationUnitLevel {
     id: string
@@ -29,11 +31,6 @@ interface OrganisationUnit {
 
 interface QueryParams {
     displayNameProp?: string
-}
-
-interface QueryVariables {
-    displayNameProp?: string
-    id?: string
 }
 
 const orgUnitLevelsQuery = {
@@ -140,6 +137,7 @@ export const apiFetchOrganisationUnits = async (
 
 export const apiFetchOrganisationUnit = async (dataEngine: DataEngine, id: string): Promise<OrganisationUnit> => {
     const orgUnitData = await dataEngine.query(
+        // @ts-expect-error - TODO: Fix this
         { orgUnit: orgUnitQuery },
         {
             variables: { id },
