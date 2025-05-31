@@ -5,8 +5,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-30T18:49:09.050Z\n"
-"PO-Revision-Date: 2025-05-30T18:49:09.050Z\n"
+"POT-Creation-Date: 2025-05-31T08:46:16.486Z\n"
+"PO-Revision-Date: 2025-05-31T08:46:16.486Z\n"
+
+msgid "View"
+msgstr "View"
 
 msgid "Rename"
 msgstr "Rename"
@@ -230,6 +233,9 @@ msgstr "Leave page"
 msgid "Back to evaluations"
 msgstr "Back to evaluations"
 
+msgid "Error starting evaluation job"
+msgstr "Error starting evaluation job"
+
 msgid "Start job"
 msgstr "Start job"
 
@@ -265,6 +271,16 @@ msgstr "Dataset Configuration"
 
 msgid "Configure sources"
 msgstr "Configure sources"
+
+msgid ""
+"The Data Visualizer app is not compatible with this feature. Please update "
+"to a newer version."
+msgstr ""
+"The Data Visualizer app is not compatible with this feature. Please update "
+"to a newer version."
+
+msgid "Please map all model covariates to valid data items"
+msgstr "Please map all model covariates to valid data items"
 
 msgid "Target \"{{targetName}}\" must be mapped to a data item"
 msgstr "Target \"{{targetName}}\" must be mapped to a data item"
@@ -335,15 +351,6 @@ msgstr "From period"
 
 msgid "To period"
 msgstr "To period"
-
-msgid "Organisation units"
-msgstr "Organisation units"
-
-msgid "Summary"
-msgstr "Summary"
-
-msgid "Open dataset"
-msgstr "Open dataset"
 
 msgid "Missing id for org unit"
 msgstr "Missing id for org unit"
@@ -428,6 +435,13 @@ msgstr "Jobs"
 
 msgid "Settings"
 msgstr "Settings"
+
+msgid ""
+"The version of the Modeling App is not compatible with the backend (Chap "
+"core)."
+msgstr ""
+"The version of the Modeling App is not compatible with the backend (Chap "
+"core)."
 
 msgid "Compare evaluations"
 msgstr "Compare evaluations"
@@ -642,6 +656,9 @@ msgstr "Organisation unit level"
 
 msgid "Organisation unit level to import data to"
 msgstr "Organisation unit level to import data to"
+
+msgid "Organisation units"
+msgstr "Organisation units"
 
 msgid "Data Element"
 msgstr "Data Element"
