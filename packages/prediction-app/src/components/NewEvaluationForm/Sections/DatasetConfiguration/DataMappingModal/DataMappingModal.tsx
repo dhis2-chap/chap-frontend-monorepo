@@ -34,7 +34,7 @@ export const DataMappingModal = ({
 
     const handleConfirm = () => {
         const mappings = getMappingsForSubmission()
-        if (mappings) {
+        if (mappings && mappings.targetMapping) {
             onConfirm(mappings.targetMapping, mappings.covariateMappings)
         }
     }
