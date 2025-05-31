@@ -26,6 +26,9 @@ jobs:
             - name: Install
               if: steps.yarn-cache.outputs.cache-hit != 'true'
               run: yarn install --frozen-lockfile
+            
+    lint-commits:
+        uses: dhis2/workflows-platform/.github/workflows/lint-commits.yml@v1
 
     i18n:
         runs-on: ubuntu-latest
