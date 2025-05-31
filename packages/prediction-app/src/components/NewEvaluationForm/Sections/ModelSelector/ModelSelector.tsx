@@ -52,10 +52,10 @@ export const ModelSelector = ({
                     dataTest="evaluation-model-select-button"
                     small
                     loading={isLoading}
-                    >
+                >
                     {i18n.t('Select model')}
                 </Button>
-                
+
                 {methods.formState.errors.modelId && (
                     <p className={styles.errorText}>{methods.formState.errors.modelId.message}</p>
                 )}

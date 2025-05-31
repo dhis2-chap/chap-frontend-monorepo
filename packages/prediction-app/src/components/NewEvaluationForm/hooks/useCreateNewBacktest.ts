@@ -163,7 +163,6 @@ export const useCreateNewBacktest = ({
             }
 
 
-            // Construct the backtest request
             const backtestRequest: MakeBacktestWithDataRequest = {
                 name: formData.name,
                 geojson: filteredGeoJson,
@@ -175,7 +174,6 @@ export const useCreateNewBacktest = ({
                 stride: STRIDE,
             }
 
-            // Create the backtest
             return AnalyticsService.createBacktestWithDataAnalyticsCreateBacktestWithDataPost(backtestRequest)
         },
         onSuccess: () => {

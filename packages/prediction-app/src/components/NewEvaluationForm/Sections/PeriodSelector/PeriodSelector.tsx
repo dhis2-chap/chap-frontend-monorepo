@@ -1,14 +1,12 @@
 import React from 'react'
 import {
-    IconError16,
-    IconErrorFilled16,
     IconErrorFilled24,
     Label,
     SingleSelectField,
     SingleSelectOption,
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
-import { Controller, Control, FieldErrors, useWatch } from 'react-hook-form'
+import { Controller, Control, FieldErrors, useWatch, useFormContext } from 'react-hook-form'
 import { EvaluationFormValues } from '../../hooks/useFormController'
 import styles from './PeriodSelector.module.css'
 
@@ -39,6 +37,21 @@ const getInputType = (periodType: keyof typeof PERIOD_TYPES): string => {
 
 export const PeriodSelector = ({ control, errors }: Props) => {
     const periodType = useWatch({ control, name: 'periodType' });
+    const methods = useFormContext<EvaluationFormValues>()
+
+    const onPeriodTypeChange = (selected: string) => {
+        const selectedCastToPeriodType = selected as keyof typeof PERIOD_TYPES
+        if (selectedCastToPeriodType === PERIOD_TYPES.DAY) {
+            // TODO: Implement day period type
+        } else {
+            methods.setValue('periodType', selected as 'MONTH' | 'WEEK', { shouldValidate: true })
+        }
+
+        if (selected !== periodType) {
+            methods.resetField('fromDate')
+            methods.resetField('toDate')
+        }
+    }
 
     return (
         <>
@@ -51,7 +64,7 @@ export const PeriodSelector = ({ control, errors }: Props) => {
                         <SingleSelectField
                             selected={field.value}
                             error={!!errors.periodType}
-                            onChange={({ selected }) => field.onChange(selected)}
+                            onChange={({ selected }) => onPeriodTypeChange(selected)}
                             dataTest="evaluation-period-type-select"
                         >
                             <SingleSelectOption

@@ -4,7 +4,6 @@ import i18n from '@dhis2/d2-i18n'
 import { ModelSpecRead } from '@dhis2-chap/chap-lib'
 import { EvaluationFormValues, CovariateMapping } from '../../hooks/useFormController'
 
-// Detailed validation hook for DatasetConfiguration components
 export const useDatasetValidation = () => {
   const queryClient = useQueryClient()
   const methods = useFormContext<EvaluationFormValues>()

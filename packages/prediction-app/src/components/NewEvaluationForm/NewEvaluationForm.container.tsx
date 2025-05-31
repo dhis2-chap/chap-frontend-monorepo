@@ -7,7 +7,7 @@ import { useFormController } from './hooks/useFormController'
 import styles from './NewEvaluationForm.module.css'
 import { Button, ButtonStrip, IconArrowLeft16, IconArrowRightMulti16, NoticeBox } from '@dhis2/ui'
 import { useNavigate } from 'react-router-dom'
-import { useNavigationBlocker } from './hooks/useNavigationBlocker'
+import { useNavigationBlocker } from '../../hooks/useNavigationBlocker'
 import { NavigationConfirmModal } from '../NavigationConfirmModal'
 
 export const NewEvaluationForm = () => {

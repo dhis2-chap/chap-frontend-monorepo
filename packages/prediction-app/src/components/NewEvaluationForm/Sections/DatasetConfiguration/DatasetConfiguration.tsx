@@ -25,8 +25,6 @@ type Props = {
     errors: FieldErrors<EvaluationFormValues>
 }
 
-
-
 export const DatasetConfiguration = ({
     control,
     errors,
@@ -38,10 +36,7 @@ export const DatasetConfiguration = ({
     const datasetValidation = useDatasetValidation()
     const mappingStatus = datasetValidation.getDetailedValidationSummary()
     const { models } = useModels()
-    const {
-        isCompatible: isDVCompatible,
-        isLoading: isDVLoading,
-    } = useInstalledDVVersion()
+    const { isCompatible: isDVCompatible, isLoading: isDVLoading } = useInstalledDVVersion()
 
     const selectedModel = models?.find((model) => model.id.toString() === modelId)
 

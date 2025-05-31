@@ -1,8 +1,0 @@
-.separator {
-    height: 1px;
-    background-color: var(--colors-grey400);
-    margin-block-start: 2rem;
-    margin-block-end: 2rem;
-    width: 90%;
-    margin-inline: auto;
-}
