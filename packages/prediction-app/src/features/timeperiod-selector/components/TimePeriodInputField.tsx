@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import styles from "./MonthPicker.module.css";
 import { supportsWeekInput } from "../../../utils/browserSupport";
-import { dateToWeekFormat, weekToDateFormat } from "../../../utils/dateToWeek";
+import { dateToWeekFormat } from "../../../utils/dateToWeek";
 import i18n from '@dhis2/d2-i18n';
 
 interface TimePeriodInputFieldProps {
@@ -18,7 +18,6 @@ const getInputType = (periodeType: string): string => {
   return periodeType;
 };
 
-// Fallback on browser native until full DatePicker support in @dhis2/ui
 const TimePeriodInputField = ({ label, name, onChange, periodeType } : TimePeriodInputFieldProps) => {
   const inputEl = useRef(null);
 
