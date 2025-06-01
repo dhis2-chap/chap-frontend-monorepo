@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { EvaluationFormValues } from "./useFormController"
-import { AnalyticsService, FeatureCollectionModel, ObservationBase, MakeBacktestWithDataRequest, ModelSpecRead, ApiError, JobResponse } from "@dhis2-chap/chap-lib"
+import { AnalyticsService, FeatureCollectionModel, ObservationBase, MakeBacktestWithDataRequest, ModelSpecRead, ApiError, JobResponse, ImportSummaryResponse } from "@dhis2-chap/chap-lib"
 import { useDataEngine } from "@dhis2/app-runtime"
 import { PERIOD_TYPES } from "../Sections/PeriodSelector"
 import { toDHIS2PeriodData } from "../../../features/timeperiod-selector/utils/timePeriodUtils"
@@ -86,7 +86,7 @@ export const useCreateNewBacktest = ({
         mutate: createNewBacktest,
         isLoading,
         error,
-    } = useMutation<JobResponse, ApiError, EvaluationFormValues>({
+    } = useMutation<ImportSummaryResponse, ApiError, EvaluationFormValues>({
         mutationFn: async (formData: EvaluationFormValues) => {
             const model = queryClient.getQueryData<ModelSpecRead[]>(['models'])
                 ?.find(model => model.id === Number(formData.modelId))
