@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-31T08:46:16.486Z\n"
-"PO-Revision-Date: 2025-05-31T08:46:16.486Z\n"
+"POT-Creation-Date: 2025-06-01T20:26:14.158Z\n"
+"PO-Revision-Date: 2025-06-01T20:26:14.158Z\n"
 
 msgid "View"
 msgstr "View"
@@ -50,6 +50,18 @@ msgstr "Created"
 
 msgid "Model"
 msgstr "Model"
+
+msgid "CRPS (Norm)"
+msgstr "CRPS (Norm)"
+
+msgid ""
+"Normalized CRPS (Continuous Ranked Probability Score) shows how close a "
+"model's predicted range of outcomes is to the actual result on a 0 - 1 "
+"scale. Lower values indicate better probabilistic accuracy"
+msgstr ""
+"Normalized CRPS (Continuous Ranked Probability Score) shows how close a "
+"model's predicted range of outcomes is to the actual result on a 0 - 1 "
+"scale. Lower values indicate better probabilistic accuracy"
 
 msgid "Actions"
 msgstr "Actions"
@@ -348,6 +360,12 @@ msgstr "Monthly"
 
 msgid "From period"
 msgstr "From period"
+
+msgid "Select any date - we will use the week containing that date"
+msgstr "Select any date - we will use the week containing that date"
+
+msgid "Select any date - we will use the month containing that date"
+msgstr "Select any date - we will use the month containing that date"
 
 msgid "To period"
 msgstr "To period"
