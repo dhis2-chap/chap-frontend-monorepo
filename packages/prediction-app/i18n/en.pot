@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-31T08:46:16.486Z\n"
-"PO-Revision-Date: 2025-05-31T08:46:16.486Z\n"
+"POT-Creation-Date: 2025-05-31T22:30:20.095Z\n"
+"PO-Revision-Date: 2025-05-31T22:30:20.096Z\n"
 
 msgid "View"
 msgstr "View"
@@ -71,6 +71,11 @@ msgstr "No models found"
 
 msgid "Clear"
 msgstr "Clear"
+
+msgid "{{count}} evaluations selected"
+msgid_plural "{{count}} evaluations selected"
+msgstr[0] "{{count}} evaluation selected"
+msgstr[1] "{{count}} evaluations selected"
 
 msgid "Evaluations deleted"
 msgstr "Evaluations deleted"
@@ -313,6 +318,29 @@ msgstr "All org units must be at the same level"
 msgid "Confirm Selection"
 msgstr "Confirm Selection"
 
+msgid "Monthly"
+msgstr "Monthly"
+
+msgid "Yearly"
+msgstr "Yearly"
+
+msgid "Weekly"
+msgstr "Weekly"
+
+msgid "Daily"
+msgstr "Daily"
+
+msgid "Any"
+msgstr "Any"
+
+msgid "{{count}} covariates"
+msgid_plural "{{count}} covariates"
+msgstr[0] "{{count}} covariate"
+msgstr[1] "{{count}} covariates"
+
+msgid "Author note"
+msgstr "Author note"
+
 msgid "Selected"
 msgstr "Selected"
 
@@ -336,15 +364,6 @@ msgstr "EWARS Evaluation 22-24"
 
 msgid "Period type"
 msgstr "Period type"
-
-msgid "Daily"
-msgstr "Daily"
-
-msgid "Weekly"
-msgstr "Weekly"
-
-msgid "Monthly"
-msgstr "Monthly"
 
 msgid "From period"
 msgstr "From period"
@@ -378,6 +397,21 @@ msgstr "Please map the target to a valid data item"
 
 msgid "End period must be after start period"
 msgstr "End period must be after start period"
+
+msgid "{{count}} org units"
+msgid_plural "{{count}} org units"
+msgstr[0] "{{count}} org unit"
+msgstr[1] "{{count}} org units"
+
+msgid "{{count}} levels"
+msgid_plural "{{count}} levels"
+msgstr[0] "{{count}} level"
+msgstr[1] "{{count}} levels"
+
+msgid "{{count}} groups"
+msgid_plural "{{count}} groups"
+msgstr[0] "{{count}} group"
+msgstr[1] "{{count}} groups"
 
 msgid "Selected: {{commaSeparatedListOfOrganisationUnits}}"
 msgstr "Selected: {{commaSeparatedListOfOrganisationUnits}}"
