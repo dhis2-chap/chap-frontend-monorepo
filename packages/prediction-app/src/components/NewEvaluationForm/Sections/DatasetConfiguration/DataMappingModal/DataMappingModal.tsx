@@ -86,7 +86,7 @@ export const DataMappingModal = ({
                         {i18n.t('Cancel')}
                     </Button>
                     <Button primary onClick={handleConfirm} disabled={!isFormValid}>
-                        {i18n.t('Save Mappings')}
+                        {i18n.t('Save')}
                     </Button>
                 </ButtonStrip>
             </ModalActions>

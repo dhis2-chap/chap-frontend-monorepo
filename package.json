@@ -52,7 +52,9 @@
         "typescript-eslint": "^8.33.0"
     },
     "resolutions": {
-        "i18next": "20.5.0"
+        "@dhis2/d2-i18n": "1.1.0",
+        "i18next": "20.5.0",
+        "@dhis2/app-runtime": "3.13.0"
     },
     "version": "2.1.1"
 }
