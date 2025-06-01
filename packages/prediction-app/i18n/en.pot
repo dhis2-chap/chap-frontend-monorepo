@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-01T20:26:14.158Z\n"
-"PO-Revision-Date: 2025-06-01T20:26:14.158Z\n"
+"POT-Creation-Date: 2025-06-01T20:17:04.163Z\n"
+"PO-Revision-Date: 2025-06-01T20:17:04.164Z\n"
 
 msgid "View"
 msgstr "View"
@@ -83,6 +83,12 @@ msgstr "No models found"
 
 msgid "Clear"
 msgstr "Clear"
+
+msgid "There are running jobs in the background"
+msgstr "There are running jobs in the background"
+
+msgid "Running jobs"
+msgstr "Running jobs"
 
 msgid "Evaluations deleted"
 msgstr "Evaluations deleted"
