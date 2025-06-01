@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import styles from "./MonthPicker.module.css";
-
+import { supportsWeekInput } from "../../../utils/browserSupport";
+import { dateToWeekFormat, weekToDateFormat } from "../../../utils/dateToWeek";
+import i18n from '@dhis2/d2-i18n';
 
 interface TimePeriodInputFieldProps {
   periodeType : "week" | "month" | ""
@@ -8,6 +10,13 @@ interface TimePeriodInputFieldProps {
   name: string
   onChange: (value: string) => void
 }
+
+const getInputType = (periodeType: string): string => {
+  if (periodeType === 'week') {
+    return supportsWeekInput() ? 'week' : 'date';
+  }
+  return periodeType;
+};
 
 // Fallback on browser native until full DatePicker support in @dhis2/ui
 const TimePeriodInputField = ({ label, name, onChange, periodeType } : TimePeriodInputFieldProps) => {
@@ -21,14 +30,23 @@ const TimePeriodInputField = ({ label, name, onChange, periodeType } : TimePerio
           <div className={styles.inputDiv}>
             <input
               disabled={periodeType === ""}
-              
               className={styles.input}
               ref={inputEl}
-              type={periodeType}
+              type={getInputType(periodeType)}
               name={name}
-              onChange={(e) => onChange(e.target.value)}
+              onChange={(e) => {
+                const value = periodeType === 'week' && !supportsWeekInput()
+                  ? dateToWeekFormat(e.target.value)
+                  : e.target.value;
+                onChange(value);
+              }}
             />
           </div>
+          {periodeType === 'week' && !supportsWeekInput() && (
+            <p className={styles.helpText}>
+              {i18n.t('Select any date - we will use the week containing that date')}
+            </p>
+          )}
         </div>
       </div>
     </div>

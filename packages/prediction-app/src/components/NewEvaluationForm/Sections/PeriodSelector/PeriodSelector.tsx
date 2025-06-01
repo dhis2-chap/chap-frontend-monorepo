@@ -9,6 +9,8 @@ import i18n from '@dhis2/d2-i18n'
 import { Controller, Control, FieldErrors, useWatch, useFormContext } from 'react-hook-form'
 import { EvaluationFormValues } from '../../hooks/useFormController'
 import styles from './PeriodSelector.module.css'
+import { supportsWeekInput } from '../../../../utils/browserSupport'
+import { dateToWeekFormat, weekToDateFormat } from '../../../../utils/dateToWeek'
 
 type Props = {
     control: Control<EvaluationFormValues>
@@ -26,7 +28,7 @@ const getInputType = (periodType: keyof typeof PERIOD_TYPES): string => {
         case PERIOD_TYPES.DAY:
             return 'date';
         case PERIOD_TYPES.WEEK:
-            return 'week';
+            return supportsWeekInput() ? 'week' : 'date';
         case PERIOD_TYPES.MONTH:
             return 'month';
         default:
@@ -98,13 +100,25 @@ export const PeriodSelector = ({ control, errors }: Props) => {
                                         className={styles.input}
                                         type={periodType ? getInputType(periodType) : 'text'}
                                         disabled={!periodType}
-                                        value={field.value}
-                                        onChange={(e) => field.onChange(e.target.value)}
+                                        value={periodType === PERIOD_TYPES.WEEK && !supportsWeekInput() && field.value 
+                                            ? weekToDateFormat(field.value) 
+                                            : field.value}
+                                        onChange={(e) => {
+                                            const value = periodType === PERIOD_TYPES.WEEK && !supportsWeekInput()
+                                                ? dateToWeekFormat(e.target.value)
+                                                : e.target.value;
+                                            field.onChange(value);
+                                        }}
                                         data-test="evaluation-from-date-input"
                                         style={{ opacity: periodType ? 1 : 0.6 }}
                                     />
                                     {errors.fromDate && <IconErrorFilled24 color='#d32f2f' />}
                                 </div>
+                                {periodType === PERIOD_TYPES.WEEK && !supportsWeekInput() && (
+                                    <p className={styles.helpText}>
+                                        {i18n.t('Select any date - we will use the week containing that date')}
+                                    </p>
+                                )}
                                 {errors.fromDate && (
                                     <p className={styles.errorText}>{errors.fromDate.message}</p>
                                 )}
@@ -124,13 +138,25 @@ export const PeriodSelector = ({ control, errors }: Props) => {
                                         className={styles.input}
                                         type={periodType ? getInputType(periodType) : 'text'}
                                         disabled={!periodType}
-                                        value={field.value}
-                                        onChange={(e) => field.onChange(e.target.value)}
+                                        value={periodType === PERIOD_TYPES.WEEK && !supportsWeekInput() && field.value 
+                                            ? weekToDateFormat(field.value) 
+                                            : field.value}
+                                        onChange={(e) => {
+                                            const value = periodType === PERIOD_TYPES.WEEK && !supportsWeekInput()
+                                                ? dateToWeekFormat(e.target.value)
+                                                : e.target.value;
+                                            field.onChange(value);
+                                        }}
                                         data-test="evaluation-to-date-input"
                                         style={{ opacity: periodType ? 1 : 0.6 }}
                                     />
                                     {errors.toDate && <IconErrorFilled24 color='#d32f2f' />}
                                 </div>
+                                {periodType === PERIOD_TYPES.WEEK && !supportsWeekInput() && (
+                                    <p className={styles.helpText}>
+                                        {i18n.t('Select any date - we will use the week containing that date')}
+                                    </p>
+                                )}
                                 {errors.toDate && (
                                     <p className={styles.errorText}>{errors.toDate.message}</p>
                                 )}
