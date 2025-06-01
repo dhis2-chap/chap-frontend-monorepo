@@ -26,7 +26,7 @@ import { useNavigate } from 'react-router-dom'
 const MAX_SELECTED_ORG_UNITS = 10
 
 export const EvaluationCompare = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const {
         selectedEvaluations,
         baseEvaluation,
@@ -58,14 +58,16 @@ export const EvaluationCompare = () => {
         const dataForSplitPeriod = combined.viewData
             .filter((v) => v.splitPoint === selectedSplitPeriod)
             .flatMap((v) =>
-                v.evaluation.map((e) => ({
-                    ...e,
-                    orgUnitName:
-                        orgUnitsData?.organisationUnits?.find(
-                            (ou) => ou.id === e.orgUnitId
-                        )?.displayName ?? e.orgUnitId,
-                }))
-            )
+                v.evaluation
+                    .map((e) => ({
+                        ...e,
+                        orgUnitName:
+                            orgUnitsData?.organisationUnits?.find(
+                                (ou) => ou.id === e.orgUnitId
+                            )?.displayName ?? e.orgUnitId,
+                    }))
+                )
+                .sort((a, b) => a.orgUnitName.localeCompare(b.orgUnitName))
         const periods = dataForSplitPeriod[0]?.models[0].data.periods ?? []
         return { dataForSplitPeriod, periods }
     }, [combined.viewData, selectedSplitPeriod, orgUnitsData])

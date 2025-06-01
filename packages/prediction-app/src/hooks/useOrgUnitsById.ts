@@ -1,11 +1,10 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Query, useQueryClient } from '@tanstack/react-query'
 import { useApiDataQuery } from '../utils/useApiDataQuery'
 
 type OrganisationUnit = {
     id: string
     displayName: string
-    path: string
 }
 
 type OrgUnitResult = {
@@ -54,9 +53,33 @@ export const useOrgUnitsById = (orgUnitIds: string[]) => {
                 paging: false,
                 fields: ['id', 'displayName'],
                 filter: `id:in:[${orgUnitIds.join(',')}]`,
+                order: 'displayName:asc'
             },
         },
         enabled: orgUnitIds.length > 0,
+        select: useCallback(
+            (data: OrgUnitResult) => {
+                // some orgUnits were not found (eg data in Chap not in DHIS2)
+                // fallback to id...
+                if (data.organisationUnits.length !== orgUnitIds.length) {
+                    const fetchedOrgUnitIdsSet = new Set(
+                        data.organisationUnits.map((ou) => ou.id)
+                    )
+                    const missingUnits = orgUnitIds
+                        .filter((id) => !fetchedOrgUnitIdsSet.has(id))
+                        .map((id) => ({
+                            id,
+                            displayName: id, // fallback to id as displayName
+                        }))
+                    return {
+                        organisationUnits:
+                            data.organisationUnits.concat(missingUnits),
+                    }
+                }
+                return data
+            },
+            [orgUnitIds]
+        ),
         cacheTime: Infinity,
         staleTime: Infinity,
     })

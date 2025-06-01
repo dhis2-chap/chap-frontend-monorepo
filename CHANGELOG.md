@@ -1,3 +1,17 @@
+# [2.1.0](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v2.0.0...v2.1.0) (2025-06-01)
+
+
+### Bug Fixes
+
+* fallback to ids when fetching orgunit data [skip release] ([#65](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/65)) ([4553431](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/4553431b6413f8352bc64b83e8be87256f3e0550))
+* **plot-data:** find plotdata in cache as initialdata [skip release] ([#64](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/64)) ([b4de849](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/b4de8493404282243875e8fbb5385284d01268fc))
+
+
+### Features
+
+* add CRPS to BacktestsTable [skip release] ([#62](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/62)) ([eb705f6](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/eb705f6c6ecfb162de41ad54fe884fa568b20bcf))
+* add link to evaluation comparison in BacktestsTable ([#63](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/63)) ([4c371ac](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/4c371ac2ccf715466799a0866e7fb8b0cf4a1d1a))
+
 # [2.0.0](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v1.3.0...v2.0.0) (2025-05-31)
 
 

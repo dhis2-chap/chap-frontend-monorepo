@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-05-31T22:30:20.095Z\n"
-"PO-Revision-Date: 2025-05-31T22:30:20.096Z\n"
+"POT-Creation-Date: 2025-06-01T20:17:04.163Z\n"
+"PO-Revision-Date: 2025-06-01T20:17:04.164Z\n"
 
 msgid "View"
 msgstr "View"
@@ -51,6 +51,18 @@ msgstr "Created"
 msgid "Model"
 msgstr "Model"
 
+msgid "CRPS (Norm)"
+msgstr "CRPS (Norm)"
+
+msgid ""
+"Normalized CRPS (Continuous Ranked Probability Score) shows how close a "
+"model's predicted range of outcomes is to the actual result on a 0 - 1 "
+"scale. Lower values indicate better probabilistic accuracy"
+msgstr ""
+"Normalized CRPS (Continuous Ranked Probability Score) shows how close a "
+"model's predicted range of outcomes is to the actual result on a 0 - 1 "
+"scale. Lower values indicate better probabilistic accuracy"
+
 msgid "Actions"
 msgstr "Actions"
 
@@ -71,6 +83,12 @@ msgstr "No models found"
 
 msgid "Clear"
 msgstr "Clear"
+
+msgid "There are running jobs in the background"
+msgstr "There are running jobs in the background"
+
+msgid "Running jobs"
+msgstr "Running jobs"
 
 msgid "{{count}} evaluations selected"
 msgid_plural "{{count}} evaluations selected"

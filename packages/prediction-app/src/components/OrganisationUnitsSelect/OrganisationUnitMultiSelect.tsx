@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, startTransition } from 'react'
 import {
     MultiSelect,
     MultiSelectOption,
@@ -7,7 +7,6 @@ import {
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import css from './OrganisationUnitMultiSelect.module.css'
-
 const DEFAULT_MAX_SELECTED = 10
 
 type DisplayableOrgUnit = {
@@ -38,13 +37,15 @@ const OrganisationUnitMultiSelect = ({
     const [pendingSelectedOrgUnits, setPendingSelectedOrgUnits] = useState<
         string[] | null
     >(null)
+
     const resolvedSelected =
         pendingSelectedOrgUnits !== null ? pendingSelectedOrgUnits : selected
 
     // Multiselect will crash if selected contains items that are not in available
     // this can happen when loading, thus we add the selected items to the available list
-    const { orgUnits } = useMemo(() => {
+    const { orgUnits, selectedOrgUnitIds } = useMemo(() => {
         const orgUnitsMap = new Map(available.map((o) => [o.id, o]))
+        const selectedSet = new Set(resolvedSelected)
         resolvedSelected.forEach((s) => {
             if (!orgUnitsMap.get(s)) {
                 orgUnitsMap.set(s, {
@@ -54,18 +55,28 @@ const OrganisationUnitMultiSelect = ({
             }
         })
 
+        const orgUnits = Array.from(orgUnitsMap.values())
+        // use same order for selected as available
+        const selectedOrgUnitIds = orgUnits
+            .filter((ou) => selectedSet.has(ou.id))
+            .map((ou) => ou.id)
+
         return {
-            orgUnits: Array.from(orgUnitsMap.values()),
+            orgUnits,
+            selectedOrgUnitIds,
         }
     }, [available, resolvedSelected])
 
     return (
         <MultiSelect
             prefix={i18n.t('Organisation Units')}
-            selected={resolvedSelected}
+            selected={selectedOrgUnitIds}
             disabled={available.length < 1}
             filterable
             filterPlaceholder={i18n.t('Search organisation units')}
+            clearable={true}
+            clearText={i18n.t('Clear all organisation units')}
+            noMatchText={i18n.t('No organisation units match your search')}
             onChange={({ selected }, event) => {
                 const isChipDeletion = event.type === 'click'
                 if (isChipDeletion) {
@@ -80,7 +91,11 @@ const OrganisationUnitMultiSelect = ({
                     onSelect({
                         selected: pendingSelectedOrgUnits ?? [],
                     })
-                    setPendingSelectedOrgUnits(null)
+
+                    // reset pending state in a transition to avoid flickering
+                    startTransition(() => {
+                        setPendingSelectedOrgUnits(null)
+                    })
                 }
             }}
             inputMaxHeight="26px"
