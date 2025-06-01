@@ -6,24 +6,21 @@ import { z } from 'zod'
 import { UserOptionConfig } from '../UserOptionsFields'
 import styles from '../UserOptionsFields.module.css'
 
-// Constants (local to this file)
 const FIELD_TYPES = {
     INTEGER: 'integer',
     NUMBER: 'number',
     NULL: 'null'
 } as const
 
-// Helper function to normalize decimal separators
 const normalizeDecimalInput = (value: string): string => {
     return value.replace(',', '.')
 }
 
-// Create Zod schemas for validation (nullable version)
 const createNullableNumberSchema = (type: string) => {
     const baseSchema = z.string()
         .transform((val) => val.trim())
         .refine((val) => {
-            if (val === '') return true // Empty is valid (will be null)
+            if (val === '') return true
             const normalized = normalizeDecimalInput(val)
             return !isNaN(Number(normalized))
         }, {
@@ -87,7 +84,7 @@ export const NullableField: React.FC<NullableFieldProps> = ({
         try {
             return validationSchema.parse(value)
         } catch {
-            return value // Return original value if validation fails
+            return value
         }
     }
 
@@ -114,7 +111,6 @@ export const NullableField: React.FC<NullableFieldProps> = ({
                         onChange={({ value }) => {
                             field.onChange(value || '')
                             if (validationError) {
-                                // Clear error on typing
                                 setValidationError('')
                             }
                         }}

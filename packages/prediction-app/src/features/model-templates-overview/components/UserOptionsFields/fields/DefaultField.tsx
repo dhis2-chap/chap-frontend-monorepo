@@ -6,18 +6,15 @@ import i18n from '@dhis2/d2-i18n'
 import { UserOptionConfig } from '../UserOptionsFields'
 import styles from '../UserOptionsFields.module.css'
 
-// Constants (local to this file)
 const FIELD_TYPES = {
     INTEGER: 'integer',
     NUMBER: 'number'
 } as const
 
-// Helper function to normalize decimal separators
 const normalizeDecimalInput = (value: string): string => {
     return value.replace(',', '.')
 }
 
-// Create Zod schemas for validation
 const createNumberSchema = (type: string) => {
     const baseSchema = z.string()
         .transform((val) => normalizeDecimalInput(val.trim()))
@@ -103,7 +100,6 @@ export const DefaultField: React.FC<DefaultFieldProps> = ({
                         onChange={({ value }) => {
                             field.onChange(value || '')
                             if (validationError) {
-                                // Clear error on typing
                                 setValidationError('')
                             }
                         }}
