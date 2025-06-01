@@ -12,6 +12,12 @@
   flex: 1;
 }
 
+.helpText {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
 .errorText {
   color: red;
   font-size: 0.875rem;
@@ -38,4 +44,4 @@
 .input:focus {
   outline: none;
   border-color: var(--colors-teal400);
-} 
+}  

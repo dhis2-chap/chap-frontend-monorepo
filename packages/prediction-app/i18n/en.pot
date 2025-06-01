@@ -367,6 +367,12 @@ msgstr "Monthly"
 msgid "From period"
 msgstr "From period"
 
+msgid "Select any date - we will use the week containing that date"
+msgstr "Select any date - we will use the week containing that date"
+
+msgid "Select any date - we will use the month containing that date"
+msgstr "Select any date - we will use the month containing that date"
+
 msgid "To period"
 msgstr "To period"
 

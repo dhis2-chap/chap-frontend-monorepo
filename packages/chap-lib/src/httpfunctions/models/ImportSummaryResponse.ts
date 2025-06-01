@@ -4,8 +4,8 @@
 /* eslint-disable */
 import type { ValidationError } from './ValidationError';
 export type ImportSummaryResponse = {
-    id: string;
-    imported_count: number;
+    id: (string | null);
+    importedCount: number;
     rejected: Array<ValidationError>;
 };
 
