@@ -38,13 +38,15 @@ const OrganisationUnitMultiSelect = ({
     const [pendingSelectedOrgUnits, setPendingSelectedOrgUnits] = useState<
         string[] | null
     >(null)
+
     const resolvedSelected =
         pendingSelectedOrgUnits !== null ? pendingSelectedOrgUnits : selected
 
     // Multiselect will crash if selected contains items that are not in available
     // this can happen when loading, thus we add the selected items to the available list
-    const { orgUnits } = useMemo(() => {
+    const { orgUnits, selectedOrgUnitIds } = useMemo(() => {
         const orgUnitsMap = new Map(available.map((o) => [o.id, o]))
+        const selectedSet = new Set(resolvedSelected)
         resolvedSelected.forEach((s) => {
             if (!orgUnitsMap.get(s)) {
                 orgUnitsMap.set(s, {
@@ -54,18 +56,26 @@ const OrganisationUnitMultiSelect = ({
             }
         })
 
+        const orgUnits = Array.from(orgUnitsMap.values())
+        const selectedOrgUnitIds = orgUnits.flatMap((ou) =>
+            selectedSet.has(ou.id) ? [ou.id] : []
+        )
         return {
-            orgUnits: Array.from(orgUnitsMap.values()),
+            orgUnits,
+            // use these IDs for the selected prop, so we use ordering from available
+            selectedOrgUnitIds: selectedOrgUnitIds,
         }
     }, [available, resolvedSelected])
 
     return (
         <MultiSelect
             prefix={i18n.t('Organisation Units')}
-            selected={resolvedSelected}
+            selected={selectedOrgUnitIds}
             disabled={available.length < 1}
             filterable
             filterPlaceholder={i18n.t('Search organisation units')}
+            clearable={true}
+            clearText={i18n.t('Clear all organisation units')}
             onChange={({ selected }, event) => {
                 const isChipDeletion = event.type === 'click'
                 if (isChipDeletion) {
