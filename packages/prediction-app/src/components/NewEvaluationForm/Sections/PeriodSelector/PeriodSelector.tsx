@@ -9,8 +9,9 @@ import i18n from '@dhis2/d2-i18n'
 import { Controller, Control, FieldErrors, useWatch, useFormContext } from 'react-hook-form'
 import { EvaluationFormValues } from '../../hooks/useFormController'
 import styles from './PeriodSelector.module.css'
-import { supportsWeekInput } from '../../../../utils/browserSupport'
+import { supportsWeekInput, supportsMonthInput } from '../../../../utils/browserSupport'
 import { dateToWeekFormat, weekToDateFormat } from '../../../../utils/dateToWeek'
+import { dateToMonthFormat, monthToDateFormat } from '../../../../utils/dateToMonth'
 
 type Props = {
     control: Control<EvaluationFormValues>
@@ -30,7 +31,7 @@ const getInputType = (periodType: keyof typeof PERIOD_TYPES): string => {
         case PERIOD_TYPES.WEEK:
             return supportsWeekInput() ? 'week' : 'date';
         case PERIOD_TYPES.MONTH:
-            return 'month';
+            return supportsMonthInput() ? 'month' : 'date';
         default:
             return 'text';
     }
@@ -100,13 +101,20 @@ export const PeriodSelector = ({ control, errors }: Props) => {
                                         className={styles.input}
                                         type={periodType ? getInputType(periodType) : 'text'}
                                         disabled={!periodType}
-                                        value={periodType === PERIOD_TYPES.WEEK && !supportsWeekInput() && field.value 
-                                            ? weekToDateFormat(field.value) 
-                                            : field.value}
+                                        value={
+                                            periodType === PERIOD_TYPES.WEEK && !supportsWeekInput() && field.value
+                                                ? weekToDateFormat(field.value)
+                                                : periodType === PERIOD_TYPES.MONTH && !supportsMonthInput() && field.value
+                                                    ? monthToDateFormat(field.value)
+                                                    : field.value
+                                        }
                                         onChange={(e) => {
-                                            const value = periodType === PERIOD_TYPES.WEEK && !supportsWeekInput()
-                                                ? dateToWeekFormat(e.target.value)
-                                                : e.target.value;
+                                            let value = e.target.value;
+                                            if (periodType === PERIOD_TYPES.WEEK && !supportsWeekInput()) {
+                                                value = dateToWeekFormat(e.target.value);
+                                            } else if (periodType === PERIOD_TYPES.MONTH && !supportsMonthInput()) {
+                                                value = dateToMonthFormat(e.target.value);
+                                            }
                                             field.onChange(value);
                                         }}
                                         data-test="evaluation-from-date-input"
@@ -117,6 +125,11 @@ export const PeriodSelector = ({ control, errors }: Props) => {
                                 {periodType === PERIOD_TYPES.WEEK && !supportsWeekInput() && (
                                     <p className={styles.helpText}>
                                         {i18n.t('Select any date - we will use the week containing that date')}
+                                    </p>
+                                )}
+                                {periodType === PERIOD_TYPES.MONTH && !supportsMonthInput() && (
+                                    <p className={styles.helpText}>
+                                        {i18n.t('Select any date - we will use the month containing that date')}
                                     </p>
                                 )}
                                 {errors.fromDate && (
@@ -138,13 +151,20 @@ export const PeriodSelector = ({ control, errors }: Props) => {
                                         className={styles.input}
                                         type={periodType ? getInputType(periodType) : 'text'}
                                         disabled={!periodType}
-                                        value={periodType === PERIOD_TYPES.WEEK && !supportsWeekInput() && field.value 
-                                            ? weekToDateFormat(field.value) 
-                                            : field.value}
+                                        value={
+                                            periodType === PERIOD_TYPES.WEEK && !supportsWeekInput() && field.value
+                                                ? weekToDateFormat(field.value)
+                                                : periodType === PERIOD_TYPES.MONTH && !supportsMonthInput() && field.value
+                                                    ? monthToDateFormat(field.value)
+                                                    : field.value
+                                        }
                                         onChange={(e) => {
-                                            const value = periodType === PERIOD_TYPES.WEEK && !supportsWeekInput()
-                                                ? dateToWeekFormat(e.target.value)
-                                                : e.target.value;
+                                            let value = e.target.value;
+                                            if (periodType === PERIOD_TYPES.WEEK && !supportsWeekInput()) {
+                                                value = dateToWeekFormat(e.target.value);
+                                            } else if (periodType === PERIOD_TYPES.MONTH && !supportsMonthInput()) {
+                                                value = dateToMonthFormat(e.target.value);
+                                            }
                                             field.onChange(value);
                                         }}
                                         data-test="evaluation-to-date-input"
@@ -155,6 +175,11 @@ export const PeriodSelector = ({ control, errors }: Props) => {
                                 {periodType === PERIOD_TYPES.WEEK && !supportsWeekInput() && (
                                     <p className={styles.helpText}>
                                         {i18n.t('Select any date - we will use the week containing that date')}
+                                    </p>
+                                )}
+                                {periodType === PERIOD_TYPES.MONTH && !supportsMonthInput() && (
+                                    <p className={styles.helpText}>
+                                        {i18n.t('Select any date - we will use the month containing that date')}
                                     </p>
                                 )}
                                 {errors.toDate && (
