@@ -53,6 +53,7 @@ export const useOrgUnitsById = (orgUnitIds: string[]) => {
                 paging: false,
                 fields: ['id', 'displayName'],
                 filter: `id:in:[${orgUnitIds.join(',')}]`,
+                order: 'displayName:asc'
             },
         },
         enabled: orgUnitIds.length > 0,
