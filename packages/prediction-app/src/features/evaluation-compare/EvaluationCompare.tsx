@@ -66,8 +66,8 @@ export const EvaluationCompare = () => {
                                 (ou) => ou.id === e.orgUnitId
                             )?.displayName ?? e.orgUnitId,
                     }))
-                    .sort((a, b) => a.orgUnitName.localeCompare(b.orgUnitName))
-            )
+                )
+                .sort((a, b) => a.orgUnitName.localeCompare(b.orgUnitName))
         const periods = dataForSplitPeriod[0]?.models[0].data.periods ?? []
         return { dataForSplitPeriod, periods }
     }, [combined.viewData, selectedSplitPeriod, orgUnitsData])
