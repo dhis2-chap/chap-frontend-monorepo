@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, startTransition } from 'react'
 import {
     MultiSelect,
     MultiSelectOption,
@@ -7,7 +7,6 @@ import {
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import css from './OrganisationUnitMultiSelect.module.css'
-
 const DEFAULT_MAX_SELECTED = 10
 
 type DisplayableOrgUnit = {
@@ -57,13 +56,14 @@ const OrganisationUnitMultiSelect = ({
         })
 
         const orgUnits = Array.from(orgUnitsMap.values())
-        const selectedOrgUnitIds = orgUnits.flatMap((ou) =>
-            selectedSet.has(ou.id) ? [ou.id] : []
-        )
+        // use same order for selected as available
+        const selectedOrgUnitIds = orgUnits
+            .filter((ou) => selectedSet.has(ou.id))
+            .map((ou) => ou.id)
+
         return {
             orgUnits,
-            // use these IDs for the selected prop, so we use ordering from available
-            selectedOrgUnitIds: selectedOrgUnitIds,
+            selectedOrgUnitIds,
         }
     }, [available, resolvedSelected])
 
@@ -76,6 +76,7 @@ const OrganisationUnitMultiSelect = ({
             filterPlaceholder={i18n.t('Search organisation units')}
             clearable={true}
             clearText={i18n.t('Clear all organisation units')}
+            noMatchText={i18n.t('No organisation units match your search')}
             onChange={({ selected }, event) => {
                 const isChipDeletion = event.type === 'click'
                 if (isChipDeletion) {
@@ -90,7 +91,11 @@ const OrganisationUnitMultiSelect = ({
                     onSelect({
                         selected: pendingSelectedOrgUnits ?? [],
                     })
-                    setPendingSelectedOrgUnits(null)
+
+                    // reset pending state in a transition to avoid flickering
+                    startTransition(() => {
+                        setPendingSelectedOrgUnits(null)
+                    })
                 }
             }}
             inputMaxHeight="26px"
