@@ -5,3 +5,5 @@ declare module 'file-saver'
 declare module 'jszip'
 declare module 'openapi-typescript-codegen'
 declare module '@dhis2/app-adapter'
+declare module '@dhis2/d2-i18n'
+

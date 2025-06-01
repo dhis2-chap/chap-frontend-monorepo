@@ -1,6 +1,17 @@
 .content {
   display: flex;
   gap: 1rem;
+  width: 80vw;
+}
+
+.filterBar {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0 16px;
+  gap: 16px;
 }
 
 .filterContainer {
@@ -11,8 +22,8 @@
 }
 
 .modelGrid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 16px;
     padding-top: 10px;
     width: 100%;
@@ -20,7 +31,6 @@
 } 
 
 .modelModal {
-    width: 100vw !important;
 } 
 
 .noResults {

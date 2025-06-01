@@ -1,55 +1,137 @@
-.modelCard {
-    border: 2px solid #ddd;
+.modelCardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid #ddd;
     border-radius: 8px;
     padding: 16px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    font-size: 14px;
     background-color: #fff;
 }
 
-.modelCard:hover {
-    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
+.description {
+    height: 50px;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    color: #666;
 }
 
 .selectedModelCard {
-    background-color: #f0f8ff;
+    background-color: #f6fbff;
+}
+
+.modelCard {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    font-size: 12px;
 }
 
 .modelAuthor {
     display: flex;
+    padding: 8px;
     align-items: center;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+    gap: 8px;
     color: #666;
+    /* background-color: #f8f8f8; */
+    border-radius: 4px;
+    border: 1px solid var(--colors-grey400);
+}
+
+.modelAuthorInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .modelAuthorLogo {
-    height: 32px;
-    width: auto;
-    margin-left: 6px;
-    margin-right: 6px;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .modelAuthorName {
     font-weight: bold;
 }
 
-.modelHumanName {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 8px 0;
+.modelOrganizationName {
+    font-size: 12px;
+    color: #666;
 }
 
-.modelCovariatesList {
-    font-size: 0.8rem;
+.modelHumanName {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 8px 0;
+    line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.list {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
     color: #666;
     list-style: none;
     padding: 0;
-    margin-top: 8px;
-    margin-left: 5px;
+    margin: 0;
 }
 
-.modelCovariateItem {
+.listItem {
     margin: 2px 0;
 } 
+
+.subheading {
+    margin: 0;
+    color: var(--colors-grey600);
+    margin-block: 4px;
+}
+
+.assessmentStatus {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    cursor: help;
+}
+
+.statusGray {
+    background-color: #f5f5f5;
+    color: #666;
+    border: 1px solid #d0d0d0;
+}
+
+.statusRed {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+.statusOrange {
+    background-color: #fff3e0;
+    color: #ef6c00;
+    border: 1px solid #ffcc02;
+}
+
+.statusYellow {
+    background-color: #fffde7;
+    color: #f57f17;
+    border: 1px solid #fff176;
+}
+
+.statusGreen {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}

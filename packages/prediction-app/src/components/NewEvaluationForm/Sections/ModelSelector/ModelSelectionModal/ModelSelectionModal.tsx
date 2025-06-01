@@ -6,17 +6,18 @@ import {
     ModalTitle,
     ModalContent,
     ModalActions,
-    Input,
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import {
     useReactTable,
     getCoreRowModel,
     getFilteredRowModel,
+    getSortedRowModel,
     createColumnHelper,
 } from '@tanstack/react-table'
-import { ModelSpecRead } from '@dhis2-chap/chap-lib'
+import { ModelSpecRead, AuthorAssessedStatus } from '@dhis2-chap/chap-lib'
 import { ModelCard } from '../ModelCard'
+import { ModelFilters } from './ModelFilters'
 import styles from './ModelSelectionModal.module.css'
 
 type Props = {
@@ -25,6 +26,14 @@ type Props = {
     onClose: () => void
     onConfirm: (model: ModelSpecRead) => void
 }
+
+const DefaultSortOrder = [
+    AuthorAssessedStatus.GREEN,
+    AuthorAssessedStatus.YELLOW,
+    AuthorAssessedStatus.ORANGE,
+    AuthorAssessedStatus.RED,
+    AuthorAssessedStatus.GRAY,
+];
 
 export const ModelSelectionModal = ({
     models,
@@ -68,6 +77,30 @@ export const ModelSelectionModal = ({
                 enableColumnFilter: true,
                 filterFn: 'includesString',
             }),
+            columnHelper.accessor('authorAssessedStatus', {
+                id: 'authorAssessedStatus',
+                enableColumnFilter: true,
+                filterFn: 'equalsString',
+                sortingFn: (rowA, rowB) => {
+                    const statusA = rowA.original.authorAssessedStatus;
+                    const statusB = rowB.original.authorAssessedStatus;
+
+                    // Handle undefined values (put them at the end)
+                    if (!statusA && !statusB) return 0;
+                    if (!statusA) return 1;
+                    if (!statusB) return -1;
+
+                    const indexA = DefaultSortOrder.indexOf(statusA);
+                    const indexB = DefaultSortOrder.indexOf(statusB);
+
+                    // Handle unknown statuses (put them at the end)
+                    if (indexA === -1 && indexB === -1) return 0;
+                    if (indexA === -1) return 1;
+                    if (indexB === -1) return -1;
+
+                    return indexA - indexB;
+                },
+            }),
         ],
         []
     )
@@ -75,25 +108,27 @@ export const ModelSelectionModal = ({
     const table = useReactTable({
         data: models || [],
         columns,
+        initialState: {
+            pagination: {
+                pageSize: 5,
+            },
+            sorting: [{ id: 'authorAssessedStatus', desc: false }],
+        },
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
+        getSortedRowModel: getSortedRowModel(),
     })
 
     const filteredRows = table.getRowModel().rows
 
     return (
-        <Modal className={styles.modelModal} onClose={handleModalClose}>
+        <Modal fluid className={styles.modelModal} onClose={handleModalClose}>
             <ModalTitle>{i18n.t('Select Model')}</ModalTitle>
             <ModalContent>
+                <div className={styles.filterBar}>
+                    <ModelFilters table={table} />
+                </div>
                 <div className={styles.content}>
-                    <div className={styles.filterContainer}>
-                        <h3>{i18n.t('Filter models')}</h3>
-                        <Input
-                            placeholder={i18n.t('Search by name')}
-                            value={table.getColumn('displayName')?.getFilterValue() as string || ''}
-                            onChange={({ value }) => table.setColumnFilters([{ id: 'displayName', value: value || '' }])}
-                        />
-                    </div>
                     <div className={styles.modelGrid}>
                         {filteredRows.length > 0 ? filteredRows.map((row) => (
                             <ModelCard
@@ -111,7 +146,7 @@ export const ModelSelectionModal = ({
                 </div>
             </ModalContent>
             <ModalActions>
-                <ButtonStrip>
+                <ButtonStrip end>
                     <Button onClick={handleModalClose}>
                         {i18n.t('Cancel')}
                     </Button>
