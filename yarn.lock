@@ -1414,15 +1414,6 @@
   resolved "https://registry.npmjs.org/@csstools/selector-specificity/-/selector-specificity-5.0.0.tgz"
   integrity sha512-PCqQV3c4CoVm3kdPhyeZ07VmBRdH2EpMFA/pd9OASpOEC3aXNGoqPDAZ80D0cLpMBxnmk0+yNhGsEx31hq7Gtw==
 
-"@dhis2-chap/chap-lib@2.1.0", "@dhis2-chap/chap-lib@file:/home/runner/work/chap-frontend-monorepo/chap-frontend-monorepo/packages/chap-lib":
-  version "2.1.0"
-  resolved "file:packages/chap-lib"
-  dependencies:
-    "@dhis2/maps-gl" "^4.0.1"
-    "@dhis2/multi-calendar-dates" "^2.1.1"
-    "@dhis2/ui" "^10.1.10"
-    openapi-typescript-codegen "^0.29.0"
-
 "@dhis2-ui/alert@10.7.1":
   version "10.7.1"
   resolved "https://registry.npmjs.org/@dhis2-ui/alert/-/alert-10.7.1.tgz"
@@ -5566,26 +5557,6 @@ chalk@^4.0.0, chalk@^4.0.2, chalk@^4.1.0, chalk@^4.1.2:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
-
-"chap-eval@file:/home/runner/work/chap-frontend-monorepo/chap-frontend-monorepo/packages/chap-eval":
-  version "2.1.0"
-  resolved "file:packages/chap-eval"
-  dependencies:
-    "@dhis2-chap/chap-lib" "2.1.0"
-    "@tanstack/react-query" "^5.62.2"
-    "@testing-library/jest-dom" "^5.17.0"
-    "@testing-library/react" "^13.4.0"
-    "@testing-library/user-event" "^13.5.0"
-    "@types/jest" "^27.5.2"
-    "@types/node" "^16.18.121"
-    "@types/react" "^18.3.12"
-    "@types/react-dom" "^18.3.1"
-    react "^18.3.1"
-    react-dom "^18.3.1"
-    react-router-dom "^7.0.2"
-    react-scripts "5.0.1"
-    typescript "^5.7.2"
-    web-vitals "^2.1.4"
 
 char-regex@^1.0.2:
   version "1.0.2"
@@ -10809,25 +10780,6 @@ mkdirp@^0.5.1, mkdirp@^0.5.5, mkdirp@~0.5.1:
   integrity sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==
   dependencies:
     minimist "^1.2.6"
-
-"modeling-app@file:/home/runner/work/chap-frontend-monorepo/chap-frontend-monorepo/packages/prediction-app":
-  version "2.1.0"
-  resolved "file:packages/prediction-app"
-  dependencies:
-    "@dhis2-chap/chap-lib" "2.1.0"
-    "@dhis2/analytics" "^26.9.3"
-    "@dhis2/app-runtime" "^3.13.0"
-    "@dhis2/ui" "^10.1.10"
-    "@hookform/resolvers" "^5.0.1"
-    "@tanstack/react-table" "^8.21.3"
-    file-saver "^2.0.5"
-    jszip "^3.10.1"
-    react-dropzone "^14.3.5"
-    react-hook-form "^7.51.5"
-    react-modern-drawer "^1.4.0"
-    react-range "^1.10.0"
-    react-router-dom "^7.0.2"
-    zod "^3.23.8"
 
 moment@^2.24.0, moment@^2.29.1:
   version "2.30.1"
