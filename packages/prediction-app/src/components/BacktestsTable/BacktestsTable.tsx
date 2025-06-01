@@ -11,6 +11,8 @@ import {
     IconAdd16,
     DataTableFoot,
     Pagination,
+    Tooltip,
+    IconInfo16,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import {
@@ -69,6 +71,22 @@ const columns = [
             const models = (info.table.options.meta as { models: ModelSpecRead[] })?.models;
             const model = models?.find((model: ModelSpecRead) => model.name === modelId);
             return model?.displayName || modelId;
+        }
+    }),
+    columnHelper.accessor('aggregateMetrics.crps_norm_mean', {
+        header: () => (
+            <div className={styles.headerWithTooltip}>
+                <span>{i18n.t('CRPS (Norm)')}</span>
+                <Tooltip content={i18n.t('Normalized CRPS (Continuous Ranked Probability Score) shows how close a model\'s predicted range of outcomes is to the actual result on a 0 - 1 scale. Lower values indicate better probabilistic accuracy')}>
+                    <div className={styles.iconContainer}>
+                        <IconInfo16 />
+                    </div>
+                </Tooltip>
+            </div>
+        ),
+        cell: (info) => {
+            const crps = info.getValue();
+            return crps ? crps.toFixed(2) : undefined;
         }
     }),
     columnHelper.display({
