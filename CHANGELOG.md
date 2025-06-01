@@ -1,3 +1,17 @@
+## [2.1.1](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v2.1.0...v2.1.1) (2025-06-01)
+
+
+### Bug Fixes
+
+* improve number validation and error handling [skip release] ([#67](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/67)) ([264d5bf](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/264d5bf27e42bc7ee575ca7964e89abae8778707))
+* **chart:** use line series-type for actual cases ([#70](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/70)) ([1301b63](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/1301b63c3a29d409256a8e8a0297b746789dba7f))
+* **orgunits:** sorted units and clear all button [skip release] ([#69](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/69)) ([8cbfd62](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/8cbfd624ff36945e3f7c11e25143b3789d03abfe))
+
+
+### Features
+
+* add status indicator to evaluation table [skip release] ([#61](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/61)) ([6485f84](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/6485f846b02f25826208eeda4aa3936870936063))
+
 # [2.1.0](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v2.0.0...v2.1.0) (2025-06-01)
 
 
