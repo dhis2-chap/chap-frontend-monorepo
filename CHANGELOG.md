@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v2.1.1...v2.2.0) (2025-06-01)
+
+
+### Features
+
+* improve model selection UI ([#66](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/66)) ([1e7a69c](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/1e7a69c7877a63101c8363629cf4444bde2b1a11))
+
 ## [2.1.1](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v2.1.0...v2.1.1) (2025-06-01)
 
 
