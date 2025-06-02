@@ -12,7 +12,8 @@ import {
   isAfter,
   isSameMonth,
   isSameYear,
-  isValid
+  isValid,
+  getISOWeekYear
 } from 'date-fns';
 
 export const toDHIS2PeriodData = (start: string, end: string, periodType: string): Period[] => {
@@ -29,14 +30,12 @@ const getWeeks = (start: string, end: string): Period[] => {
     const startDate = parse(start, 'RRRR-\'W\'II', new Date());
     const endDate = parse(end, 'RRRR-\'W\'II', new Date());
 
-    // Check if parsed dates are valid
     if (!isValid(startDate) || !isValid(endDate)) {
       console.error('Invalid date format provided for weeks:', { start, end });
       return [];
     }
 
-    // Safety check for unreasonable date ranges
-    const yearDifference = endDate.getFullYear() - startDate.getFullYear();
+    const yearDifference = getISOWeekYear(endDate) - getISOWeekYear(startDate);
     if (yearDifference > 100) {
       return [];
     }
@@ -46,9 +45,9 @@ const getWeeks = (start: string, end: string): Period[] => {
     const endWeekStart = startOfISOWeek(endDate);
 
     while (!isAfter(currentDate, endWeekStart)) {
-      const year = currentDate.getFullYear();
+      const isoYear = getISOWeekYear(currentDate);
       const weekNumber = getISOWeek(currentDate);
-      const weekString = `${year}W${String(weekNumber).padStart(2, '0')}`;
+      const weekString = `${isoYear}W${String(weekNumber).padStart(2, '0')}`;
 
       const weekStart = startOfISOWeek(currentDate);
       const weekEnd = endOfISOWeek(currentDate);
