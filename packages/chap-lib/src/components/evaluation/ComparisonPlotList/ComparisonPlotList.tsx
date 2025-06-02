@@ -8,7 +8,10 @@ interface ComparisonPlotListProps {
     useVirtuoso?: boolean
     useVirtuosoWindowScroll?: boolean
     virtuosoProps?: VirtuosoProps<any, any>
+<<<<<<< HEAD
     nameLabel?: string
+=======
+>>>>>>> 83c4d01 (fix(chart): optimize comparison by enabling virtuoso correctly)
 }
 
 export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
