@@ -149,7 +149,7 @@ export const EvaluationCompare = () => {
                     {error.message}
                 </NoticeBox>
             )}
-            {splitPeriods.length > 0 && (
+            {splitPeriods.length > 0 && periods.length > 0 && (
                 <div className={css.footerSlider}>
                     <SplitPeriodSlider
                         splitPeriods={splitPeriods}
