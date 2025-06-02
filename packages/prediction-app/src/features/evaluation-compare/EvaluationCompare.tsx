@@ -122,7 +122,7 @@ export const EvaluationCompare = () => {
                             setSelectedOrgUnits(selected)
                         }
                         available={orgUnits ?? []}
-                        inputMaxHeight="26px"
+                        inputMaxHeight="52px"
                         maxSelections={MAX_SELECTED_ORG_UNITS}
                     />
                 </div>

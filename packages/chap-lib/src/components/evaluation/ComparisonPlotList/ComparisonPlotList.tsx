@@ -16,31 +16,6 @@ export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
     useVirtuosoWindowScroll = false,
     virtuosoProps,
 }) => {
-    function getItemContent() {
-        const ItemContent = (index: number) => {
-            const orgUnitsData: EvaluationPerOrgUnit =
-                evaluationPerOrgUnits[index]
-
-            if (!orgUnitsData) {
-                return null
-            }
-            // used by Virtuoso to re-render items when data changes
-            const plotKey = `${orgUnitsData.orgUnitId}-${orgUnitsData.models
-                .map((m) => m.modelName)
-                .sort()
-                .join('-')}`
-            return (
-                <div
-                    key={plotKey}
-                >
-                    <ComparisonPlot orgUnitsData={orgUnitsData} />
-                </div>
-            )
-        }
-        ItemContent.displayName = 'ItemContent'
-        return ItemContent
-    }
-
     if (!useVirtuoso) {
         return (
             <>
@@ -61,14 +36,16 @@ export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
     }
 
     return (
-        <div>
             <Virtuoso
                 {...virtuosoProps}
                 style={{ height: '100%' }}
                 useWindowScroll={useVirtuosoWindowScroll}
                 totalCount={evaluationPerOrgUnits.length}
-                itemContent={getItemContent()}
+                itemContent={(index) => (
+                    <ComparisonPlot
+                        orgUnitsData={evaluationPerOrgUnits[index]}
+                    />
+                )}
             />
-        </div>
     )
 }
