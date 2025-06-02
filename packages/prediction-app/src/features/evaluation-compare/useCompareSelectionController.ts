@@ -5,6 +5,7 @@ import {
     useSelectedSplitPeriod,
 } from './useSearchParamSelections'
 import { useEvaluationOverlap } from '../../hooks/useEvaluationOverlap'
+import { useOrgUnitsById } from '../../hooks/useOrgUnitsById'
 
 export const useCompareSelectionController = ({
     maxSelectedOrgUnits = 10,
@@ -52,8 +53,13 @@ export const useCompareSelectionController = ({
         }
     }, [evaluationOverlap.data, baseEvaluation?.orgUnits])
 
+    const { data: orgUnitsData }  =
+        useOrgUnitsById(availableOrgUnitIds)
+
     const [selectedOrgUnits, setSelectedOrgUnits] = useSelectedOrgUnits({
-        initialValue: availableOrgUnitIds.sort().slice(0, maxSelectedOrgUnits),
+        initialValue: orgUnitsData?.organisationUnits
+            .map((ou) => ou.id)
+            .slice(0, maxSelectedOrgUnits),
     })
 
     const compatibleSelectedOrgUnits = useMemo(
@@ -84,6 +90,7 @@ export const useCompareSelectionController = ({
         selectedOrgUnits: compatibleSelectedOrgUnits,
         availableOrgUnitIds,
         evaluations,
+        orgUnits: orgUnitsData?.organisationUnits ,
         splitPeriods: resolvedSplitPeriods,
         hasNoMatchingSplitPeriods,
         setBaseEvaluation,

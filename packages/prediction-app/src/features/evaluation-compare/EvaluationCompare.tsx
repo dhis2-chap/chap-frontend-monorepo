@@ -32,9 +32,9 @@ export const EvaluationCompare = () => {
         baseEvaluation,
         comparisonEvaluation,
         evaluations,
+        orgUnits,
         selectedOrgUnits,
         selectedSplitPeriod,
-        availableOrgUnitIds,
         splitPeriods,
         hasNoMatchingSplitPeriods,
         setSelectedOrgUnits,
@@ -52,25 +52,22 @@ export const EvaluationCompare = () => {
     } = usePlotDataForEvaluations(selectedEvaluations, {
         orgUnits: selectedOrgUnits,
     })
-    const { data: orgUnitsData } = useOrgUnitsById(availableOrgUnitIds)
 
     const { dataForSplitPeriod, periods } = useMemo(() => {
         const dataForSplitPeriod = combined.viewData
             .filter((v) => v.splitPoint === selectedSplitPeriod)
             .flatMap((v) =>
-                v.evaluation
-                    .map((e) => ({
-                        ...e,
-                        orgUnitName:
-                            orgUnitsData?.organisationUnits?.find(
-                                (ou) => ou.id === e.orgUnitId
-                            )?.displayName ?? e.orgUnitId,
-                    }))
-                )
-                .sort((a, b) => a.orgUnitName.localeCompare(b.orgUnitName))
+                v.evaluation.map((e) => ({
+                    ...e,
+                    orgUnitName:
+                        orgUnits?.find((ou) => ou.id === e.orgUnitId)
+                            ?.displayName ?? e.orgUnitId,
+                }))
+            )
+            .sort((a, b) => a.orgUnitName.localeCompare(b.orgUnitName))
         const periods = dataForSplitPeriod[0]?.models[0].data.periods ?? []
         return { dataForSplitPeriod, periods }
-    }, [combined.viewData, selectedSplitPeriod, orgUnitsData])
+    }, [combined.viewData, selectedSplitPeriod, orgUnits])
 
     return (
         <div className={css.wrapper}>
@@ -114,11 +111,11 @@ export const EvaluationCompare = () => {
                     <OrganisationUnitMultiSelect
                         prefix={i18n.t('Organisation Units')}
                         selected={selectedOrgUnits}
-                        disabled={!orgUnitsData}
+                        disabled={!orgUnits}
                         onSelect={({ selected }) =>
                             setSelectedOrgUnits(selected)
                         }
-                        available={orgUnitsData?.organisationUnits ?? []}
+                        available={orgUnits ?? []}
                         inputMaxHeight="26px"
                         maxSelections={MAX_SELECTED_ORG_UNITS}
                     />

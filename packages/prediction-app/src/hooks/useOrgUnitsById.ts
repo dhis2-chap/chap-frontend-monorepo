@@ -34,6 +34,9 @@ export const useOrgUnitsById = (orgUnitIds: string[]) => {
             )
             .filter((ou) => idsSet.has(ou.id))
 
+        if (cachedOrgUnits.length === 0) {
+            return undefined
+        }
         // remove duplicates
         const cachedMap = new Map(cachedOrgUnits.map((ou) => [ou.id, ou]))
 
@@ -53,7 +56,7 @@ export const useOrgUnitsById = (orgUnitIds: string[]) => {
                 paging: false,
                 fields: ['id', 'displayName'],
                 filter: `id:in:[${orgUnitIds.join(',')}]`,
-                order: 'displayName:asc'
+                order: 'displayName:asc',
             },
         },
         enabled: orgUnitIds.length > 0,
