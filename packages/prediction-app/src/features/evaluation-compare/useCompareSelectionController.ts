@@ -53,7 +53,7 @@ export const useCompareSelectionController = ({
     }, [evaluationOverlap.data, baseEvaluation?.orgUnits])
 
     const [selectedOrgUnits, setSelectedOrgUnits] = useSelectedOrgUnits({
-        initialValue: availableOrgUnitIds.slice(0, maxSelectedOrgUnits),
+        initialValue: availableOrgUnitIds.sort().slice(0, maxSelectedOrgUnits),
     })
 
     const compatibleSelectedOrgUnits = useMemo(
