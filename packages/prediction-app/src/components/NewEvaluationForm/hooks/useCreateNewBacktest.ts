@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import i18n from '@dhis2/d2-i18n';
 import { EvaluationFormValues } from "./useFormController"
 import {
     AnalyticsService,
@@ -78,6 +79,16 @@ const ORG_UNITS_QUERY = (orgUnitIds: string[]) => ({
     },
 })
 
+// This is a workaround to get the correct type for the rejected field - the openapi spec is incorrect
+type ImportSummaryCorrected = Omit<ImportSummaryResponse, 'rejected'> & {
+    rejected: {
+        featureName: string,
+        orgUnit: string,
+        reason: string,
+        period: string[]
+    }[]
+}
+
 type Props = {
     onSuccess?: () => void
     onError?: (error: ApiError) => void
@@ -93,9 +104,10 @@ export const useCreateNewBacktest = ({
 
     const {
         mutate: createNewBacktest,
+        data: importSummary,
         isLoading,
         error,
-    } = useMutation<ImportSummaryResponse, ApiError, EvaluationFormValues>({
+    } = useMutation<ImportSummaryCorrected, ApiError, EvaluationFormValues>({
         mutationFn: async (formData: EvaluationFormValues) => {
             const model = queryClient.getQueryData<ModelSpecRead[]>(['models'])
                 ?.find(model => model.id === Number(formData.modelId))
@@ -159,7 +171,16 @@ export const useCreateNewBacktest = ({
             const validation = validateClimateData(observations, formData, periods, orgUnitIds)
 
             if (!validation.isValid) {
-                throw new Error(`Missing covariate data detected:\n${validation.missingData.map(item => `${item.covariate} in ${item.orgUnit} for period ${item.period}`).join('\n')}`)
+                return {
+                    id: null,
+                    importedCount: 0,
+                    rejected: validation.missingData.map(item => ({
+                        featureName: item.covariate,
+                        orgUnit: item.orgUnit,
+                        reason: i18n.t('Missing data for covariate'),
+                        period: [item.period]
+                    }))
+                }
             }
 
             const filteredGeoJson: FeatureCollectionModel = {
@@ -189,12 +210,18 @@ export const useCreateNewBacktest = ({
                 stride: STRIDE,
             }
 
-            return AnalyticsService.createBacktestWithDataAnalyticsCreateBacktestWithDataPost(backtestRequest)
+            return AnalyticsService.createBacktestWithDataAnalyticsCreateBacktestWithDataPost(backtestRequest, true) as unknown as Promise<ImportSummaryCorrected>
         },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['jobs'] })
-            onSuccess?.()
-            navigate('/jobs');
+        onSuccess: (data: ImportSummaryCorrected) => {
+            // The data will not return an id if the backtest is rejected or it is a dry run
+            console.log('onSuccess', data)
+            debugger;
+
+            if (data.rejected.length === 0 && data.id) {
+                queryClient.invalidateQueries({ queryKey: ['jobs'] })
+                onSuccess?.()
+                navigate('/jobs');
+            }
         },
         onError: (error: ApiError) => {
             onError?.(error)
@@ -204,6 +231,7 @@ export const useCreateNewBacktest = ({
     return {
         createNewBacktest,
         isSubmitting: isLoading,
+        importSummary,
         error,
     }
 }

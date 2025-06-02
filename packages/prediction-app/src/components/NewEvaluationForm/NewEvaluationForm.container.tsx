@@ -5,7 +5,7 @@ import { NewEvaluationFormComponent } from './NewEvaluationForm.component'
 import { Card } from '@dhis2-chap/chap-lib'
 import { useFormController } from './hooks/useFormController'
 import styles from './NewEvaluationForm.module.css'
-import { Button, ButtonStrip, IconArrowLeft16, IconArrowRightMulti16, NoticeBox } from '@dhis2/ui'
+import { Button, ButtonStrip, DataTable, DataTableBody, DataTableCell, DataTableColumnHeader, DataTableHead, DataTableRow, IconArrowLeft16, IconArrowRightMulti16, NoticeBox, Table, TableHead } from '@dhis2/ui'
 import { useNavigate } from 'react-router-dom'
 import { useNavigationBlocker } from '../../hooks/useNavigationBlocker'
 import { NavigationConfirmModal } from '../NavigationConfirmModal'
@@ -19,6 +19,7 @@ export const NewEvaluationForm = () => {
         handleStartJob,
         isSubmitting,
         error,
+        importSummary,
     } = useFormController()
 
     const {
@@ -53,7 +54,7 @@ export const NewEvaluationForm = () => {
                             onUpdateOrgUnits={onUpdateOrgUnits}
                         />
 
-                        {!!error && (
+                        {!!error && !importSummary && (
                             <NoticeBox
                                 error
                                 title={i18n.t('Error starting evaluation job')}
@@ -61,6 +62,45 @@ export const NewEvaluationForm = () => {
                             >
                                 {error.message}
                             </NoticeBox>
+                        )}
+
+                        {importSummary && (
+                            <div>
+                                <DataTable>
+                                    <DataTableHead>
+                                        <DataTableColumnHeader>
+                                            {i18n.t('Feature')}
+                                        </DataTableColumnHeader>
+                                        <DataTableColumnHeader>
+                                            {i18n.t('Org unit')}
+                                        </DataTableColumnHeader>
+                                        <DataTableColumnHeader>
+                                            {i18n.t('Period')}
+                                        </DataTableColumnHeader>
+                                        <DataTableColumnHeader>
+                                            {i18n.t('Reason')}
+                                        </DataTableColumnHeader>
+                                    </DataTableHead>
+                                    <DataTableBody>
+                                        {importSummary.rejected.map((rejected) => (
+                                            <DataTableRow key={rejected.featureName}>
+                                                <DataTableCell>
+                                                    {rejected.featureName}
+                                                </DataTableCell>
+                                                <DataTableCell>
+                                                    {rejected.orgUnit}
+                                                </DataTableCell>
+                                                <DataTableCell>
+                                                    {rejected.period.join(', ')}
+                                                </DataTableCell>
+                                                <DataTableCell>
+                                                    {rejected.reason}
+                                                </DataTableCell>
+                                            </DataTableRow>
+                                        ))}
+                                    </DataTableBody>
+                                </DataTable>
+                            </div>
                         )}
 
                         <div className={styles.buttons}>
@@ -77,7 +117,6 @@ export const NewEvaluationForm = () => {
                         </div>
                     </Card>
                 </div>
-
             </FormProvider>
 
             {showConfirmModal && (
