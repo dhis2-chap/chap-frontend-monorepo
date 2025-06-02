@@ -13,6 +13,7 @@ import { useDataEngine } from "@dhis2/app-runtime"
 import { PERIOD_TYPES } from "../Sections/PeriodSelector"
 import { toDHIS2PeriodData } from "../../../features/timeperiod-selector/utils/timePeriodUtils"
 import { useNavigate } from "react-router-dom"
+import { validateClimateData } from "../utils/validateClimateData"
 
 const N_SPLITS = 10
 const STRIDE = 1
@@ -154,6 +155,12 @@ export const useCreateNewBacktest = ({
             }
 
             const observations = convertDhis2AnalyticsToChap(analyticsResponse.response.rows)
+
+            const validation = validateClimateData(observations, formData, periods, orgUnitIds)
+
+            if (!validation.isValid) {
+                throw new Error(`Missing covariate data detected:\n${validation.missingData.map(item => `${item.covariate} in ${item.orgUnit} for period ${item.period}`).join('\n')}`)
+            }
 
             const filteredGeoJson: FeatureCollectionModel = {
                 type: 'FeatureCollection',
