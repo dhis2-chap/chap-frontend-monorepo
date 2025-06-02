@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-01T22:45:30.958Z\n"
-"PO-Revision-Date: 2025-06-01T22:45:30.959Z\n"
+"POT-Creation-Date: 2025-06-02T18:52:10.056Z\n"
+"PO-Revision-Date: 2025-06-02T18:52:10.056Z\n"
 
 msgid "View"
 msgstr "View"
@@ -501,15 +501,6 @@ msgstr "No organisation units match your search"
 msgid "You cannot select more than {{max}} organisation units at a time"
 msgstr "You cannot select more than {{max}} organisation units at a time"
 
-msgid "Get started with the Modeling app"
-msgstr "Get started with the Modeling app"
-
-msgid "To get started, create a route that points to a running CHAP server."
-msgstr "To get started, create a route that points to a running CHAP server."
-
-msgid "Route and servers are configured on the settings page."
-msgstr "Route and servers are configured on the settings page."
-
 msgid "Evaluate"
 msgstr "Evaluate"
 
@@ -996,6 +987,15 @@ msgid ""
 msgstr ""
 "Evaluates the accuracy of a predictive model using historical data. "
 "Compares actual outcomes with predicted values to assess model performance."
+
+msgid "Get started with the Modeling app"
+msgstr "Get started with the Modeling app"
+
+msgid "To get started, create a route that points to a running CHAP server."
+msgstr "To get started, create a route that points to a running CHAP server."
+
+msgid "Route and servers are configured on the settings page."
+msgstr "Route and servers are configured on the settings page."
 
 msgid "Error loading jobs"
 msgstr "Error loading jobs"
