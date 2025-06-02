@@ -4,14 +4,10 @@ import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import styles from './Sidebar.module.css'
-import {
-    Sidenav, SidenavItems,
-    SidenavLink,
-    SidenavParent
-} from './sidenav'
+import { Sidenav, SidenavItems, SidenavLink, SidenavParent } from './sidenav'
 
 type LinkItem = {
-    to: string,
+    to: string
     label: string
 }
 interface SidebarNavLinkProps {
@@ -63,7 +59,6 @@ const SidebarParent = ({
     )
 }
 
-
 export const Sidebar = ({
     className,
     hideSidebar,
@@ -71,11 +66,16 @@ export const Sidebar = ({
     className?: string
     hideSidebar?: boolean
 }) => {
+    const collapsedExternally = React.useRef<boolean>(false)
     const [collapsed, setCollapsed] = useState(false)
 
     useEffect(() => {
-        if (hideSidebar !== undefined) {
-            setCollapsed(hideSidebar)
+        // only react if explicitly defined
+        // however, do react if it has been changed externally
+        // eg. so that it reopen when navigating away from a collapsed route
+        if (hideSidebar !== undefined || collapsedExternally.current) {
+            setCollapsed(!!hideSidebar)
+            collapsedExternally.current = !!hideSidebar
         }
     }, [hideSidebar])
 
@@ -121,6 +121,5 @@ export const Sidebar = ({
         </aside>
     )
 }
-
 
 export default Sidebar
