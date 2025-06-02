@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v2.2.0...v2.2.1) (2025-06-02)
+
+
+### Bug Fixes
+
+* use ISO week for year calculation ([#74](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/74)) ([7fd2f9c](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/7fd2f9ca433415a67a8033e3ab77e6e30655cf07))
+
 # [2.2.0](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v2.1.1...v2.2.0) (2025-06-01)
 
 
