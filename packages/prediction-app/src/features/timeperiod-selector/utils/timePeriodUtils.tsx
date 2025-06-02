@@ -35,7 +35,7 @@ const getWeeks = (start: string, end: string): Period[] => {
       return [];
     }
 
-    const yearDifference = endDate.getFullYear() - startDate.getFullYear();
+    const yearDifference = getISOWeekYear(endDate) - getISOWeekYear(startDate);
     if (yearDifference > 100) {
       return [];
     }
