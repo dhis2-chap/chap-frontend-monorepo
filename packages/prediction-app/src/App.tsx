@@ -28,6 +28,8 @@ import { EvaluationComparePage } from './pages/EvaluationCompare'
 
 export type RouteHandle = {
     fullWidth?: boolean
+    /* whether to automatically collapse the sidebar when route is active*/
+    collapseSidebar?: boolean
 }
 
 const router = createHashRouter([
@@ -70,6 +72,9 @@ const router = createHashRouter([
                             {
                                 path: 'new',
                                 element: <NewEvaluationPage />,
+                                handle: {
+                                    collapseSidebar: true,
+                                } satisfies RouteHandle,
                             },
                         ],
                     },
