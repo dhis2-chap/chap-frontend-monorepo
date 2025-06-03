@@ -1,4 +1,3 @@
-import { enableQueue } from './httpfunctions/core/request';
 export { UncertaintyAreaChart } from './components/predictions/UncertaintyAreaChart/UncertaintyAreaChart'
 export * from './httpfunctions/index'
 export {
