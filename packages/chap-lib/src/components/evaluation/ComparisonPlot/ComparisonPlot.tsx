@@ -7,9 +7,9 @@ interface SideBySidePlotsProps {
     orgUnitsData: EvaluationPerOrgUnit
 }
 
-export const ComparisonPlot: React.FC<SideBySidePlotsProps> = ({
+export const ComparisonPlot = React.memo(function ComparisonPlot({
     orgUnitsData,
-}) => {
+}: SideBySidePlotsProps) {
     return (
         <div className={styles.comparionBox}>
             <div className={styles.title}>{orgUnitsData.orgUnitName}</div>
@@ -31,4 +31,4 @@ export const ComparisonPlot: React.FC<SideBySidePlotsProps> = ({
             </div>
         </div>
     )
-}
+})

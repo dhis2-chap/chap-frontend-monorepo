@@ -5,6 +5,7 @@ import css from './Layout.module.css'
 import { RouteHandle } from '../../App'
 import cx from 'classnames'
 
+export const ID_MAIN_LAYOUT = 'main-layout'
 interface BaseLayoutProps {
     children: React.ReactNode
     sidebar?: React.ReactNode
@@ -14,7 +15,7 @@ export const BaseLayout = ({ children, sidebar }: BaseLayoutProps) => {
     return (
         <div className={css.wrapper}>
             {sidebar}
-            <div className={css.main}>{children}</div>
+            <div id={ID_MAIN_LAYOUT} className={css.main}>{children}</div>
         </div>
     )
 }

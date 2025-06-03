@@ -1,38 +1,21 @@
 import React from 'react'
 import { EvaluationPerOrgUnit } from '../../../interfaces/Evaluation'
 import { ComparisonPlot } from '../ComparisonPlot/ComparisonPlot'
-import { Virtuoso } from 'react-virtuoso'
+import { Virtuoso, VirtuosoProps } from 'react-virtuoso'
 
 interface ComparisonPlotListProps {
     evaluationPerOrgUnits: EvaluationPerOrgUnit[]
     useVirtuoso?: boolean
     useVirtuosoWindowScroll?: boolean
+    virtuosoProps?: VirtuosoProps<any, any>
 }
 
 export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
     evaluationPerOrgUnits,
     useVirtuoso = true,
     useVirtuosoWindowScroll = false,
+    virtuosoProps,
 }) => {
-    function getItemContent() {
-        const ItemContent = (index: number) => {
-            const orgUnitsData: EvaluationPerOrgUnit =
-                evaluationPerOrgUnits[index]
-
-            if (!orgUnitsData) {
-                return null
-            }
-
-            return (
-                <div key={orgUnitsData.orgUnitId}>
-                    <ComparisonPlot orgUnitsData={orgUnitsData} />
-                </div>
-            )
-        }
-        ItemContent.displayName = 'ItemContent'
-        return ItemContent
-    }
-
     if (!useVirtuoso) {
         return (
             <>
@@ -53,13 +36,16 @@ export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
     }
 
     return (
-        <div>
             <Virtuoso
-                style={{ height: '60vh' }}
+                {...virtuosoProps}
+                style={{ height: '100%' }}
                 useWindowScroll={useVirtuosoWindowScroll}
                 totalCount={evaluationPerOrgUnits.length}
-                itemContent={getItemContent()}
+                itemContent={(index) => (
+                    <ComparisonPlot
+                        orgUnitsData={evaluationPerOrgUnits[index]}
+                    />
+                )}
             />
-        </div>
     )
 }

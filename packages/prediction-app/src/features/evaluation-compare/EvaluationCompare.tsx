@@ -3,7 +3,7 @@ import {
     EvaluationCompatibleSelector,
     EvaluationSelectorBase,
 } from '../select-evaluation'
-import React, { useMemo } from 'react'
+import React, { useMemo, useRef } from 'react'
 import css from './EvaluationCompare.module.css'
 import {
     Button,
@@ -19,22 +19,28 @@ import { usePlotDataForEvaluations } from '../../hooks/usePlotDataForEvaluations
 import { PageHeader } from '../common-features/PageHeader/PageHeader'
 import OrganisationUnitMultiSelect from '../../components/OrganisationUnitsSelect/OrganisationUnitMultiSelect'
 import { useCompareSelectionController } from './useCompareSelectionController'
-import { useOrgUnitsById } from '../../hooks/useOrgUnitsById'
 import { SplitPeriodSlider } from './SplitPeriodSlider'
 import { useNavigate } from 'react-router-dom'
+import { ID_MAIN_LAYOUT } from '../../components/layout/Layout'
 
 const MAX_SELECTED_ORG_UNITS = 10
 
 export const EvaluationCompare = () => {
     const navigate = useNavigate()
+    // reference to the scrollable container
+    // used by virtuoso in ComparisonPlotList
+    const scrollerRef = useRef<HTMLDivElement>(
+        document.getElementById(ID_MAIN_LAYOUT) as HTMLDivElement
+    )
+
     const {
         selectedEvaluations,
         baseEvaluation,
         comparisonEvaluation,
         evaluations,
+        orgUnits,
         selectedOrgUnits,
         selectedSplitPeriod,
-        availableOrgUnitIds,
         splitPeriods,
         hasNoMatchingSplitPeriods,
         setSelectedOrgUnits,
@@ -52,25 +58,22 @@ export const EvaluationCompare = () => {
     } = usePlotDataForEvaluations(selectedEvaluations, {
         orgUnits: selectedOrgUnits,
     })
-    const { data: orgUnitsData } = useOrgUnitsById(availableOrgUnitIds)
 
     const { dataForSplitPeriod, periods } = useMemo(() => {
         const dataForSplitPeriod = combined.viewData
             .filter((v) => v.splitPoint === selectedSplitPeriod)
             .flatMap((v) =>
-                v.evaluation
-                    .map((e) => ({
-                        ...e,
-                        orgUnitName:
-                            orgUnitsData?.organisationUnits?.find(
-                                (ou) => ou.id === e.orgUnitId
-                            )?.displayName ?? e.orgUnitId,
-                    }))
-                )
-                .sort((a, b) => a.orgUnitName.localeCompare(b.orgUnitName))
+                v.evaluation.map((e) => ({
+                    ...e,
+                    orgUnitName:
+                        orgUnits?.find((ou) => ou.id === e.orgUnitId)
+                            ?.displayName ?? e.orgUnitId,
+                }))
+            )
+            .sort((a, b) => a.orgUnitName.localeCompare(b.orgUnitName))
         const periods = dataForSplitPeriod[0]?.models[0].data.periods ?? []
         return { dataForSplitPeriod, periods }
-    }, [combined.viewData, selectedSplitPeriod, orgUnitsData])
+    }, [combined.viewData, selectedSplitPeriod, orgUnits])
 
     return (
         <div className={css.wrapper}>
@@ -114,12 +117,12 @@ export const EvaluationCompare = () => {
                     <OrganisationUnitMultiSelect
                         prefix={i18n.t('Organisation Units')}
                         selected={selectedOrgUnits}
-                        disabled={!orgUnitsData}
+                        disabled={!orgUnits}
                         onSelect={({ selected }) =>
                             setSelectedOrgUnits(selected)
                         }
-                        available={orgUnitsData?.organisationUnits ?? []}
-                        inputMaxHeight="26px"
+                        available={orgUnits ?? []}
+                        inputMaxHeight="52px"
                         maxSelections={MAX_SELECTED_ORG_UNITS}
                     />
                 </div>
@@ -146,7 +149,7 @@ export const EvaluationCompare = () => {
                     {error.message}
                 </NoticeBox>
             )}
-            {splitPeriods.length > 0 && (
+            {splitPeriods.length > 0 && periods.length > 0 && (
                 <div className={css.footerSlider}>
                     <SplitPeriodSlider
                         splitPeriods={splitPeriods}
@@ -159,7 +162,10 @@ export const EvaluationCompare = () => {
             <div>
                 {combined.viewData.length > 0 && (
                     <ComparisonPlotList
-                        useVirtuoso={false}
+                        virtuosoProps={{
+                            customScrollParent: scrollerRef.current,
+                        }}
+                        useVirtuoso={true}
                         evaluationPerOrgUnits={dataForSplitPeriod}
                     />
                 )}

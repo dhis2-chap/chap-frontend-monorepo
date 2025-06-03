@@ -13,6 +13,7 @@
 }
 
 .loaderWrapper {
+    z-index: 1;
     position: relative;
     align-self: center;
     /* counteract gap in selectionToolbar */
