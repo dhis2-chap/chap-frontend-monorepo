@@ -72,12 +72,13 @@ const WarnAboutIncompatibleVersion = () => {
                                 <p className={style.resultDescription}>
                                     <i>
                                         {i18n.t(
-                                            'The Chap Core version {{chapVersion}} is too old. The Modeling App specifies minimum Chap core version: {{chapMinVersion}}',
+                                            'The Chap Core version {{chapVersion}} is too old. The Modeling App specifies minimum Chap core version{{escape}} {{chapMinVersion}}',
                                             {
                                                 chapVersion:
                                                     status?.chap_core_version,
                                                 chapMinVersion:
                                                     chapConfig.minChapVersion,
+                                                escape: ':'
                                             }
                                         )}
                                     </i>

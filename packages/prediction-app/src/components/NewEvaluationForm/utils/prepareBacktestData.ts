@@ -86,8 +86,9 @@ export const prepareBacktestData = async (
 
     if (orgUnitsWithoutGeometry.length > 0) {
         throw new Error(
-            i18n.t('The following org units have no geometry: {{orgUnitsWithoutGeometry}}', {
-                orgUnitsWithoutGeometry: orgUnitsWithoutGeometry.map(ou => ou.displayName).join(', ')
+            i18n.t('The following org units have no geometry{{escape}} {{orgUnitsWithoutGeometry}}', {
+                orgUnitsWithoutGeometry: orgUnitsWithoutGeometry.map(ou => ou.displayName).join(', '),
+                escape: ':'
             })
         )
     }
@@ -98,7 +99,10 @@ export const prepareBacktestData = async (
             const dataLayer = formData.targetMapping.dataItemId === dataItemId ? formData.targetMapping : formData.covariateMappings.find(mapping => mapping.dataItemId === dataItemId)
 
             if (!dataLayer) {
-                throw new Error(i18n.t('Data layer not found for data item id: {{dataItemId}}', { dataItemId }))
+                throw new Error(i18n.t('Data layer not found for data item id{{escape}} {{dataItemId}}', {
+                    dataItemId,
+                    escape: ':'
+                }))
             }
 
             return {
