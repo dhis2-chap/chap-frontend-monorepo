@@ -22,9 +22,11 @@ export const SetChapUrl = ({ children }: { children: React.ReactNode }) => {
                     // Route API has issues with 503 errors
                     // retry and enable queueing
                     if (error instanceof ApiError && error.status > 500) {
-                        queueRef.current = enableQueue({
-                            concurrency: 2,
-                        })
+                        if (queueRef.current == undefined) {
+                            queueRef.current = enableQueue({
+                                concurrency: 2,
+                            })
+                        }
                         if (failureCount > 0 && queueRef.current?.concurrency) {
                             console.log('set API request concurrency to 1')
                             queueRef.current.concurrency = 1
