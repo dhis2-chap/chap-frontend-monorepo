@@ -108,13 +108,13 @@ export const SummaryModal: React.FC<SummaryModalProps> = ({
                 <div className={styles.modalContent}>
                     {hasImportedItems && importSummary.rejected.length === 0 ? (
                         <NoticeBox
-                            title={i18n.t('Partial import')}
+                            title={i18n.t('Valid import')}
                             valid
                         >
-                            {i18n.t('{{count}} locations could be successfully imported', {
+                            {i18n.t('All {{count}} locations can be successfully imported', {
                                 count: importSummary.importedCount,
-                                defaultValue: '{{count}} location could be successfully imported',
-                                defaultValue_plural: '{{count}} locations could be successfully imported'
+                                defaultValue: '{{count}} location can be successfully imported',
+                                defaultValue_plural: 'All {{count}} locations can be successfully imported'
                             })}
                         </NoticeBox>
                     ) : null}
