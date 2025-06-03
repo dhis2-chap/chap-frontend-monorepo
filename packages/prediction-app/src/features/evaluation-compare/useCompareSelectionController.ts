@@ -44,9 +44,16 @@ export const useCompareSelectionController = ({
         selectedSplitPeriod ?? resolvedSplitPeriods[0]
 
     const { availableOrgUnitIds, availableOrgUnitSet } = useMemo(() => {
-        const availableOrgUnitIds = evaluationOverlap.data
+        let availableOrgUnitIds = evaluationOverlap.data
             ? evaluationOverlap.data.orgUnits
             : baseEvaluation?.orgUnits ?? []
+        // dont fallback to base evaluation org units if the overlap is still fetching
+        // this should prevent first fetching data for base eval units, then immediately fetching
+        // the overlap units
+        if(evaluationOverlap.isInitialLoading) {
+            availableOrgUnitIds = []
+        }
+
         return {
             availableOrgUnitIds,
             availableOrgUnitSet: new Set(availableOrgUnitIds),
