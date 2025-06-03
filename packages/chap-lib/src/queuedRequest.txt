@@ -384,7 +384,7 @@ const defaultQueueOptions: PQueueOptions = {
 
 export const enableQueue = (
     queueOptions: PQueueOptions
-): (PQueue) | undefined => {
+): PQueue | undefined => {
     if (!queue) {
         console.log('Enabling request queue with options', queueOptions)
         queue = new PQueue({ ...defaultQueueOptions, ...queueOptions })
@@ -413,7 +413,7 @@ export const request = <T>(
         CancelablePromise<T>
     >(null, config, options)
 
-    if (queue !== undefined) {
+    if (options.method === 'GET' && queue !== undefined) {
         return new CancelablePromise<T>(async (resolve, reject, onCancel) => {
             const controller = new AbortController()
 
