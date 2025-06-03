@@ -410,6 +410,10 @@ export const disableQueue = () => {
     }
 }
 
+export const getQueue = (): PQueue | undefined => {
+    return queue
+}
+
 export const request = <T>(
     config: OpenAPIConfig,
     options: ApiRequestOptions

@@ -1,16 +1,13 @@
 import { useConfig } from '@dhis2/app-runtime'
-import React, { useEffect, useState, useRef } from 'react'
-import { ApiError, enableQueue, OpenAPI } from '@dhis2-chap/chap-lib'
+import React, { useEffect, useState } from 'react'
+import { ApiError, enableQueue, getQueue, OpenAPI } from '@dhis2-chap/chap-lib'
 import { CircularLoader } from '@dhis2/ui'
 import { useQueryClient } from '@tanstack/react-query'
-
-type Queue = ReturnType<typeof enableQueue>
 
 export const SetChapUrl = ({ children }: { children: React.ReactNode }) => {
     const { baseUrl } = useConfig()
     const [isReady, setIsReady] = useState(false)
     const queryClient = useQueryClient()
-    const queueRef = useRef<Queue>()
 
     useEffect(() => {
         OpenAPI.WITH_CREDENTIALS = true
@@ -22,14 +19,19 @@ export const SetChapUrl = ({ children }: { children: React.ReactNode }) => {
                     // Route API has issues with 503 errors
                     // retry and enable queueing
                     if (error instanceof ApiError && error.status > 500) {
-                        if (queueRef.current == undefined) {
-                            queueRef.current = enableQueue({
+                        const queue = getQueue()
+                        if (queue == undefined) {
+                            enableQueue({
                                 concurrency: 2,
                             })
                         }
-                        if (failureCount > 0 && queueRef.current?.concurrency) {
+                        if (
+                            failureCount > 0 &&
+                            queue &&
+                            queue?.concurrency !== 1
+                        ) {
                             console.log('set API request concurrency to 1')
-                            queueRef.current.concurrency = 1
+                            queue.concurrency = 1
                         }
                         return failureCount < 2
                     }
