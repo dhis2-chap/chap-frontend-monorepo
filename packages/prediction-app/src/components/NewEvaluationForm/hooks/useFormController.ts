@@ -46,23 +46,12 @@ export const useFormController = () => {
   const methods = useForm<EvaluationFormValues>({
     resolver: zodResolver(evaluationSchema),
     defaultValues: {
-      name: 'asdawd',
-      periodType: PERIOD_TYPES.WEEK,
-      fromDate: '2018-W01',
-      toDate: '2024-W52',
-      orgUnits: [
-          {
-              "id": "J41dVMJoZF7",
-              "path": "/IWp9dQGM0bS/W6sNfkJcXGC/J41dVMJoZF7",
-              "name": "0101 Chanthabouli"
-          },
-          {
-              "id": "VvDJca31fkJ",
-              "path": "/IWp9dQGM0bS/W6sNfkJcXGC/VvDJca31fkJ",
-              "name": "0102 Sikhottabong"
-          }
-      ],
-      modelId: '5',
+      name: '',
+      periodType: PERIOD_TYPES.MONTH,
+      fromDate: '',
+      toDate: '',
+      orgUnits: [],
+      modelId: '',
       covariateMappings: [],
       targetMapping: undefined,
     },
