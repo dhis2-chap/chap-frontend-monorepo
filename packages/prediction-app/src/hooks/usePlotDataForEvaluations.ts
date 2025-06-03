@@ -19,7 +19,6 @@ import {
     useQueryClient,
     UseQueryOptions,
 } from '@tanstack/react-query'
-import { useConfig } from '@dhis2/app-runtime'
 
 const quantiles = [0.1, 0.25, 0.5, 0.75, 0.9]
 
@@ -73,8 +72,6 @@ export const usePlotDataForEvaluations = (
     evaluations: BackTestRead[],
     { orgUnits, splitPeriod }: UsePlotDataForEvaluationsOptions = defaultOptions
 ) => {
-    const { serverVersion } = useConfig()
-
     const queryClient = useQueryClient()
     const sortedUnits = useMemo(() => {
         return orgUnits ? orgUnits.sort() : []
@@ -146,26 +143,22 @@ export const usePlotDataForEvaluations = (
                 ({
                     queryKey: getQueryKey(evaluation.id),
                     queryFn: async () => {
-                        // wrap in functions to conditionally send in sequence due to problems with routes
-                        // API in DHIS2 versions < 42
-                        const evaluationEntriesPromise =
+                        const evaluationEntries =
                             AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
                                 evaluation.id,
                                 quantiles,
                                 splitPeriod,
                                 orgUnits
                             )
-                        const actualCasesPromise =
+                        const actualCases =
                             AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(
                                 evaluation.id,
                                 orgUnits
                             )
-
                         const data = await Promise.all([
-                            evaluationEntriesPromise,
-                            actualCasesPromise,
+                            evaluationEntries,
+                            actualCases,
                         ])
-
                         return {
                             data,
                             evaluation: evaluation,
