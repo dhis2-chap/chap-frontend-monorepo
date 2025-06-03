@@ -145,42 +145,26 @@ export const usePlotDataForEvaluations = (
             (evaluation) =>
                 ({
                     queryKey: getQueryKey(evaluation.id),
-                    retry: (cnt, error) =>
-                        cnt < 2 && error instanceof ApiError
-                            ? error.status > 500
-                            : false,
                     queryFn: async () => {
                         // wrap in functions to conditionally send in sequence due to problems with routes
                         // API in DHIS2 versions < 42
-                        const getEvaluationEntries = () =>
+                        const evaluationEntriesPromise =
                             AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
                                 evaluation.id,
                                 quantiles,
                                 splitPeriod,
                                 orgUnits
                             )
-                        const getActualCases = () =>
+                        const actualCasesPromise =
                             AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(
                                 evaluation.id,
                                 orgUnits
                             )
 
-                        let data: [
-                            Awaited<ReturnType<typeof getEvaluationEntries>>,
-                            Awaited<ReturnType<typeof getActualCases>>
-                        ]
-
-                        if (serverVersion && serverVersion.minor < 42) {
-                            data = [
-                                await getEvaluationEntries(),
-                                await getActualCases(),
-                            ] as const
-                        } else {
-                            data = await Promise.all([
-                                getEvaluationEntries(),
-                                getActualCases(),
-                            ])
-                        }
+                        const data = await Promise.all([
+                            evaluationEntriesPromise,
+                            actualCasesPromise,
+                        ])
 
                         return {
                             data,
@@ -212,6 +196,7 @@ export const usePlotDataForEvaluations = (
     }, [evaluationQueries])
 
     const isLoading = evaluationQueries.some((q) => q.isLoading && q.isFetching)
+
     const error =
         (evaluationQueries.find((q) => q.isError)?.error as ApiError) ||
         undefined

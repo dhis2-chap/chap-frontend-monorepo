@@ -1,3 +1,4 @@
+import { enableQueue } from './httpfunctions/core/request';
 export { UncertaintyAreaChart } from './components/predictions/UncertaintyAreaChart/UncertaintyAreaChart'
 export * from './httpfunctions/index'
 export {
@@ -41,3 +42,4 @@ export type {
 // Services
 export { CrudService } from './httpfunctions/services/CrudService'
 export { AnalyticsService } from './httpfunctions/services/AnalyticsService'
+export { enableQueue, disableQueue } from './httpfunctions/core/request'
