@@ -1,20 +1,19 @@
+import { useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import i18n from '@dhis2/d2-i18n';
 import { EvaluationFormValues } from "./useFormController"
 import {
     AnalyticsService,
     FeatureCollectionModel,
-    ObservationBase,
     MakeBacktestWithDataRequest,
-    ModelSpecRead,
     ApiError,
     ImportSummaryResponse,
 } from "@dhis2-chap/chap-lib"
 import { useDataEngine } from "@dhis2/app-runtime"
 import { PERIOD_TYPES } from "../Sections/PeriodSelector"
-import { toDHIS2PeriodData } from "../../../features/timeperiod-selector/utils/timePeriodUtils"
 import { useNavigate } from "react-router-dom"
 import { validateClimateData } from "../utils/validateClimateData"
+import { prepareBacktestData } from "../utils/prepareBacktestData"
 
 const N_SPLITS = 10
 const STRIDE = 1
@@ -24,63 +23,8 @@ const N_PERIODS = {
     [PERIOD_TYPES.WEEK]: 12,
 }
 
-const calculatePeriods = (periodType: keyof typeof PERIOD_TYPES, fromDate: string, toDate: string): string[] => {
-    const selectedPeriodType = PERIOD_TYPES[periodType]
-    if (!selectedPeriodType) return []
-
-    const dateRange = toDHIS2PeriodData(fromDate, toDate, selectedPeriodType.toLowerCase())
-    return dateRange.map((period) => period.id)
-}
-
-type AnalyticsResponse = {
-    response: {
-        metaData: {
-            dimensions: { ou: string[] }
-        },
-        rows: [string, string, string, string][]
-    }
-}
-
-const ANALYTICS_QUERY = (dataElements: string[], periods: string[], orgUnits: string[]) => ({
-    response: {
-        resource: 'analytics',
-        params: {
-            paging: false,
-            dimension: `dx:${dataElements.join(';')},ou:${orgUnits.join(';')},pe:${periods.join(';')}`,
-        },
-    },
-})
-
-type OrgUnitResponse = {
-    geojson: {
-        organisationUnits: {
-            id: string,
-            displayName: string,
-            geometry: {
-                type: string,
-                coordinates: number[][]
-            },
-            parent: {
-                id: string
-            },
-            level: number
-        }[]
-    }
-}
-
-const ORG_UNITS_QUERY = (orgUnitIds: string[]) => ({
-    geojson: {
-        resource: "organisationUnits",
-        params: {
-            filter: `id:in:[${orgUnitIds.join(',')}]`,
-            fields: 'id,geometry,parent[id],level,displayName',
-            paging: false,
-        },
-    },
-})
-
 // This is a workaround to get the correct type for the rejected field - the openapi spec is incorrect
-type ImportSummaryCorrected = Omit<ImportSummaryResponse, 'rejected'> & {
+export type ImportSummaryCorrected = Omit<ImportSummaryResponse, 'rejected'> & {
     rejected: {
         featureName: string,
         orgUnit: string,
@@ -101,79 +45,31 @@ export const useCreateNewBacktest = ({
     const dataEngine = useDataEngine()
     const queryClient = useQueryClient()
     const navigate = useNavigate()
+    const [summaryModalOpen, setSummaryModalOpen] = useState<boolean>(false)
 
+    // TODO - remove this once the validation is done in the backend
     const {
-        mutate: createNewBacktest,
-        data: importSummary,
-        isLoading,
-        error,
+        mutate: validateAndDryRun,
+        data: validationResult,
+        isLoading: isValidationLoading,
+        error: validationError,
+        reset: resetValidation,
     } = useMutation<ImportSummaryCorrected, ApiError, EvaluationFormValues>({
         mutationFn: async (formData: EvaluationFormValues) => {
-            const model = queryClient.getQueryData<ModelSpecRead[]>(['models'])
-                ?.find(model => model.id === Number(formData.modelId))
-
-            if (!model) {
-                throw new Error('Model not found')
-            }
-
-            const periods = calculatePeriods(
-                formData.periodType,
-                formData.fromDate,
-                formData.toDate
-            )
-
-            const dataElements = [
-                ...formData.covariateMappings.map(mapping => mapping.dataItemId),
-                formData.targetMapping.dataItemId
-            ]
-
-            const analyticsResponse = await dataEngine.query(
-                ANALYTICS_QUERY(
-                    dataElements,
-                    periods,
-                    formData.orgUnits.map(ou => ou.id)
-                )
-            ) as AnalyticsResponse
-
-
-            const orgUnitIds: string[] = analyticsResponse.response.metaData.dimensions.ou;
-
-            const orgUnitResponse = await dataEngine.query(
-                ORG_UNITS_QUERY(orgUnitIds)
-            ) as OrgUnitResponse
-
-            const orgUnitsWithoutGeometry = orgUnitResponse.geojson.organisationUnits.filter((ou) => !ou.geometry)
-
-            if (orgUnitsWithoutGeometry.length > 0) {
-                throw new Error(`The following org units have no geometry: ${orgUnitsWithoutGeometry.map(ou => ou.displayName).join(', ')}`)
-            }
-
-            const convertDhis2AnalyticsToChap = (data: [string, string, string, string][]): ObservationBase[] => {
-                return data.map((row) => {
-                    const dataItemId = row[0]
-                    const dataLayer = formData.targetMapping.dataItemId === dataItemId ? formData.targetMapping : formData.covariateMappings.find(mapping => mapping.dataItemId === dataItemId)
-
-                    if (!dataLayer) {
-                        throw new Error(`Data layer not found for data item id: ${dataItemId}`)
-                    }
-
-                    return {
-                        featureName: dataLayer.covariateName,
-                        orgUnit: row[1],
-                        period: row[2],
-                        value: parseFloat(row[3]),
-                    }
-                })
-            }
-
-            const observations = convertDhis2AnalyticsToChap(analyticsResponse.response.rows)
+            const {
+                observations,
+                periods,
+                orgUnitIds,
+            } = await prepareBacktestData(formData, dataEngine, queryClient)
 
             const validation = validateClimateData(observations, formData, periods, orgUnitIds)
 
             if (!validation.isValid) {
+                const uniqueOrgUnits = [...new Set(validation.missingData.map(item => item.orgUnit))]
+                const successCount = orgUnitIds.length - uniqueOrgUnits.length;
                 return {
                     id: null,
-                    importedCount: 0,
+                    importedCount: successCount,
                     rejected: validation.missingData.map(item => ({
                         featureName: item.covariate,
                         orgUnit: item.orgUnit,
@@ -182,6 +78,33 @@ export const useCreateNewBacktest = ({
                     }))
                 }
             }
+
+            return {
+                id: null,
+                importedCount: orgUnitIds.length,
+                rejected: []
+            }
+        },
+        onSuccess: () => {
+            setSummaryModalOpen(true)
+        },
+        onError: (error: ApiError) => {
+            onError?.(error)
+        }
+    })
+    console.log('validationError', validationError)
+
+    const {
+        mutate: createNewBacktest,
+        isLoading,
+        error,
+    } = useMutation<ImportSummaryCorrected, ApiError, EvaluationFormValues>({
+        mutationFn: async (formData: EvaluationFormValues) => {
+            const { model, observations, orgUnitResponse } = await prepareBacktestData(
+                formData,
+                dataEngine,
+                queryClient
+            )
 
             const filteredGeoJson: FeatureCollectionModel = {
                 type: 'FeatureCollection',
@@ -198,7 +121,6 @@ export const useCreateNewBacktest = ({
                 })),
             }
 
-
             const backtestRequest: MakeBacktestWithDataRequest = {
                 name: formData.name,
                 geojson: filteredGeoJson,
@@ -210,15 +132,15 @@ export const useCreateNewBacktest = ({
                 stride: STRIDE,
             }
 
-            return AnalyticsService.createBacktestWithDataAnalyticsCreateBacktestWithDataPost(backtestRequest, true) as unknown as Promise<ImportSummaryCorrected>
+            return AnalyticsService.createBacktestWithDataAnalyticsCreateBacktestWithDataPost(backtestRequest, false) as unknown as Promise<ImportSummaryCorrected>
+        },
+        onMutate: () => {
+            resetValidation()
         },
         onSuccess: (data: ImportSummaryCorrected) => {
-            // The data will not return an id if the backtest is rejected or it is a dry run
-            console.log('onSuccess', data)
-            debugger;
-
-            if (data.rejected.length === 0 && data.id) {
+            if (data.id) {
                 queryClient.invalidateQueries({ queryKey: ['jobs'] })
+                queryClient.invalidateQueries({ queryKey: ['new-backtest-data'] })
                 onSuccess?.()
                 navigate('/jobs');
             }
@@ -230,8 +152,13 @@ export const useCreateNewBacktest = ({
 
     return {
         createNewBacktest,
+        validateAndDryRun,
+        validationResult,
         isSubmitting: isLoading,
-        importSummary,
-        error,
+        isValidationLoading,
+        importSummary: validationResult,
+        error: validationError || error,
+        summaryModalOpen,
+        closeSummaryModal: () => setSummaryModalOpen(false)
     }
 }

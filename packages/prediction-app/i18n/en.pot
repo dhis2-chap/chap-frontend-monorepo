@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-01T22:45:30.958Z\n"
-"PO-Revision-Date: 2025-06-01T22:45:30.959Z\n"
+"POT-Creation-Date: 2025-06-03T22:39:36.891Z\n"
+"PO-Revision-Date: 2025-06-03T22:39:36.891Z\n"
 
 msgid "View"
 msgstr "View"
@@ -259,8 +259,11 @@ msgstr "Back to evaluations"
 msgid "Error starting evaluation job"
 msgstr "Error starting evaluation job"
 
-msgid "Start job"
-msgstr "Start job"
+msgid "Start dry run"
+msgstr "Start dry run"
+
+msgid "Start import"
+msgstr "Start import"
 
 msgid "Map Data Items"
 msgstr "Map Data Items"
@@ -423,6 +426,77 @@ msgstr "From period"
 msgid "To period"
 msgstr "To period"
 
+msgid "Reason"
+msgstr "Reason"
+
+msgid "Feature"
+msgstr "Feature"
+
+msgid "Org unit"
+msgstr "Org unit"
+
+msgid "Period"
+msgstr "Period"
+
+msgid "Import Summary"
+msgstr "Import Summary"
+
+msgid "Partial import"
+msgstr "Partial import"
+
+msgid "{{count}} locations could be successfully imported"
+msgid_plural "{{count}} locations could be successfully imported"
+msgstr[0] "{{count}} location could be successfully imported"
+msgstr[1] "{{count}} locations could be successfully imported"
+
+msgid "{{count}} locations could be successfully imported, but some were rejected"
+msgid_plural "{{count}} locations could be successfully imported, but some were rejected"
+msgstr[0] "{{count}} location could be successfully imported, but some were rejected"
+msgstr[1] "{{count}} locations could be successfully imported, but some were rejected"
+
+msgid "No locations imported"
+msgstr "No locations imported"
+
+msgid ""
+"None of the provided locations could be imported. Please check the data "
+"items and the period type."
+msgstr ""
+"None of the provided locations could be imported. Please check the data "
+"items and the period type."
+
+msgid "Valid"
+msgstr "Valid"
+
+msgid "Rejected"
+msgstr "Rejected"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Filter by Feature"
+msgstr "Filter by Feature"
+
+msgid "Clear filter"
+msgstr "Clear filter"
+
+msgid "All features"
+msgstr "All features"
+
+msgid "Filter by Org Unit"
+msgstr "Filter by Org Unit"
+
+msgid "All org units"
+msgstr "All org units"
+
+msgid "No rejected items match the current filters"
+msgstr "No rejected items match the current filters"
+
+msgid "No items to display"
+msgstr "No items to display"
+
+msgid "Missing data for covariate"
+msgstr "Missing data for covariate"
+
 msgid "Missing id for org unit"
 msgstr "Missing id for org unit"
 
@@ -434,6 +508,9 @@ msgstr "Start date is required"
 
 msgid "End date is required"
 msgstr "End date is required"
+
+msgid "End date cannot be in the future"
+msgstr "End date cannot be in the future"
 
 msgid "At least one org unit is required"
 msgstr "At least one org unit is required"
@@ -449,6 +526,9 @@ msgstr "Please map the target to a valid data item"
 
 msgid "End period must be after start period"
 msgstr "End period must be after start period"
+
+msgid "Model not found"
+msgstr "Model not found"
 
 msgid "{{count}} org units"
 msgid_plural "{{count}} org units"
@@ -971,9 +1051,6 @@ msgstr "Error saving route"
 
 msgid "Route saved successfully"
 msgstr "Route saved successfully"
-
-msgid "Period"
-msgstr "Period"
 
 msgid "Start month"
 msgstr "Start month"
