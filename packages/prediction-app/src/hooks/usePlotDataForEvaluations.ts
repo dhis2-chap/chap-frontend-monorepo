@@ -13,7 +13,13 @@ import {
     joinRealAndPredictedData,
 } from '@dhis2-chap/chap-lib'
 import { useCallback, useMemo } from 'react'
-import { Query, useQueries, useQueryClient } from '@tanstack/react-query'
+import {
+    Query,
+    useQueries,
+    useQueryClient,
+    UseQueryOptions,
+} from '@tanstack/react-query'
+import { useConfig } from '@dhis2/app-runtime'
 
 const quantiles = [0.1, 0.25, 0.5, 0.75, 0.9]
 
@@ -67,6 +73,8 @@ export const usePlotDataForEvaluations = (
     evaluations: BackTestRead[],
     { orgUnits, splitPeriod }: UsePlotDataForEvaluationsOptions = defaultOptions
 ) => {
+    const { serverVersion } = useConfig()
+
     const queryClient = useQueryClient()
     const sortedUnits = useMemo(() => {
         return orgUnits ? orgUnits.sort() : []
@@ -87,7 +95,7 @@ export const usePlotDataForEvaluations = (
 
     /* Try to find a query in the cache that has data for all selected orgunits */
     const getInitialData = useCallback(
-        (evaluationId: number) => {
+        (evaluationId: number): PlotDataRequestResult | undefined => {
             if (!orgUnits || orgUnits.length === 0) {
                 return undefined
             }
@@ -125,7 +133,7 @@ export const usePlotDataForEvaluations = (
                 return {
                     ...cachedData,
                     data: [evaluations, cachedData.data[1]] as const,
-                } as PlotDataRequestResult
+                }
             }
             return undefined
         },
@@ -133,32 +141,64 @@ export const usePlotDataForEvaluations = (
     )
 
     const evaluationQueries = useQueries({
-        queries: evaluations.map((evaluation) => ({
-            queryKey: getQueryKey(evaluation.id),
-            queryFn: async () => {
-                const evaluationEntries =
-                    AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
-                        evaluation.id,
-                        quantiles,
-                        splitPeriod,
-                        orgUnits
-                    )
-                const actualCases =
-                    AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(
-                        evaluation.id,
-                        orgUnits
-                    )
-                const data = await Promise.all([evaluationEntries, actualCases])
-                return {
-                    data,
-                    evaluation: evaluation,
-                }
-            },
-            initialData: getInitialData(evaluation.id),
-            select: select,
-            enabled: !!evaluation && (!!orgUnits ? orgUnits.length > 0 : true),
-            staleTime: 60 * 1000,
-        })),
+        queries: evaluations.map(
+            (evaluation) =>
+                ({
+                    queryKey: getQueryKey(evaluation.id),
+                    retry: (cnt, error) =>
+                        cnt < 2 && error instanceof ApiError
+                            ? error.status > 500
+                            : false,
+                    queryFn: async () => {
+                        // wrap in functions to conditionally send in sequence due to problems with routes
+                        // API in DHIS2 versions < 42
+                        const getEvaluationEntries = () =>
+                            AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
+                                evaluation.id,
+                                quantiles,
+                                splitPeriod,
+                                orgUnits
+                            )
+                        const getActualCases = () =>
+                            AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(
+                                evaluation.id,
+                                orgUnits
+                            )
+
+                        let data: [
+                            Awaited<ReturnType<typeof getEvaluationEntries>>,
+                            Awaited<ReturnType<typeof getActualCases>>
+                        ]
+
+                        if (serverVersion && serverVersion.minor < 42) {
+                            data = [
+                                await getEvaluationEntries(),
+                                await getActualCases(),
+                            ] as const
+                        } else {
+                            data = await Promise.all([
+                                getEvaluationEntries(),
+                                getActualCases(),
+                            ])
+                        }
+
+                        return {
+                            data,
+                            evaluation: evaluation,
+                        }
+                    },
+                    initialData: getInitialData(evaluation.id),
+                    select: select,
+                    enabled:
+                        !!evaluation &&
+                        (!!orgUnits ? orgUnits.length > 0 : true),
+                    staleTime: 60 * 1000,
+                } satisfies UseQueryOptions<
+                    PlotDataRequestResult,
+                    Error | ApiError,
+                    PlotDataResult | undefined
+                >)
+        ),
     })
 
     const combined = useMemo(() => {
