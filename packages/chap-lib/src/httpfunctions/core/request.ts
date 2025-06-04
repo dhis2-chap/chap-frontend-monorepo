@@ -2,7 +2,6 @@
 // import { ApiRequestOptions } from './httpfunctions/core/ApiRequestOptions'
 // import { request as __request } from './httpfunctions/core/request'
 
-
 /* THIS WILL BE COPIED VERBATIM TO src/httpfunctions/core/request.ts 
     by --request option to openapi-typescript-codegen
 
@@ -437,12 +436,16 @@ export const request = <T>(
                 })
                 return promise
             }
-            onCancel(() => {
-                controller.abort()
-            })
+
             return queue.add(
                 () => {
-                    return __request()
+                    const promise = __request()
+                    onCancel(() => {
+                        promise.cancel()
+                        controller.abort()
+                    })
+
+                    return promise
                         .then((t) => resolve(t as T))
                         .catch((e) => reject(e))
                 },
@@ -450,5 +453,5 @@ export const request = <T>(
             )
         })
     }
-    return __request(config, options)
+    return __request()
 }
