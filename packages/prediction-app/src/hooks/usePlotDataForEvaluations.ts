@@ -13,7 +13,12 @@ import {
     joinRealAndPredictedData,
 } from '@dhis2-chap/chap-lib'
 import { useCallback, useMemo } from 'react'
-import { Query, useQueries, useQueryClient } from '@tanstack/react-query'
+import {
+    Query,
+    useQueries,
+    useQueryClient,
+    UseQueryOptions,
+} from '@tanstack/react-query'
 
 const quantiles = [0.1, 0.25, 0.5, 0.75, 0.9]
 
@@ -87,7 +92,7 @@ export const usePlotDataForEvaluations = (
 
     /* Try to find a query in the cache that has data for all selected orgunits */
     const getInitialData = useCallback(
-        (evaluationId: number) => {
+        (evaluationId: number): PlotDataRequestResult | undefined => {
             if (!orgUnits || orgUnits.length === 0) {
                 return undefined
             }
@@ -125,7 +130,7 @@ export const usePlotDataForEvaluations = (
                 return {
                     ...cachedData,
                     data: [evaluations, cachedData.data[1]] as const,
-                } as PlotDataRequestResult
+                }
             }
             return undefined
         },
@@ -133,32 +138,44 @@ export const usePlotDataForEvaluations = (
     )
 
     const evaluationQueries = useQueries({
-        queries: evaluations.map((evaluation) => ({
-            queryKey: getQueryKey(evaluation.id),
-            queryFn: async () => {
-                const evaluationEntries =
-                    AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
-                        evaluation.id,
-                        quantiles,
-                        splitPeriod,
-                        orgUnits
-                    )
-                const actualCases =
-                    AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(
-                        evaluation.id,
-                        orgUnits
-                    )
-                const data = await Promise.all([evaluationEntries, actualCases])
-                return {
-                    data,
-                    evaluation: evaluation,
-                }
-            },
-            initialData: getInitialData(evaluation.id),
-            select: select,
-            enabled: !!evaluation && (!!orgUnits ? orgUnits.length > 0 : true),
-            staleTime: 60 * 1000,
-        })),
+        queries: evaluations.map(
+            (evaluation) =>
+                ({
+                    queryKey: getQueryKey(evaluation.id),
+                    queryFn: async () => {
+                        const evaluationEntries =
+                            AnalyticsService.getEvaluationEntriesAnalyticsEvaluationEntryGet(
+                                evaluation.id,
+                                quantiles,
+                                splitPeriod,
+                                orgUnits
+                            )
+                        const actualCases =
+                            AnalyticsService.getActualCasesAnalyticsActualCasesBacktestIdGet(
+                                evaluation.id,
+                                orgUnits
+                            )
+                        const data = await Promise.all([
+                            evaluationEntries,
+                            actualCases,
+                        ])
+                        return {
+                            data,
+                            evaluation: evaluation,
+                        }
+                    },
+                    initialData: getInitialData(evaluation.id),
+                    select: select,
+                    enabled:
+                        !!evaluation &&
+                        (!!orgUnits ? orgUnits.length > 0 : true),
+                    staleTime: 60 * 1000,
+                } satisfies UseQueryOptions<
+                    PlotDataRequestResult,
+                    Error | ApiError,
+                    PlotDataResult | undefined
+                >)
+        ),
     })
 
     const combined = useMemo(() => {
@@ -172,6 +189,7 @@ export const usePlotDataForEvaluations = (
     }, [evaluationQueries])
 
     const isLoading = evaluationQueries.some((q) => q.isLoading && q.isFetching)
+
     const error =
         (evaluationQueries.find((q) => q.isError)?.error as ApiError) ||
         undefined
