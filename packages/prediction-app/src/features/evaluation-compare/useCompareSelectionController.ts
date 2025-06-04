@@ -5,6 +5,7 @@ import {
     useSelectedSplitPeriod,
 } from './useSearchParamSelections'
 import { useEvaluationOverlap } from '../../hooks/useEvaluationOverlap'
+import { useOrgUnitsById } from '../../hooks/useOrgUnitsById'
 
 export const useCompareSelectionController = ({
     maxSelectedOrgUnits = 10,
@@ -43,17 +44,29 @@ export const useCompareSelectionController = ({
         selectedSplitPeriod ?? resolvedSplitPeriods[0]
 
     const { availableOrgUnitIds, availableOrgUnitSet } = useMemo(() => {
-        const availableOrgUnitIds = evaluationOverlap.data
+        let availableOrgUnitIds = evaluationOverlap.data
             ? evaluationOverlap.data.orgUnits
             : baseEvaluation?.orgUnits ?? []
+        // dont fallback to base evaluation org units if the overlap is still fetching
+        // this should prevent first fetching data for base eval units, then immediately fetching
+        // the overlap units
+        if(evaluationOverlap.isInitialLoading) {
+            availableOrgUnitIds = []
+        }
+
         return {
             availableOrgUnitIds,
             availableOrgUnitSet: new Set(availableOrgUnitIds),
         }
     }, [evaluationOverlap.data, baseEvaluation?.orgUnits])
 
+    const { data: orgUnitsData }  =
+        useOrgUnitsById(availableOrgUnitIds)
+
     const [selectedOrgUnits, setSelectedOrgUnits] = useSelectedOrgUnits({
-        initialValue: availableOrgUnitIds.slice(0, maxSelectedOrgUnits),
+        initialValue: orgUnitsData?.organisationUnits
+            .map((ou) => ou.id)
+            .slice(0, maxSelectedOrgUnits),
     })
 
     const compatibleSelectedOrgUnits = useMemo(
@@ -84,6 +97,7 @@ export const useCompareSelectionController = ({
         selectedOrgUnits: compatibleSelectedOrgUnits,
         availableOrgUnitIds,
         evaluations,
+        orgUnits: orgUnitsData?.organisationUnits ,
         splitPeriods: resolvedSplitPeriods,
         hasNoMatchingSplitPeriods,
         setBaseEvaluation,
