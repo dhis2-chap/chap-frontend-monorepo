@@ -15,6 +15,7 @@ function syncChartZoom(event: any): void {
 interface ResultPlotProps {
     data: HighChartsData
     modelName: string
+    nameLabel?: string
     syncZoom: boolean
 }
 
@@ -72,13 +73,29 @@ const getSeries = (data: any) => {
     ]
 }
 
-const getOptions = (data: any, modelName: string, syncZoom: boolean) => {
+type GetOptionParams = {
+    data: any
+    modelName: string
+    syncZoom: boolean
+    nameLabel?: string
+}
+
+const getOptions = ({
+    data,
+    modelName,
+    syncZoom,
+    nameLabel,
+}: GetOptionParams) => {
     return {
         title: {
             text: '',
         },
         subtitle: {
-            text: modelName ? 'Model: ' + modelName : '',
+            text: nameLabel
+                ? nameLabel
+                : modelName
+                ? `Model: ${modelName}`
+                : '',
             align: 'left',
         },
         chart: {
@@ -126,12 +143,17 @@ const getOptions = (data: any, modelName: string, syncZoom: boolean) => {
     }
 }
 
-export const ResultPlot = ({ data, modelName, syncZoom }: ResultPlotProps) => {
+export const ResultPlot = ({
+    data,
+    modelName,
+    syncZoom,
+    nameLabel,
+}: ResultPlotProps) => {
     return (
         <>
             <HighchartsReact
                 highcharts={Highcharts}
-                options={getOptions(data, modelName, syncZoom)}
+                options={getOptions({ data, modelName, syncZoom, nameLabel })}
             />
         </>
     )

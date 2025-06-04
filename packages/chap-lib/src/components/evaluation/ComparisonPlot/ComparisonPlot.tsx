@@ -5,10 +5,12 @@ import { EvaluationPerOrgUnit } from '../../../interfaces/Evaluation'
 
 interface SideBySidePlotsProps {
     orgUnitsData: EvaluationPerOrgUnit
+    nameLabel?: string
 }
 
 export const ComparisonPlot = React.memo(function ComparisonPlot({
     orgUnitsData,
+    nameLabel,
 }: SideBySidePlotsProps) {
     return (
         <div className={styles.comparionBox}>
@@ -24,6 +26,7 @@ export const ComparisonPlot = React.memo(function ComparisonPlot({
                                 syncZoom={orgUnitsData.models.length > 1}
                                 data={modelData.data}
                                 modelName={modelData.modelName}
+                                nameLabel={nameLabel}
                             />
                         </div>
                     )
