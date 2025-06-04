@@ -3,7 +3,7 @@ import i18n from '@dhis2/d2-i18n'
 import { FormProvider } from 'react-hook-form'
 import { NewEvaluationFormComponent } from './NewEvaluationForm.component'
 import { Card } from '@dhis2-chap/chap-lib'
-import { useFormController } from './hooks/useFormController'
+import { useFormController, EvaluationFormValues } from './hooks/useFormController'
 import styles from './NewEvaluationForm.module.css'
 import { Button, ButtonStrip, IconArrowLeft16, IconArrowRightMulti16, NoticeBox } from '@dhis2/ui'
 import { useNavigate } from 'react-router-dom'
@@ -11,7 +11,11 @@ import { useNavigationBlocker } from '../../hooks/useNavigationBlocker'
 import { NavigationConfirmModal } from '../NavigationConfirmModal'
 import { SummaryModal } from './SummaryModal'
 
-export const NewEvaluationForm = () => {
+type Props = {
+    initialValues?: Partial<EvaluationFormValues>
+}
+
+export const NewEvaluationForm = ({ initialValues }: Props) => {
     const navigate = useNavigate()
     const {
         methods,
@@ -25,7 +29,7 @@ export const NewEvaluationForm = () => {
         closeSummaryModal,
         handleDryRun,
         isValidationLoading,
-    } = useFormController()
+    } = useFormController({ initialValues })
 
     const {
         showConfirmModal,

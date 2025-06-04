@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-02T18:52:10.056Z\n"
-"PO-Revision-Date: 2025-06-02T18:52:10.056Z\n"
+"POT-Creation-Date: 2025-06-04T12:57:52.138Z\n"
+"PO-Revision-Date: 2025-06-04T12:57:52.138Z\n"
 
 msgid "View"
 msgstr "View"
@@ -644,6 +644,9 @@ msgstr ""
 
 msgid "An error occurred while fetching chart data "
 msgstr "An error occurred while fetching chart data "
+
+msgid "Evaluation:"
+msgstr "Evaluation:"
 
 msgid ""
 "Select two evaluations to compare their results. The\n"

@@ -48,18 +48,22 @@ const evaluationSchema = z.object({
 
 export type EvaluationFormValues = z.infer<typeof evaluationSchema>
 
-export const useFormController = () => {
+type UseFormControllerProps = {
+  initialValues?: Partial<EvaluationFormValues>
+}
+
+export const useFormController = ({ initialValues }: UseFormControllerProps = {}) => {
   const methods = useForm<EvaluationFormValues>({
     resolver: zodResolver(evaluationSchema),
     defaultValues: {
-      name: '',
-      periodType: PERIOD_TYPES.MONTH,
-      fromDate: '',
-      toDate: '',
-      orgUnits: [],
-      modelId: '',
-      covariateMappings: [],
-      targetMapping: undefined,
+      name: initialValues?.name || '',
+      periodType: initialValues?.periodType || PERIOD_TYPES.MONTH,
+      fromDate: initialValues?.fromDate || '',
+      toDate: initialValues?.toDate || '',
+      orgUnits: initialValues?.orgUnits || [],
+      modelId: initialValues?.modelId || '',
+      covariateMappings: initialValues?.covariateMappings || [],
+      targetMapping: initialValues?.targetMapping || undefined,
     },
     shouldFocusError: false,
   })
