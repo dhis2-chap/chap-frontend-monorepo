@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-04T11:18:56.813Z\n"
-"PO-Revision-Date: 2025-06-04T11:18:56.814Z\n"
+"POT-Creation-Date: 2025-06-04T21:53:32.230Z\n"
+"PO-Revision-Date: 2025-06-04T21:53:32.231Z\n"
 
 msgid "View"
 msgstr "View"
@@ -645,6 +645,9 @@ msgstr ""
 msgid "An error occurred while fetching chart data "
 msgstr "An error occurred while fetching chart data "
 
+msgid "Evaluation"
+msgstr "Evaluation"
+
 msgid ""
 "Select two evaluations to compare their results. The\n"
 "                    selected evaluations must be compatible."
@@ -899,9 +902,6 @@ msgstr "Select evaluation to compare with"
 
 msgid "No evaluations found"
 msgstr "No evaluations found"
-
-msgid "Evaluation"
-msgstr "Evaluation"
 
 msgid "CHAP settings"
 msgstr "CHAP settings"
