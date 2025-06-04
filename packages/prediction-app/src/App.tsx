@@ -25,6 +25,7 @@ import { ChapValidator } from './components/ChapValidator'
 import { NewEvaluationPage } from './pages/NewEvaluationPage'
 import { JobsPage } from './pages/JobsPage'
 import { EvaluationComparePage } from './pages/EvaluationCompare'
+import { GetStartedPage } from './pages/GetStartedPage'
 
 export type RouteHandle = {
     fullWidth?: boolean
@@ -115,6 +116,13 @@ const router = createHashRouter([
                     },
                 ],
             },
+            {
+                path: '/get-started',
+                handle: {
+                    collapseSidebar: true,
+                } satisfies RouteHandle,
+                element: <GetStartedPage />,
+            }
         ],
     },
 ])
