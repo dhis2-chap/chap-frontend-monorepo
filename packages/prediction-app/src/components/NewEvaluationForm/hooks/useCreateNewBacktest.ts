@@ -92,7 +92,6 @@ export const useCreateNewBacktest = ({
             onError?.(error)
         }
     })
-    console.log('validationError', validationError)
 
     const {
         mutate: createNewBacktest,
