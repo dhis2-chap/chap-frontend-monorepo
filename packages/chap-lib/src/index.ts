@@ -19,17 +19,9 @@ export { ComparisonPlotList } from './components/evaluation/ComparisonPlotList/C
 export { ComparionPlotWrapper } from './components/evaluation/ComparionPlotWrapper/ComparionPlotWrapper'
 export { PredictionTable } from './components/predictions/PredictionTable/PredictionTable'
 export { PredictionMap } from './components/predictions/PredictionMap/PredictionMap'
-export {
-    OverflowButton,
-    Ping,
-    Pill,
-    Card,
-    StatusIndicator,
-} from './ui'
+export { OverflowButton, Ping, Pill, Card, StatusIndicator } from './ui'
 
-export type {
-    PillVariant,
-} from './ui/Pill'
+export type { PillVariant } from './ui/Pill'
 export { default as SplitPeriodSelector } from './components/evaluation/SplitPeriodSelector/SplitPeriodSelector'
 
 //interfaces
@@ -41,3 +33,8 @@ export type {
 // Services
 export { CrudService } from './httpfunctions/services/CrudService'
 export { AnalyticsService } from './httpfunctions/services/AnalyticsService'
+export {
+    enableQueue,
+    disableQueue,
+    getQueue,
+} from './httpfunctions/core/request'

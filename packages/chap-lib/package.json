@@ -16,8 +16,8 @@
         "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
         "deploy": "d2-app-scripts deploy",
-        "generate": "yarn openapi --input ./public/openapi.json --output ./src/httpfunctions",
-        "generate-localhost": "yarn openapi --input http://localhost:8000/v1/openapi.json --output ./src/httpfunctions"
+        "generate": "yarn openapi --input ./public/openapi.json --output ./src/httpfunctions --request ./src/queuedRequest.ts",
+        "generate-localhost": "yarn openapi --input http://localhost:8000/v1/openapi.json --output ./src/httpfunctions --request ./src/queuedRequest.ts"
     },
     "main": "./build/cjs/index.js",
     "exports": {
@@ -29,6 +29,7 @@
         "@dhis2/maps-gl": "^4.0.1",
         "@dhis2/multi-calendar-dates": "^2.1.1",
         "@dhis2/ui": "^10.1.10",
-        "openapi-typescript-codegen": "^0.29.0"
+        "openapi-typescript-codegen": "^0.29.0",
+        "p-queue": "^8.1.0"
     }
 }
