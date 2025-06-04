@@ -1,3 +1,16 @@
+## [2.2.2](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v2.2.1...v2.2.2) (2025-06-04)
+
+
+### Bug Fixes
+
+* add get started page with collapsed sidebar [skip release] ([a5a5c3e](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/a5a5c3e90e98c4a669fd85338db38c0feb01c7c9))
+* add request queue to chap endpoints after errors [skip release] ([#76](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/76)) ([a452392](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/a452392575cbac3f6293713d235a35f979b78ff0))
+* add validation and dry run to new evaluation form ([da16655](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/da16655e025b3203f0f478c964b3fc28d9c4d986))
+* chart-label properly ([#79](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/79)) [skip release] ([c80ab3b](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/c80ab3ba29db155ea8b8fd8308f8a6d843299bec))
+* **chart:** change chart-label to evaluation [skip release] ([#71](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/71)) ([930a3f9](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/930a3f9587075643a006a75dcfc3325f005fc674))
+* **compare:** optimize chart cache and rendering [skip release] ([#73](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/73)) ([7ec4291](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/7ec4291739cc422094ba9fc7ecf1b53cb5982327))
+* **sidebar:** collapse sidebar in new evaluation [skip release] ([#72](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/72)) ([1e7cc9f](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/1e7cc9fc477e229a873ce3f63169aac33ae09409))
+
 ## [2.2.1](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v2.2.0...v2.2.1) (2025-06-02)
 
 
