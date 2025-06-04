@@ -26,6 +26,7 @@ export const DataMappingModal = ({
     onConfirm,
 }: Props) => {
     const {
+        localState,
         handleTargetMapping,
         handleCovariateMapping,
         isFormValid,
@@ -58,6 +59,7 @@ export const DataMappingModal = ({
                             <FeatureMappingItem
                                 feature={model.target}
                                 onMapping={handleTargetMapping}
+                                existingMapping={localState.targetMapping?.dataItem}
                             />
                         </div>
                     )}
@@ -74,6 +76,7 @@ export const DataMappingModal = ({
                                     key={covariate.name || index}
                                     feature={covariate}
                                     onMapping={handleCovariateMapping}
+                                    existingMapping={localState.covariateMappings[covariate.name || '']}
                                 />
                             ))}
                         </div>

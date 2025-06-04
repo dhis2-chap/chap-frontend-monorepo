@@ -109,14 +109,14 @@ export const useCreateNewBacktest = ({
                 formData.toDate
             )
 
-            const dataElements = [
-                ...formData.covariateMappings.map(mapping => mapping.dataItemId),
-                formData.targetMapping.dataItemId
+            const dataItems = [
+                ...formData.covariateMappings.map(mapping => mapping.dataItem.id),
+                formData.targetMapping.dataItem.id
             ]
 
             const analyticsResponse = await dataEngine.query(
                 ANALYTICS_QUERY(
-                    dataElements,
+                    dataItems,
                     periods,
                     formData.orgUnits.map(ou => ou.id)
                 )
@@ -138,7 +138,7 @@ export const useCreateNewBacktest = ({
             const convertDhis2AnalyticsToChap = (data: [string, string, string, string][]): ObservationBase[] => {
                 return data.map((row) => {
                     const dataItemId = row[0]
-                    const dataLayer = formData.targetMapping.dataItemId === dataItemId ? formData.targetMapping : formData.covariateMappings.find(mapping => mapping.dataItemId === dataItemId)
+                    const dataLayer = formData.targetMapping.dataItem.id === dataItemId ? formData.targetMapping : formData.covariateMappings.find(mapping => mapping.dataItem.id === dataItemId)
 
                     if (!dataLayer) {
                         throw new Error(`Data layer not found for data item id: ${dataItemId}`)
