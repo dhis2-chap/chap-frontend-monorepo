@@ -66,8 +66,14 @@ export const EvaluationCompare = () => {
                 v.evaluation.map((e) => ({
                     ...e,
                     orgUnitName:
+<<<<<<< HEAD
                         orgUnits?.find((ou) => ou.id === e.orgUnitId)
                             ?.displayName ?? e.orgUnitId,
+=======
+                        orgUnitsData?.organisationUnits?.find(
+                            (ou) => ou.id === e.orgUnitId
+                        )?.displayName ?? e.orgUnitId,
+>>>>>>> dc1b5b8 (fix(chart): change chartlabel to evaluation)
                 }))
             )
             .sort((a, b) => a.orgUnitName.localeCompare(b.orgUnitName))
@@ -167,6 +173,7 @@ export const EvaluationCompare = () => {
                         }}
                         useVirtuoso={true}
                         evaluationPerOrgUnits={dataForSplitPeriod}
+                        nameLabel={i18n.t('Evaluation:', { nsSeparator: '~~'})}
                     />
                 )}
             </div>
