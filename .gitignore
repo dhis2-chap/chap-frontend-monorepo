@@ -6,3 +6,4 @@
 **.tsbuildinfo
 **yarn-error.log
 .cursor
+.DS_Store

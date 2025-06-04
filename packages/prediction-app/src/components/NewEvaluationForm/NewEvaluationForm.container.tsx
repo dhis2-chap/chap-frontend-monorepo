@@ -9,6 +9,7 @@ import { Button, ButtonStrip, IconArrowLeft16, IconArrowRightMulti16, NoticeBox 
 import { useNavigate } from 'react-router-dom'
 import { useNavigationBlocker } from '../../hooks/useNavigationBlocker'
 import { NavigationConfirmModal } from '../NavigationConfirmModal'
+import { SummaryModal } from './SummaryModal'
 
 export const NewEvaluationForm = () => {
     const navigate = useNavigate()
@@ -19,6 +20,11 @@ export const NewEvaluationForm = () => {
         handleStartJob,
         isSubmitting,
         error,
+        importSummary,
+        summaryModalOpen,
+        closeSummaryModal,
+        handleDryRun,
+        isValidationLoading,
     } = useFormController()
 
     const {
@@ -53,31 +59,46 @@ export const NewEvaluationForm = () => {
                             onUpdateOrgUnits={onUpdateOrgUnits}
                         />
 
-                        {!!error && (
+                        {!!error && !importSummary && (
                             <NoticeBox
                                 error
-                                title={i18n.t('Error starting evaluation job')}
+                                title={i18n.t('There was an error')}
                                 className={styles.errorNotice}
                             >
                                 {error.message}
                             </NoticeBox>
                         )}
 
+                        {importSummary && summaryModalOpen && (
+                            <SummaryModal
+                                importSummary={importSummary}
+                                periodType={methods.getValues('periodType')}
+                                onClose={closeSummaryModal}
+                            />
+                        )}
+
                         <div className={styles.buttons}>
                             <ButtonStrip end>
                                 <Button
+                                    onClick={handleDryRun}
+                                    loading={isValidationLoading}
                                     primary
+                                >
+                                    {i18n.t('Start dry run')}
+                                </Button>
+
+                                <Button
                                     loading={isSubmitting}
                                     onClick={handleStartJob}
                                     icon={<IconArrowRightMulti16 />}
+                                    disabled={isValidationLoading}
                                 >
-                                    {i18n.t('Start job')}
+                                    {i18n.t('Start import')}
                                 </Button>
                             </ButtonStrip>
                         </div>
                     </Card>
                 </div>
-
             </FormProvider>
 
             {showConfirmModal && (
