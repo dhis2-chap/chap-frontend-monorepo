@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import i18n from '@dhis2/d2-i18n'
 import {
     Modal,
@@ -31,6 +31,8 @@ import {
 } from '@tanstack/react-table'
 import { ImportSummaryCorrected } from '../hooks/useCreateNewBacktest'
 import styles from './SummaryModal.module.css'
+import { useQueryClient } from '@tanstack/react-query'
+import { OrgUnitResponse } from '../utils/queryUtils'
 
 interface SummaryModalProps {
     importSummary: ImportSummaryCorrected
@@ -47,25 +49,6 @@ interface RejectedItem {
 
 const columnHelper = createColumnHelper<RejectedItem>()
 
-const columns = [
-    columnHelper.accessor('reason', {
-        header: i18n.t('Reason'),
-        filterFn: 'includesString',
-    }),
-    columnHelper.accessor('featureName', {
-        header: i18n.t('Feature'),
-        filterFn: 'equals',
-    }),
-    columnHelper.accessor('orgUnit', {
-        header: i18n.t('Org unit'),
-        filterFn: 'equals',
-    }),
-    columnHelper.accessor('period', {
-        header: i18n.t('Period'),
-        cell: (info) => info.getValue().join(', '),
-        enableSorting: false,
-    }),
-]
 
 const getSortDirection = (column: Column<RejectedItem>) => {
     return column.getIsSorted() || 'default'
@@ -75,8 +58,54 @@ export const SummaryModal: React.FC<SummaryModalProps> = ({
     importSummary,
     onClose,
 }) => {
+    const queryClient = useQueryClient()
     const hasRejectedItems = importSummary.rejected.length > 0
     const hasImportedItems = importSummary.importedCount > 0
+    
+    const orgUnitNames: Map<string, string> = useMemo(() => {
+        const defaultMap = new Map()
+
+        if (!importSummary.hash) {
+            return defaultMap
+        }
+        
+        const cachedOrgUnitResponse = queryClient.getQueryData(['new-backtest-data', 'org-units', importSummary.hash]) as OrgUnitResponse | undefined;
+        
+        if (!cachedOrgUnitResponse) {
+            return defaultMap
+        }
+        return new Map(cachedOrgUnitResponse.geojson.organisationUnits.map(ou => [ou.id, ou.displayName]))
+    }, [queryClient, importSummary.hash])
+    
+    const columns = [
+        columnHelper.accessor('reason', {
+            header: i18n.t('Reason'),
+            filterFn: 'includesString',
+            enableSorting: false,
+        }),
+        columnHelper.accessor('featureName', {
+            header: i18n.t('Feature'),
+            filterFn: 'equals',
+        }),
+        columnHelper.accessor('orgUnit', {
+            header: i18n.t('Org unit'),
+            filterFn: 'equals',
+            sortingFn: (rowA, rowB) => {
+                const orgUnitA = orgUnitNames.get(rowA.original.orgUnit)
+                const orgUnitB = orgUnitNames.get(rowB.original.orgUnit)
+                if (orgUnitA && orgUnitB) {
+                    return orgUnitA.localeCompare(orgUnitB)
+                }
+                return 0
+            },
+            cell: (info) => orgUnitNames.get(info.getValue()) || info.getValue(),
+        }),
+        columnHelper.accessor('period', {
+            header: i18n.t('Period'),
+            cell: (info) => info.getValue().join(', '),
+            enableSorting: false,
+        }),
+    ]
 
     const table = useReactTable({
         data: importSummary.rejected || [],
@@ -189,7 +218,7 @@ export const SummaryModal: React.FC<SummaryModalProps> = ({
                                 <SingleSelectOption
                                     key={orgUnit}
                                     value={orgUnit}
-                                    label={orgUnit}
+                                    label={orgUnitNames.get(orgUnit) || orgUnit}
                                 />
                             ))}
                             </SingleSelectField>

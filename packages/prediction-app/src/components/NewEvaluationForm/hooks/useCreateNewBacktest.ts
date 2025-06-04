@@ -25,6 +25,7 @@ const N_PERIODS = {
 
 // This is a workaround to get the correct type for the rejected field - the openapi spec is incorrect
 export type ImportSummaryCorrected = Omit<ImportSummaryResponse, 'rejected'> & {
+    hash?: string,
     rejected: {
         featureName: string,
         orgUnit: string,
@@ -60,6 +61,7 @@ export const useCreateNewBacktest = ({
                 observations,
                 periods,
                 orgUnitIds,
+                hash,
             } = await prepareBacktestData(formData, dataEngine, queryClient)
 
             const validation = validateClimateData(observations, formData, periods, orgUnitIds)
@@ -70,6 +72,7 @@ export const useCreateNewBacktest = ({
                 return {
                     id: null,
                     importedCount: successCount,
+                    hash,
                     rejected: validation.missingData.map(item => ({
                         featureName: item.covariate,
                         orgUnit: item.orgUnit,

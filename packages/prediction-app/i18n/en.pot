@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-06-03T22:50:39.145Z\n"
-"PO-Revision-Date: 2025-06-03T22:50:39.146Z\n"
+"POT-Creation-Date: 2025-06-04T11:18:56.813Z\n"
+"PO-Revision-Date: 2025-06-04T11:18:56.814Z\n"
 
 msgid "View"
 msgstr "View"
@@ -441,13 +441,16 @@ msgstr "Period"
 msgid "Import Summary"
 msgstr "Import Summary"
 
+msgid "Valid import"
+msgstr "Valid import"
+
+msgid "All {{count}} locations can be successfully imported"
+msgid_plural "All {{count}} locations can be successfully imported"
+msgstr[0] "{{count}} location can be successfully imported"
+msgstr[1] "All {{count}} locations can be successfully imported"
+
 msgid "Partial import"
 msgstr "Partial import"
-
-msgid "{{count}} locations could be successfully imported"
-msgid_plural "{{count}} locations could be successfully imported"
-msgstr[0] "{{count}} location could be successfully imported"
-msgstr[1] "{{count}} locations could be successfully imported"
 
 msgid "{{count}} locations could be successfully imported, but some were rejected"
 msgid_plural "{{count}} locations could be successfully imported, but some were rejected"
