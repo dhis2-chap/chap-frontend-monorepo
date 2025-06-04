@@ -39,17 +39,17 @@ export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
     }
 
     return (
-            <Virtuoso
-                {...virtuosoProps}
-                style={{ height: '100%' }}
-                useWindowScroll={useVirtuosoWindowScroll}
-                totalCount={evaluationPerOrgUnits.length}
-                itemContent={(index) => (
-                    <ComparisonPlot
-                        orgUnitsData={evaluationPerOrgUnits[index]}
-                        nameLabel={nameLabel}
-                    />
-                )}
-            />
+        <Virtuoso
+            {...virtuosoProps}
+            style={{ height: '100%' }}
+            useWindowScroll={useVirtuosoWindowScroll}
+            totalCount={evaluationPerOrgUnits.length}
+            itemContent={(index) => (
+                <ComparisonPlot
+                    orgUnitsData={evaluationPerOrgUnits[index]}
+                    nameLabel={nameLabel}
+                />
+            )}
+        />
     )
 }
