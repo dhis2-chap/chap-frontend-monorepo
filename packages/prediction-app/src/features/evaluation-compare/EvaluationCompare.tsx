@@ -167,6 +167,7 @@ export const EvaluationCompare = () => {
                         }}
                         useVirtuoso={true}
                         evaluationPerOrgUnits={dataForSplitPeriod}
+                        nameLabel={i18n.t('Evaluation:', { nsSeparator: '~~'})}
                     />
                 )}
             </div>

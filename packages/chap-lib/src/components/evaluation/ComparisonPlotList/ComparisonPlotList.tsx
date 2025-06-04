@@ -8,6 +8,7 @@ interface ComparisonPlotListProps {
     useVirtuoso?: boolean
     useVirtuosoWindowScroll?: boolean
     virtuosoProps?: VirtuosoProps<any, any>
+    nameLabel?: string
 }
 
 export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
@@ -15,6 +16,7 @@ export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
     useVirtuoso = true,
     useVirtuosoWindowScroll = false,
     virtuosoProps,
+    nameLabel,
 }) => {
     if (!useVirtuoso) {
         return (
@@ -28,6 +30,7 @@ export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
                         <ComparisonPlot
                             key={orgUnitsData.orgUnitId}
                             orgUnitsData={orgUnitsData}
+                            nameLabel={nameLabel}
                         />
                     )
                 })}
@@ -44,6 +47,7 @@ export const ComparisonPlotList: React.FC<ComparisonPlotListProps> = ({
                 itemContent={(index) => (
                     <ComparisonPlot
                         orgUnitsData={evaluationPerOrgUnits[index]}
+                        nameLabel={nameLabel}
                     />
                 )}
             />
