@@ -26,6 +26,7 @@ import { NewEvaluationPage } from './pages/NewEvaluationPage'
 import { JobsPage } from './pages/JobsPage'
 import { EvaluationComparePage } from './pages/EvaluationCompare'
 import { GetStartedPage } from './pages/GetStartedPage'
+import { SyncUrlWithGlobalShell } from './utils/syncUrlWithGlobalShell'
 
 export type RouteHandle = {
     fullWidth?: boolean
@@ -35,7 +36,12 @@ export type RouteHandle = {
 
 const router = createHashRouter([
     {
-        element: <Layout />,
+        element: (
+            <>
+                <SyncUrlWithGlobalShell />
+                <Layout />,
+            </>
+        ),
         errorElement: <ErrorPage />,
         children: [
             {
@@ -122,7 +128,7 @@ const router = createHashRouter([
                     collapseSidebar: true,
                 } satisfies RouteHandle,
                 element: <GetStartedPage />,
-            }
+            },
         ],
     },
 ])
