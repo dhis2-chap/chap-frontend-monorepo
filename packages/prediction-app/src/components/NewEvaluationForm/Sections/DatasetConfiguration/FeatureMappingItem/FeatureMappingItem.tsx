@@ -5,10 +5,15 @@ import styles from './FeatureMappingItem.module.css'
 
 type Props = {
     feature: FeatureType
-    onMapping: (featureName: string, dataItemId: string) => void
+    onMapping: (featureName: string, dataItemId: string, dataItemDisplayName: string) => void
+    existingMapping?: {
+        id: string
+        displayName: string
+        dimensionItemType: string | null | undefined
+    }
 }
 
-export const FeatureMappingItem = ({ feature, onMapping }: Props) => {
+export const FeatureMappingItem = ({ feature, onMapping, existingMapping }: Props) => {
     const createFeature = (feature: FeatureType) => ({
         id: feature.name || feature.displayName,
         name: feature.displayName,
@@ -25,12 +30,15 @@ export const FeatureMappingItem = ({ feature, onMapping }: Props) => {
         <div className={styles.mappingItem}>
             <SearchSelectField
                 feature={createFeature(feature)}
-                onChangeSearchSelectField={(_, dataItemId) => {
+                onChangeSearchSelectField={(_, dataItemId, dataItemDisplayName, dimensionItemType) => {
                     onMapping(
                         feature.name || feature.displayName,
-                        dataItemId
+                        dataItemId,
+                        dataItemDisplayName,
+                        feature.dimensionItemType
                     )
                 }}
+                defaultValue={existingMapping}
             />
             {shouldShowDescription(feature) && (
                 <p className={styles.featureDescription}>

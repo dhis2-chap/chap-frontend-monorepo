@@ -9,6 +9,8 @@ import { useCreateNewBacktest } from './useCreateNewBacktest'
 
 export type CovariateMapping = z.infer<typeof covariateMappingSchema>
 
+const dimensionItemTypeSchema = z.enum(['DATA_ELEMENT', 'INDICATOR', 'PROGRAM_INDICATOR']).optional()
+
 const orgUnitSchema = z.object({
   id: z.string().min(1, { message: i18n.t('Missing id for org unit') }),
   name: z.string().optional(),
@@ -18,7 +20,11 @@ const orgUnitSchema = z.object({
 
 const covariateMappingSchema = z.object({
   covariateName: z.string(),
-  dataItemId: z.string(),
+  dataItem: z.object({
+    id: z.string(),
+    displayName: z.string(),
+    dimensionItemType: dimensionItemTypeSchema,
+  }),
 })
 
 const evaluationSchema = z.object({
@@ -31,7 +37,11 @@ const evaluationSchema = z.object({
   covariateMappings: z.array(covariateMappingSchema).min(1, { message: i18n.t('Please map the covariates to valid data items') }),
   targetMapping: z.object({
     covariateName: z.string(),
-    dataItemId: z.string(),
+    dataItem: z.object({
+      id: z.string(),
+      displayName: z.string(),
+      dimensionItemType: dimensionItemTypeSchema,
+    }),
   }, { message: i18n.t('Please map the target to a valid data item') }),
 })
   .refine((data) => {

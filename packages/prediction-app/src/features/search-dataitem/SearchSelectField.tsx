@@ -8,7 +8,7 @@ import { useDebounce } from '../../hooks/useDebounce'
 interface Option {
     id: string
     displayName: string
-    dimensionItemType: string
+    dimensionItemType: string | null | undefined
 }
 
 interface DataItemsResponse {
@@ -27,8 +27,14 @@ interface SearchSelectFieldProps {
     onChangeSearchSelectField: (
         feature: Feature,
         dataItemId: string,
-        dataItemDisplayName: string
+        dataItemDisplayName: string,
+        dimensionItemType: string | null | undefined
     ) => void
+    defaultValue?: {
+        id: string
+        displayName: string
+        dimensionItemType: string | null | undefined
+    }
 }
 
 const DIMENSION_ITEM_TYPE_LABELS = {
@@ -41,9 +47,19 @@ const DIMENSION_ITEM_TYPE_LABELS = {
 const SearchSelectField = ({
     feature,
     onChangeSearchSelectField,
+    defaultValue,
 }: SearchSelectFieldProps) => {
     const [searchQuery, setSearchQuery] = useState<string>('')
-    const [selectedOption, setSelectedOption] = useState<Option | null>(null)
+    const [selectedOption, setSelectedOption] = useState<Option | null>(() => {
+        if (defaultValue && defaultValue.id && defaultValue.displayName) {
+            return {
+                id: defaultValue.id,
+                displayName: defaultValue.displayName,
+                dimensionItemType: defaultValue.dimensionItemType,
+            }
+        }
+        return null
+    })
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
 
     const debouncedQuery = useDebounce(searchQuery, 300)
@@ -100,14 +116,14 @@ const SearchSelectField = ({
         setSelectedOption(option)
         setSearchQuery('')
         setIsDropdownOpen(false)
-        onChangeSearchSelectField(feature, option.id, option.displayName)
+        onChangeSearchSelectField(feature, option.id, option.displayName, option.dimensionItemType)
     }
 
     const handleClearSelection = (event: React.MouseEvent) => {
-        event.stopPropagation() // Prevent trigger click
+        event.stopPropagation()
         setSelectedOption(null)
         setSearchQuery('')
-        onChangeSearchSelectField(feature, '', '')
+        onChangeSearchSelectField(feature, '', '', '')
     }
 
     const renderList = () => {
