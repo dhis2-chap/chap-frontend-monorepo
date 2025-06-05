@@ -3,6 +3,10 @@ import Highcharts from 'highcharts'
 import React from 'react'
 import { HighChartsData } from '../../../interfaces/Evaluation'
 import { getPeriodNameFromId } from '../../../utils/Time'
+import enableOfflineExporting from 'highcharts/modules/offline-exporting'
+
+
+enableOfflineExporting(Highcharts)
 
 function syncChartZoom(event: any): void {
     Highcharts.charts.forEach((chart: any) => {
@@ -140,6 +144,9 @@ const getOptions = ({
             },
         },
         series: getSeries(data),
+        exporting: {
+            fallbackToExportServer: false,
+        },
     }
 }
 
