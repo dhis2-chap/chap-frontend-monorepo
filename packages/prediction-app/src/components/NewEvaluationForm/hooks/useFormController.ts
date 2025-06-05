@@ -37,6 +37,7 @@ const evaluationSchema = z.object({
     dataItem: z.object({
       id: z.string(),
       displayName: z.string(),
+      dimensionItemType: z.enum(['DATA_ELEMENT', 'INDICATOR', 'PROGRAM_INDICATOR']).optional(),
     }),
   }, { message: i18n.t('Please map the target to a valid data item') }),
 })

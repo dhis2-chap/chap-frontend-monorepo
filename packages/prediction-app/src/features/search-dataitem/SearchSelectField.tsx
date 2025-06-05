@@ -8,7 +8,7 @@ import { useDebounce } from '../../hooks/useDebounce'
 interface Option {
     id: string
     displayName: string
-    dimensionItemType: string
+    dimensionItemType: string | null | undefined
 }
 
 interface DataItemsResponse {
@@ -27,11 +27,13 @@ interface SearchSelectFieldProps {
     onChangeSearchSelectField: (
         feature: Feature,
         dataItemId: string,
-        dataItemDisplayName: string
+        dataItemDisplayName: string,
+        dimensionItemType: string | null | undefined
     ) => void
     defaultValue?: {
         id: string
         displayName: string
+        dimensionItemType: string | null | undefined
     }
 }
 
@@ -53,7 +55,7 @@ const SearchSelectField = ({
             return {
                 id: defaultValue.id,
                 displayName: defaultValue.displayName,
-                dimensionItemType: '',
+                dimensionItemType: defaultValue.dimensionItemType,
             }
         }
         return null
@@ -114,14 +116,14 @@ const SearchSelectField = ({
         setSelectedOption(option)
         setSearchQuery('')
         setIsDropdownOpen(false)
-        onChangeSearchSelectField(feature, option.id, option.displayName)
+        onChangeSearchSelectField(feature, option.id, option.displayName, option.dimensionItemType)
     }
 
     const handleClearSelection = (event: React.MouseEvent) => {
-        event.stopPropagation() // Prevent trigger click
+        event.stopPropagation()
         setSelectedOption(null)
         setSearchQuery('')
-        onChangeSearchSelectField(feature, '', '')
+        onChangeSearchSelectField(feature, '', '', '')
     }
 
     const renderList = () => {

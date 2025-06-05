@@ -9,6 +9,7 @@ type Props = {
     existingMapping?: {
         id: string
         displayName: string
+        dimensionItemType: string | null | undefined
     }
 }
 
@@ -29,11 +30,12 @@ export const FeatureMappingItem = ({ feature, onMapping, existingMapping }: Prop
         <div className={styles.mappingItem}>
             <SearchSelectField
                 feature={createFeature(feature)}
-                onChangeSearchSelectField={(_, dataItemId, dataItemDisplayName) => {
+                onChangeSearchSelectField={(_, dataItemId, dataItemDisplayName, dimensionItemType) => {
                     onMapping(
                         feature.name || feature.displayName,
                         dataItemId,
-                        dataItemDisplayName
+                        dataItemDisplayName,
+                        feature.dimensionItemType
                     )
                 }}
                 defaultValue={existingMapping}
