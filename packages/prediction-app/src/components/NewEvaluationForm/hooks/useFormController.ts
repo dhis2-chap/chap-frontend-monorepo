@@ -18,7 +18,10 @@ const orgUnitSchema = z.object({
 
 const covariateMappingSchema = z.object({
   covariateName: z.string(),
-  dataItemId: z.string(),
+  dataItem: z.object({
+    id: z.string(),
+    displayName: z.string(),
+  }),
 })
 
 const evaluationSchema = z.object({
@@ -31,7 +34,10 @@ const evaluationSchema = z.object({
   covariateMappings: z.array(covariateMappingSchema).min(1, { message: i18n.t('Please map the covariates to valid data items') }),
   targetMapping: z.object({
     covariateName: z.string(),
-    dataItemId: z.string(),
+    dataItem: z.object({
+      id: z.string(),
+      displayName: z.string(),
+    }),
   }, { message: i18n.t('Please map the target to a valid data item') }),
 })
   .refine((data) => {
@@ -42,18 +48,22 @@ const evaluationSchema = z.object({
 
 export type EvaluationFormValues = z.infer<typeof evaluationSchema>
 
-export const useFormController = () => {
+type UseFormControllerProps = {
+  initialValues?: Partial<EvaluationFormValues>
+}
+
+export const useFormController = ({ initialValues }: UseFormControllerProps = {}) => {
   const methods = useForm<EvaluationFormValues>({
     resolver: zodResolver(evaluationSchema),
     defaultValues: {
-      name: '',
-      periodType: PERIOD_TYPES.MONTH,
-      fromDate: '',
-      toDate: '',
-      orgUnits: [],
-      modelId: '',
-      covariateMappings: [],
-      targetMapping: undefined,
+      name: initialValues?.name || '',
+      periodType: initialValues?.periodType || PERIOD_TYPES.MONTH,
+      fromDate: initialValues?.fromDate || '',
+      toDate: initialValues?.toDate || '',
+      orgUnits: initialValues?.orgUnits || [],
+      modelId: initialValues?.modelId || '',
+      covariateMappings: initialValues?.covariateMappings || [],
+      targetMapping: initialValues?.targetMapping || undefined,
     },
     shouldFocusError: false,
   })

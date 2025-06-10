@@ -5,6 +5,7 @@ import { useApiDataQuery } from '../utils/useApiDataQuery'
 type OrganisationUnit = {
     id: string
     displayName: string
+    path: string,
 }
 
 type OrgUnitResult = {
@@ -54,7 +55,7 @@ export const useOrgUnitsById = (orgUnitIds: string[]) => {
             resource: 'organisationUnits',
             params: {
                 paging: false,
-                fields: ['id', 'displayName'],
+                fields: ['id', 'displayName', 'path'],
                 filter: `id:in:[${orgUnitIds.join(',')}]`,
                 order: 'displayName:asc',
             },
