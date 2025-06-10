@@ -1,14 +1,16 @@
 import React, { useRef, useState } from 'react'
+import { z } from 'zod'
 import i18n from '@dhis2/d2-i18n';
 import styles from './SearchSelectField.module.css'
 import { Label, Layer, Popper, IconChevronDown16, IconCross16 } from '@dhis2/ui'
 import { useApiDataQuery } from '../../utils/useApiDataQuery'
 import { useDebounce } from '../../hooks/useDebounce'
+import { dimensionItemTypeSchema } from '../../components/NewEvaluationForm/hooks/useFormController';
 
 interface Option {
     id: string
     displayName: string
-    dimensionItemType: string | null | undefined
+    dimensionItemType: z.infer<typeof dimensionItemTypeSchema>
 }
 
 interface DataItemsResponse {
@@ -28,13 +30,14 @@ interface SearchSelectFieldProps {
         feature: Feature,
         dataItemId: string,
         dataItemDisplayName: string,
-        dimensionItemType: string | null | undefined
+        dimensionItemType: z.infer<typeof dimensionItemTypeSchema>
     ) => void
     defaultValue?: {
         id: string
         displayName: string
         dimensionItemType: string | null | undefined
     }
+    onResetField: () => void
 }
 
 const DIMENSION_ITEM_TYPE_LABELS = {
@@ -48,6 +51,7 @@ const SearchSelectField = ({
     feature,
     onChangeSearchSelectField,
     defaultValue,
+    onResetField,
 }: SearchSelectFieldProps) => {
     const [searchQuery, setSearchQuery] = useState<string>('')
     const [selectedOption, setSelectedOption] = useState<Option | null>(() => {
@@ -55,7 +59,7 @@ const SearchSelectField = ({
             return {
                 id: defaultValue.id,
                 displayName: defaultValue.displayName,
-                dimensionItemType: defaultValue.dimensionItemType,
+                dimensionItemType: defaultValue.dimensionItemType as z.infer<typeof dimensionItemTypeSchema>,
             }
         }
         return null
@@ -123,7 +127,7 @@ const SearchSelectField = ({
         event.stopPropagation()
         setSelectedOption(null)
         setSearchQuery('')
-        onChangeSearchSelectField(feature, '', '', '')
+        onResetField()
     }
 
     const renderList = () => {
