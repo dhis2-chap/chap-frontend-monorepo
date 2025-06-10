@@ -114,12 +114,20 @@ export const ModelTemplateConfigForm = ({
                 />
 
                 <div className={styles.formField}>
-                    <Label>{i18n.t('Additional Covariates')}</Label>
+                    <Label>{i18n.t('Additional continuous covariates')}</Label>
                     <div className={styles.covariate}>
                         <div className={styles.covariateInput}>
                             <InputField
                                 value={newCovariate}
                                 placeholder={i18n.t('Enter covariate name')}
+                                onKeyDown={(_, event) => {
+                                    if (event.key === 'Enter') {
+                                        event.preventDefault()
+                                        if (newCovariate.trim()) {
+                                            handleAddCovariate()
+                                        }
+                                    }
+                                }}
                                 onChange={({ value }) => {
                                     setNewCovariate(value || '')
                                     if (covariateError) {
@@ -133,6 +141,7 @@ export const ModelTemplateConfigForm = ({
                         <Button
                             onClick={handleAddCovariate}
                             disabled={!newCovariate.trim()}
+                            type='button'
                         >
                             {i18n.t('Add')}
                         </Button>
