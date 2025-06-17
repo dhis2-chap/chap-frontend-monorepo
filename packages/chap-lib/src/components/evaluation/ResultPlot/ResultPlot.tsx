@@ -5,11 +5,13 @@ import { HighChartsData } from '../../../interfaces/Evaluation'
 import { getPeriodNameFromId } from '../../../utils/Time'
 import enableOfflineExporting from 'highcharts/modules/offline-exporting'
 
-
 enableOfflineExporting(Highcharts)
 
-function syncChartZoom(event: any): void {
-    Highcharts.charts.forEach((chart: any) => {
+function syncChartZoom(
+    this: Highcharts.Axis,
+    event: Highcharts.AxisSetExtremesEventObject
+): void {
+    Highcharts.charts.forEach((chart) => {
         if (chart) {
             chart.xAxis[0].setExtremes(event.min, event.max)
         }
@@ -20,10 +22,12 @@ interface ResultPlotProps {
     data: HighChartsData
     modelName: string
     nameLabel?: string
-    syncZoom: boolean
+    syncZoom: boolean | Highcharts.AxisSetExtremesEventCallbackFunction
+    ref?: HighchartsReact.RefObject
+    maxY?: number
 }
 
-const getSeries = (data: any) => {
+const getSeries = (data: any): Highcharts.SeriesOptionsType[] => {
     return [
         {
             name: 'Real Cases',
@@ -80,8 +84,9 @@ const getSeries = (data: any) => {
 type GetOptionParams = {
     data: any
     modelName: string
-    syncZoom: boolean
+    syncZoom: ResultPlotProps['syncZoom']
     nameLabel?: string
+    maxY?: number
 }
 
 const getOptions = ({
@@ -89,7 +94,8 @@ const getOptions = ({
     modelName,
     syncZoom,
     nameLabel,
-}: GetOptionParams) => {
+    maxY,
+}: GetOptionParams): Highcharts.Options => {
     const subtitleText =
         nameLabel && modelName
             ? `${nameLabel}: ${modelName}`
@@ -105,7 +111,7 @@ const getOptions = ({
             align: 'left',
         },
         chart: {
-            zoomType: 'x',
+            zooming: { type: 'x' },
         },
         xAxis: {
             categories: data.periods, // Use periods as categories
@@ -120,21 +126,29 @@ const getOptions = ({
                     fontSize: '0.9rem',
                 },
             },
-            events: syncZoom && {
-                afterSetExtremes: syncChartZoom,
-            },
+            events: syncZoom
+                ? {
+                      afterSetExtremes:
+                          typeof syncZoom === 'function'
+                              ? syncZoom
+                              : syncChartZoom,
+                  }
+                : undefined,
             title: {
                 text: 'Period',
             },
+            crosshair: true,
+            zoomEnabled: true,
         },
         yAxis: {
             title: {
                 text: null,
             },
             min: 0,
+            zoomEnabled: false,
+            max: maxY || undefined,
         },
         tooltip: {
-            crosshairs: true,
             shared: true,
             valueSuffix: ' cases',
         },
@@ -152,18 +166,23 @@ const getOptions = ({
     }
 }
 
-export const ResultPlot = ({
-    data,
-    modelName,
-    syncZoom,
-    nameLabel,
-}: ResultPlotProps) => {
+export const ResultPlot = React.forwardRef<
+    HighchartsReact.RefObject,
+    ResultPlotProps
+>(function ResultPlot({ data, modelName, syncZoom, nameLabel, maxY }, ref) {
     return (
         <>
             <HighchartsReact
+                ref={ref}
                 highcharts={Highcharts}
-                options={getOptions({ data, modelName, syncZoom, nameLabel })}
+                options={getOptions({
+                    data,
+                    modelName,
+                    syncZoom,
+                    nameLabel,
+                    maxY,
+                })}
             />
         </>
     )
-}
+})
