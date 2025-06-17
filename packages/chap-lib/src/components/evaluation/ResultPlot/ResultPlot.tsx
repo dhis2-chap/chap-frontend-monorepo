@@ -144,7 +144,7 @@ const getOptions = ({
             title: {
                 text: null,
             },
-            // min: 0,
+            min: 0,
             zoomEnabled: false,
             max: maxY || undefined,
         },

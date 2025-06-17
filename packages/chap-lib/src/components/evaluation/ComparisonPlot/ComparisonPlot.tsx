@@ -28,9 +28,9 @@ export const ComparisonPlot = React.memo(function ComparisonPlot({
             // prevent multiple calls from other charts
             return
         }
-        const triggeredChart = this.chart
+        const triggeringChart = this.chart
         const chartToSync =
-            baseRef !== null && triggeredChart === baseRef?.chart
+            baseRef !== null && triggeringChart === baseRef?.chart
                 ? comparisonRef?.chart
                 : baseRef?.chart
 
@@ -43,12 +43,12 @@ export const ComparisonPlot = React.memo(function ComparisonPlot({
 
         if (isReset) {
             chartToSync.zoomOut()
-            triggeredChart.zoomOut()
+            triggeringChart.zoomOut()
             return
         }
-        const triggeredYAxis = this.chart.yAxis[0]
+        const triggeringYAxis = this.chart.yAxis[0]
         const { min: xMin, max: xMax } = event
-        const { min: yMin, max: yMax } = triggeredYAxis
+        const { min: yMin, max: yMax } = triggeringYAxis
         // sync zoom for both axes
         chartToSync.yAxis[0].setExtremes(yMin, yMax, false)
         chartToSync.xAxis[0].setExtremes(xMin, xMax, false)
