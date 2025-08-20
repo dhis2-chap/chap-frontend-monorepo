@@ -14,6 +14,7 @@ interface SelectDataLineProps {
     setDataLayers: (datasetLayer: DatasetLayer[]) => void
     datasetLayers: DatasetLayer[]
     predictMode?: boolean
+    onResetDataLayer: (featureName: string) => void
 }
 
 ///temporarily dummy data
@@ -22,6 +23,7 @@ const SelectDataLine = ({
     datasetLayers,
     setDataLayers,
     predictMode,
+    onResetDataLayer,
 }: SelectDataLineProps) => {
     const [chapSources, setChapSources] = useState<DataSource[]>([])
 
@@ -204,6 +206,7 @@ const SelectDataLine = ({
                                                 index
                                             )
                                         }
+                                        onResetField={() => onResetDataLayer(dataLayer.feature)}
                                     />
                                 )}
                             </div>
