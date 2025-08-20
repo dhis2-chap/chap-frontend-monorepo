@@ -1,3 +1,13 @@
+## [2.2.3](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v2.2.2...v2.2.3) (2025-08-20)
+
+
+### Bug Fixes
+
+* add prevent default on covariate addings [skip release] ([3a9e48d](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/3a9e48d175b4390ee7ddb9c4abfb10d9bb7a9e21))
+* enable export of charts [skip release] ([#83](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/83)) ([6c632e6](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/6c632e6437b84e8f1edf932ca41d2715f4d86461))
+* sync comparison charts only, sync y axis ([#84](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/84)) ([5e1887d](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/5e1887d35d8491f80885f45db3a8fabf42204766))
+* sync url with global shell [skip release] ([#80](https://github.com/dhis2-chap/chap-frontend-monorepo/issues/80)) ([fcf83b3](https://github.com/dhis2-chap/chap-frontend-monorepo/commit/fcf83b35f15f612dee07ad92acb67b4f285f2efb))
+
 ## [2.2.2](https://github.com/dhis2-chap/chap-frontend-monorepo/compare/v2.2.1...v2.2.2) (2025-06-04)
 
 
