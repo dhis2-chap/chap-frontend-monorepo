@@ -81,7 +81,7 @@ export const EvaluationCompare = () => {
                 <PageHeader
                     pageTitle={i18n.t('Compare evaluations')}
                     pageDescription={i18n.t(
-                        'Compare evaluations to assess model, co-variates and data performance.'
+                        'Compare evaluations to assess model, covariates and data performance.'
                     )}
                 />
                 <div>
