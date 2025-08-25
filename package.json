@@ -9,11 +9,12 @@
         "apps/*"
     ],
     "scripts": {
-        "linter:check": "eslint . --config eslint.config.mjs",
+        "linter:check": "turbo linter:check --parallel",
+        "tsc:check": "turbo tsc:check --parallel",
         "format": "d2-style apply",
         "start": "turbo start --parallel",
         "build": "turbo build",
-        "tsc:check": "turbo tsc:check --parallel"
+        "cp-build": "rm -rf ./build && cp -r apps/modeling-app/build ."
     },
     "dependencies": {},
     "devDependencies": {

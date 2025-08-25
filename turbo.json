@@ -8,6 +8,14 @@
       "tsc:check": {
         "dependsOn": ["^tsc:check"],
         "outputs": []
+      },
+      "linter:check": {
+        "dependsOn": ["^linter:check"],
+        "outputs": []
+      },
+      "build": {
+        "dependsOn": ["^build"],
+        "outputs": ["build/**"]
       }
     }
   }

@@ -14,7 +14,7 @@ export default defineConfig([
       "dist/**",
       ".turbo/**",
       ".eslintcache/**",
-      "**/chap-lib/src/httpfunctions/**",
+      "**/ui/src/httpfunctions/**",
       "**/*.{js,jsx}"
     ]
   },

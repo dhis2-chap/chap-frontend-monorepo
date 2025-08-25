@@ -9,7 +9,8 @@
         "start": "d2-app-scripts start",
         "test": "d2-app-scripts test",
         "deploy": "d2-app-scripts deploy",
-        "tsc:check": "tsc --noEmit"
+        "tsc:check": "tsc --noEmit",
+        "linter:check": "eslint . --config ../../eslint.config.mjs"
     },
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^12.2.0",
