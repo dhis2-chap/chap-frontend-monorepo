@@ -1,15 +1,10 @@
 {
     "name": "@dhis2-chap/chap-lib",
+    "type": "module",
     "version": "2.2.3",
     "module": "./build/es/index.js",
     "types": "./build/types/index.d.ts",
     "license": "MIT",
-    "devDependencies": {
-        "@dhis2/cli-app-scripts": "^12.2.0",
-        "@types/css-modules": "^1.0.5",
-        "@types/node": "^22.10.1",
-        "typescript": "^5.7.2"
-    },
     "scripts": {
         "watch": "tsc --watch",
         "build": "d2-app-scripts build && tsc --emitDeclarationOnly --outDir ./build/types",
@@ -31,5 +26,11 @@
         "@dhis2/ui": "^10.1.10",
         "openapi-typescript-codegen": "^0.29.0",
         "p-queue": "^8.1.0"
+    },
+    "devDependencies": {
+        "@dhis2/cli-app-scripts": "^12.2.0",
+        "@types/css-modules": "^1.0.5",
+        "@types/node": "^22.10.1",
+        "typescript": "^5.7.2"
     }
 }

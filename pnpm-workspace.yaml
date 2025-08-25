@@ -1,0 +1,10 @@
+packages:
+  - packages/*
+
+onlyBuiltDependencies:
+  - '@dhis2/cli-helpers-engine'
+  - '@dhis2/cli-style'
+  - core-js
+  - core-js-pure
+  - esbuild
+  - maplibre-gl

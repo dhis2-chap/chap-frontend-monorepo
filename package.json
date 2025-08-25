@@ -1,6 +1,7 @@
 {
-    "name": "chap-mono-sample",
+    "name": "chap-frontend",
     "main": "index.js",
+    "packageManager": "pnpm@10.12.3",
     "license": "MIT",
     "private": true,
     "workspaces": [
@@ -16,7 +17,7 @@
         "build:chap-lib": "yarn workspace @dhis2-chap/chap-lib build",
         "build:chap-eval": "yarn workspace chap-eval build",
         "build:modeling-app": "yarn workspace modeling-app build",
-        "cp-build": "rm -rf ./build && cp -r packages/prediction-app/build .",
+        "cp-build": "rm -rf ./build && cp -r packages/modeling-app/build .",
         "build": "yarn build:chap-lib && yarn build:chap-eval && yarn build:modeling-app && yarn cp-build",
         "test:chap-lib": "yarn workspace @dhis2-chap/chap-lib test",
         "test:chap-eval": "yarn workspace chap-eval test",
@@ -49,6 +50,7 @@
         "eslint": "^9.26.0",
         "eslint-plugin-react": "^7.37.5",
         "globals": "^16.1.0",
+        "turbo": "^2.5.6",
         "typescript-eslint": "^8.33.0"
     },
     "resolutions": {

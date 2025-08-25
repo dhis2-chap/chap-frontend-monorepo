@@ -1,5 +1,5 @@
 {
-    "name": "chap-eval",
+    "name": "@dhis2-chap/chap-eval",
     "version": "2.2.3",
     "private": true,
     "dependencies": {
@@ -17,7 +17,7 @@
         "react-scripts": "5.0.1",
         "typescript": "^5.7.2",
         "web-vitals": "^2.1.4",
-        "@dhis2-chap/chap-lib": "2.2.3"
+        "@dhis2-chap/chap-lib": "workspace:*"
     },
     "scripts": {
         "start": "react-scripts start",

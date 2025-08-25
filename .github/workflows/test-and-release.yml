@@ -160,7 +160,7 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                   name: modeling-app-build
-                  path: packages/prediction-app/build
+                  path: packages/modeling-app/build
 
     release:
         needs: [install, lint, test, build-chap-lib, build-modeling-app]
@@ -192,7 +192,7 @@ jobs:
               uses: actions/download-artifact@v4
               with:
                   name: modeling-app-build
-                  path: packages/prediction-app/build
+                  path: packages/modeling-app/build
 
             # todo: fix linting errors in chap-eval and build here too
             # `cp-build` moves the modeling app build to where the semantic
@@ -209,5 +209,5 @@ jobs:
             # todo: also deploy eval app on github
             - uses: dhis2/deploy-build@master
               with:
-                  build-dir: packages/prediction-app/build/app
+                  build-dir: packages/modeling-app/build/app
                   github-token: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
