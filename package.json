@@ -12,7 +12,8 @@
         "linter:check": "eslint . --config eslint.config.mjs",
         "format": "d2-style apply",
         "start": "turbo start --parallel",
-        "build": "turbo build"
+        "build": "turbo build",
+        "tsc:check": "turbo tsc:check --parallel"
     },
     "dependencies": {},
     "devDependencies": {

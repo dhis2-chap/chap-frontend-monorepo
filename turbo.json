@@ -4,6 +4,10 @@
       "start": {
         "persistent": true,
         "cache": false
+      },
+      "tsc:check": {
+        "dependsOn": ["^tsc:check"],
+        "outputs": []
       }
     }
   }

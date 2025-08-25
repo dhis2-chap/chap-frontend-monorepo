@@ -12,7 +12,8 @@
         "test": "d2-app-scripts test",
         "deploy": "d2-app-scripts deploy",
         "generate": "yarn openapi --input ./public/openapi.json --output ./src/httpfunctions --request ./src/queuedRequest.ts",
-        "generate-localhost": "yarn openapi --input http://localhost:8000/v1/openapi.json --output ./src/httpfunctions --request ./src/queuedRequest.ts"
+        "generate-localhost": "yarn openapi --input http://localhost:8000/v1/openapi.json --output ./src/httpfunctions --request ./src/queuedRequest.ts",
+        "tsc:check": "tsc --noEmit"
     },
     "main": "./build/cjs/index.js",
     "exports": {

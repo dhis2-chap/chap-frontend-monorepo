@@ -1,23 +1,5 @@
 {
-    "compilerOptions": {
-        "target": "ES2021",
-        "module": "ESNext",
-        "moduleResolution": "bundler",
-        "composite": true,
-        "declaration": true,
-        "declarationMap": true,
-        "declarationDir": "build/types",
-        "emitDeclarationOnly": true,
-        "strict": true,
-        "jsx": "react",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "skipLibCheck": true,
-        "allowJs": false,
-        "checkJs": false,
-        "rootDir": "src",
-        "resolveJsonModule": true
-    },
+    "extends": "../../tsconfig.base.json",
     "include": ["src/**/*"],
     "exclude": ["node_modules", "build", "dist", "src/queuedRequest.ts"]
 }
