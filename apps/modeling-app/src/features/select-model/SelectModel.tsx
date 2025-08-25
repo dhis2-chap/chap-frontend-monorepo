@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CrudService, ModelSpecRead } from '../../../../../packages/chap-lib/ui/src';
+import { CrudService, ModelSpecRead } from '@dhis2-chap/ui';
 import { Button } from '@dhis2/ui';
 import ModelDetails from '../model-details/ModelDetails'
 import styles from './SelectModel.module.css'

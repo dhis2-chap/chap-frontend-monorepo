@@ -1,7 +1,7 @@
 import { NoticeBox } from '@dhis2/ui'
 import React from 'react'
 import style from './WarnAboutIncompatibleVersion.module.css'
-import { DefaultService } from '../../../../../../packages/chap-lib/ui/src'
+import { DefaultService } from '@dhis2-chap/ui'
 import { useConfig } from '@dhis2/app-runtime'
 import { useRoute } from '../../../hooks/useRoute'
 import chapConfig from '../../../chap.json'

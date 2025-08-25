@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { JobDescription, JobsService, ApiError } from "../../../../packages/chap-lib/ui/src";
+import { JobDescription, JobsService, ApiError } from "@dhis2-chap/ui";
 
 export const JOB_STATUSES = {
     SUCCESS: 'SUCCESS',

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, IconDelete16 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import { Table } from '@tanstack/react-table';
-import { BackTestRead } from '../../../../../../packages/chap-lib/ui/src';
+import { BackTestRead } from '@dhis2-chap/ui';
 import styles from './BatchActions.module.css';
 import { useBatchDeleteBacktests } from '../hooks/useBatchDeleteBacktests';
 

@@ -8,7 +8,7 @@ import {
     IconView16,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
-import { OverflowButton } from '../../../../../../packages/chap-lib/ui/src';
+import { OverflowButton } from '@dhis2-chap/ui';
 import { EditBacktestModal } from './EditBacktestModal';
 import { DeleteBacktestModal } from './DeleteBacktestModal/DeleteBacktestModal';
 import { useNavigate } from 'react-router-dom';

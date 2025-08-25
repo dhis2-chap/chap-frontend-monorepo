@@ -8,7 +8,7 @@ import {
 } from '@dhis2/ui'
 import DatasetDetails from '../../../dataset-details/DatasetDetails'
 import SelectModel from '../../../select-model/SelectModel'
-import { AnalyticsService } from '../../../../../../../packages/chap-lib/ui/src'
+import { AnalyticsService } from '@dhis2-chap/ui'
 import { useQueryClient } from '@tanstack/react-query'
 interface NewEvaluationFormProps {
     onDrawerClose: () => void

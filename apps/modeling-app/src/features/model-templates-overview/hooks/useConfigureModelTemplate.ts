@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { useMutation } from "@tanstack/react-query";
-import { CrudService } from "../../../../../../packages/chap-lib/ui/src";
+import { CrudService } from "@dhis2-chap/ui";
 import { ModelTemplateConfigFormValues } from "../components/ModelTemplateConfigForm/ModelTemplateConfigForm";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";

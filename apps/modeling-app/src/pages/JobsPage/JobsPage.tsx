@@ -3,7 +3,7 @@ import {
   CircularLoader,
   NoticeBox,
 } from '@dhis2/ui';
-import { Card } from '../../../../../packages/chap-lib/ui/src';
+import { Card } from '@dhis2-chap/ui';
 import i18n from '@dhis2/d2-i18n';
 import styles from './JobsPage.module.css';
 import { PageHeader } from '../../features/common-features/PageHeader/PageHeader';

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CrudService } from '../../../../../packages/chap-lib/ui/src';
+import { CrudService } from '@dhis2-chap/ui';
 import { getPeriodNameFromId } from '../utils/Time';
 import { CircularLoader, Card } from '@dhis2/ui';
 import styles from './DatasetDetails.module.css'

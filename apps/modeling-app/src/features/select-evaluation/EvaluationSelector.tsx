@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query'
 import {
     AnalyticsService,
     BackTestRead
-} from '../../../../../packages/chap-lib/ui/src'
+} from '@dhis2-chap/ui'
 import css from './EvaluationSelector.module.css'
 import i18n from '@dhis2/d2-i18n'
 

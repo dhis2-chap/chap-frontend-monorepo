@@ -9,7 +9,7 @@ import {
 } from '../../../orgunit-selector/interfaces/orgUnit'
 import { Period } from '../../../timeperiod-selector/interfaces/Period'
 import { DatasetLayer } from '../../../new-dataset/interfaces/DataSetLayer'
-import { ObservationBase } from '../../../../../../../packages/chap-lib/ui/src'
+import { ObservationBase } from '@dhis2-chap/ui'
 
 interface DownloadAnalyticsDataProps {
     selectedPeriodItems: Period[]

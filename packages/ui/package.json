@@ -8,7 +8,7 @@
     "scripts": {
         "watch": "tsc --watch",
         "build": "d2-app-scripts build && tsc --emitDeclarationOnly --outDir ./build/types",
-        "start": "d2-app-scripts start",
+        "start": "d2-app-scripts build --watch",
         "test": "d2-app-scripts test",
         "deploy": "d2-app-scripts deploy",
         "generate": "yarn openapi --input ./public/openapi.json --output ./src/httpfunctions --request ./src/queuedRequest.ts",

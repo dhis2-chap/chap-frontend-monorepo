@@ -6,7 +6,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import styles from './SelectDataLine.module.css'
 import { DatasetLayer } from '../../../interfaces/DataSetLayer'
-import { AnalyticsService, DataSource } from '../../../../../../../../packages/chap-lib/ui/src'
+import { AnalyticsService, DataSource } from '@dhis2-chap/ui'
 import SearchSelectField from '../../../../search-dataitem/SearchSelectField'
 import { features } from '../NewDatasetForm'
 

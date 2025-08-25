@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { ModelSpecRead } from '../../../../../../../../packages/chap-lib/ui/src'
+import { ModelSpecRead } from '@dhis2-chap/ui'
 import { EvaluationFormValues, CovariateMapping } from '../../../hooks/useFormController'
 import { useDatasetValidation } from '../useDatasetValidation'
 

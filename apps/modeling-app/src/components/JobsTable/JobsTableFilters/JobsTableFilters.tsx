@@ -6,7 +6,7 @@ import {
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import { Table } from '@tanstack/react-table';
-import { JobDescription } from '../../../../../../packages/chap-lib/ui/src';
+import { JobDescription } from '@dhis2-chap/ui';
 import styles from './JobsTableFilters.module.css';
 import { JOB_STATUSES, JOB_TYPES } from '../../../hooks/useJobs';
 

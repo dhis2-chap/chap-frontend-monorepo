@@ -1,4 +1,4 @@
-import { ApiError, CrudService, ModelSpecRead } from "../../../../packages/chap-lib/ui/src";
+import { ApiError, CrudService, ModelSpecRead } from "@dhis2-chap/ui";
 import { useQuery } from "@tanstack/react-query";
 
 export const useModels = () => {

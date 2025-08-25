@@ -13,7 +13,7 @@ import OrgUnitSelector from '../../orgunit-selector/OrgUnitSelector'
 import { SendChapData } from '../../send-chap-data/SendChapData'
 import TimePeriodeSelector from '../../timeperiod-selector/components/TimePeriodPicker'
 import SelectModel from '../../select-model/SelectModel'
-import { ModelSpecRead } from '../../../../../../packages/chap-lib/ui/src'
+import { ModelSpecRead } from '@dhis2-chap/ui'
 
 interface NewPredictionFormProps {
     onDrawerClose: () => void

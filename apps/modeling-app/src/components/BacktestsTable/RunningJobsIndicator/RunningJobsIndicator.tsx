@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tooltip } from '@dhis2/ui';
-import { StatusIndicator } from '../../../../../../packages/chap-lib/ui/src';
+import { StatusIndicator } from '@dhis2-chap/ui';
 import i18n from '@dhis2/d2-i18n';
 import { useJobs, JOB_STATUSES, JOB_TYPES } from '../../../hooks/useJobs';
 

@@ -25,7 +25,7 @@ import {
     getPaginationRowModel,
     Column,
 } from '@tanstack/react-table';
-import { BackTestRead, ModelSpecRead } from '../../../../../packages/chap-lib/ui/src';
+import { BackTestRead, ModelSpecRead } from '@dhis2-chap/ui';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './BacktestsTable.module.css';
 import { BacktestActionsMenu } from './BacktestActionsMenu';

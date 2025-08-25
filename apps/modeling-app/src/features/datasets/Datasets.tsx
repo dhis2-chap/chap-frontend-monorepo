@@ -1,7 +1,7 @@
 import {
     CrudService,
     DataSetRead,
-} from '../../../../../packages/chap-lib/ui/src'
+} from '@dhis2-chap/ui'
 import React, { useEffect, useState } from 'react'
 
 const Datasets = () => {

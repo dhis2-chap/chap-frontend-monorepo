@@ -5,7 +5,7 @@ import styles from './ImportPrediction.module.css'
 import {
     CrudService,
     PredictionRead,
-} from '../../../../../../packages/chap-lib/ui/src'
+} from '@dhis2-chap/ui'
 import PredictionResult from '../../import-prediction/PredictionResult'
 
 interface ImportPredictionProps {

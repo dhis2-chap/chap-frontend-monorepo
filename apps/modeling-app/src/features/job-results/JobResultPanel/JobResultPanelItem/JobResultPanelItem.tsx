@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { ConditionalTooltip } from '../../../../../../../packages/chap-lib/ui/src'
+import { ConditionalTooltip } from '@dhis2-chap/ui'
 import i18n from '@dhis2/d2-i18n'
 import styles from './JobResultPanelItem.module.css'
 import {

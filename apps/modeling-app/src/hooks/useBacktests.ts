@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { BackTestRead, CrudService, ApiError } from "../../../../packages/chap-lib/ui/src";
+import { BackTestRead, CrudService, ApiError } from "@dhis2-chap/ui";
 
 export const useBacktests = () => {
     const { data, error, isLoading } = useQuery<BackTestRead[], ApiError>({

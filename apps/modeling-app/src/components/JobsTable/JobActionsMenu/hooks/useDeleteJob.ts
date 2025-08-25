@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import i18n from "@dhis2/d2-i18n";
 
-import { JobsService } from "../../../../../../../packages/chap-lib/ui/src";
+import { JobsService } from "@dhis2-chap/ui";
 import { useAlert } from "@dhis2/app-runtime";
 
 type Props = {

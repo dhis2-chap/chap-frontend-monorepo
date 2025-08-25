@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { JobsService } from '../../../../../../../packages/chap-lib/ui/src'
+import { JobsService } from '@dhis2-chap/ui'
 import styles from './JobLogs.module.css'
 import usePolling from '../../../../hooks/usePolling'
 

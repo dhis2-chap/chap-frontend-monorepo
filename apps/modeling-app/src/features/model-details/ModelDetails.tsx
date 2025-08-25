@@ -1,5 +1,5 @@
 import React from 'react'
-import { ModelSpecRead } from '../../../../../packages/chap-lib/ui/src';
+import { ModelSpecRead } from '@dhis2-chap/ui';
 import { Button } from '@dhis2/ui';
 import styles from './ModelDetails.module.css'
 

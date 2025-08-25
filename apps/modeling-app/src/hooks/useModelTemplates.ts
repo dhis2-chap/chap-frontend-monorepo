@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { ApiError, CrudService, ModelTemplateRead } from "../../../../packages/chap-lib/ui/src";
+import { ApiError, CrudService, ModelTemplateRead } from "@dhis2-chap/ui";
 import { Route } from "./useRoute";
 
 type Props = {

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
-import { BackTestRead } from '../../../../../packages/chap-lib/ui/src'
+import { BackTestRead } from '@dhis2-chap/ui'
 import { useBacktests } from '../../hooks/useBacktests'
 
 const evaluationParamsSchema = z.object({

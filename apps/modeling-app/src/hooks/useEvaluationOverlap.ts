@@ -1,4 +1,4 @@
-import { AnalyticsService, BacktestDomain } from '../../../../packages/chap-lib/ui/src'
+import { AnalyticsService, BacktestDomain } from '@dhis2-chap/ui'
 import { useQuery } from '@tanstack/react-query'
 import { useCallback } from 'react'
 

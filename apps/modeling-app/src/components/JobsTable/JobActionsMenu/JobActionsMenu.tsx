@@ -11,7 +11,7 @@ import {
     IconUndo16,
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
-import { OverflowButton } from '../../../../../../packages/chap-lib/ui/src';
+import { OverflowButton } from '@dhis2-chap/ui';
 import { ViewJobLogsModal } from './ViewJobLogsModal/ViewJobLogsModal';
 import { DeleteJobModal } from './DeleteJobModal/DeleteJobModal';
 import { CancelJobModal } from './CancelJobModal/CancelJobModal';

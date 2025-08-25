@@ -9,7 +9,7 @@ import cn from 'classnames'
 import { Control, useFormContext, useWatch } from 'react-hook-form'
 import { EvaluationFormValues } from '../../hooks/useFormController'
 import { useModels } from '../../../../hooks/useModels'
-import { ModelSpecRead } from '../../../../../../../packages/chap-lib/ui/src'
+import { ModelSpecRead } from '@dhis2-chap/ui'
 import { ModelSelectionModal } from './ModelSelectionModal'
 import styles from './ModelSelector.module.css'
 

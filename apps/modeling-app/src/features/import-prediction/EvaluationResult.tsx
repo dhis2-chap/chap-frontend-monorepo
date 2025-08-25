@@ -7,7 +7,7 @@ import {
     EvaluationResponse,
     evaluationResultToViewData,
     getSplitPeriod,
-} from '../../../../../packages/chap-lib/ui/src'
+} from '@dhis2-chap/ui'
 import useOrgUnits from '../../hooks/useOrgUnits'
 
 const EvaluationResult = ({ evaluationId }: { evaluationId: number }) => {

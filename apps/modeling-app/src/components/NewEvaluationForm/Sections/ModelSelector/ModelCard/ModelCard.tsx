@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, IconInfo16, IconCalendar16, Tag, Tooltip, IconDimensionData16, IconArrowRight16 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import cn from 'classnames'
-import { ModelSpecRead, AuthorAssessedStatus } from '../../../../../../../../packages/chap-lib/ui/src'
+import { ModelSpecRead, AuthorAssessedStatus } from '@dhis2-chap/ui'
 import styles from './ModelCard.module.css'
 
 type Props = {

@@ -3,7 +3,7 @@ import i18n from '@dhis2/d2-i18n'
 import {
     FullPredictionResponseExtended,
     PredictionRead,
-} from '../../../../../packages/chap-lib/ui/src'
+} from '@dhis2-chap/ui'
 import styles from './styles/PredictionResult.module.css'
 import useOrgUnits from '../../hooks/useOrgUnits'
 import { Button, TabBar, IconArrowRight24, Tab } from '@dhis2/ui'
@@ -16,9 +16,9 @@ import {
     FullPredictionResponse,
     PredictionResponse,
     PredictionTable,
-} from '../../../../../packages/chap-lib/ui/src'
+} from '@dhis2-chap/ui'
 
-import { UncertaintyAreaChart } from '../../../../../packages/chap-lib/ui/src'
+import { UncertaintyAreaChart } from '@dhis2-chap/ui'
 import useFindDataItem from '../../hooks/useDataItem'
 
 interface PredictionResultProps {

@@ -1,4 +1,4 @@
-import { ObservationBase } from "../../../../../../packages/chap-lib/ui/src"
+import { ObservationBase } from "@dhis2-chap/ui"
 import { EvaluationFormValues } from "../hooks/useFormController"
 
 export type MissingData = {

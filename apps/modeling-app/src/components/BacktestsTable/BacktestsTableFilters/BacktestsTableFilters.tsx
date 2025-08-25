@@ -6,7 +6,7 @@ import {
 } from '@dhis2/ui';
 import i18n from '@dhis2/d2-i18n';
 import { Table } from '@tanstack/react-table';
-import { BackTestRead, ModelSpecRead } from '../../../../../../packages/chap-lib/ui/src';
+import { BackTestRead, ModelSpecRead } from '@dhis2-chap/ui';
 import styles from './BacktestsTableFilters.module.css';
 
 type Props = {

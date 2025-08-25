@@ -11,7 +11,7 @@ import {
     getSplitPeriod,
     HighChartsData,
     joinRealAndPredictedData,
-} from '../../../../packages/chap-lib/ui/src'
+} from '@dhis2-chap/ui'
 import { useCallback, useMemo } from 'react'
 import {
     Query,

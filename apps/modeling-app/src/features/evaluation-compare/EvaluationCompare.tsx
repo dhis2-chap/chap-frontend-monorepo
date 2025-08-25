@@ -1,4 +1,4 @@
-import { ComparisonPlotList } from '../../../../../packages/chap-lib/ui/src'
+import { ComparisonPlotList } from '@dhis2-chap/ui'
 import {
     EvaluationCompatibleSelector,
     EvaluationSelectorBase,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FeatureType } from '../../../../../../../../packages/chap-lib/ui/src'
+import { FeatureType } from '@dhis2-chap/ui'
 import SearchSelectField from '../../../../../features/search-dataitem/SearchSelectField'
 import styles from './FeatureMappingItem.module.css'
 

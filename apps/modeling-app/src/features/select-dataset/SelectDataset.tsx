@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { DataSetRead } from '../../../../../packages/chap-lib/ui/src';
+import { DataSetRead } from '@dhis2-chap/ui';
 import { SingleSelectField, SingleSelectOption, CircularLoader } from '@dhis2/ui';
 import styles from './SelectDataset.module.css'
 

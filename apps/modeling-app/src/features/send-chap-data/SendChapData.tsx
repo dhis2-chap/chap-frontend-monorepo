@@ -8,7 +8,7 @@ import {
     MakePredictionRequest,
     ModelSpecRead,
     ObservationBase,
-} from '../../../../../packages/chap-lib/ui/src'
+} from '@dhis2-chap/ui'
 import { ErrorResponse } from './interfaces/ErrorResponse'
 import saveAs from 'file-saver'
 import { IconError24 } from '@dhis2/ui'

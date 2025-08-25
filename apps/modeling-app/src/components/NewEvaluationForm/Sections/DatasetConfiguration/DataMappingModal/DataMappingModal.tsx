@@ -8,7 +8,7 @@ import {
     ModalActions,
 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
-import { ModelSpecRead } from '../../../../../../../../packages/chap-lib/ui/src'
+import { ModelSpecRead } from '@dhis2-chap/ui'
 import { CovariateMapping } from '../../../hooks/useFormController'
 import { FeatureMappingItem } from '../FeatureMappingItem'
 import { useMappingState } from '../hooks'

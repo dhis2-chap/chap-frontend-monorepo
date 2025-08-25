@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Route } from "../../../../hooks/useRoute";
-import { ApiError, DefaultService } from "../../../../../../../packages/chap-lib/ui/src";
+import { ApiError, DefaultService } from "@dhis2-chap/ui";
 
 type Props = {
     route: Route | undefined

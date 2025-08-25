@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Modal, ModalTitle, ModalContent, ModalActions, Button, CircularLoader } from '@dhis2/ui';
 import { useQuery } from '@tanstack/react-query';
-import { ApiError, JobsService } from '../../../../../../../packages/chap-lib/ui/src';
+import { ApiError, JobsService } from '@dhis2-chap/ui';
 import i18n from '@dhis2/d2-i18n';
 import styles from './ViewJobLogsModal.module.css';
 import { JOB_STATUSES } from '../../../../hooks/useJobs';

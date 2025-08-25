@@ -1,7 +1,7 @@
 import { useFormContext, useWatch } from 'react-hook-form'
 import { useQueryClient } from '@tanstack/react-query'
 import i18n from '@dhis2/d2-i18n'
-import { ModelSpecRead } from '../../../../../../../packages/chap-lib/ui/src'
+import { ModelSpecRead } from '@dhis2-chap/ui'
 import { EvaluationFormValues, CovariateMapping } from '../../hooks/useFormController'
 
 export const useDatasetValidation = () => {
